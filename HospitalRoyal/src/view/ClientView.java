@@ -14,7 +14,6 @@ public class ClientView extends JFrame {
 	JLabel labelInfo, labelInfo2, labelInfo3;
 	JButton buttonLogin;
 	TextField textUser, textPassword;
-	JPanel panel;
 
 	public ClientView() {
 		super("HOSPITAL ROYAL");
