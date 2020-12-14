@@ -25,15 +25,18 @@ public class ThreadServer extends Thread {
 
 	public void run() {
 		System.out.println("COMMUNICATING: " + client.toString());
+		
 		try {
 			outputStream = new DataOutputStream(client.getOutputStream());
 			inputStream = new DataInputStream(client.getInputStream());
 			for (int i = 0; i < 3; i++) {// 3 intentos
 				String user = inputStream.readUTF();
 				String password = inputStream.readUTF();
-				if (comprobarUsuario(user, password)) {
+				if (checkUser(user, password)) {
 					// USUARIO Y CONTRASEÑA CORRECTOS
+					logLogIn(user);
 					outputStream.writeUTF("*");
+					logLogOut(user);
 					break;
 				} else {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
@@ -45,9 +48,36 @@ public class ThreadServer extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
-	private static boolean comprobarUsuario(String user, String password) {
+	private void logLogOut(String user) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"+""+"',"+2+",'"+user+"')";
+			statement.execute(sql);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void logLogIn(String user) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"+""+"',"+1+",'"+user+"')";
+			statement.execute(sql);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private static boolean checkUser(String user, String password) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
