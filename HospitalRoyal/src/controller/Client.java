@@ -6,9 +6,11 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.net.Socket;
 
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import view.*;
@@ -119,48 +121,62 @@ public class Client {
 				v.getLabelInfo3().setText(serverStr);
 				v.pack();
 			} catch (Exception e) {
-				
+
 			}
 		}
-		MenuView vMenu= new MenuView();
+		v.dispose();
+		MenuView vMenu = new MenuView();
 		vMenu.getButtonCreate().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		vMenu.getButtonDelete().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		vMenu.getButtonDownload().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		vMenu.getButtonRename().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 		vMenu.getButtonUpload().addActionListener(new ActionListener() {
-			
+
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
+				try {
+					outputStream.writeUTF("5");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				vMenu.setVisible(false);
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.showOpenDialog(fileChooser);
+				try {
+					String route = fileChooser.getSelectedFile().getAbsolutePath(); // Ruta obtenida
+					File f = new File(route);
+				} catch (Exception except) {
+					JOptionPane.showMessageDialog(null, "File has not been selected");
+				}
 			}
 		});
 	}

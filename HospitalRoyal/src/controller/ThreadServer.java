@@ -1,7 +1,10 @@
 package controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.Connection;
@@ -25,7 +28,7 @@ public class ThreadServer extends Thread {
 
 	public void run() {
 		System.out.println("COMMUNICATING: " + client.toString());
-		
+		int choice = 0;
 		try {
 			outputStream = new DataOutputStream(client.getOutputStream());
 			inputStream = new DataInputStream(client.getInputStream());
@@ -43,12 +46,54 @@ public class ThreadServer extends Thread {
 				}
 			}
 			outputStream.writeUTF("*");
+			choice = Integer.parseInt(inputStream.readUTF());
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+		switch (choice) {
+		case 1:
+
+			break;
+		case 2:
+
+			break;
+		case 3:
+
+			break;
+		case 4:
+
+			break;
+		case 5:
+			System.out.println("Llega");
+			BufferedInputStream bis;
+			BufferedOutputStream bos;
+			int in;
+			byte[] receivedData;
+			String file;
+			receivedData = new byte[1024];
+			try {
+				bis = new BufferedInputStream(client.getInputStream());
+				DataInputStream dis = new DataInputStream(client.getInputStream());
+				// Recibimos el nombre del fichero
+				file = dis.readUTF();
+				file = file.substring(file.indexOf('\\') + 1, file.length());
+				// Para guardar fichero recibido
+				bos = new BufferedOutputStream(new FileOutputStream(file));
+				while ((in = bis.read(receivedData)) != -1) {
+					bos.write(receivedData, 0, in);
+				}
+				bos.close();
+				dis.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	private void logLogOut(String user) {
@@ -56,20 +101,22 @@ public class ThreadServer extends Thread {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"+""+"',"+2+",'"+user+"')";
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
+					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void logLogIn(String user) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"+""+"',"+1+",'"+user+"')";
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 1 + ",'" + user
+					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
