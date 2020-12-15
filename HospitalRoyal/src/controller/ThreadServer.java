@@ -34,9 +34,12 @@ public class ThreadServer extends Thread {
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
 					// USUARIO Y CONTRASEÑA CORRECTOS
-					outputStream.writeUTF("true");
 					logLogIn(user);
+					if(checkPermissions(user)) {
+						outputStream.writeUTF("normalUser");
+					}
 					logLogOut(user);
+					outputStream.writeUTF("true");
 					break;
 				} else {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
@@ -48,6 +51,28 @@ public class ThreadServer extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private boolean checkPermissions(String user) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "SELECT * FROM usuario";
+			ResultSet resul;
+			resul = statement.executeQuery(sql);
+			while (resul.next()) {
+				if (user.equals(resul.getString(1))) {
+					if(resul.getInt(3)==1) {
+						return true;
+					}
+				}
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	private void logLogOut(String user) {
