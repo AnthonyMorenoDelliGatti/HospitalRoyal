@@ -72,6 +72,8 @@ public class ThreadServer extends Thread {
 					}
 				}
 			}
+			statement.close();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -87,6 +89,8 @@ public class ThreadServer extends Thread {
 			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "se ha desconectado" + "'," + 2 + ",'" + user
 					+ "')";
 			statement.execute(sql);
+			statement.close();
+			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +105,8 @@ public class ThreadServer extends Thread {
 			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "se ha conectado" + "'," + 1 + ",'" + user
 					+ "')";
 			statement.execute(sql);
+			statement.close();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,6 +127,8 @@ public class ThreadServer extends Thread {
 					}
 				}
 			}
+			statement.close();
+			connection.close();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

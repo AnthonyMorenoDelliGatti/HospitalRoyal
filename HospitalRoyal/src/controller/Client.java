@@ -10,6 +10,10 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -17,6 +21,7 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
+import model.ServerData;
 import view.ClientView;
 import view.DeleteFolder;
 import view.MenuView;
@@ -27,8 +32,10 @@ public class Client {
 	private Socket Client;
 	private MenuView vMenu;
 	private String user;
+	private ServerData serverData;
 
 	public Client() {
+		serverData = new ServerData();
 		ClientView v = new ClientView();
 		String Host = "localhost";
 		int Puerto = 5000;
@@ -216,6 +223,19 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				CreateFolder createFolder = new CreateFolder(client);
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
+					Statement statement = connection.createStatement();
+					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "ha creado una carpeta" + "'," + 5 + ",'" + user
+							+ "')";
+					statement.execute(sql);
+					statement.close();
+					connection.close();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		vMenu.getButtonDelete().addActionListener(new ActionListener() {
@@ -223,6 +243,19 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				DeleteFolder deleteFolder = new DeleteFolder(client);
+				try {
+					Class.forName("com.mysql.jdbc.Driver");
+					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
+					Statement statement = connection.createStatement();
+					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "ha borrado una carpeta" + "'," + 6 + ",'" + user
+							+ "')";
+					statement.execute(sql);
+					statement.close();
+					connection.close();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 		});
 		vMenu.getButtonDownload().addActionListener(new ActionListener() {
@@ -256,7 +289,6 @@ public class Client {
 					System.out.println(routeSplitted[routeSplitted.length - 1]);
 					client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 					in.close();
-					System.out.println("UPLOAD SUCCESFULL");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
