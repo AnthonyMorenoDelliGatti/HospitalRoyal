@@ -1,12 +1,10 @@
 package view;
 
 import java.awt.GridLayout;
-import java.awt.TextField;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 public class MenuView extends JFrame {
 
@@ -17,7 +15,7 @@ public class MenuView extends JFrame {
 	public MenuView() {
 		super("HOSPITAL ROYAL - Menú");
 		setLocation(300, 300);
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(layout);
 		labelInfo = new JLabel("HOSPITAL ROYAL - Menú");
 		add(labelInfo);

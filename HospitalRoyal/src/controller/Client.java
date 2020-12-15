@@ -5,10 +5,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -16,8 +14,8 @@ import java.net.Socket;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
+import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
 
 import view.ClientView;
 import view.MenuView;
@@ -28,13 +26,11 @@ public class Client {
 	static Socket Client;
 
 	public static void main(String[] args) throws IOException {
-		
-	}
-		
-	    /*
+
 		ClientView v = new ClientView();
 		String Host = "localhost";
 		int Puerto = 5000;
+		String user, password;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -126,7 +122,17 @@ public class Client {
 		});
 
 		String serverStr = "";
-		while (!serverStr.equals("*")) {
+		while (!serverStr.equals("true")) {
+			if (serverStr.equals("false")) {
+				v.getLabelInfo3().setText("Máximo 3 intentos para iniciar sesion");
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				System.exit(0);
+			}
 			try {
 				serverStr = inputStream.readUTF();
 				v.getLabelInfo3().setText(serverStr);
@@ -135,8 +141,82 @@ public class Client {
 
 			}
 		}
+		user = v.getTextUser().getText();
+		password = v.getTextPassword().getText();
 		v.dispose();
+		FTPClient client = new FTPClient();
+		String servFTP = "localhost";
+		System.out.println("Nos conectamos a: " + servFTP);
+		String direc = "/Server";
+		try {
+			client.connect(servFTP);
+			boolean login = client.login(user, password);
+			if (login) {
+				System.out.println("Login correcto...");
+				client.changeWorkingDirectory(direc);
+			} else {
+				System.out.println("Login incorrecto...");
+				client.disconnect();
+				System.exit(1);
+			}
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+		}
 		MenuView vMenu = new MenuView();
+
+		vMenu.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					client.logout();
+					client.disconnect();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e2) {
+					System.out.println(e2);
+				}
+				System.exit(0);
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+		});
 		vMenu.getButtonCreate().addActionListener(new ActionListener() {
 
 			@Override
@@ -173,36 +253,21 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+
 				try {
-					outputStream.writeUTF("5");
+					client.setFileType(FTP.BINARY_FILE_TYPE);
+					JFileChooser fileChooser = new JFileChooser();
+					fileChooser.showOpenDialog(fileChooser);
+					String route = fileChooser.getSelectedFile().getAbsolutePath();
+					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
+					client.storeFile("ARCHIVO SUBIDO 2", in);
+					in.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				vMenu.setVisible(false);
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.showOpenDialog(fileChooser);
-				try {
-					String route = fileChooser.getSelectedFile().getAbsolutePath(); // Ruta obtenida
-					File f = new File(route);
-					DataInputStream input;
-					BufferedInputStream bis;
-					BufferedOutputStream bos;
-					bis = new BufferedInputStream(new FileInputStream(f));
-					bos = new BufferedOutputStream(Client.getOutputStream());
-					outputStream.writeUTF(f.getName());
-					int in;
-					byte[] byteArray = new byte[8192];
-					while ((in = bis.read(byteArray)) != -1) {
-						bos.write(byteArray, 0, in);
-					}
-					bis.close();
-					bos.close();
-				} catch (Exception except) {
-					JOptionPane.showMessageDialog(null, "File has not been selected");
-				}
 			}
-
 		});
-	}*/
+
+	}
 }

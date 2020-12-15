@@ -1,11 +1,7 @@
 package controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.sql.Connection;
@@ -38,39 +34,19 @@ public class ThreadServer extends Thread {
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
 					// USUARIO Y CONTRASEÑA CORRECTOS
+					outputStream.writeUTF("true");
 					logLogIn(user);
-					outputStream.writeUTF("*");
 					logLogOut(user);
 					break;
 				} else {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
 				}
 			}
-			outputStream.writeUTF("*");
-			choice = Integer.parseInt(inputStream.readUTF());
+			outputStream.writeUTF("false");
 
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		switch (choice) {
-		case 1:
-
-			break;
-		case 2:
-
-			break;
-		case 3:
-
-			break;
-		case 4:
-
-			break;
-		case 5:
-			Hospital.UploadFile(client);
-			break;
-		default:
-			break;
 		}
 	}
 
