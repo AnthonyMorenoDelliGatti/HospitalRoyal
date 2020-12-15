@@ -18,6 +18,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 import view.ClientView;
+import view.DeleteFolder;
 import view.MenuView;
 
 public class Client {
@@ -215,8 +216,7 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				DeleteFolder deleteFolder = new DeleteFolder(client);
 			}
 		});
 		vMenu.getButtonDownload().addActionListener(new ActionListener() {
