@@ -275,7 +275,7 @@ public class Client {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripci�n`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
