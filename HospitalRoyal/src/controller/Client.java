@@ -10,6 +10,10 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -32,7 +36,7 @@ public class Client {
 		String Host = "localhost";
 		int Puerto = 5000;
 		String user, password;
-		boolean adminUser=true;
+		boolean adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -119,11 +123,11 @@ public class Client {
 
 		String serverStr = "";
 		while (!serverStr.equals("true")) {
-			if(serverStr.equals("normalUser")) {
-				adminUser=false;
+			if (serverStr.equals("normalUser")) {
+				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
-				v.getLabelInfo3().setText("Máximo 3 intentos para iniciar sesion");
+				v.getLabelInfo3().setText("Mï¿½ximo 3 intentos para iniciar sesion");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -160,7 +164,7 @@ public class Client {
 			ioe.printStackTrace();
 		}
 		vMenu = new MenuView();
-		if(!adminUser) {
+		if (!adminUser) {
 			normalUserPermissions();
 		}
 		vMenu.addWindowListener(new WindowListener() {
@@ -252,17 +256,32 @@ public class Client {
 					String route = fileChooser.getSelectedFile().getAbsolutePath();
 					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
 					String[] routeSplitted = route.split("\\\\");
-					System.out.println(routeSplitted[routeSplitted.length-1]);
-					client.storeFile(routeSplitted[routeSplitted.length-1], in);
+					System.out.println(routeSplitted[routeSplitted.length - 1]);
+					client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 					in.close();
 					System.out.println("UPLOAD SUCCESFULL");
+					log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
-		
+
+	}
+
+	private void log(String user, int action, String description) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripciï¿½n`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
+			statement.execute(sql);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private static void normalUserPermissions() {
