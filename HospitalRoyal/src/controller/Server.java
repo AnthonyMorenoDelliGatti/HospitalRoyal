@@ -11,7 +11,7 @@ public class Server {
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ClassNotFoundException {
 
 		try {
 			ServerSocket server;

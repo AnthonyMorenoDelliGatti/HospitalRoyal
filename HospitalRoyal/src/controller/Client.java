@@ -22,17 +22,18 @@ import view.DeleteFolder;
 import view.MenuView;
 
 public class Client {
-	static DataOutputStream outputStream;
-	static DataInputStream inputStream;
-	static Socket Client;
-	static MenuView vMenu;
+	private DataOutputStream outputStream;
+	private DataInputStream inputStream;
+	private Socket Client;
+	private MenuView vMenu;
+	private String user;
 
 	public Client() {
 		ClientView v = new ClientView();
 		String Host = "localhost";
 		int Puerto = 5000;
-		String user, password;
-		boolean adminUser=true;
+		String password;
+		boolean adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -119,8 +120,8 @@ public class Client {
 
 		String serverStr = "";
 		while (!serverStr.equals("true")) {
-			if(serverStr.equals("normalUser")) {
-				adminUser=false;
+			if (serverStr.equals("normalUser")) {
+				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
 				v.getLabelInfo3().setText("Máximo 3 intentos para iniciar sesion");
@@ -160,7 +161,7 @@ public class Client {
 			ioe.printStackTrace();
 		}
 		vMenu = new MenuView();
-		if(!adminUser) {
+		if (!adminUser) {
 			normalUserPermissions();
 		}
 		vMenu.addWindowListener(new WindowListener() {
@@ -252,8 +253,8 @@ public class Client {
 					String route = fileChooser.getSelectedFile().getAbsolutePath();
 					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
 					String[] routeSplitted = route.split("\\\\");
-					System.out.println(routeSplitted[routeSplitted.length-1]);
-					client.storeFile(routeSplitted[routeSplitted.length-1], in);
+					System.out.println(routeSplitted[routeSplitted.length - 1]);
+					client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 					in.close();
 					System.out.println("UPLOAD SUCCESFULL");
 				} catch (Exception e1) {
@@ -262,10 +263,10 @@ public class Client {
 				}
 			}
 		});
-		
+
 	}
 
-	private static void normalUserPermissions() {
+	private void normalUserPermissions() {
 		vMenu.getButtonCreate().setEnabled(false);
 		vMenu.getButtonDelete().setEnabled(false);
 		vMenu.getButtonDownload().setEnabled(false);

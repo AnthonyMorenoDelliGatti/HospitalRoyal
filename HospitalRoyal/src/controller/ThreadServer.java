@@ -10,17 +10,22 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import model.ServerData;
+
 public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
 	DataOutputStream outputStream;
 	Hospital hospital;
+	ServerData serverData;
 
-	public ThreadServer(Socket client, Hospital hospital) throws IOException {
+	public ThreadServer(Socket client, Hospital hospital) throws IOException, ClassNotFoundException {
+		Class.forName("com.mysql.jdbc.Driver");
 		this.client = client;
 		this.hospital = hospital;
 		outputStream = new DataOutputStream(client.getOutputStream());
 		inputStream = new DataInputStream(client.getInputStream());
+		serverData = new ServerData();
 	}
 
 	public void run() {
@@ -55,7 +60,6 @@ public class ThreadServer extends Thread {
 
 	private boolean checkPermissions(String user) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
 			String sql = "SELECT * FROM usuario";
@@ -68,7 +72,7 @@ public class ThreadServer extends Thread {
 					}
 				}
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -78,9 +82,9 @@ public class ThreadServer extends Thread {
 	private void logLogOut(String user) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "se ha desconectado" + "'," + 2 + ",'" + user
 					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -91,22 +95,21 @@ public class ThreadServer extends Thread {
 
 	private void logLogIn(String user) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 1 + ",'" + user
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "se ha conectado" + "'," + 1 + ",'" + user
 					+ "')";
 			statement.execute(sql);
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
 
-	private static boolean checkUser(String user, String password) {
+	private boolean checkUser(String user, String password) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
 			String sql = "SELECT * FROM usuario";
 			ResultSet resul;
@@ -118,7 +121,7 @@ public class ThreadServer extends Thread {
 					}
 				}
 			}
-		} catch (ClassNotFoundException | SQLException e) {
+		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
