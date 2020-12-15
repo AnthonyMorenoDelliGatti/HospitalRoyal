@@ -208,8 +208,7 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				CreateFolder createFolder = new CreateFolder(client);
 			}
 		});
 		vMenu.getButtonDelete().addActionListener(new ActionListener() {
