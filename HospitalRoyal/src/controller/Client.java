@@ -18,6 +18,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 import view.ClientView;
+import view.DeleteFolder;
 import view.MenuView;
 
 public class Client {
@@ -26,8 +27,7 @@ public class Client {
 	static Socket Client;
 	static MenuView vMenu;
 
-	public static void main(String[] args) throws IOException {
-
+	public Client() {
 		ClientView v = new ClientView();
 		String Host = "localhost";
 		int Puerto = 5000;
@@ -87,37 +87,31 @@ public class Client {
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -187,37 +181,31 @@ public class Client {
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -226,16 +214,14 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				CreateFolder createFolder = new CreateFolder(client);
 			}
 		});
 		vMenu.getButtonDelete().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
+				DeleteFolder deleteFolder = new DeleteFolder(client);
 			}
 		});
 		vMenu.getButtonDownload().addActionListener(new ActionListener() {
