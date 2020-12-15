@@ -24,6 +24,7 @@ public class Client {
 	static DataOutputStream outputStream;
 	static DataInputStream inputStream;
 	static Socket Client;
+	static MenuView vMenu;
 
 	public static void main(String[] args) throws IOException {
 
@@ -31,6 +32,7 @@ public class Client {
 		String Host = "localhost";
 		int Puerto = 5000;
 		String user, password;
+		boolean adminUser=true;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -123,6 +125,9 @@ public class Client {
 
 		String serverStr = "";
 		while (!serverStr.equals("true")) {
+			if(serverStr.equals("normalUser")) {
+				adminUser=false;
+			}
 			if (serverStr.equals("false")) {
 				v.getLabelInfo3().setText("Máximo 3 intentos para iniciar sesion");
 				try {
@@ -147,13 +152,11 @@ public class Client {
 		FTPClient client = new FTPClient();
 		String servFTP = "localhost";
 		System.out.println("Nos conectamos a: " + servFTP);
-		String direc = "/Server";
 		try {
 			client.connect(servFTP);
 			boolean login = client.login(user, password);
 			if (login) {
 				System.out.println("Login correcto...");
-				client.changeWorkingDirectory(direc);
 			} else {
 				System.out.println("Login incorrecto...");
 				client.disconnect();
@@ -162,8 +165,10 @@ public class Client {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		MenuView vMenu = new MenuView();
-
+		vMenu = new MenuView();
+		if(!adminUser) {
+			normalUserPermissions();
+		}
 		vMenu.addWindowListener(new WindowListener() {
 
 			@Override
@@ -260,14 +265,24 @@ public class Client {
 					fileChooser.showOpenDialog(fileChooser);
 					String route = fileChooser.getSelectedFile().getAbsolutePath();
 					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
-					client.storeFile("ARCHIVO SUBIDO 2", in);
+					String[] routeSplitted = route.split("\\\\");
+					System.out.println(routeSplitted[routeSplitted.length-1]);
+					client.storeFile(routeSplitted[routeSplitted.length-1], in);
 					in.close();
-				} catch (IOException e1) {
+					System.out.println("UPLOAD SUCCESFULL");
+				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 		});
+		
+	}
 
+	private static void normalUserPermissions() {
+		vMenu.getButtonCreate().setEnabled(false);
+		vMenu.getButtonDelete().setEnabled(false);
+		vMenu.getButtonDownload().setEnabled(false);
+		vMenu.getButtonRename().setEnabled(false);
 	}
 }
