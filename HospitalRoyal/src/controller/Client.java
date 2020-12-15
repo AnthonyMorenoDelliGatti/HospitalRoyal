@@ -4,16 +4,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
-import view.*;
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
+
+import view.ClientView;
+import view.MenuView;
 
 public class Client {
 	static DataOutputStream outputStream;
@@ -21,6 +28,10 @@ public class Client {
 	static Socket Client;
 
 	public static void main(String[] args) throws IOException {
+		
+	}
+		
+	    /*
 		ClientView v = new ClientView();
 		String Host = "localhost";
 		int Puerto = 5000;
@@ -174,10 +185,24 @@ public class Client {
 				try {
 					String route = fileChooser.getSelectedFile().getAbsolutePath(); // Ruta obtenida
 					File f = new File(route);
+					DataInputStream input;
+					BufferedInputStream bis;
+					BufferedOutputStream bos;
+					bis = new BufferedInputStream(new FileInputStream(f));
+					bos = new BufferedOutputStream(Client.getOutputStream());
+					outputStream.writeUTF(f.getName());
+					int in;
+					byte[] byteArray = new byte[8192];
+					while ((in = bis.read(byteArray)) != -1) {
+						bos.write(byteArray, 0, in);
+					}
+					bis.close();
+					bos.close();
 				} catch (Exception except) {
 					JOptionPane.showMessageDialog(null, "File has not been selected");
 				}
 			}
+
 		});
-	}
+	}*/
 }

@@ -4,6 +4,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -66,30 +67,7 @@ public class ThreadServer extends Thread {
 
 			break;
 		case 5:
-			System.out.println("Llega");
-			BufferedInputStream bis;
-			BufferedOutputStream bos;
-			int in;
-			byte[] receivedData;
-			String file;
-			receivedData = new byte[1024];
-			try {
-				bis = new BufferedInputStream(client.getInputStream());
-				DataInputStream dis = new DataInputStream(client.getInputStream());
-				// Recibimos el nombre del fichero
-				file = dis.readUTF();
-				file = file.substring(file.indexOf('\\') + 1, file.length());
-				// Para guardar fichero recibido
-				bos = new BufferedOutputStream(new FileOutputStream(file));
-				while ((in = bis.read(receivedData)) != -1) {
-					bos.write(receivedData, 0, in);
-				}
-				bos.close();
-				dis.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Hospital.UploadFile(client);
 			break;
 		default:
 			break;

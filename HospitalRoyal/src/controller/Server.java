@@ -17,6 +17,9 @@ public class Server {
 	static DataOutputStream outputStream;
 
 	public static void main(String[] args) {
+		
+		
+		/*
 		try {
 			ServerSocket server;
 			server = new ServerSocket(5000);
@@ -29,7 +32,7 @@ public class Server {
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }
