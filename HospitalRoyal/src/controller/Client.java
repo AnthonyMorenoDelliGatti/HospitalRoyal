@@ -10,6 +10,11 @@ import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -17,22 +22,27 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import view.ClientView;
-import view.DeleteFolder;
-import view.MenuView;
+import modelo.Archivo;
+import view.VistaArchivos;
+import view.VistaPrincipal;
+import view.Login;
+
 
 public class Client {
 	static DataOutputStream outputStream;
 	static DataInputStream inputStream;
 	static Socket Client;
-	static MenuView vMenu;
+	static VistaPrincipal vista;
+	VistaArchivos explorer;
 
 	public Client() {
-		ClientView v = new ClientView();
+		Login v = new Login();
+		v.setVisible(true);
+		v.pack();
 		String Host = "localhost";
 		int Puerto = 5000;
 		String user, password;
-		boolean adminUser=true;
+		boolean adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -119,11 +129,11 @@ public class Client {
 
 		String serverStr = "";
 		while (!serverStr.equals("true")) {
-			if(serverStr.equals("normalUser")) {
-				adminUser=false;
+			if (serverStr.equals("normalUser")) {
+				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
-				v.getLabelInfo3().setText("Máximo 3 intentos para iniciar sesion");
+				v.getLabelInfo3().setText("Mï¿½ximo 3 intentos para iniciar sesion");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -159,116 +169,155 @@ public class Client {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		vMenu = new MenuView();
-		if(!adminUser) {
-			normalUserPermissions();
-		}
-		vMenu.addWindowListener(new WindowListener() {
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				try {
-					client.logout();
-					client.disconnect();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				} catch (Exception e2) {
-					System.out.println(e2);
-				}
-				System.exit(0);
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-
-			}
-
-		});
-		vMenu.getButtonCreate().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				CreateFolder createFolder = new CreateFolder(client);
-			}
-		});
-		vMenu.getButtonDelete().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				DeleteFolder deleteFolder = new DeleteFolder(client);
-			}
-		});
-		vMenu.getButtonDownload().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		vMenu.getButtonRename().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		vMenu.getButtonUpload().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-
-				try {
-					client.setFileType(FTP.BINARY_FILE_TYPE);
-					JFileChooser fileChooser = new JFileChooser();
-					fileChooser.showOpenDialog(fileChooser);
-					String route = fileChooser.getSelectedFile().getAbsolutePath();
-					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
-					String[] routeSplitted = route.split("\\\\");
-					System.out.println(routeSplitted[routeSplitted.length-1]);
-					client.storeFile(routeSplitted[routeSplitted.length-1], in);
-					in.close();
-					System.out.println("UPLOAD SUCCESFULL");
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-		});
-		
+		vista = new VistaPrincipal();
+		explorer = new VistaArchivos();
+		ArrayList<Archivo> archivos = new ArrayList<>();
+		cargarDatosEjemplo(archivos);
+		vista.agregarExplorador(explorer.visualizarListado(archivos));
+		vista.setVisible(true);
+		vista.pack();
+//		if (!adminUser) {
+//			normalUserPermissions();
+//		}
+//		vMenu.addWindowListener(new WindowListener() {
+//
+//			@Override
+//			public void windowClosing(WindowEvent e) {
+//				try {
+//					client.logout();
+//					client.disconnect();
+//				} catch (IOException e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				} catch (Exception e2) {
+//					System.out.println(e2);
+//				}
+//				System.exit(0);
+//			}
+//
+//			@Override
+//			public void windowActivated(WindowEvent e) {
+//
+//			}
+//
+//			@Override
+//			public void windowClosed(WindowEvent e) {
+//
+//			}
+//
+//			@Override
+//			public void windowDeactivated(WindowEvent e) {
+//
+//			}
+//
+//			@Override
+//			public void windowDeiconified(WindowEvent e) {
+//
+//			}
+//
+//			@Override
+//			public void windowIconified(WindowEvent e) {
+//
+//			}
+//
+//			@Override
+//			public void windowOpened(WindowEvent e) {
+//
+//			}
+//
+//		});
+//		vMenu.getButtonCreate().addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				CreateFolder createFolder = new CreateFolder(client);
+//			}
+//		});
+//		vMenu.getButtonDelete().addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				DeleteFolder deleteFolder = new DeleteFolder(client);
+//			}
+//		});
+//		vMenu.getButtonDownload().addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+//		vMenu.getButtonRename().addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//				// TODO Auto-generated method stub
+//
+//			}
+//		});
+//		vMenu.getButtonUpload().addActionListener(new ActionListener() {
+//
+//			@Override
+//			public void actionPerformed(ActionEvent e) {
+//
+//				try {
+//					client.setFileType(FTP.BINARY_FILE_TYPE);
+//					JFileChooser fileChooser = new JFileChooser();
+//					fileChooser.showOpenDialog(fileChooser);
+//					String route = fileChooser.getSelectedFile().getAbsolutePath();
+//					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
+//					String[] routeSplitted = route.split("\\\\");
+//					System.out.println(routeSplitted[routeSplitted.length - 1]);
+//					client.storeFile(routeSplitted[routeSplitted.length - 1], in);
+//					in.close();
+//					System.out.println("UPLOAD SUCCESFULL");
+//					log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
+//				} catch (Exception e1) {
+//					// TODO Auto-generated catch block
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+//
 	}
 
-	private static void normalUserPermissions() {
-		vMenu.getButtonCreate().setEnabled(false);
-		vMenu.getButtonDelete().setEnabled(false);
-		vMenu.getButtonDownload().setEnabled(false);
-		vMenu.getButtonRename().setEnabled(false);
+	private void log(String user, int action, String description) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripciÃ³n`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
+			statement.execute(sql);
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+//	private static void normalUserPermissions() {
+//		vista.getButtonCreate().setEnabled(false);
+//		vista.getButtonDelete().setEnabled(false);
+//		vista.getButtonDownload().setEnabled(false);
+//		vista.getButtonRename().setEnabled(false);
+//	}
+	private void cargarDatosEjemplo(ArrayList<Archivo> archivos) {
+		archivos.clear();
+		archivos.add(new Archivo("Carpeta 1", "14/10/2020",  1, "direccion"));
+		
+		archivos.add(new Archivo("Fichero 1", "14/10/2020",  0, "direccion"));
+		
+		archivos.add(new Archivo("Fichero con nombre largo 1", "14/10/2020",  0, "direccion"));
+		
+		archivos.add(new Archivo("Fichero 2", "14/10/2020",  0, "direccion"));
+		
+		archivos.add(new Archivo("Carpeta 3", "14/10/2020",  1, "direccion"));
+		
+		archivos.add(new Archivo("Fichero 3", "14/10/2020",  0, "direccion"));
+		
+		archivos.add(new Archivo("Carpeta 2", "14/10/2020",  1, "direccion"));
+		
+		archivos.add(new Archivo("Fichero 4", "14/10/2020", 0, "direccion"));
 	}
 }

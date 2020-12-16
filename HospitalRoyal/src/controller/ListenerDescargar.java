@@ -1,0 +1,21 @@
+package controller;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import modelo.Archivo;
+
+public class ListenerDescargar implements ActionListener{
+
+	private Archivo archivo;
+	// Faltaria el objeto que permita ordenar la descarga al servidor
+	public ListenerDescargar(Archivo archivo) {
+		this.archivo = archivo;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		//implementar la descarga y el splash correspondiente
+	}
+
+}
