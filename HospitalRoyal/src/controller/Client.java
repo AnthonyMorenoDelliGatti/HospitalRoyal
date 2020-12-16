@@ -23,8 +23,6 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 import modelo.Archivo;
-import view.DeleteFolder;
-import view.MenuView;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 import view.Login;
