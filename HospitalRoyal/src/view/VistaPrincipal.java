@@ -44,8 +44,8 @@ public class VistaPrincipal extends JFrame{
 	}
 	
 	private void generarOpciones() {
-		generarBotonCabecera("..\\VentanaCliente\\iconos\\atras.png");
-		generarBotonCabecera("..\\VentanaCliente\\iconos\\flecha-correcta.png");
+		generarBotonCabecera("..\\HospitalRoyal\\iconos\\atras.png");
+		generarBotonCabecera("..\\HospitalRoyal\\iconos\\flecha-correcta.png");
 	}
 
 	private void generarBotonCabecera(String direccion) {
