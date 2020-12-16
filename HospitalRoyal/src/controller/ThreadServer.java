@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import controller.Hospital;
 public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
@@ -33,7 +34,7 @@ public class ThreadServer extends Thread {
 				String user = inputStream.readUTF();
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
-					// USUARIO Y CONTRASEÑA CORRECTOS
+					// USUARIO Y CONTRASEï¿½A CORRECTOS
 					logLogIn(user);
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");
@@ -80,7 +81,7 @@ public class ThreadServer extends Thread {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
+			String sql = "INSERT INTO `log`(`descripciï¿½n`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
 					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
@@ -94,7 +95,7 @@ public class ThreadServer extends Thread {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 1 + ",'" + user
+			String sql = "INSERT INTO `log`(`descripciï¿½n`, `accion`, `usuario`) VALUES ('" + "" + "'," + 1 + ",'" + user
 					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {
