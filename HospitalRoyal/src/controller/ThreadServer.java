@@ -80,7 +80,7 @@ public class ThreadServer extends Thread {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
 					+ "')";
 			statement.execute(sql);
 		} catch (ClassNotFoundException | SQLException e) {

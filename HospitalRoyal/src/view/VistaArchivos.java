@@ -110,10 +110,10 @@ public class VistaArchivos{
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
 		if(i.getIsCarpeta() == 1) {
-			direcIcono = "..\\HospitalRoyal\\iconos\\carpeta.png";
+			direcIcono = "..\\iconos\\carpeta.png";
 		}
 		else {
-			direcIcono  = "..\\HospitalRoyal\\iconos\\text-document.png";
+			direcIcono  = "..\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
@@ -125,7 +125,7 @@ public class VistaArchivos{
 		panel.setLayout(experimentLayout);
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));
-		panel.add(new JLabel("Fecha modificaci�n"));
+		panel.add(new JLabel("Fecha modificacion"));
 		rootPanel.add(panel);
 	}
 

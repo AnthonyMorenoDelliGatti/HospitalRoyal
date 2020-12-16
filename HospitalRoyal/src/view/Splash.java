@@ -24,7 +24,7 @@ public class Splash extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		this.setUndecorated(true);
 		JLabel label = new JLabel();
-		label.setIcon(new ImageIcon(Splash.class.getResource("..\\HospitalRoyal\\iconos\\Logo.PNG")));
+		label.setIcon(new ImageIcon(Splash.class.getResource("..\\iconos\\Logo.PNG")));
 		contentPane.add(label, BorderLayout.CENTER);
 	}
 	@Override
