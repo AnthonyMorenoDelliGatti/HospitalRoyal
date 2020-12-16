@@ -22,20 +22,25 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import modelo.Archivo;
+import model.Archivo;
+import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 import view.Login;
+import view.StartMenuView;
 
 
 public class Client {
-	static DataOutputStream outputStream;
-	static DataInputStream inputStream;
-	static Socket Client;
-	static VistaPrincipal vista;
+	DataOutputStream outputStream;
+	DataInputStream inputStream;
+	Socket Client;
+	VistaPrincipal vista;
 	VistaArchivos explorer;
+	private ServerData serverData;
+	private StartMenuView vStartMenu;
 
 	public Client() {
+		serverData = new ServerData();
 		Login v = new Login();
 		v.setVisible(true);
 		v.pack();
@@ -169,13 +174,7 @@ public class Client {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		vista = new VistaPrincipal();
-		explorer = new VistaArchivos();
-		ArrayList<Archivo> archivos = new ArrayList<>();
-		cargarDatosEjemplo(archivos);
-		vista.agregarExplorador(explorer.visualizarListado(archivos));
-		vista.setVisible(true);
-		vista.pack();
+		StartMenu(adminUser, client);
 //		if (!adminUser) {
 //			normalUserPermissions();
 //		}
@@ -281,15 +280,97 @@ public class Client {
 //		});
 //
 	}
+	private void StartMenu(boolean adminUser, FTPClient client) {
+		vStartMenu = new StartMenuView();
+		vStartMenu.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				try {
+					client.logout();
+					client.disconnect();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (Exception e2) {
+					System.out.println(e2);
+				}
+				System.exit(0);
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+			}
+		});
+		vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				vista = new VistaPrincipal();
+				explorer = new VistaArchivos();
+				ArrayList<Archivo> archivos = new ArrayList<>();
+				cargarDatosEjemplo(archivos);
+				vista.agregarExplorador(explorer.visualizarListado(archivos));
+				vista.setVisible(true);
+				vista.pack();
+				vStartMenu.setVisible(false);
+			}
+
+		});
+		vStartMenu.getButtonMail().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				vStartMenu.setVisible(false);
+			}
+
+		});
+	}
+	private void MenuFTP(boolean adminUser, FTPClient client) {
+		
+	}
+	
+	private void Mail(boolean adminUser, FTPClient client) {
+		
+	}
 
 	private void log(String user, int action, String description) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1/hospital_royal", "root", "");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
+					"");
 			Statement statement = connection.createStatement();
 			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
 			statement.execute(sql);
+			statement.close();
+			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

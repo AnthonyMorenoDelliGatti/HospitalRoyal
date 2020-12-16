@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JOptionPane;
 
-import modelo.Archivo;
+import model.Archivo;
 
 public class ListenerEliminar implements ActionListener {
 

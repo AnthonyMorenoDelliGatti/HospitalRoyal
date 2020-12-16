@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import modelo.Archivo;
+import model.Archivo;
 
 public class ListenerBotonModificarNombre implements ActionListener{
 

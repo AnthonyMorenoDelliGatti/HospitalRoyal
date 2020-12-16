@@ -20,8 +20,8 @@ import controller.ListenerBotonModificarNombre;
 import controller.ListenerDescargar;
 import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
+import model.Archivo;
 import controller.ListenerArchivo;
-import modelo.Archivo;
 
 public class VistaArchivos{
 

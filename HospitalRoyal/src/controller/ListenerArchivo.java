@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import modelo.Archivo;
+import model.Archivo;
 
 public class ListenerArchivo implements MouseListener {
 

@@ -1,8 +1,8 @@
-package modelo;
+package model;
 
 /**
  * 
- * Ejemplo rápido de objeto que se necesita para la vista del cliente
+ * Ejemplo rï¿½pido de objeto que se necesita para la vista del cliente
  *
  */
 public class Archivo implements Comparable<Archivo> {

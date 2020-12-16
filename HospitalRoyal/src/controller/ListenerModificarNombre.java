@@ -7,7 +7,7 @@ import java.awt.event.FocusListener;
 
 import javax.swing.JTextField;
 
-import modelo.Archivo;
+import model.Archivo;
 
 public class ListenerModificarNombre implements ActionListener, FocusListener{
 
