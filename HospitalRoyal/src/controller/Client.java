@@ -138,7 +138,7 @@ public class Client {
 				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
-				v.getLabelInfo3().setText("M�ximo 3 intentos para iniciar sesion");
+				v.getLabelInfo3().setText("Maximo 3 intentos para iniciar sesion");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
