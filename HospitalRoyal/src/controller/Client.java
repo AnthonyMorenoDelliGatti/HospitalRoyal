@@ -23,8 +23,8 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import model.ServerData;
 import view.ClientView;
-import view.DeleteFolder;
 import view.MenuView;
+import view.StartMenuView;
 
 public class Client {
 	private DataOutputStream outputStream;
@@ -33,6 +33,7 @@ public class Client {
 	private MenuView vMenu;
 	private String user;
 	private ServerData serverData;
+	private StartMenuView vStartMenu;
 
 	public Client() {
 		serverData = new ServerData();
@@ -167,11 +168,14 @@ public class Client {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		vMenu = new MenuView();
-		if (!adminUser) {
-			normalUserPermissions();
-		}
-		vMenu.addWindowListener(new WindowListener() {
+
+		StartMenu(adminUser, client);
+
+	}
+
+	private void StartMenu(boolean adminUser, FTPClient client) {
+		vStartMenu = new StartMenuView();
+		vStartMenu.addWindowListener(new WindowListener() {
 
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -216,19 +220,52 @@ public class Client {
 			public void windowOpened(WindowEvent e) {
 
 			}
+		});
+		vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				MenuFTP(adminUser, client);
+				vStartMenu.setVisible(false);
+			}
 
 		});
+		vStartMenu.getButtonMail().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				Mail(adminUser, client);
+				vStartMenu.setVisible(false);
+			}
+
+		});
+	}
+
+	/**
+	 * metodo que gestiona el menu del ftp
+	 * 
+	 * @param adminUser parametro que gestiona si el usuario tiene permiso de
+	 *                  administrador o no
+	 * 
+	 * @param client    parametro que guarda las funciones del ftpClient
+	 */
+	private void MenuFTP(boolean adminUser, FTPClient client) {
+		vMenu = new MenuView();
+		if (!adminUser) {
+			normalUserPermissions();
+		}
+
 		vMenu.getButtonCreate().addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				CreateFolder createFolder = new CreateFolder(client);
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
-					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
+					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
+							"");
 					Statement statement = connection.createStatement();
-					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "ha creado una carpeta" + "'," + 5 + ",'" + user
-							+ "')";
+					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"
+							+ "ha creado una carpeta" + "'," + 5 + ",'" + user + "')";
 					statement.execute(sql);
 					statement.close();
 					connection.close();
@@ -242,13 +279,13 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				DeleteFolder deleteFolder = new DeleteFolder(client);
 				try {
 					Class.forName("com.mysql.jdbc.Driver");
-					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
+					Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
+							"");
 					Statement statement = connection.createStatement();
-					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + "ha borrado una carpeta" + "'," + 6 + ",'" + user
-							+ "')";
+					String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('"
+							+ "ha borrado una carpeta" + "'," + 6 + ",'" + user + "')";
 					statement.execute(sql);
 					statement.close();
 					connection.close();
@@ -295,8 +332,12 @@ public class Client {
 				}
 			}
 		});
-
 	}
+	
+	private void Mail(boolean adminUser, FTPClient client) {
+		
+	}
+
 
 	private void normalUserPermissions() {
 		vMenu.getButtonCreate().setEnabled(false);
