@@ -38,6 +38,7 @@ public class Client {
 	VistaArchivos explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
+	String user, password;
 	
 
 	public Client() {
@@ -333,7 +334,7 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				vista = new VistaPrincipal();
+				vista = new VistaPrincipal(client, user);
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
 				cargarDatosEjemplo();
