@@ -44,13 +44,13 @@ public class VistaPrincipal extends JFrame{
 	}
 	
 	private void generarOpciones() {
-		generarBotonCabecera("..\\iconos\\atras.png");
-		generarBotonCabecera("..\\iconos\\flecha-correcta.png");
-		generarBotonCabecera("..\\iconos\\folder.png");
-		generarBotonCabecera("..\\iconos\\upload-file.png");
+		JButton btnatras = generarBotonCabecera("..\\HospitalRoyal\\iconos\\atras.png");
+		JButton btnadelante = generarBotonCabecera("..\\HospitalRoyal\\iconos\\flecha-correcta.png");
+		JButton btncarpeta = generarBotonCabecera("..\\HospitalRoyal\\iconos\\folder.png");
+		JButton btnsubir = generarBotonCabecera("..\\HospitalRoyal\\iconos\\upload-file.png");
 	}
 
-	private void generarBotonCabecera(String direccion) {
+	private JButton generarBotonCabecera(String direccion) {
 		JButton boton = new JButton();
 		Icon icon = new ImageIcon(direccion);
 		boton.setIcon(icon);
@@ -59,6 +59,7 @@ public class VistaPrincipal extends JFrame{
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		boton.setBorder(emptyBorder);
 		cabecera.add(boton);
+		return boton;
 	}
 	
 	public void agregarExplorador(JPanel jPanel) {
