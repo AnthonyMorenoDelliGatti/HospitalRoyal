@@ -22,6 +22,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 
+import org.apache.commons.net.smtp.SMTPClient;
+
 import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
@@ -43,14 +45,14 @@ public class EmailMenuWindow {
 	private JFrame frame;
 	private JPanel emailBox;
 	private JTextField textField;
-
-	public EmailMenuWindow() {
+	String client;
+	public EmailMenuWindow(String user) {
+		this.client = user;
 		initialize();
 	}
 
 	private void initialize() {
 		frame = new JFrame();
-
 		frame.setResizable(false);
 		frame.getContentPane().setForeground(WHITE);
 		frame.setBounds(100, 100, 429, 530);
@@ -93,7 +95,7 @@ public class EmailMenuWindow {
 		search.setFocusPainted(false);
 		search.setBorder(emptyBorder);
 		search.setBackground(headerColor);
-		search.addActionListener(new ListenerSearch(textField));
+		search.addKeyListener(new ListenerSearch(textField, client));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)

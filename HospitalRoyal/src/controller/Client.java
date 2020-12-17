@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -21,6 +22,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.smtp.SMTPClient;
 
 import model.Archivo;
 import model.ServerData;
@@ -40,6 +42,7 @@ public class Client {
 	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
+	String user, password;
 	
 
 	public Client() {
@@ -49,7 +52,6 @@ public class Client {
 		v.pack();
 		String Host = "localhost";
 		int Puerto = 5000;
-		String user, password;
 		boolean adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
@@ -342,6 +344,9 @@ public class Client {
 				vista.agregarExplorador(explorer.visualizarListado(archivos));
 				vista.setVisible(true);
 				vista.pack();
+				if(!adminUser) {
+				exists("Server", client);
+				}
 				vStartMenu.setVisible(false);
 			}
 
@@ -351,17 +356,18 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				vStartMenu.setVisible(false);
-				emailwindow = new EmailMenuWindow();
+				SMTPClient smtpclient = new SMTPClient();
+				emailwindow = new EmailMenuWindow(user);
+				exists("Email", client);
+			}
+
+			
+
+			private Boolean comprobarEmail() {
+				return null;
 			}
 
 		});
-	}
-	private void MenuFTP(boolean adminUser, FTPClient client) {
-		
-	}
-	
-	private void Mail(boolean adminUser, FTPClient client) {
-		
 	}
 
 	private void log(String user, int action, String description) {
@@ -378,6 +384,20 @@ public class Client {
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	private void exists(String directorio, FTPClient client)  {
+		File f = new File("C:/"+ directorio +"/" + user);
+		if(!f.exists()) {
+			try {
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+			String[] routeSplitted = f.getAbsolutePath().split("\\\\");
+			System.out.println(routeSplitted[routeSplitted.length - 1]);
+			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
+			in.close();
+			} catch(IOException e){
+				
+			}
 		}
 	}
 
