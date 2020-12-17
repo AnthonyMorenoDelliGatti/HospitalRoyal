@@ -366,7 +366,7 @@ public class Client {
 			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
 					"");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
 			statement.execute(sql);
 			statement.close();
