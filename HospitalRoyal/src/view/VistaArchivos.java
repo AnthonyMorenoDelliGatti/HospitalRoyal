@@ -63,7 +63,7 @@ public class VistaArchivos{
 			
 			JTextField nombre = generarNombre(panel, i);
 			
-			panel.add(new JLabel(i.getUltFechaModificacion()));
+			panel.add(new JLabel(""+i.getUltFechaModificacion()));
 			
 			panel.addMouseListener(new ListenerArchivo(panel, i));
 

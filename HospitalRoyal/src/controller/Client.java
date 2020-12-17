@@ -14,21 +14,28 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
 import model.Archivo;
 import model.ServerData;
+import sun.security.jca.GetInstance;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 import view.Login;
 import view.StartMenuView;
-
 
 public class Client {
 	DataOutputStream outputStream;
@@ -38,7 +45,7 @@ public class Client {
 	VistaArchivos explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
-	
+	FTPClient client;
 
 	public Client() {
 		serverData = new ServerData();
@@ -159,7 +166,7 @@ public class Client {
 		user = v.getTextUser().getText();
 		password = v.getTextPassword().getText();
 		v.dispose();
-		FTPClient client = new FTPClient();
+		client = new FTPClient();
 		String servFTP = "localhost";
 		System.out.println("Nos conectamos a: " + servFTP);
 		try {
@@ -281,6 +288,7 @@ public class Client {
 //		});
 //
 	}
+
 	private void StartMenu(boolean adminUser, FTPClient client) {
 		vStartMenu = new StartMenuView();
 		vStartMenu.addWindowListener(new WindowListener() {
@@ -336,7 +344,7 @@ public class Client {
 				vista = new VistaPrincipal();
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				cargarDatosEjemplo();
+				cargarDatosLista(archivos);
 				vista.agregarExplorador(explorer.visualizarListado(archivos));
 				vista.setVisible(true);
 				vista.pack();
@@ -353,22 +361,22 @@ public class Client {
 
 		});
 	}
+
 	private void MenuFTP(boolean adminUser, FTPClient client) {
-		
+
 	}
-	
+
 	private void Mail(boolean adminUser, FTPClient client) {
-		
+
 	}
 
 	private void log(String user, int action, String description) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
-					"");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + description + "'," + action
-					+ ",'" + user + "')";
+			String sql = "INSERT INTO `log`(`descripción`, `accion`, `usuario`) VALUES ('" + description + "',"
+					+ action + ",'" + user + "')";
 			statement.execute(sql);
 			statement.close();
 			connection.close();
@@ -384,7 +392,38 @@ public class Client {
 //		vista.getButtonDownload().setEnabled(false);
 //		vista.getButtonRename().setEnabled(false);
 //	}
-	private void cargarDatosEjemplo() {
-		
+	private void cargarDatosLista(ArrayList<Archivo> archivos) {
+		archivos.clear();
+		try {
+			FTPFile[] fileList = client.listFiles();
+			for (int i = 0; i < fileList.length; i++) {
+				String nameFile = fileList[i].getName();
+				int isDirectory = 0;
+				if (fileList[i].isDirectory()) {
+					isDirectory = 1;
+				}
+				String path = client.printWorkingDirectory();
+				String time = client.getModificationTime(path + nameFile);
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
+				String lastModification = "";
+				try {
+					String timePart = time.split(" ")[0];
+					Date modificationTime = dateFormat.parse(timePart);
+					Calendar calendarModification = Calendar.getInstance(TimeZone.getDefault());
+					calendarModification.setTime(modificationTime);
+					lastModification = "" + calendarModification.get(Calendar.DAY_OF_MONTH) + "/"
+							+ (calendarModification.get(Calendar.MONTH)+1) + "/" + calendarModification.get(Calendar.YEAR)
+							+ " " + (calendarModification.get(Calendar.HOUR)+1) + ":"
+							+ calendarModification.get(Calendar.MINUTE) + ":"
+							+ calendarModification.get(Calendar.SECOND);
+				} catch (ParseException ex) {
+					ex.printStackTrace();
+				}
+				archivos.add(new Archivo(nameFile, lastModification, isDirectory, (path + nameFile)));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

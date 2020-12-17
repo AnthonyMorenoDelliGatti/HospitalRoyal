@@ -8,9 +8,9 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import view.CreateFolderView;
 
-public class CreateFolder {
+public class ListenerCreateFolder {
 
-	public CreateFolder(FTPClient client) {
+	public ListenerCreateFolder(FTPClient client) {
 		CreateFolderView createView = new CreateFolderView();
 		createView.setVisible(true);
 		createView.pack();

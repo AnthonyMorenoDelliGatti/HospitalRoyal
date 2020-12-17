@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Date;
+
 /**
  * 
  * Ejemplo r�pido de objeto que se necesita para la vista del cliente
@@ -7,7 +9,7 @@ package model;
  */
 public class Archivo implements Comparable<Archivo> {
 
-	private String nombre, ultFechaModificacion, direccion;
+	private String nombre, direccion, ultFechaModificacion;
 	private int isCarpeta;
 
 	public Archivo(String nombre, String ultFechaModificacion, int isCarpeta, String direccion) {
