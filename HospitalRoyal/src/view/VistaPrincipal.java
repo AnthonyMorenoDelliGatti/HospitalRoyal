@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -21,6 +22,7 @@ public class VistaPrincipal extends JFrame{
 	private JPanel cabecera;
 	private JPanel centro;
 	private Color colorCabecera;
+	private ArrayList<JButton> buttons = new ArrayList();
 	
 	public VistaPrincipal() {
 		rootPanel = new JPanel();
@@ -59,6 +61,7 @@ public class VistaPrincipal extends JFrame{
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		boton.setBorder(emptyBorder);
 		cabecera.add(boton);
+		buttons.add(boton);
 	}
 	
 	public void agregarExplorador(JPanel jPanel) {
@@ -69,5 +72,22 @@ public class VistaPrincipal extends JFrame{
 		centro.remove(1); // borra el anterior explorador
 		agregarExplorador(explorer);
 	}
+
+	public ArrayList<JButton> getButtons() {
+		return buttons;
+	}
+
+	public void setButtons(ArrayList<JButton> buttons) {
+		this.buttons = buttons;
+	}
+
+	public JPanel getCentro() {
+		return centro;
+	}
+
+	public void setCentro(JPanel centro) {
+		this.centro = centro;
+	}
+
 
 }

@@ -31,18 +31,12 @@ public class VistaArchivos{
 		JPanel rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-
-		
+	
 		cabecera(rootPanel, experimentLayout);
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));	
 		generarListado(panel, experimentLayout, archivos);
-
-		JPopupMenu menu = new JPopupMenu();
-		menu.add(new JMenuItem("Crear Carpeta"));
-
-		rootPanel.setComponentPopupMenu(menu);
 
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
