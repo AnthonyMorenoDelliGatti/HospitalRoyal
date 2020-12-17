@@ -38,6 +38,7 @@ public class Client {
 	VistaArchivos explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
+	
 
 	public Client() {
 		serverData = new ServerData();
@@ -138,7 +139,7 @@ public class Client {
 				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
-				v.getLabelInfo3().setText("M�ximo 3 intentos para iniciar sesion");
+				v.getLabelInfo3().setText("Maximo 3 intentos para iniciar sesion");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -335,7 +336,7 @@ public class Client {
 				vista = new VistaPrincipal();
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				cargarDatosEjemplo(archivos);
+				cargarDatosEjemplo();
 				vista.agregarExplorador(explorer.visualizarListado(archivos));
 				vista.setVisible(true);
 				vista.pack();
@@ -383,22 +384,7 @@ public class Client {
 //		vista.getButtonDownload().setEnabled(false);
 //		vista.getButtonRename().setEnabled(false);
 //	}
-	private void cargarDatosEjemplo(ArrayList<Archivo> archivos) {
-		archivos.clear();
-		archivos.add(new Archivo("Carpeta 1", "14/10/2020",  1, "direccion"));
+	private void cargarDatosEjemplo() {
 		
-		archivos.add(new Archivo("Fichero 1", "14/10/2020",  0, "direccion"));
-		
-		archivos.add(new Archivo("Fichero con nombre largo 1", "14/10/2020",  0, "direccion"));
-		
-		archivos.add(new Archivo("Fichero 2", "14/10/2020",  0, "direccion"));
-		
-		archivos.add(new Archivo("Carpeta 3", "14/10/2020",  1, "direccion"));
-		
-		archivos.add(new Archivo("Fichero 3", "14/10/2020",  0, "direccion"));
-		
-		archivos.add(new Archivo("Carpeta 2", "14/10/2020",  1, "direccion"));
-		
-		archivos.add(new Archivo("Fichero 4", "14/10/2020", 0, "direccion"));
 	}
 }

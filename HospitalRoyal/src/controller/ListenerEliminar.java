@@ -18,12 +18,13 @@ public class ListenerEliminar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object[] opciones = { "SI", "NO" };
-		int eleccion = JOptionPane.showOptionDialog(null, "�Corfima su eliminaci�n?",
-				"Confirmaci�n", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "");
+		int eleccion = JOptionPane.showOptionDialog(null, "Corfima su eliminacion?",
+				"Confirmacion", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "");
 		
 		if (eleccion == JOptionPane.YES_OPTION) {
-			// Agregar el proceso de eliminaci�n
-			// Se tendr�a que eliminar el panel o actualizar todo el listado 
+			// Agregar el proceso de eliminacion
+			// Se tendria que eliminar el panel o actualizar todo el listado 
+			
 		} 
 	}
 

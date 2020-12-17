@@ -30,7 +30,7 @@ public class Login extends JFrame {
 		paneles.get(0).setBackground(colorCabecera);
 		
 		paneles.get(1).add(new JLabel("Usuario"));
-		paneles.get(3).add(new JLabel("Contrase�a"));
+		paneles.get(3).add(new JLabel("Password"));
 		
 		textUser = new JTextField(15);
 		paneles.get(2).add(textUser);
@@ -38,7 +38,7 @@ public class Login extends JFrame {
 		textPassword = new JTextField(15);
 		paneles.get(4).add(textPassword);
 		
-		buttonLogin = new JButton("Iniciar Sesi�n");
+		buttonLogin = new JButton("Iniciar Sesion");
 		paneles.get(5).add(buttonLogin);
 		labelInfo3 = new JLabel();
 		add(labelInfo3);
