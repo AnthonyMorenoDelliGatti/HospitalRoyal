@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import controller.ListenerSubir;
+
 public class VistaPrincipal extends JFrame{
 
 	private JPanel rootPanel;
@@ -48,6 +50,7 @@ public class VistaPrincipal extends JFrame{
 		JButton btnadelante = generarBotonCabecera("..\\HospitalRoyal\\iconos\\flecha-correcta.png");
 		JButton btncarpeta = generarBotonCabecera("..\\HospitalRoyal\\iconos\\folder.png");
 		JButton btnsubir = generarBotonCabecera("..\\HospitalRoyal\\iconos\\upload-file.png");
+		btnsubir.addActionListener(new ListenerSubir());
 	}
 
 	private JButton generarBotonCabecera(String direccion) {
