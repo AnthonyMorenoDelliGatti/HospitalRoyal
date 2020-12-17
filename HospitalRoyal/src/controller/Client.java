@@ -33,7 +33,6 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import model.Archivo;
 import model.ServerData;
-import sun.security.jca.GetInstance;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 import view.EmailMenuWindow;
