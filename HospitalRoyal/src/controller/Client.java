@@ -15,23 +15,30 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
 import model.Archivo;
 import model.ServerData;
+import sun.security.jca.GetInstance;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 import view.EmailMenuWindow;
 import view.Login;
 import view.StartMenuView;
-
 
 public class Client {
 	DataOutputStream outputStream;
@@ -42,12 +49,15 @@ public class Client {
 	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
+	FTPClient client;
+	Methods method;
 	String user, password;
 	
 
 	public Client() {
 		serverData = new ServerData();
 		Login v = new Login();
+		method = new Methods();
 		v.setVisible(true);
 		v.pack();
 		String Host = "localhost";
@@ -163,7 +173,7 @@ public class Client {
 		user = v.getTextUser().getText();
 		password = v.getTextPassword().getText();
 		v.dispose();
-		FTPClient client = new FTPClient();
+		client = new FTPClient();
 		String servFTP = "localhost";
 		System.out.println("Nos conectamos a: " + servFTP);
 		try {
@@ -285,6 +295,7 @@ public class Client {
 //		});
 //
 	}
+
 	private void StartMenu(boolean adminUser, FTPClient client) {
 		vStartMenu = new StartMenuView();
 		vStartMenu.addWindowListener(new WindowListener() {
@@ -340,10 +351,12 @@ public class Client {
 				vista = new VistaPrincipal(client, user);
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				cargarDatos();
-				vista.agregarExplorador(explorer.visualizarListado(archivos));
+				method.cargarDatosLista(archivos, client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
+				// se a�aden los listener a los botones de la cabezera
+				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer));
+				// boton de crear carpetas
 				if(!adminUser) {
 				exists("Server", client);
 				}
@@ -373,8 +386,7 @@ public class Client {
 	private void log(String user, int action, String description) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(),
-					"");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
 			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
@@ -407,7 +419,4 @@ public class Client {
 //		vista.getButtonDownload().setEnabled(false);
 //		vista.getButtonRename().setEnabled(false);
 //	}
-	private void cargarDatos() {
-		
-	}
 }
