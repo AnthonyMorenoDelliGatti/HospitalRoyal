@@ -26,6 +26,7 @@ import model.Archivo;
 import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
+import view.EmailMenuWindow;
 import view.Login;
 import view.StartMenuView;
 
@@ -36,6 +37,7 @@ public class Client {
 	Socket Client;
 	VistaPrincipal vista;
 	VistaArchivos explorer;
+	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
 	
@@ -336,7 +338,7 @@ public class Client {
 				vista = new VistaPrincipal();
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				cargarDatosEjemplo();
+				cargarDatos();
 				vista.agregarExplorador(explorer.visualizarListado(archivos));
 				vista.setVisible(true);
 				vista.pack();
@@ -349,6 +351,7 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				vStartMenu.setVisible(false);
+				emailwindow = new EmailMenuWindow();
 			}
 
 		});
@@ -384,7 +387,7 @@ public class Client {
 //		vista.getButtonDownload().setEnabled(false);
 //		vista.getButtonRename().setEnabled(false);
 //	}
-	private void cargarDatosEjemplo() {
+	private void cargarDatos() {
 		
 	}
 }
