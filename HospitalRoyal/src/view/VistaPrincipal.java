@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
+import org.apache.commons.net.ftp.FTPClient;
+
+import controller.ListenerSubir;
+
 public class VistaPrincipal extends JFrame{
 
 	private JPanel rootPanel;
@@ -22,7 +26,7 @@ public class VistaPrincipal extends JFrame{
 	private JPanel centro;
 	private Color colorCabecera;
 	
-	public VistaPrincipal() {
+	public VistaPrincipal(FTPClient client, String user) {
 		rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		
@@ -38,16 +42,17 @@ public class VistaPrincipal extends JFrame{
 		rootPanel.add(centro);
 		setContentPane(rootPanel);
 		
-		generarOpciones();
+		generarOpciones(client, user);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	
-	private void generarOpciones() {
+	private void generarOpciones(FTPClient client, String user) {
 		JButton btnatras = generarBotonCabecera("..\\HospitalRoyal\\iconos\\atras.png");
 		JButton btnadelante = generarBotonCabecera("..\\HospitalRoyal\\iconos\\flecha-correcta.png");
 		JButton btncarpeta = generarBotonCabecera("..\\HospitalRoyal\\iconos\\folder.png");
 		JButton btnsubir = generarBotonCabecera("..\\HospitalRoyal\\iconos\\upload-file.png");
+		btnsubir.addActionListener(new ListenerSubir(client, user));
 	}
 
 	private JButton generarBotonCabecera(String direccion) {
