@@ -33,7 +33,7 @@ public class ThreadServer extends Thread {
 				String user = inputStream.readUTF();
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
-					// USUARIO Y CONTRASEÑA CORRECTOS
+					// USUARIO Y CONTRASE�A CORRECTOS
 					logLogIn(user);
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");

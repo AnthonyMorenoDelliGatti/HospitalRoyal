@@ -7,6 +7,7 @@ import java.awt.event.WindowListener;
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -28,12 +29,14 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import org.apache.commons.net.smtp.SMTPClient;
 
 import model.Archivo;
 import model.ServerData;
 import sun.security.jca.GetInstance;
 import view.VistaArchivos;
 import view.VistaPrincipal;
+import view.EmailMenuWindow;
 import view.Login;
 import view.StartMenuView;
 
@@ -43,10 +46,13 @@ public class Client {
 	Socket Client;
 	VistaPrincipal vista;
 	VistaArchivos explorer;
+	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
 	FTPClient client;
 	Methods method;
+	String user, password;
+	
 
 	public Client() {
 		serverData = new ServerData();
@@ -56,7 +62,6 @@ public class Client {
 		v.pack();
 		String Host = "localhost";
 		int Puerto = 5000;
-		String user, password;
 		boolean adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
@@ -343,15 +348,18 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				vista = new VistaPrincipal();
+				vista = new VistaPrincipal(client, user);
 				explorer = new VistaArchivos();
 				ArrayList<Archivo> archivos = new ArrayList<>();
 				method.cargarDatosLista(archivos, client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
-				// se añaden los listener a los botones de la cabezera
+				// se aï¿½aden los listener a los botones de la cabezera
 				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer));
 				// boton de crear carpetas
+				if(!adminUser) {
+				exists("Server", client);
+				}
 				vStartMenu.setVisible(false);
 			}
 
@@ -361,17 +369,18 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				vStartMenu.setVisible(false);
+				SMTPClient smtpclient = new SMTPClient();
+				emailwindow = new EmailMenuWindow(user);
+				exists("Email", client);
+			}
+
+			
+
+			private Boolean comprobarEmail() {
+				return null;
 			}
 
 		});
-	}
-
-	private void MenuFTP(boolean adminUser, FTPClient client) {
-
-	}
-
-	private void Mail(boolean adminUser, FTPClient client) {
-
 	}
 
 	private void log(String user, int action, String description) {
@@ -379,14 +388,28 @@ public class Client {
 			Class.forName("com.mysql.jdbc.Driver");
 			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
 			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "',"
-					+ action + ",'" + user + "')";
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
 			statement.execute(sql);
 			statement.close();
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+	}
+	private void exists(String directorio, FTPClient client)  {
+		File f = new File("C:/"+ directorio +"/" + user);
+		if(!f.exists()) {
+			try {
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
+			String[] routeSplitted = f.getAbsolutePath().split("\\\\");
+			System.out.println(routeSplitted[routeSplitted.length - 1]);
+			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
+			in.close();
+			} catch(IOException e){
+				
+			}
 		}
 	}
 
@@ -396,5 +419,4 @@ public class Client {
 //		vista.getButtonDownload().setEnabled(false);
 //		vista.getButtonRename().setEnabled(false);
 //	}
-
 }
