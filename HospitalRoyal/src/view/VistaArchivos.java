@@ -7,7 +7,6 @@ import java.util.Collections;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -25,7 +24,7 @@ import controller.ListenerModificarNombre;
 import model.Archivo;
 import controller.ListenerArchivo;
 
-public class VistaArchivos{
+public class VistaArchivos{  
 FTPClient client;
 	public VistaArchivos(FTPClient client) {
 		this.client = client;
@@ -98,8 +97,7 @@ FTPClient client;
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
+		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
 		
 		return nombre;
