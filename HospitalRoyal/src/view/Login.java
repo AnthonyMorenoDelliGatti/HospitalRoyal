@@ -21,6 +21,7 @@ public class Login extends JFrame {
 	public Login() {
 		rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
+		setResizable(false);
 		
 		ArrayList<JPanel> paneles = new ArrayList<>();
 		generarPaneles(paneles);
