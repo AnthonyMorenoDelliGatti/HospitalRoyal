@@ -16,16 +16,30 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.net.ftp.FTPClient;
+
 import controller.ListenerBotonModificarNombre;
 import controller.ListenerDescargar;
 import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
+import controller.Methods;
 import model.Archivo;
 import controller.ListenerArchivo;
 
 public class VistaArchivos{
-
-	public VistaArchivos() {}
+	
+	JMenuItem item, item2, item3;
+	FTPClient client;
+	Methods method;
+	VistaPrincipal vista;
+	ArrayList<Archivo> archivos;
+	
+	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista) {
+		this.client = client;
+		this.method = method;
+		this.vista = vista;
+		this.archivos = archivos;
+	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
@@ -74,16 +88,16 @@ public class VistaArchivos{
 	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
 		JPopupMenu menu = new JPopupMenu();
 		
-		JMenuItem item = new JMenuItem("Cambiar nombre");
+		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre));
 		menu.add(item);
 		
-		JMenuItem item2 = new JMenuItem("Descargar");
-		item.addActionListener(new ListenerDescargar(archivo));
+		item2 = new JMenuItem("Descargar");
+		item2.addActionListener(new ListenerDescargar(archivo));
 		menu.add(item2);
 		
-		JMenuItem item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo));
+		item3 = new JMenuItem("Eliminar");
+		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this));
 		menu.add(item3);
 		return menu;
 	}
@@ -122,5 +136,30 @@ public class VistaArchivos{
 		panel.add(new JLabel("Fecha modificacion"));
 		rootPanel.add(panel);
 	}
+
+	public JMenuItem getItem() {
+		return item;
+	}
+
+	public void setItem(JMenuItem item) {
+		this.item = item;
+	}
+
+	public JMenuItem getItem2() {
+		return item2;
+	}
+
+	public void setItem2(JMenuItem item2) {
+		this.item2 = item2;
+	}
+
+	public JMenuItem getItem3() {
+		return item3;
+	}
+
+	public void setItem3(JMenuItem item3) {
+		this.item3 = item3;
+	}
+
 
 }
