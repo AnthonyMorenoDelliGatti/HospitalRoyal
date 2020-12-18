@@ -7,7 +7,6 @@ import java.util.Collections;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -16,6 +15,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import org.apache.commons.net.ftp.FTPClient;
+
 import controller.ListenerBotonModificarNombre;
 import controller.ListenerDescargar;
 import controller.ListenerEliminar;
@@ -23,9 +24,11 @@ import controller.ListenerModificarNombre;
 import model.Archivo;
 import controller.ListenerArchivo;
 
-public class VistaArchivos{
-
-	public VistaArchivos() {}
+public class VistaArchivos{  
+FTPClient client;
+	public VistaArchivos(FTPClient client) {
+		this.client = client;
+	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
@@ -75,7 +78,7 @@ public class VistaArchivos{
 		JPopupMenu menu = new JPopupMenu();
 		
 		JMenuItem item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre));
+		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
 		
 		JMenuItem item2 = new JMenuItem("Descargar");
@@ -93,9 +96,8 @@ public class VistaArchivos{
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
+		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client);
+		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
 		
 		return nombre;
