@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JTextField;
@@ -42,7 +43,7 @@ public class ListenerModificarNombre implements KeyListener {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
 				if (fileList[i].getName().equals(nombre)) {
-					fileList[i].setName(nombre2);
+					client.rename(fileList[i].getName(), nombre2);
 				}
 			}
 			System.out.println("RENAME SUCCESFULL");
