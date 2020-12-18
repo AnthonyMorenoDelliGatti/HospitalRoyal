@@ -17,6 +17,7 @@ import view.VistaArchivos;
 import view.VistaPrincipal;
 
 public class Methods {
+	
 	public Methods() {
 
 	}

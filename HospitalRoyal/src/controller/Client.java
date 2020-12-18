@@ -192,107 +192,6 @@ public class Client {
 //		if (!adminUser) {
 //			normalUserPermissions();
 //		}
-//		vMenu.addWindowListener(new WindowListener() {
-//
-//			@Override
-//			public void windowClosing(WindowEvent e) {
-//				try {
-//					client.logout();
-//					client.disconnect();
-//				} catch (IOException e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				} catch (Exception e2) {
-//					System.out.println(e2);
-//				}
-//				System.exit(0);
-//			}
-//
-//			@Override
-//			public void windowActivated(WindowEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void windowClosed(WindowEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void windowDeactivated(WindowEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void windowDeiconified(WindowEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void windowIconified(WindowEvent e) {
-//
-//			}
-//
-//			@Override
-//			public void windowOpened(WindowEvent e) {
-//
-//			}
-//
-//		});
-//		vMenu.getButtonCreate().addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				CreateFolder createFolder = new CreateFolder(client);
-//			}
-//		});
-//		vMenu.getButtonDelete().addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				DeleteFolder deleteFolder = new DeleteFolder(client);
-//			}
-//		});
-//		vMenu.getButtonDownload().addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-//		vMenu.getButtonRename().addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//				// TODO Auto-generated method stub
-//
-//			}
-//		});
-//		vMenu.getButtonUpload().addActionListener(new ActionListener() {
-//
-//			@Override
-//			public void actionPerformed(ActionEvent e) {
-//
-//				try {
-//					client.setFileType(FTP.BINARY_FILE_TYPE);
-//					JFileChooser fileChooser = new JFileChooser();
-//					fileChooser.showOpenDialog(fileChooser);
-//					String route = fileChooser.getSelectedFile().getAbsolutePath();
-//					BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
-//					String[] routeSplitted = route.split("\\\\");
-//					System.out.println(routeSplitted[routeSplitted.length - 1]);
-//					client.storeFile(routeSplitted[routeSplitted.length - 1], in);
-//					in.close();
-//					System.out.println("UPLOAD SUCCESFULL");
-//					log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
-//				} catch (Exception e1) {
-//					// TODO Auto-generated catch block
-//					e1.printStackTrace();
-//				}
-//			}
-//		});
-//
 	}
 
 	private void StartMenu(boolean adminUser, FTPClient client) {
@@ -347,8 +246,9 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				vista = new VistaPrincipal(client, user);
+				
 				explorer = new VistaArchivos();
+				vista = new VistaPrincipal(client, user, explorer);
 				ArrayList<Archivo> archivos = new ArrayList<>();
 				method.cargarDatosLista(archivos, client ,vista ,explorer);
 				vista.setVisible(true);
