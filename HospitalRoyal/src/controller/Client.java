@@ -246,16 +246,18 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
-				explorer = new VistaArchivos(client, method);
-				vista = new VistaPrincipal(client, user, explorer);
+
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				method.cargarDatosLista(client ,vista ,explorer);
+				vista = new VistaPrincipal(client, user);
+				explorer = new VistaArchivos(client,archivos,method, vista);	
+				method.cargarDatosLista(archivos, client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
-				// se a�aden los listener a los botones de la cabezera
-				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client, method, vista, explorer));
-				// boton de crear carpetas
+				// se introducen los listener a los botones 
+				// crear carpeta
+				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer));
+				//eliminar archivos y carpetas
+				
 				if(!adminUser) {
 				exists("Server", client);
 				}
