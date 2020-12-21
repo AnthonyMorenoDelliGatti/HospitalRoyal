@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import controller.Hospital;
 public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
@@ -73,6 +74,7 @@ public class ThreadServer extends Thread {
 		}
 		return false;
 	}
+
 	private void logLogIn(String user) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
