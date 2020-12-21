@@ -15,13 +15,11 @@ import view.VistaPrincipal;
 public class ListenerCreateFolder implements ActionListener{
 
 	FTPClient client;
-	ArrayList<Archivo> archivos;
 	Methods method;
 	VistaPrincipal view ;
 	VistaArchivos explorer ;
-	public ListenerCreateFolder(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer) {
+	public ListenerCreateFolder(FTPClient client, Methods method, VistaPrincipal view , VistaArchivos explorer) {
 		this.client= client;
-		this.archivos = archivos;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
@@ -44,7 +42,7 @@ public class ListenerCreateFolder implements ActionListener{
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
 					}
-					method.cargarDatosLista(archivos, client, view, explorer);
+					method.cargarDatosLista(client, view, explorer);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

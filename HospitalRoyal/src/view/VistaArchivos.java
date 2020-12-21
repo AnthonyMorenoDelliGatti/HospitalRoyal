@@ -25,6 +25,7 @@ import controller.Methods;
 import model.Archivo;
 import controller.ListenerArchivo;
 
+
 public class VistaArchivos{
 	
 	JMenuItem item, item2, item3;
@@ -88,13 +89,9 @@ public class VistaArchivos{
 		
 		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre));
-
 		menu.add(item);
-		
-		item2 = new JMenuItem("Descargar");
-		item2.addActionListener(new ListenerDescargar(archivo));
-		menu.add(item2);
-		
+		JMenuItem item2 = new JMenuItem("Descargar");
+		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
 		item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this));
 		menu.add(item3);
