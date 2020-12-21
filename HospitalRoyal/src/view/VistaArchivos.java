@@ -117,10 +117,10 @@ public class VistaArchivos{
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
 		if(i.getIsCarpeta() == 1) {
-			direcIcono = "..\\HospitaRoyal\\iconos\\carpeta.png";
+			direcIcono = "..\\HospitalRoyal\\iconos\\carpeta.png";
 		}
 		else {
-			direcIcono  = "..\\HospitaRoyal\\iconos\\text-document.png";
+			direcIcono  = "..\\HospitalRoyal\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
