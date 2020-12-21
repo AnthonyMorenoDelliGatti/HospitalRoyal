@@ -1,9 +1,7 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -13,7 +11,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import org.apache.commons.net.ftp.FTPClient;

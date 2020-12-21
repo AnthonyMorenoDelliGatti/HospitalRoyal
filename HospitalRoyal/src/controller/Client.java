@@ -255,7 +255,6 @@ public class Client {
 				vista.pack();
 				// se a�aden los listener a los botones de la cabezera
 				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client, method, vista, explorer));
-				explorer.getItems().get(0).addActionListener(new );
 				// boton de crear carpetas
 				if(!adminUser) {
 				exists("Server", client);
