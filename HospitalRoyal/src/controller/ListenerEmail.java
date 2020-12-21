@@ -22,7 +22,7 @@ public class ListenerEmail implements MouseListener {
 	private FTPClient client;
 	private StartMenuView vStarMenu;
 
-	public ListenerEmail(JPanel panel, Email email, FTPClient client, StartMenuView vStartMenu, String user) {
+	public ListenerEmail(JPanel panel, Email email) {
 		this.panel = panel;
 		this.email = email;
 		vStartMenu.setVisible(false);
@@ -33,7 +33,7 @@ public class ListenerEmail implements MouseListener {
 			e.printStackTrace();
 		}
 		vista = new EmailMenuWindow(user);
-		vista.getBtnAdd().addActionListener(this);
+	//	vista.getBtnAdd().addActionListener(this);
 		vista.getBtnRecharge().addActionListener(new ListenerUpdate());
 		vista.getBtnSearch().addKeyListener(new ListenerSearch(vista.getTxtSearch(), user));
 		vista.getBtnClose().addActionListener(new ListenerClose(vista.getFrame()));

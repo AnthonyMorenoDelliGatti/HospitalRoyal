@@ -241,15 +241,17 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				vista = new VistaPrincipal(client, user, explorer);
-				explorer = new VistaArchivos(client,archivos,method, vista);	
-				method.cargarDatosLista(archivos, client ,vista ,explorer);
+
+				vista = new VistaPrincipal(client, user, explorer, method);
+				explorer = new VistaArchivos(client,archivos,method, vista, user);	
+				method.cargarDatosLista(client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
 				// se introducen los listener a los botones 
 				// crear carpeta
-				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer));
+				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer, user));
 				//eliminar archivos y carpetas
 				
 				if(!adminUser) {
@@ -280,21 +282,6 @@ public class Client {
 			}
 
 		});
-	}
-
-	private void log(String user, int action, String description) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
-			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
-					+ ",'" + user + "')";
-			statement.execute(sql);
-			statement.close();
-			connection.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			e.printStackTrace();
-		}
 	}
 	private void exists(String directorio, FTPClient client)  {
 		File f = new File("C:/"+ directorio +"/" + user);

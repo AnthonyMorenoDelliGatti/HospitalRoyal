@@ -22,15 +22,17 @@ public class ListenerEliminar implements ActionListener {
 	private Methods method;
 	private VistaPrincipal view;
 	private VistaArchivos explorer;
+	private String user;
 
 	public ListenerEliminar(Archivo archivo, ArrayList<Archivo> archivos, FTPClient client, Methods method,
-			VistaPrincipal view, VistaArchivos explorer) {
+			VistaPrincipal view, VistaArchivos explorer, String user) {
 		this.archivo = archivo;
 		this.archivos = archivos;
 		this.client = client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
+		this.user = user;
 	}
 
 	@Override
@@ -71,7 +73,7 @@ public class ListenerEliminar implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			method.cargarDatosLista(archivos, client, view, explorer);
+			method.cargarDatosLista(client, view, explorer);
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
@@ -106,6 +108,7 @@ public class ListenerEliminar implements ActionListener {
 			}
 		}
 		}
+		method.log(user, 3, "ha borrado el archivo "+ archivo.getNombre());
 	}
 
 }

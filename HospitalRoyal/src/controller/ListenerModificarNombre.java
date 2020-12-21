@@ -17,11 +17,14 @@ public class ListenerModificarNombre implements KeyListener {
 	private Archivo archivo;
 	private JTextField nombre;
 	FTPClient client;
-
-	public ListenerModificarNombre(Archivo archivo, JTextField nombre, FTPClient client) {
+	private String user;
+	private Methods method;
+	public ListenerModificarNombre(Archivo archivo, JTextField nombre, FTPClient client, String user, Methods method) {
 		this.archivo = archivo;
 		this.nombre = nombre;
 		this.client = client;
+		this.user = user;
+		this.method = method;
 	}
 
 	private void comprobarNombre() {
@@ -47,6 +50,7 @@ public class ListenerModificarNombre implements KeyListener {
 				}
 			}
 			System.out.println("RENAME SUCCESFULL");
+			method.log(user, 7, " Renamed file: " + nombre + " to: " + nombre2);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
