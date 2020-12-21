@@ -92,7 +92,7 @@ public class EmailMenuWindow {
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
-		btnAdd.addActionListener(new ListenerAdd());
+		btnAdd.addActionListener(new ListenerAdd(client,user));
 
 		
 		btnRecharge = new JButton("");
