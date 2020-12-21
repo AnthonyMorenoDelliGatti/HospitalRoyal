@@ -15,6 +15,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import model.Archivo;
 
 public class ListenerDescargar implements ActionListener{
+
 	FTPClient client;
 	String direccion, nombre;
 	Methods method;

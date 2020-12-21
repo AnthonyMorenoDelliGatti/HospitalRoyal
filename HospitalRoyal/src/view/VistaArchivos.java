@@ -33,12 +33,15 @@ public class VistaArchivos{
 	Methods method;
 	VistaPrincipal vista;
 	ArrayList<Archivo> archivos;
+	String user;
 	
-	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista) {
+	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista, String user) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
+		this.user = user;
+	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
@@ -92,8 +95,9 @@ public class VistaArchivos{
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
 		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
+
 		item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this));
+		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this, user));
 		menu.add(item3);
 		return menu;
 	}
@@ -103,7 +107,7 @@ public class VistaArchivos{
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client);
+		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, method);
 		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
 		

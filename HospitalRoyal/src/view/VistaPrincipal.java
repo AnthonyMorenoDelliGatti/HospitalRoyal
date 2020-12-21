@@ -16,6 +16,7 @@ import javax.swing.border.Border;
 import org.apache.commons.net.ftp.FTPClient;
 
 import controller.ListenerSubir;
+import controller.Methods;
 
 public class VistaPrincipal extends JFrame{
 
@@ -25,10 +26,12 @@ public class VistaPrincipal extends JFrame{
 	private Color colorCabecera;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
+	private Methods method;
 	
-	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista) {
+	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista, Methods method) {
 		rootPanel = new JPanel();
 		this.lista= lista;
+		this.method = method;
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		
 		cabecera = new JPanel();
@@ -54,7 +57,7 @@ public class VistaPrincipal extends JFrame{
 		JButton btncarpeta = generarBotonCabecera("..\\iconos\\folder.png");
 		JButton btnsubir = generarBotonCabecera("..\\iconos\\upload-file.png");
 
-		btnsubir.addActionListener(new ListenerSubir(client, user, this, lista));
+		btnsubir.addActionListener(new ListenerSubir(client, user, this, lista, method));
 	}
 
 	private JButton generarBotonCabecera(String direccion) {

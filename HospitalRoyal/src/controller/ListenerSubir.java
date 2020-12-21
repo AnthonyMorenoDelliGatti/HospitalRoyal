@@ -18,14 +18,15 @@ import view.VistaPrincipal;
 public class ListenerSubir implements ActionListener {
 	FTPClient client;
 	String user;
-	Methods m = new Methods();
+	Methods method;
 	VistaPrincipal v;
 	VistaArchivos lista;
-	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista) {
+	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods method) {
 		this.client = client;
 		this.user = user;
 		this.v = v;
 		this.lista = lista;
+		this.method = method;
 	}
 
 	@Override
@@ -41,8 +42,9 @@ public class ListenerSubir implements ActionListener {
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			System.out.println("UPLOAD SUCCESFULL");
-			m.cargarDatosLista(client, v, lista);
-			//log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
+			ArrayList<Archivo> archivos = new ArrayList<>();
+			method.cargarDatosLista(archivos, client, v, lista);
+			method.log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
