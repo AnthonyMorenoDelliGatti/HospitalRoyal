@@ -15,14 +15,12 @@ import view.VistaPrincipal;
 public class ListenerCreateFolder implements ActionListener{
 
 	FTPClient client;
-	ArrayList<Archivo> archivos;
 	Methods method;
 	VistaPrincipal view ;
 	VistaArchivos explorer ;
 	String user;
 	public ListenerCreateFolder(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user) {
 		this.client= client;
-		this.archivos = archivos;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
