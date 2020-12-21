@@ -265,16 +265,11 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				vStartMenu.setVisible(false);
 				exists("Email", client);
-				ListenerEmail mail = new ListenerEmail(null, null, client,vStartMenu,user);
+				EmailMenuWindow vistaEmail = new EmailMenuWindow(user,vStartMenu);
+
 			}
-
-
-
-			private void extracted(FTPClient client) {
-				
-			}
-
 			
 
 			private Boolean comprobarEmail() {

@@ -12,6 +12,7 @@ import java.awt.Button;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -23,10 +24,13 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 
 import org.apache.commons.net.smtp.SMTPClient;
+import org.apache.commons.net.smtp.SMTPReply;
 
+import controller.ListenerAdd;
 import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
+import controller.ListenerUpdate;
 import model.Email;
 
 import java.awt.Color;
@@ -46,10 +50,24 @@ public class EmailMenuWindow {
 	private JPanel emailBox;
 	private JTextField txtSearch;
 	private JButton btnAdd,btnRecharge,btnClose,btnSearch;
-	String client;
-	public EmailMenuWindow(String user) {
-		this.client = user;
+	private SMTPClient client;
+	private StartMenuView vStartMenu;
+	String user;
+	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
+		this.user = user;
+		client = new SMTPClient();
+		this.vStartMenu = vStartMenu;
+		try {
+			client.connect("localhost");
+			if(!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
+				client.disconnect();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		initialize();
+		
 	}
 
 	private void initialize() {
@@ -74,19 +92,23 @@ public class EmailMenuWindow {
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
+		btnAdd.addActionListener(new ListenerAdd());
 
+		
 		btnRecharge = new JButton("");
 		btnRecharge.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/recargar.png")));
 		btnRecharge.setFocusPainted(false);
 		btnRecharge.setBorder(emptyBorder);
 		btnRecharge.setBackground(headerColor);
+		btnRecharge.addActionListener(new ListenerUpdate());
 
+		
 		btnClose = new JButton("");
 		btnClose.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/cerrar.png")));
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
-		
+		btnClose.addActionListener(new ListenerClose(frame,client,vStartMenu));
 
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
@@ -96,6 +118,7 @@ public class EmailMenuWindow {
 		btnSearch.setFocusPainted(false);
 		btnSearch.setBorder(emptyBorder);
 		btnSearch.setBackground(headerColor);
+		btnSearch.addKeyListener(new ListenerSearch(txtSearch, user));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
