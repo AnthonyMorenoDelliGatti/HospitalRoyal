@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -21,8 +25,8 @@ public class Methods {
 	public Methods() {
 
 	}
-	public void cargarDatosLista(ArrayList<Archivo> archivos, FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
-		archivos.clear();
+	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
+		ArrayList<Archivo> archivos= new ArrayList<Archivo>();
 		try {
 			FTPFile[] fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
@@ -57,6 +61,21 @@ public class Methods {
 				view.pack();
 			}
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void log(String user, int action, String description) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("root", "jdbc:mysql://localhost/hospital_royal", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
+			statement.execute(sql);
+			statement.close();
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -1,10 +1,7 @@
 package view;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -14,12 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.border.Border;
 
 import org.apache.commons.net.ftp.FTPClient;
 
 import controller.ListenerSubir;
+import controller.Methods;
 
 public class VistaPrincipal extends JFrame{
 
@@ -29,10 +26,12 @@ public class VistaPrincipal extends JFrame{
 	private Color colorCabecera;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
+	private Methods method;
 	
-	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista) {
+	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista, Methods method) {
 		rootPanel = new JPanel();
 		this.lista= lista;
+		this.method = method;
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		
 		cabecera = new JPanel();

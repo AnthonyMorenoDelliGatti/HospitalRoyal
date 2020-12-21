@@ -5,7 +5,7 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import controller.Hospital;
 public class Server {
 
 	static DataInputStream inputStream;
