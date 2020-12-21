@@ -38,6 +38,7 @@ public class VistaArchivos{
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
+	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
@@ -87,7 +88,7 @@ public class VistaArchivos{
 		JPopupMenu menu = new JPopupMenu();
 		
 		item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre));
+		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 
 		menu.add(item);
 		
