@@ -21,8 +21,8 @@ public class Methods {
 	public Methods() {
 
 	}
-	public void cargarDatosLista(ArrayList<Archivo> archivos, FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
-		archivos.clear();
+	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
+		ArrayList<Archivo> archivos= new ArrayList<Archivo>();
 		try {
 			FTPFile[] fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {

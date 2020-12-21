@@ -41,8 +41,7 @@ public class ListenerSubir implements ActionListener {
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			System.out.println("UPLOAD SUCCESFULL");
-			ArrayList<Archivo> archivos = new ArrayList<>();
-			m.cargarDatosLista(archivos, client, v, lista);
+			m.cargarDatosLista(client, v, lista);
 			//log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block

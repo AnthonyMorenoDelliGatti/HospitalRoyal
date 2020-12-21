@@ -21,13 +21,17 @@ import controller.ListenerBotonModificarNombre;
 import controller.ListenerDescargar;
 import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
+import controller.Methods;
 import model.Archivo;
 import controller.ListenerArchivo;
 
 public class VistaArchivos{  
 FTPClient client;
-	public VistaArchivos(FTPClient client) {
+Methods method;
+ArrayList<JMenuItem> items = new ArrayList<>();
+	public VistaArchivos(FTPClient client, Methods method) {
 		this.client = client;
+		this.method = method;
 	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
@@ -80,15 +84,20 @@ FTPClient client;
 		JMenuItem item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
-		
+		items.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
-		item.addActionListener(new ListenerDescargar(archivo));
+		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
 		menu.add(item2);
-		
+		items.add(item2);
 		JMenuItem item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(new ListenerEliminar(archivo));
 		menu.add(item3);
+		items.add(item3);
 		return menu;
+	}
+
+	public ArrayList<JMenuItem> getItems() {
+		return items;
 	}
 
 	private JTextField generarNombre(JPanel panel, Archivo i) {

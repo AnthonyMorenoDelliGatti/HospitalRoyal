@@ -247,14 +247,15 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				explorer = new VistaArchivos(client);
+				explorer = new VistaArchivos(client, method);
 				vista = new VistaPrincipal(client, user, explorer);
 				ArrayList<Archivo> archivos = new ArrayList<>();
-				method.cargarDatosLista(archivos, client ,vista ,explorer);
+				method.cargarDatosLista(client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
 				// se a�aden los listener a los botones de la cabezera
-				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, vista, explorer));
+				vista.getButtons().get(2).addActionListener(new ListenerCreateFolder(client, method, vista, explorer));
+				explorer.getItems().get(0).addActionListener(new );
 				// boton de crear carpetas
 				if(!adminUser) {
 				exists("Server", client);
