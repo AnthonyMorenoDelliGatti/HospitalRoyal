@@ -36,6 +36,9 @@ public class Methods {
 					isDirectory = 1;
 				}
 				String path = client.printWorkingDirectory();
+				if(!path.equals("/")) {
+					path=path+"/";
+				}
 				String time = client.getModificationTime(path + nameFile);
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
 				String lastModification = "";

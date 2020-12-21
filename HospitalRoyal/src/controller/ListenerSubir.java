@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 
@@ -35,10 +36,10 @@ public class ListenerSubir implements ActionListener {
 			client.setFileType(FTP.BINARY_FILE_TYPE);
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.showOpenDialog(fileChooser);
-			String route = fileChooser.getSelectedFile().getAbsolutePath();
+			String route = "";
+			route = fileChooser.getSelectedFile().getAbsolutePath();
 			BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
 			String[] routeSplitted = route.split("\\\\");
-			System.out.println(routeSplitted[routeSplitted.length - 1]);
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			System.out.println("UPLOAD SUCCESFULL");

@@ -25,9 +25,8 @@ import controller.Methods;
 import model.Archivo;
 import controller.ListenerArchivo;
 
+public class VistaArchivos {
 
-public class VistaArchivos{
-	
 	JMenuItem item, item2, item3;
 	FTPClient client;
 	Methods method;
@@ -42,22 +41,22 @@ public class VistaArchivos{
 		this.archivos = archivos;
 		this.user = user;
 	}
-	
+
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
-		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
+		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-	
+
 		cabecera(rootPanel, experimentLayout);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));	
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		generarListado(panel, experimentLayout, archivos);
 
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		rootPanel.add(scrollPane);
-		
+
 		return rootPanel;
 	}
 
@@ -67,19 +66,18 @@ public class VistaArchivos{
 		for (Archivo i : archivos) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
-			
+
 			JLabel l = obtenerIcono(i);
 			panel.add(l);
-			
+
 			JTextField nombre = generarNombre(panel, i);
-			
-			panel.add(new JLabel(""+i.getUltFechaModificacion()));
-			
+
+			panel.add(new JLabel("" + i.getUltFechaModificacion()));
+
 			panel.addMouseListener(new ListenerArchivo(panel, i));
 
 			JPopupMenu menu = generarMenu(nombre, i);
 
-			
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			rootPanel.add(panel);
@@ -110,17 +108,16 @@ public class VistaArchivos{
 		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, method);
 		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
-		
+
 		return nombre;
 	}
 
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
-		if(i.getIsCarpeta() == 1) {
-			direcIcono = "..\\HospitaRoyal\\iconos\\carpeta.png";
-		}
-		else {
-			direcIcono  = "..\\HospitaRoyal\\iconos\\text-document.png";
+		if (i.getIsCarpeta() == 1) {
+			direcIcono = ".\\HospitalRoyal\\src\\iconos\\carpeta.png";
+		} else {
+			direcIcono = ".\\HospitalRoyal\\src\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
@@ -159,6 +156,5 @@ public class VistaArchivos{
 	public void setItem3(JMenuItem item3) {
 		this.item3 = item3;
 	}
-
 
 }
