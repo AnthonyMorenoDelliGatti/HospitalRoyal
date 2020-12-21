@@ -43,7 +43,7 @@ public class Client {
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
 	Socket Client;
-	VistaPrincipal vistaMedico;
+	VistaPrincipal principalView;
 	VistaArchivos explorer;
 	EmailMenuWindow emailwindow;
 	private ServerData serverData;
@@ -244,16 +244,17 @@ public class Client {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
 					ArrayList<Archivo> archivos = new ArrayList<>();
-					vistaMedico = new VistaPrincipal(client, user, explorer);
-					explorer = new VistaArchivos(client, archivos, method, vistaMedico);
-					method.cargarDatosLista(archivos, client, vistaMedico, explorer);
-					vistaMedico.setVisible(true);
-					vistaMedico.pack();
+					principalView = new VistaPrincipal(client, user, explorer);
+					explorer = new VistaArchivos(client, archivos, method, principalView);
+					method.cargarDatosLista(archivos, client, principalView, explorer);
+					principalView.setVisible(true);
+					principalView.pack();
 					// se introducen los listener a los botones
 					// crear carpeta
-					vistaMedico.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, vistaMedico, explorer));
+					principalView.getButtons().get(2).addActionListener(
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer));
 					// eliminar archivos y carpetas
+					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer));
 					vStartMenu.setVisible(false);
 				}
 
@@ -292,16 +293,17 @@ public class Client {
 						e.printStackTrace();
 					}
 					ArrayList<Archivo> archivos = new ArrayList<>();
-					vistaMedico = new VistaPrincipal(client, user, explorer);
-					explorer = new VistaArchivos(client, archivos, method, vistaMedico);
-					method.cargarDatosLista(archivos, client, vistaMedico, explorer);
-					vistaMedico.setVisible(true);
-					vistaMedico.pack();
+					principalView = new VistaPrincipal(client, user, explorer);
+					explorer = new VistaArchivos(client, archivos, method, principalView);
+					method.cargarDatosLista(archivos, client, principalView, explorer);
+					principalView.setVisible(true);
+					principalView.pack();
 					// se introducen los listener a los botones
 					// crear carpeta
-					vistaMedico.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, vistaMedico, explorer));
+					principalView.getButtons().get(2).addActionListener(
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer));
 					// eliminar archivos y carpetas
+					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer));
 					vStartMenu.setVisible(false);
 				}
 
@@ -352,7 +354,6 @@ public class Client {
 		try {
 			files = client.listFiles();
 			for (int i = 0; i < files.length; i++) {
-				System.out.println(files[i].getType());
 				int type = files[i].getType();
 				if (type == 1) {
 					if (files[i].getName().equals(user)) {
