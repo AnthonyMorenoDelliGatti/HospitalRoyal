@@ -3,21 +3,40 @@ package controller;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.smtp.SMTPClient;
+
 import model.Email;
 import view.EmailMenuWindow;
+import view.StartMenuView;
 
 public class ListenerEmail implements MouseListener {
 
 	private EmailMenuWindow vista;
 	private JPanel panel;
 	private Email email;
+	private FTPClient client;
+	private StartMenuView vStarMenu;
 
-	public ListenerEmail(JPanel panel, Email email) {
+	public ListenerEmail(JPanel panel, Email email, FTPClient client, StartMenuView vStartMenu, String user) {
 		this.panel = panel;
 		this.email = email;
+		vStartMenu.setVisible(false);
+		SMTPClient smtpclient = new SMTPClient();
+		try {
+			smtpclient.connect("localhost");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		vista = new EmailMenuWindow(user);
+		vista.getBtnAdd().addActionListener(this);
+		vista.getBtnRecharge().addActionListener(new ListenerUpdate());
+		vista.getBtnSearch().addKeyListener(new ListenerSearch(vista.getTxtSearch(), user));
+		vista.getBtnClose().addActionListener(new ListenerClose(vista.getFrame()));
 	}
 
 	@Override

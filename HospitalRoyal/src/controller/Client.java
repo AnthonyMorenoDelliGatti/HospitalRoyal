@@ -45,7 +45,6 @@ public class Client {
 	Socket Client;
 	VistaPrincipal vista;
 	VistaArchivos explorer;
-	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
 	FTPClient client;
@@ -90,7 +89,6 @@ public class Client {
 						JOptionPane.showMessageDialog(null, "Enter username and password");
 					}
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -106,7 +104,6 @@ public class Client {
 					outputStream.close();
 					Client.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					System.out.println(e2);
@@ -156,7 +153,6 @@ public class Client {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				System.exit(0);
@@ -204,7 +200,6 @@ public class Client {
 					client.logout();
 					client.disconnect();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					System.out.println(e2);
@@ -268,10 +263,14 @@ public class Client {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				vStartMenu.setVisible(false);
-				SMTPClient smtpclient = new SMTPClient();
-				emailwindow = new EmailMenuWindow(user);
 				exists("Email", client);
+				ListenerEmail mail = new ListenerEmail(null, null, client,vStartMenu,user);
+			}
+
+
+
+			private void extracted(FTPClient client) {
+				
 			}
 
 			
@@ -294,7 +293,6 @@ public class Client {
 			statement.close();
 			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -44,7 +44,8 @@ public class EmailMenuWindow {
 	private Color headerColor;
 	private JFrame frame;
 	private JPanel emailBox;
-	private JTextField textField;
+	private JTextField txtSearch;
+	private JButton btnAdd,btnRecharge,btnClose,btnSearch;
 	String client;
 	public EmailMenuWindow(String user) {
 		this.client = user;
@@ -67,59 +68,58 @@ public class EmailMenuWindow {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/anadir.png")));
-		btnNewButton.setFocusPainted(false);
+		btnAdd = new JButton("");
+		btnAdd.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/anadir.png")));
+		btnAdd.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
-		btnNewButton.setBorder(emptyBorder);
-		btnNewButton.setBackground(headerColor);
+		btnAdd.setBorder(emptyBorder);
+		btnAdd.setBackground(headerColor);
 
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/recargar.png")));
-		btnNewButton_1.setFocusPainted(false);
-		btnNewButton_1.setBorder(emptyBorder);
-		btnNewButton_1.setBackground(headerColor);
+		btnRecharge = new JButton("");
+		btnRecharge.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/recargar.png")));
+		btnRecharge.setFocusPainted(false);
+		btnRecharge.setBorder(emptyBorder);
+		btnRecharge.setBackground(headerColor);
 
-		JButton close = new JButton("");
-		close.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/cerrar.png")));
-		close.setFocusPainted(false);
-		close.setBorder(emptyBorder);
-		close.setBackground(headerColor);
-		close.addActionListener(new ListenerClose(frame));
+		btnClose = new JButton("");
+		btnClose.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/cerrar.png")));
+		btnClose.setFocusPainted(false);
+		btnClose.setBorder(emptyBorder);
+		btnClose.setBackground(headerColor);
+		
 
-		textField = new JTextField();
-		textField.setColumns(10);
+		txtSearch = new JTextField();
+		txtSearch.setColumns(10);
 
-		JButton search = new JButton("");
-		search.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/buscar.png")));
-		search.setFocusPainted(false);
-		search.setBorder(emptyBorder);
-		search.setBackground(headerColor);
-		search.addKeyListener(new ListenerSearch(textField, client));
+		btnSearch = new JButton("");
+		btnSearch.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/buscar.png")));
+		btnSearch.setFocusPainted(false);
+		btnSearch.setBorder(emptyBorder);
+		btnSearch.setBackground(headerColor);
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnNewButton_1, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(textField, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-						.addGap(12).addComponent(search, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+						.addComponent(btnRecharge, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+						.addGap(18).addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+						.addGap(12).addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-						.addComponent(close, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)));
+						.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)));
 		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup().addContainerGap().addComponent(close,
+						.addGroup(gl_panel.createSequentialGroup().addContainerGap().addComponent(btnClose,
 								GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
 						.addGroup(gl_panel.createSequentialGroup().addGap(15)
 								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
+										.addComponent(txtSearch, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
 												Short.MAX_VALUE)
-										.addComponent(search, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36,
+										.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36,
 												Short.MAX_VALUE)
-										.addComponent(btnNewButton_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
+										.addComponent(btnRecharge, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
 												Short.MAX_VALUE)
-										.addComponent(btnNewButton, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34,
+										.addComponent(btnAdd, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34,
 												GroupLayout.PREFERRED_SIZE))))
 						.addContainerGap()));
 		panel.setBackground(headerColor);
@@ -157,4 +157,53 @@ public class EmailMenuWindow {
 	public void restartEmailBox() {
 		emailBox.removeAll();
 	}
+
+	public JTextField getTxtSearch() {
+		return txtSearch;
+	}
+
+	public void setTxtSearch(JTextField txtSearch) {
+		this.txtSearch = txtSearch;
+	}
+
+	public JButton getBtnAdd() {
+		return btnAdd;
+	}
+
+	public void setBtnAdd(JButton btnAdd) {
+		this.btnAdd = btnAdd;
+	}
+
+	public JButton getBtnRecharge() {
+		return btnRecharge;
+	}
+
+	public void setBtnRecharge(JButton btnRecharge) {
+		this.btnRecharge = btnRecharge;
+	}
+	
+	public JButton getBtnSearch() {
+		return btnSearch;
+	}
+
+	public void setBtnSearch(JButton btnSearch) {
+		this.btnSearch = btnSearch;
+	}
+
+	public JButton getBtnClose() {
+		return btnClose;
+	}
+
+	public void setBtnClose(JButton btnClose) {
+		this.btnClose = btnClose;
+	}
+
+	public JFrame getFrame() {
+		return frame;
+	}
+
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	
 }
