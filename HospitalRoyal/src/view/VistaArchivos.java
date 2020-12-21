@@ -91,7 +91,7 @@ public class VistaArchivos{
 		JPopupMenu menu = new JPopupMenu();
 		
 		item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre));
+		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
 		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));

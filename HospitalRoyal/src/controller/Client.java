@@ -250,7 +250,7 @@ public class Client {
 				ArrayList<Archivo> archivos = new ArrayList<>();
 				vista = new VistaPrincipal(client, user, explorer, method);
 				explorer = new VistaArchivos(client,archivos,method, vista, user);	
-				method.cargarDatosLista(archivos, client ,vista ,explorer);
+				method.cargarDatosLista(client ,vista ,explorer);
 				vista.setVisible(true);
 				vista.pack();
 				// se introducen los listener a los botones 
