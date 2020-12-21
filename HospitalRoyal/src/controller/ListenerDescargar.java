@@ -9,7 +9,7 @@ public class ListenerDescargar implements ActionListener{
 
 	private Archivo archivo;
 	// Faltaria el objeto que permita ordenar la descarga al servidor
-	public ListenerDescargar(Archivo archivo) {
+	public ListenerDescargar(Archivo archivo, String user) {
 		this.archivo = archivo;
 	}
 

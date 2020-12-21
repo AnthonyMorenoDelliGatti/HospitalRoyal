@@ -38,7 +38,6 @@ public class ThreadServer extends Thread {
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");
 					}
-					logLogOut(user);
 					outputStream.writeUTF("true");
 					break;
 				} else {
@@ -74,21 +73,6 @@ public class ThreadServer extends Thread {
 		}
 		return false;
 	}
-
-	private void logLogOut(String user) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
-			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + "" + "'," + 2 + ",'" + user
-					+ "')";
-			statement.execute(sql);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	private void logLogIn(String user) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
