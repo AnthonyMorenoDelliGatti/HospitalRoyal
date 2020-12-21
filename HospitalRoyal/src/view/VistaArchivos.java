@@ -7,7 +7,6 @@ import java.util.Collections;
 import javax.swing.BoxLayout;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -39,7 +38,6 @@ public class VistaArchivos{
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
-	}
 	
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
@@ -90,6 +88,7 @@ public class VistaArchivos{
 		
 		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre));
+
 		menu.add(item);
 		
 		item2 = new JMenuItem("Descargar");
@@ -107,9 +106,8 @@ public class VistaArchivos{
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
+		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client);
+		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
 		
 		return nombre;
@@ -118,10 +116,10 @@ public class VistaArchivos{
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
 		if(i.getIsCarpeta() == 1) {
-			direcIcono = "..\\iconos\\carpeta.png";
+			direcIcono = "..\\HospitaRoyal\\iconos\\carpeta.png";
 		}
 		else {
-			direcIcono  = "..\\iconos\\text-document.png";
+			direcIcono  = "..\\HospitaRoyal\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
