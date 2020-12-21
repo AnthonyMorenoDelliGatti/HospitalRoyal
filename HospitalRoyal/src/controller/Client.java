@@ -247,7 +247,7 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				explorer = new VistaArchivos();
+				explorer = new VistaArchivos(client);
 				vista = new VistaPrincipal(client, user, explorer);
 				ArrayList<Archivo> archivos = new ArrayList<>();
 				method.cargarDatosLista(archivos, client ,vista ,explorer);
