@@ -56,6 +56,7 @@ public class VistaPrincipal extends JFrame{
 		JButton btnadelante = generarBotonCabecera("..\\iconos\\flecha-correcta.png");
 		JButton btncarpeta = generarBotonCabecera("..\\iconos\\folder.png");
 		JButton btnsubir = generarBotonCabecera("..\\iconos\\upload-file.png");
+
 		btnsubir.addActionListener(new ListenerSubir(client, user, this, lista));
 	}
 
