@@ -16,7 +16,7 @@ import java.util.TimeZone;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 
@@ -26,7 +26,7 @@ public class Methods {
 
 	}
 	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
-		ArrayList<Archivo> archivos= new ArrayList<Archivo>();
+		ArrayList<ArchivoFtp> archivos= new ArrayList<ArchivoFtp>();
 		try {
 			FTPFile[] fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
@@ -52,7 +52,7 @@ public class Methods {
 				} catch (ParseException ex) {
 					ex.printStackTrace();
 				}
-				archivos.add(new Archivo(nameFile, lastModification, isDirectory, (path + nameFile)));
+				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
 				view.getCentro().removeAll();
 				view.agregarExplorador(explorer.visualizarListado(archivos));
 				view.pack();

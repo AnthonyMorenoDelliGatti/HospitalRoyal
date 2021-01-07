@@ -22,7 +22,7 @@ import controller.ListenerDescargar;
 import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
 import controller.Methods;
-import model.Archivo;
+import model.ArchivoFtp;
 import controller.ListenerArchivo;
 
 
@@ -32,10 +32,10 @@ public class VistaArchivos{
 	FTPClient client;
 	Methods method;
 	VistaPrincipal vista;
-	ArrayList<Archivo> archivos;
+	ArrayList<ArchivoFtp> archivos;
 	String user;
 	
-	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista, String user) {
+	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal vista, String user) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
@@ -43,7 +43,7 @@ public class VistaArchivos{
 		this.user = user;
 	}
 	
-	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
+	public JPanel visualizarListado(ArrayList<ArchivoFtp> archivos) {
 		JPanel rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
@@ -61,10 +61,10 @@ public class VistaArchivos{
 		return rootPanel;
 	}
 
-	private void generarListado(JPanel rootPanel, GridLayout experimentLayout, ArrayList<Archivo> archivos) {
+	private void generarListado(JPanel rootPanel, GridLayout experimentLayout, ArrayList<ArchivoFtp> archivos) {
 		JPanel panel;
 		Collections.sort(archivos);
-		for (Archivo i : archivos) {
+		for (ArchivoFtp i : archivos) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
 			
@@ -87,7 +87,7 @@ public class VistaArchivos{
 		}
 	}
 
-	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
+	private JPopupMenu generarMenu(JTextField nombre, ArchivoFtp archivo) {
 		JPopupMenu menu = new JPopupMenu();
 		
 		item = new JMenuItem("Cambiar nombre");
@@ -102,7 +102,7 @@ public class VistaArchivos{
 		return menu;
 	}
 
-	private JTextField generarNombre(JPanel panel, Archivo i) {
+	private JTextField generarNombre(JPanel panel, ArchivoFtp i) {
 		JTextField nombre = new JTextField(10);
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
@@ -114,7 +114,7 @@ public class VistaArchivos{
 		return nombre;
 	}
 
-	private JLabel obtenerIcono(Archivo i) {
+	private JLabel obtenerIcono(ArchivoFtp i) {
 		String direcIcono;
 		if(i.getIsCarpeta() == 1) {
 			direcIcono = "..\\HospitaRoyal\\iconos\\carpeta.png";

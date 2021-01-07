@@ -26,7 +26,6 @@ import javax.swing.border.Border;
 import org.apache.commons.net.smtp.SMTPClient;
 import org.apache.commons.net.smtp.SMTPReply;
 
-import controller.ListenerAdd;
 import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
@@ -49,17 +48,18 @@ public class EmailMenuWindow {
 	private JFrame frame;
 	private JPanel emailBox;
 	private JTextField txtSearch;
-	private JButton btnAdd,btnRecharge,btnClose,btnSearch;
+	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
 	private SMTPClient client;
 	private StartMenuView vStartMenu;
 	String user;
+
 	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
 		this.user = user;
 		client = new SMTPClient();
 		this.vStartMenu = vStartMenu;
 		try {
 			client.connect("localhost");
-			if(!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
+			if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
 				client.disconnect();
 			}
 		} catch (IOException e) {
@@ -67,7 +67,7 @@ public class EmailMenuWindow {
 			e.printStackTrace();
 		}
 		initialize();
-		
+
 	}
 
 	private void initialize() {
@@ -92,7 +92,11 @@ public class EmailMenuWindow {
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
-		btnAdd.addActionListener(new ListenerAdd(client,user));
+		btnAdd.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e){  
+					NewEmailView newEmail = new NewEmailView(client,user);
+			 }
+		});
 
 		
 		btnRecharge = new JButton("");
@@ -204,7 +208,7 @@ public class EmailMenuWindow {
 	public void setBtnRecharge(JButton btnRecharge) {
 		this.btnRecharge = btnRecharge;
 	}
-	
+
 	public JButton getBtnSearch() {
 		return btnSearch;
 	}
@@ -228,5 +232,5 @@ public class EmailMenuWindow {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
+
 }

@@ -31,7 +31,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
@@ -242,7 +242,7 @@ public class Client {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 
-				ArrayList<Archivo> archivos = new ArrayList<>();
+				ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 
 				vista = new VistaPrincipal(client, user, explorer, method);
 				explorer = new VistaArchivos(client,archivos,method, vista, user);	
