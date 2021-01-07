@@ -3,9 +3,9 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class ListenerActualizar implements ActionListener {
+public class ListenerUpdate implements ActionListener {
 
-	public ListenerActualizar() {
+	public ListenerUpdate() {
 
 	}
 

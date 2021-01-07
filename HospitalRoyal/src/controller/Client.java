@@ -31,7 +31,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
@@ -45,9 +45,9 @@ public class Client {
 	Socket Client;
 	VistaPrincipal principalView;
 	VistaArchivos explorer;
-	EmailMenuWindow emailwindow;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
+	private EmailMenuWindow emailwindow;
 	FTPClient client;
 	Methods method;
 	String user, password;
@@ -89,7 +89,6 @@ public class Client {
 						JOptionPane.showMessageDialog(null, "Enter username and password");
 					}
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -105,7 +104,6 @@ public class Client {
 					outputStream.close();
 					Client.close();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					System.out.println(e2);
@@ -155,7 +153,6 @@ public class Client {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				System.exit(0);
@@ -200,7 +197,6 @@ public class Client {
 					client.logout();
 					client.disconnect();
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (Exception e2) {
 					System.out.println(e2);
@@ -243,7 +239,7 @@ public class Client {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
@@ -264,7 +260,7 @@ public class Client {
 				public void actionPerformed(ActionEvent arg0) {
 					vStartMenu.setVisible(false);
 					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(user);
+					emailwindow = new EmailMenuWindow(user, vStartMenu);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);
@@ -286,7 +282,7 @@ public class Client {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
@@ -308,7 +304,7 @@ public class Client {
 				public void actionPerformed(ActionEvent arg0) {
 					vStartMenu.setVisible(false);
 					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(user);
+					emailwindow = new EmailMenuWindow(user, vStartMenu);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);

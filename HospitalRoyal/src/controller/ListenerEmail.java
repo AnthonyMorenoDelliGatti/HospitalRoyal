@@ -3,33 +3,40 @@ package controller;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.IOException;
 
 import javax.swing.JPanel;
 
+import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.smtp.SMTPClient;
+
 import model.Email;
 import view.EmailMenuWindow;
+import view.StartMenuView;
 
 public class ListenerEmail implements MouseListener {
 
 	private EmailMenuWindow vista;
 	private JPanel panel;
 	private Email email;
+	private FTPClient client;
+	private StartMenuView vStarMenu;
 
 	public ListenerEmail(JPanel panel, Email email) {
 		this.panel = panel;
 		this.email = email;
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
 
 		}
 	}
 
 	/**
-	 * Selecci�n de carpetas
+	 * Seleccion de carpetas
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
