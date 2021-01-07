@@ -4,20 +4,26 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 
-import model.Archivo;
-
-public class ListenerDescargar implements ActionListener{
+public class ListenerDescargar implements ActionListener {
 	FTPClient client;
-	String direccion, nombre;
+	static String direccion;
+	String nombre;
 	Methods method;
+
 	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method) {
 		this.direccion = direccion;
 		this.client = client;
@@ -27,29 +33,26 @@ public class ListenerDescargar implements ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		File file;
-		String filepath = "";
-		String path = "";
-		JFileChooser f = new JFileChooser();
-		f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-		f.setDialogTitle("Select a directory to download");
-		int returnVal = f.showDialog(null, "Download");
-		if(returnVal == JFileChooser.APPROVE_OPTION) {
-			file = f.getSelectedFile();
-			path = (file.getAbsolutePath().toString());
-			filepath = path+File.separator+nombre;
-			try {
-				client.setFileType(FTP.BINARY_FILE_TYPE);
-				BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(filepath));
-				if(client.retrieveFile(direccion, out)) {
-					JOptionPane.showMessageDialog(null, filepath + " ==> Se ha descargado correctamente");
-				}else {
-					JOptionPane.showMessageDialog(null, filepath + " ==> No se ha podido descargar");
+		FTPFile[] fileList;
+		try {
+			fileList = client.listFiles();
+			for (int i = 0; i < fileList.length; i++) {
+				if (fileList[i].getName().equals(nombre)) {
+					JFileChooser f = new JFileChooser();
+					f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+					f.showOpenDialog(f);
+					String path = f.getSelectedFile().getAbsolutePath();
+					OutputStream outputStream = new BufferedOutputStream(
+							new FileOutputStream(path + File.separator + nombre));
+					client.setFileType(FTP.BINARY_FILE_TYPE);
+					client.retrieveFile("." + direccion, outputStream);
+					System.out.println("DOWNLOAD SUCCESFULL");
 				}
-			} catch (Exception e) {
-				
 			}
-			
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 

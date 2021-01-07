@@ -18,14 +18,15 @@ import view.VistaPrincipal;
 public class ListenerSubir implements ActionListener {
 	FTPClient client;
 	String user;
-	Methods m = new Methods();
+	Methods m;
 	VistaPrincipal v;
 	VistaArchivos lista;
-	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista) {
+	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods m) {
 		this.client = client;
 		this.user = user;
 		this.v = v;
 		this.lista = lista;
+		this.m = m;
 	}
 
 	@Override

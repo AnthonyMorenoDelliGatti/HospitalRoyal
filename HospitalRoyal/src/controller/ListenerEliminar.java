@@ -71,7 +71,7 @@ public class ListenerEliminar implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			method.cargarDatosLista(archivos, client, view, explorer);
+			method.cargarDatosLista(client, view, explorer);
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
