@@ -2,17 +2,13 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
+import java.io.File;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
-import javax.swing.border.EmptyBorder;
 
 import controller.Client;
 
@@ -30,14 +26,11 @@ public class Splash extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		this.setUndecorated(true);
 		JLabel icono = new JLabel();
-		icono.setIcon(new ImageIcon(Splash.class.getResource("..\\iconos\\Logo.PNG")));
+		icono.setIcon(new ImageIcon("iconos\\Logo.png"));
 		contentPane.add(icono,BorderLayout.CENTER);
-		
 		JLabel gif = new JLabel();
-		gif.setIcon(new ImageIcon(Splash.class.getResource("..\\iconos\\cargando.gif")));
+		gif.setIcon(new ImageIcon("iconos\\cargando.gif"));
 		contentPane.add(gif,BorderLayout.EAST);
-		
-		
 		contentPane.setBackground(new Color(255, 209, 247));
 		pack();
 	}
@@ -45,9 +38,8 @@ public class Splash extends JFrame implements Runnable{
 	@Override
 	public void run() {
 		try {
-			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-			Thread.sleep(4000);
+			Thread.sleep(2000);
 			this.dispose();
 			Client client = new Client();		
 		} catch (InterruptedException e) {

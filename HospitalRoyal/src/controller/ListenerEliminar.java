@@ -47,7 +47,8 @@ public class ListenerEliminar implements ActionListener {
 			// proceso de eliminacion
 			if (archivo.getIsCarpeta() == 0) {
 				try {
-					client.deleteFile(archivo.getDireccion());				
+					client.deleteFile(archivo.getDireccion());	
+					method.log(user, 3, "ha borrado el archivo "+ archivo.getNombre());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -100,6 +101,7 @@ public class ListenerEliminar implements ActionListener {
 						delete(client.listFiles());
 						client.changeWorkingDirectory(previousPath);
 						client.removeDirectory(client.printWorkingDirectory()+"/"+file.getName());
+						method.log(user, 6, "ha borrado la carpeta "+ file.getName());
 					}			
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -108,7 +110,7 @@ public class ListenerEliminar implements ActionListener {
 			}
 		}
 		}
-		method.log(user, 3, "ha borrado el archivo "+ archivo.getNombre());
+		
 	}
 
 }

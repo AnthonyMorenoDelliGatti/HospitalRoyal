@@ -14,10 +14,12 @@ import org.apache.commons.net.smtp.SMTPClient;
 public class ListenerSearch implements KeyListener {
 
 	private JTextField text;
-	String client;
-	public ListenerSearch(JTextField text, String client) {
+	private SMTPClient client;
+	String user;
+	public ListenerSearch(JTextField text, SMTPClient client) {
 		this.text = text;
 		this.client = client;
+		this.user = user;
 	}
 	private String buscar(String archivoABuscar, String client) {
 		File directory = new File(client);
@@ -38,7 +40,7 @@ public class ListenerSearch implements KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(buscar(text.getText() , "C:/Email/"+client));
+		System.out.println(buscar(text.getText() , "C:/Email/"+user));
 		
 	}
 

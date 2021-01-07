@@ -15,7 +15,6 @@ public class ListenerBotonModificarNombre implements ActionListener{
 	public ListenerBotonModificarNombre(JTextField nombre, ArchivoFtp archivo) {
 		this.nombre = nombre;
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		nombre.setEditable(true);

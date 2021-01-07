@@ -12,19 +12,22 @@ import view.CreateFolderView;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 
-public class ListenerCreateFolder implements ActionListener{
+public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
 	Methods method;
 	VistaPrincipal view ;
 	VistaArchivos explorer ;
 	String user;
+
+	ArrayList<ArchivoFtp> archivos;
 	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user) {
 		this.client= client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
+		this.archivos=archivos;
 	}
 
 	@Override
@@ -51,6 +54,6 @@ public class ListenerCreateFolder implements ActionListener{
 					e.printStackTrace();
 				}
 			}
-		});		
+		});
 	}
 }
