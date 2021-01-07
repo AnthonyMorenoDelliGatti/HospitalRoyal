@@ -1,18 +1,18 @@
-package controller;
+package controllerMail;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 
-import model.ArchivoFtp;
+import model.ArchivoMail;
 
 public class ListenerArchivo implements MouseListener {
 
 	private JPanel panel;
-	private ArchivoFtp archivo;
+	private ArchivoMail archivo;
 
-	public ListenerArchivo(JPanel panel, ArchivoFtp archivo) {
+	public ListenerArchivo(JPanel panel, ArchivoMail archivo) {
 		this.panel = panel;
 		this.archivo = archivo;
 	}
@@ -21,14 +21,14 @@ public class ListenerArchivo implements MouseListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
-			if(archivo.getIsCarpeta() == 1) {
+			if(archivo.getExtension().equalsIgnoreCase("folder")) {
 				System.out.println("Abrir carpeta");
 			}
 		}
 	}
 
 	/**
-	 * Selecciï¿½n de carpetas
+	 * Selección de carpetas
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {

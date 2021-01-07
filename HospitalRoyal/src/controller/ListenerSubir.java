@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 
@@ -44,7 +44,7 @@ public class ListenerSubir implements ActionListener {
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			System.out.println("UPLOAD SUCCESFULL");
-			ArrayList<Archivo> archivos = new ArrayList<>();
+			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			method.cargarDatosLista(client, v, lista);
 			method.log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
 		} catch (Exception e1) {

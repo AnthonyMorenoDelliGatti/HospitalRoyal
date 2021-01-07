@@ -10,16 +10,16 @@ import javax.swing.JTextField;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import model.Archivo;
+import model.ArchivoFtp;
 
 public class ListenerModificarNombre implements KeyListener {
 
-	private Archivo archivo;
+	private ArchivoFtp archivo;
 	private JTextField nombre;
 	FTPClient client;
 	private String user;
 	private Methods method;
-	public ListenerModificarNombre(Archivo archivo, JTextField nombre, FTPClient client, String user, Methods method) {
+	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user, Methods method) {
 		this.archivo = archivo;
 		this.nombre = nombre;
 		this.client = client;

@@ -1,17 +1,18 @@
 package model;
 
+import java.util.Date;
 
 /**
  * 
  * Ejemplo r�pido de objeto que se necesita para la vista del cliente
  *
  */
-public class Archivo implements Comparable<Archivo> {
+public class ArchivoFtp implements Comparable<ArchivoFtp> {
 
 	private String nombre, direccion, ultFechaModificacion;
 	private int isCarpeta;
 
-	public Archivo(String nombre, String ultFechaModificacion, int isCarpeta, String direccion) {
+	public ArchivoFtp(String nombre, String ultFechaModificacion, int isCarpeta, String direccion) {
 		this.nombre = nombre;
 		this.ultFechaModificacion = ultFechaModificacion;
 		this.isCarpeta = isCarpeta;
@@ -23,7 +24,7 @@ public class Archivo implements Comparable<Archivo> {
 	 * preferencia carpeta
 	 */
 	@Override
-	public int compareTo(Archivo o) {
+	public int compareTo(ArchivoFtp o) {
 		if (isCarpeta < o.isCarpeta) {
 			return 1;
 		}

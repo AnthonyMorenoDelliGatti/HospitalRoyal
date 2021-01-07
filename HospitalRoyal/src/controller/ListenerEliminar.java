@@ -10,21 +10,21 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 
 public class ListenerEliminar implements ActionListener {
 
-	private Archivo archivo;
-	private ArrayList<Archivo> archivos;
+	private ArchivoFtp archivo;
+	private ArrayList<ArchivoFtp> archivos;
 	private FTPClient client;
 	private Methods method;
 	private VistaPrincipal view;
 	private VistaArchivos explorer;
 	private String user;
 
-	public ListenerEliminar(Archivo archivo, ArrayList<Archivo> archivos, FTPClient client, Methods method,
+	public ListenerEliminar(ArchivoFtp archivo, ArrayList<ArchivoFtp> archivos, FTPClient client, Methods method,
 			VistaPrincipal view, VistaArchivos explorer, String user) {
 		this.archivo = archivo;
 		this.archivos = archivos;
