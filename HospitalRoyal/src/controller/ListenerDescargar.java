@@ -17,8 +17,11 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
+import model.Archivo;
 
-public class ListenerDescargar implements ActionListener {
+public class ListenerDescargar implements ActionListener{
+
+
 	FTPClient client;
 	static String direccion;
 	String nombre;

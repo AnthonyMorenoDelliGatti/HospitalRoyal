@@ -25,37 +25,39 @@ import controller.Methods;
 import model.Archivo;
 import controller.ListenerArchivo;
 
+public class VistaArchivos {
 
-public class VistaArchivos{
-	
 	JMenuItem item, item2, item3;
 	FTPClient client;
 	Methods method;
 	VistaPrincipal vista;
 	ArrayList<Archivo> archivos;
+	String user;
 	
-	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista) {
+	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista, String user) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
 	}
-	
+		this.user = user;
+	}
+
 	public JPanel visualizarListado(ArrayList<Archivo> archivos) {
 		JPanel rootPanel = new JPanel();
-		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
+		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-	
+
 		cabecera(rootPanel, experimentLayout);
 
 		JPanel panel = new JPanel();
-		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));	
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		generarListado(panel, experimentLayout, archivos);
 
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		rootPanel.add(scrollPane);
-		
+
 		return rootPanel;
 	}
 
@@ -65,6 +67,7 @@ public class VistaArchivos{
 		for (Archivo i : archivos) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
+
 			JLabel l = obtenerIcono(i);
 			panel.add(l);
 			JTextField nombre = generarNombre(panel, i);
@@ -88,7 +91,7 @@ public class VistaArchivos{
 		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
 		menu.add(item2);
 		item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this));
+		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this, user));
 		menu.add(item3);
 		return menu;
 	}
@@ -98,20 +101,19 @@ public class VistaArchivos{
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client);
+		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, method);
 		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
-		
+
 		return nombre;
 	}
 
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
-		if(i.getIsCarpeta() == 1) {
-			direcIcono = "..\\HospitaRoyal\\iconos\\carpeta.png";
-		}
-		else {
-			direcIcono  = "..\\HospitaRoyal\\iconos\\text-document.png";
+		if (i.getIsCarpeta() == 1) {
+			direcIcono = ".\\HospitalRoyal\\src\\iconos\\carpeta.png";
+		} else {
+			direcIcono = ".\\HospitalRoyal\\src\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
@@ -150,6 +152,5 @@ public class VistaArchivos{
 	public void setItem3(JMenuItem item3) {
 		this.item3 = item3;
 	}
-
 
 }

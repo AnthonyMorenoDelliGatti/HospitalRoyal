@@ -26,12 +26,12 @@ public class VistaPrincipal extends JFrame{
 	private Color colorCabecera;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
-	Methods method;
-	
+	private Methods method;	
 	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista, Methods method) {
 		rootPanel = new JPanel();
 		this.lista= lista;
-		this.method=method;
+		this.method = method;
+
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		
 		cabecera = new JPanel();
@@ -52,10 +52,10 @@ public class VistaPrincipal extends JFrame{
 	}
 	
 	private void generarOpciones(FTPClient client, String user) {
-		JButton btnatras = generarBotonCabecera("..\\iconos\\atras.png");
-		JButton btnadelante = generarBotonCabecera("..\\iconos\\flecha-correcta.png");
-		JButton btncarpeta = generarBotonCabecera("..\\HospitalRoyal\\iconos\\folder.png");
-		JButton btnsubir = generarBotonCabecera("..\\HospitalRoyal\\iconos\\upload-file.png");
+		JButton btnatras = generarBotonCabecera(".\\HospitalRoyal\\src\\iconos\\atras.png");
+		JButton btnadelante = generarBotonCabecera(".\\HospitalRoyal\\src\\iconos\\flecha-correcta.png");
+		JButton btncarpeta = generarBotonCabecera(".\\HospitalRoyal\\src\\iconos\\folder.png");
+		JButton btnsubir = generarBotonCabecera(".\\HospitalRoyal\\src\\iconos\\upload-file.png");
 	}
 
 	private JButton generarBotonCabecera(String direccion) {

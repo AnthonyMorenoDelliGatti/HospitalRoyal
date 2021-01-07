@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -32,6 +36,9 @@ public class Methods {
 					isDirectory = 1;
 				}
 				String path = client.printWorkingDirectory();
+				if(!path.equals("/")) {
+					path=path+"/";
+				}
 				String time = client.getModificationTime(path + nameFile);
 				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss", Locale.ENGLISH);
 				String lastModification = "";
@@ -54,6 +61,21 @@ public class Methods {
 				view.pack();
 			}
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void log(String user, int action, String description) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("root", "jdbc:mysql://localhost/hospital_royal", "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
+			statement.execute(sql);
+			statement.close();
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
