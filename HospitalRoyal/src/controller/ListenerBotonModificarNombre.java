@@ -12,10 +12,9 @@ public class ListenerBotonModificarNombre implements ActionListener{
 
 	private JTextField nombre;
 	
-	public ListenerBotonModificarNombre(JTextField nombre, Archivo archivo) {
+	public ListenerBotonModificarNombre(JTextField nombre) {
 		this.nombre = nombre;
 	}
-
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		nombre.setEditable(true);

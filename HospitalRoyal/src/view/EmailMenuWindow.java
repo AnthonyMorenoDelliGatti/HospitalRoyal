@@ -44,7 +44,7 @@ public class EmailMenuWindow {
 	private Color headerColor;
 	private JFrame frame;
 	private JPanel emailBox;
-	private JTextField txtSearch;
+	private JTextField txtSearch,textField;
 	private JButton btnAdd,btnRecharge,btnClose,btnSearch;
 	String client;
 	public EmailMenuWindow(String user) {
@@ -71,6 +71,7 @@ public class EmailMenuWindow {
 		btnAdd = new JButton("");
 		btnAdd.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/anadir.png")));
 		btnAdd.setFocusPainted(false);
+
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
@@ -86,16 +87,19 @@ public class EmailMenuWindow {
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
-		
 
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
+		
+		textField= new JTextField();
+		textField.setColumns(10);
 
-		btnSearch = new JButton("");
-		btnSearch.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/buscar.png")));
-		btnSearch.setFocusPainted(false);
-		btnSearch.setBorder(emptyBorder);
-		btnSearch.setBackground(headerColor);
+		JButton search = new JButton("");
+		search.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//buscar.png")));
+		search.setFocusPainted(false);
+		search.setBorder(emptyBorder);
+		search.setBackground(headerColor);
+		search.addKeyListener(new ListenerSearch(textField, client));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
