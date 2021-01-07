@@ -16,12 +16,14 @@ public class ThreadServer extends Thread {
 	DataInputStream inputStream;
 	DataOutputStream outputStream;
 	Hospital hospital;
+	Methods method;
 
-	public ThreadServer(Socket client, Hospital hospital) throws IOException {
+	public ThreadServer(Socket client, Hospital hospital, Methods method) throws IOException {
 		this.client = client;
 		this.hospital = hospital;
 		outputStream = new DataOutputStream(client.getOutputStream());
 		inputStream = new DataInputStream(client.getInputStream());
+		this.method = method;
 	}
 
 	public void run() {
@@ -35,7 +37,7 @@ public class ThreadServer extends Thread {
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
 					// USUARIO Y CONTRASE�A CORRECTOS
-					logLogIn(user);
+					method.log(user, 1, "Log in");
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");
 					}
@@ -73,20 +75,6 @@ public class ThreadServer extends Thread {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	private void logLogIn(String user) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
-			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + "" + "'," + 1 + ",'" + user
-					+ "')";
-			statement.execute(sql);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	private static boolean checkUser(String user, String password) {

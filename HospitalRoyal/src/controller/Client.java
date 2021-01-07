@@ -199,6 +199,7 @@ public class Client {
 				try {
 					client.logout();
 					client.disconnect();
+					method.log(user, 2, "Logout");
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

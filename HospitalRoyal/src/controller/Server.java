@@ -10,9 +10,9 @@ public class Server {
 
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
-
+	static Methods method;
 	public static void main(String[] args) {
-
+		method = new Methods();
 		try {
 			ServerSocket server;
 			server = new ServerSocket(5000);
@@ -20,7 +20,7 @@ public class Server {
 			while (true) {
 				Socket client = new Socket();
 				client = server.accept();
-				ThreadServer hilo = new ThreadServer(client, hospital);
+				ThreadServer hilo = new ThreadServer(client, hospital, method);
 				hilo.start();
 			}
 		} catch (IOException e) {
