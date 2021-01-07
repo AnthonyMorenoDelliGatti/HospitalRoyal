@@ -12,6 +12,7 @@ import java.awt.Button;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -23,10 +24,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
 
 import org.apache.commons.net.smtp.SMTPClient;
+import org.apache.commons.net.smtp.SMTPReply;
 
 import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
+import controller.ListenerUpdate;
 import model.Email;
 
 import java.awt.Color;
@@ -45,11 +48,27 @@ public class EmailMenuWindow {
 	private JFrame frame;
 	private JPanel emailBox;
 	private JTextField txtSearch,textField;
-	private JButton btnAdd,btnRecharge,btnClose,btnSearch;
-	String client;
-	public EmailMenuWindow(String user) {
-		this.client = user;
+	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
+	private SMTPClient client;
+	private StartMenuView vStartMenu;
+	private NewEmailView newEmail;
+	String user;
+
+	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
+		this.user = user;
+		client = new SMTPClient();
+		this.vStartMenu = vStartMenu;
+		try {
+			client.connect("localhost");
+			if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
+				client.disconnect();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		initialize();
+
 	}
 
 	private void initialize() {
@@ -68,25 +87,32 @@ public class EmailMenuWindow {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
-		btnAdd = new JButton("");
-		btnAdd.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/anadir.png")));
-		btnAdd.setFocusPainted(false);
 
+		JButton btnNewButton = new JButton("");
+		btnNewButton.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//anadir.png")));
+		btnNewButton.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
+		btnAdd.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e){  
+					 newEmail = new NewEmailView(client,user);
+			 }
+		});
 
-		btnRecharge = new JButton("");
-		btnRecharge.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/recargar.png")));
-		btnRecharge.setFocusPainted(false);
-		btnRecharge.setBorder(emptyBorder);
-		btnRecharge.setBackground(headerColor);
+		JButton btnNewButton_1 = new JButton("");
+		btnNewButton_1.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//recargar.png")));
+		btnNewButton_1.setFocusPainted(false);
+		btnNewButton_1.setBorder(emptyBorder);
+		btnNewButton_1.setBackground(headerColor);
 
-		btnClose = new JButton("");
-		btnClose.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/cerrar.png")));
-		btnClose.setFocusPainted(false);
-		btnClose.setBorder(emptyBorder);
-		btnClose.setBackground(headerColor);
+
+		JButton close = new JButton("");
+		close.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//cerrar.png")));
+		close.setFocusPainted(false);
+		close.setBorder(emptyBorder);
+		close.setBackground(headerColor);
+		close.addActionListener(new ListenerClose(frame, client, vStartMenu));
 
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
@@ -185,7 +211,7 @@ public class EmailMenuWindow {
 	public void setBtnRecharge(JButton btnRecharge) {
 		this.btnRecharge = btnRecharge;
 	}
-	
+
 	public JButton getBtnSearch() {
 		return btnSearch;
 	}
@@ -209,5 +235,5 @@ public class EmailMenuWindow {
 	public void setFrame(JFrame frame) {
 		this.frame = frame;
 	}
-	
+
 }

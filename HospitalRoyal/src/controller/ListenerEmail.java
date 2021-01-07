@@ -25,30 +25,18 @@ public class ListenerEmail implements MouseListener {
 	public ListenerEmail(JPanel panel, Email email) {
 		this.panel = panel;
 		this.email = email;
-		vStartMenu.setVisible(false);
-		SMTPClient smtpclient = new SMTPClient();
-		try {
-			smtpclient.connect("localhost");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		vista = new EmailMenuWindow(user);
-	//	vista.getBtnAdd().addActionListener(this);
-		vista.getBtnRecharge().addActionListener(new ListenerUpdate());
-		vista.getBtnSearch().addKeyListener(new ListenerSearch(vista.getTxtSearch(), user));
-		vista.getBtnClose().addActionListener(new ListenerClose(vista.getFrame()));
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) {
 
 		}
 	}
 
 	/**
-	 * Selecci�n de carpetas
+	 * Seleccion de carpetas
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {

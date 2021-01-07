@@ -31,7 +31,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
-import model.Archivo;
+import model.ArchivoFtp;
 import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
@@ -239,7 +239,7 @@ public class Client {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
@@ -260,7 +260,7 @@ public class Client {
 				public void actionPerformed(ActionEvent arg0) {
 					vStartMenu.setVisible(false);
 					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(user);
+					emailwindow = new EmailMenuWindow(user, vStartMenu);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);
@@ -282,7 +282,7 @@ public class Client {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
@@ -304,7 +304,7 @@ public class Client {
 				public void actionPerformed(ActionEvent arg0) {
 					vStartMenu.setVisible(false);
 					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(user);
+					emailwindow = new EmailMenuWindow(user, vStartMenu);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);
