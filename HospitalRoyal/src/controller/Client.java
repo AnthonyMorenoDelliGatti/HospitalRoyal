@@ -43,7 +43,7 @@ public class Client {
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
 	Socket Client;
-	VistaPrincipal vista;
+	VistaPrincipal principalView;
 	VistaArchivos explorer;
 	EmailMenuWindow emailwindow;
 	private ServerData serverData;
@@ -51,7 +51,6 @@ public class Client {
 	FTPClient client;
 	Methods method;
 	String user, password;
-	
 
 	public Client() {
 		serverData = new ServerData();
@@ -189,9 +188,6 @@ public class Client {
 			ioe.printStackTrace();
 		}
 		StartMenu(adminUser, client);
-//		if (!adminUser) {
-//			normalUserPermissions();
-//		}
 	}
 
 	private void StartMenu(boolean adminUser, FTPClient client) {
@@ -242,7 +238,41 @@ public class Client {
 
 			}
 		});
-		vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
+		if (adminUser) {
+			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					ArrayList<Archivo> archivos = new ArrayList<>();
+					principalView = new VistaPrincipal(client, user, explorer);
+					explorer = new VistaArchivos(client, archivos, method, principalView);
+					method.cargarDatosLista(archivos, client, principalView, explorer);
+					principalView.setVisible(true);
+					principalView.pack();
+					// se introducen los listener a los botones
+					// crear carpeta
+					principalView.getButtons().get(2).addActionListener(
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer));
+					// eliminar archivos y carpetas
+					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer));
+					vStartMenu.setVisible(false);
+				}
+			});
+			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					vStartMenu.setVisible(false);
+					SMTPClient smtpclient = new SMTPClient();
+					emailwindow = new EmailMenuWindow(user);
+					exists(client);
+					try {
+						client.changeWorkingDirectory(user);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -260,48 +290,95 @@ public class Client {
 				
 				if(!adminUser) {
 				exists("Server", client);
+
+			});
+		} else {
+			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					exists(client);
+					try {
+						client.changeWorkingDirectory(user);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					ArrayList<Archivo> archivos = new ArrayList<>();
+					principalView = new VistaPrincipal(client, user, explorer);
+					explorer = new VistaArchivos(client, archivos, method, principalView);
+					method.cargarDatosLista(archivos, client, principalView, explorer);
+					principalView.setVisible(true);
+					principalView.pack();
+					// se introducen los listener a los botones
+					// crear carpeta
+					principalView.getButtons().get(2).addActionListener(
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer));
+					// eliminar archivos y carpetas
+					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer));
+					vStartMenu.setVisible(false);
 				}
-				vStartMenu.setVisible(false);
-			}
 
-		});
-		vStartMenu.getButtonMail().addActionListener(new ActionListener() {
+			});
+			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
 
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				vStartMenu.setVisible(false);
-				SMTPClient smtpclient = new SMTPClient();
-				emailwindow = new EmailMenuWindow(user);
-				exists("Email", client);
-			}
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					vStartMenu.setVisible(false);
+					SMTPClient smtpclient = new SMTPClient();
+					emailwindow = new EmailMenuWindow(user);
+					exists(client);
+					try {
+						client.changeWorkingDirectory(user);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 
-			
+				private Boolean comprobarEmail() {
+					return null;
+				}
 
-			private Boolean comprobarEmail() {
-				return null;
-			}
-
-		});
-	}
-	private void exists(String directorio, FTPClient client)  {
-		File f = new File("C:/"+ directorio +"/" + user);
-		if(!f.exists()) {
-			try {
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream(f));
-			String[] routeSplitted = f.getAbsolutePath().split("\\\\");
-			System.out.println(routeSplitted[routeSplitted.length - 1]);
-			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
-			in.close();
-			} catch(IOException e){
-				
-			}
+			});
 		}
 	}
 
-//	private static void normalUserPermissions() {
-//		vista.getButtonCreate().setEnabled(false);
-//		vista.getButtonDelete().setEnabled(false);
-//		vista.getButtonDownload().setEnabled(false);
-//		vista.getButtonRename().setEnabled(false);
-//	}
+	private void log(String user, int action, String description) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
+			Statement statement = connection.createStatement();
+			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
+					+ ",'" + user + "')";
+			statement.execute(sql);
+			statement.close();
+			connection.close();
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	private void exists(FTPClient client) {
+		boolean hasDirectory = false;
+		FTPFile[] files;
+		try {
+			files = client.listFiles();
+			for (int i = 0; i < files.length; i++) {
+				int type = files[i].getType();
+				if (type == 1) {
+					if (files[i].getName().equals(user)) {
+						hasDirectory = true;
+					}
+				}
+			}
+			if (!hasDirectory) {
+				client.makeDirectory("/" + user);
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
