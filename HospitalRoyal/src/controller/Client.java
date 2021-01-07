@@ -257,7 +257,6 @@ public class Client {
 					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
 					vStartMenu.setVisible(false);
 				}
-
 			});
 			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
 
@@ -274,13 +273,8 @@ public class Client {
 						e.printStackTrace();
 					}
 				}
-
-				private Boolean comprobarEmail() {
-					return null;
-				}
-
 			});
-		} else {
+		}else {
 			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
 
 				@Override
@@ -329,22 +323,6 @@ public class Client {
 				}
 
 			});
-		}
-	}
-
-	private void log(String user, int action, String description) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
-			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
-					+ ",'" + user + "')";
-			statement.execute(sql);
-			statement.close();
-			connection.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
