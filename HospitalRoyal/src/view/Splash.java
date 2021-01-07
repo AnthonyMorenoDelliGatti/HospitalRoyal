@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.File;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -25,10 +26,10 @@ public class Splash extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		this.setUndecorated(true);
 		JLabel icono = new JLabel();
-		icono.setIcon(new ImageIcon(".\\iconos\\Logo.png"));
+		icono.setIcon(new ImageIcon("iconos\\Logo.png"));
 		contentPane.add(icono,BorderLayout.CENTER);
 		JLabel gif = new JLabel();
-		gif.setIcon(new ImageIcon(".\\iconos\\cargando.gif"));
+		gif.setIcon(new ImageIcon("iconos\\cargando.gif"));
 		contentPane.add(gif,BorderLayout.EAST);
 		contentPane.setBackground(new Color(255, 209, 247));
 		pack();
