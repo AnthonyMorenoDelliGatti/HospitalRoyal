@@ -68,20 +68,20 @@ public class EmailMenuWindow {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
 		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/anadir.png")));
+		btnNewButton.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//anadir.png")));
 		btnNewButton.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnNewButton.setBorder(emptyBorder);
 		btnNewButton.setBackground(headerColor);
 
 		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/recargar.png")));
+		btnNewButton_1.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//recargar.png")));
 		btnNewButton_1.setFocusPainted(false);
 		btnNewButton_1.setBorder(emptyBorder);
 		btnNewButton_1.setBackground(headerColor);
 
 		JButton close = new JButton("");
-		close.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/cerrar.png")));
+		close.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//cerrar.png")));
 		close.setFocusPainted(false);
 		close.setBorder(emptyBorder);
 		close.setBackground(headerColor);
@@ -91,7 +91,7 @@ public class EmailMenuWindow {
 		textField.setColumns(10);
 
 		JButton search = new JButton("");
-		search.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("/iconos/buscar.png")));
+		search.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//buscar.png")));
 		search.setFocusPainted(false);
 		search.setBorder(emptyBorder);
 		search.setBackground(headerColor);

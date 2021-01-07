@@ -19,12 +19,14 @@ public class ListenerCreateFolder implements ActionListener {
 	VistaPrincipal view ;
 	VistaArchivos explorer ;
 	String user;
+	ArrayList<Archivo> archivos;
 	public ListenerCreateFolder(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user) {
 		this.client= client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
+		this.archivos=archivos;
 	}
 
 	@Override

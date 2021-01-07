@@ -26,8 +26,8 @@ public class Methods {
 
 	}
 	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
-		ArrayList<Archivo> archivos= new ArrayList<Archivo>();
 		try {
+			ArrayList<Archivo> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
 				String nameFile = fileList[i].getName();
@@ -68,7 +68,7 @@ public class Methods {
 	public void log(String user, int action, String description) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("root", "jdbc:mysql://localhost/hospital_royal", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
 			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
