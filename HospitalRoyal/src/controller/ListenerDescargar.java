@@ -23,15 +23,16 @@ public class ListenerDescargar implements ActionListener{
 
 
 	FTPClient client;
-	static String direccion;
+	String direccion;
 	String nombre;
 	Methods method;
-
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method) {
+	String user;
+	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user) {
 		this.direccion = direccion;
 		this.client = client;
 		this.nombre = nombre;
 		this.method = method;
+		this.user = user;
 	}
 
 	@Override
@@ -50,6 +51,7 @@ public class ListenerDescargar implements ActionListener{
 					client.setFileType(FTP.BINARY_FILE_TYPE);
 					client.retrieveFile("." + direccion, outputStream);
 					System.out.println("DOWNLOAD SUCCESFULL");
+					method.log(user, 8, " Download file: " + nombre);
 				}
 			}
 

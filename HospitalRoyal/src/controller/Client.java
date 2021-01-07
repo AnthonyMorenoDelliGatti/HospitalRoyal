@@ -346,22 +346,6 @@ public class Client {
 		}
 	}
 
-	private void log(String user, int action, String description) {
-		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(serverData.getUrlDB(), serverData.getUserDB(), "");
-			Statement statement = connection.createStatement();
-			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
-					+ ",'" + user + "')";
-			statement.execute(sql);
-			statement.close();
-			connection.close();
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	private void exists(FTPClient client) {
 		boolean hasDirectory = false;
 		FTPFile[] files;
