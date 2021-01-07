@@ -26,8 +26,8 @@ public class Methods {
 
 	}
 	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
-		ArrayList<Archivo> archivos= new ArrayList<Archivo>();
 		try {
+			ArrayList<Archivo> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
 				String nameFile = fileList[i].getName();
