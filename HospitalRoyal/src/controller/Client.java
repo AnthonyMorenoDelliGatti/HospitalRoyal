@@ -275,26 +275,6 @@ public class Client {
 				}
 			});
 		}else {
-			
-			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				ArrayList<Archivo> archivos = new ArrayList<>();
-				principalView = new VistaPrincipal(client, user, explorer, method);
-				explorer = new VistaArchivos(client,archivos,method, principalView, user);	
-				method.cargarDatosLista(client ,principalView ,explorer);
-				principalView.setVisible(true);
-				principalView.pack();
-				// se introducen los listener a los botones 
-				// crear carpeta
-				principalView.getButtons().get(2).addActionListener(new ListenerCreateFolder(client,archivos, method, principalView, explorer, user));
-				//eliminar archivos y carpetas
-				
-				if(!adminUser) {
-				exists(client);
-				}
-			}				
-			});
 			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
 
 				@Override
@@ -311,12 +291,7 @@ public class Client {
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
-					principalView.pack();
-					// se introducen los listener a los botones
-					// crear carpeta
-					principalView.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
-					// eliminar archivos y carpetas
+					principalView.pack();	
 					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
 					vStartMenu.setVisible(false);
 				}
