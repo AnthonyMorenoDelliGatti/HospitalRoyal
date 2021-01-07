@@ -39,7 +39,6 @@ public class VistaArchivos {
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
-	}
 		this.user = user;
 	}
 
@@ -85,7 +84,7 @@ public class VistaArchivos {
 		JPopupMenu menu = new JPopupMenu();
 		
 		item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
+		item.addActionListener(new ListenerBotonModificarNombre(nombre));
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
 		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
@@ -111,9 +110,9 @@ public class VistaArchivos {
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
 		if (i.getIsCarpeta() == 1) {
-			direcIcono = ".\\HospitalRoyal\\src\\iconos\\carpeta.png";
+			direcIcono = ".\\iconos\\carpeta.png";
 		} else {
-			direcIcono = ".\\HospitalRoyal\\src\\iconos\\text-document.png";
+			direcIcono = ".\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
