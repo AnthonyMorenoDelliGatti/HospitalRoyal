@@ -23,6 +23,7 @@ public class ListenerSubir implements ActionListener {
 	VistaPrincipal v;
 	VistaArchivos lista;
 	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods method) {
+
 		this.client = client;
 		this.user = user;
 		this.v = v;

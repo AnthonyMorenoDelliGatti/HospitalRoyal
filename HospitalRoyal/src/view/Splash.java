@@ -42,7 +42,7 @@ public class Splash extends JFrame implements Runnable{
 		try {
 			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			this.dispose();
 			Client client = new Client();		
 		} catch (InterruptedException e) {

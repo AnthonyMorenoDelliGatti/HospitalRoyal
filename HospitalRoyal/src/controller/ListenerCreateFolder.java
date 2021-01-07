@@ -12,7 +12,7 @@ import view.CreateFolderView;
 import view.VistaArchivos;
 import view.VistaPrincipal;
 
-public class ListenerCreateFolder implements ActionListener{
+public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
 	Methods method;
@@ -51,6 +51,6 @@ public class ListenerCreateFolder implements ActionListener{
 					e.printStackTrace();
 				}
 			}
-		});		
+		});
 	}
 }

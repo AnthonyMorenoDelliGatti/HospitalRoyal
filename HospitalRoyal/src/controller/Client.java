@@ -257,7 +257,6 @@ public class Client {
 					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer));
 					vStartMenu.setVisible(false);
 				}
-
 			});
 			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
 

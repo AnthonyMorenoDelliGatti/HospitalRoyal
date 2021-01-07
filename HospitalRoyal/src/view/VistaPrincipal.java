@@ -26,12 +26,12 @@ public class VistaPrincipal extends JFrame{
 	private Color colorCabecera;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
-	private Methods method;
-	
+	private Methods method;	
 	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista, Methods method) {
 		rootPanel = new JPanel();
 		this.lista= lista;
 		this.method = method;
+
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		
 		cabecera = new JPanel();

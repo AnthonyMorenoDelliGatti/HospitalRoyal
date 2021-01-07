@@ -39,6 +39,7 @@ public class VistaArchivos {
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
+	}
 		this.user = user;
 	}
 
@@ -69,15 +70,10 @@ public class VistaArchivos {
 
 			JLabel l = obtenerIcono(i);
 			panel.add(l);
-
 			JTextField nombre = generarNombre(panel, i);
-
-			panel.add(new JLabel("" + i.getUltFechaModificacion()));
-
+			panel.add(new JLabel(""+i.getUltFechaModificacion()));
 			panel.addMouseListener(new ListenerArchivo(panel, i));
-
 			JPopupMenu menu = generarMenu(nombre, i);
-
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			rootPanel.add(panel);
@@ -93,7 +89,7 @@ public class VistaArchivos {
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
 		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
-
+		menu.add(item2);
 		item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this, user));
 		menu.add(item3);
