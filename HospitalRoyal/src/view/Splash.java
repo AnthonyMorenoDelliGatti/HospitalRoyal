@@ -25,14 +25,11 @@ public class Splash extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		this.setUndecorated(true);
 		JLabel icono = new JLabel();
-		icono.setIcon(new ImageIcon(Splash.class.getResource("..\\iconos\\Logo.png")));
+		icono.setIcon(new ImageIcon(".\\iconos\\Logo.png"));
 		contentPane.add(icono,BorderLayout.CENTER);
-		
 		JLabel gif = new JLabel();
-		gif.setIcon(new ImageIcon(Splash.class.getResource("..\\iconos\\cargando.gif")));
+		gif.setIcon(new ImageIcon(".\\iconos\\cargando.gif"));
 		contentPane.add(gif,BorderLayout.EAST);
-		
-		
 		contentPane.setBackground(new Color(255, 209, 247));
 		pack();
 	}
@@ -40,9 +37,8 @@ public class Splash extends JFrame implements Runnable{
 	@Override
 	public void run() {
 		try {
-			this.setLocationRelativeTo(null);
 			this.setVisible(true);
-			Thread.sleep(500);
+			Thread.sleep(2000);
 			this.dispose();
 			Client client = new Client();		
 		} catch (InterruptedException e) {

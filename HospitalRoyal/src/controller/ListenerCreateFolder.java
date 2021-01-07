@@ -44,7 +44,7 @@ public class ListenerCreateFolder implements ActionListener {
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
 					}
-					method.cargarDatosLista(archivos, client, view, explorer);
+					method.cargarDatosLista(client, view, explorer);
 					method.log(user, 5, " Created directory: " + folder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block

@@ -33,13 +33,13 @@ public class VistaArchivos {
 	VistaPrincipal vista;
 	ArrayList<Archivo> archivos;
 	String user;
-	
-	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista, String user) {
+
+	public VistaArchivos(FTPClient client, ArrayList<Archivo> archivos, Methods method, VistaPrincipal vista,
+			String user) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
-	}
 		this.user = user;
 	}
 
@@ -71,7 +71,7 @@ public class VistaArchivos {
 			JLabel l = obtenerIcono(i);
 			panel.add(l);
 			JTextField nombre = generarNombre(panel, i);
-			panel.add(new JLabel(""+i.getUltFechaModificacion()));
+			panel.add(new JLabel("" + i.getUltFechaModificacion()));
 			panel.addMouseListener(new ListenerArchivo(panel, i));
 			JPopupMenu menu = generarMenu(nombre, i);
 			panel.setComponentPopupMenu(menu);
@@ -83,15 +83,15 @@ public class VistaArchivos {
 
 	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
 		JPopupMenu menu = new JPopupMenu();
-		
+
 		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre));
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
-		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method));
+		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user));
 		menu.add(item2);
 		item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo,archivos,client,method,vista,this, user));
+		item3.addActionListener(new ListenerEliminar(archivo, archivos, client, method, vista, this, user));
 		menu.add(item3);
 		return menu;
 	}
@@ -111,9 +111,9 @@ public class VistaArchivos {
 	private JLabel obtenerIcono(Archivo i) {
 		String direcIcono;
 		if (i.getIsCarpeta() == 1) {
-			direcIcono = ".\\HospitalRoyal\\src\\iconos\\carpeta.png";
+			direcIcono = ".\\iconos\\carpeta.png";
 		} else {
-			direcIcono = ".\\HospitalRoyal\\src\\iconos\\text-document.png";
+			direcIcono = ".\\iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
