@@ -41,13 +41,13 @@ public class StartMenuView extends JFrame {
 		Color colorCabecera = new Color(255, 194, 121);
 		paneles.get(0).setBackground(colorCabecera);
 
-		JButton botonMail = new JButton("Mail");
-		botonMail.setPreferredSize(new Dimension(300, 25));
-		paneles.get(1).add(botonMail);
+		buttonMail = new JButton("Mail");
+		buttonMail.setPreferredSize(new Dimension(300, 25));
+		paneles.get(1).add(buttonMail);
 
-		JButton botonFTP = new JButton("FTP");
-		botonFTP.setPreferredSize(new Dimension(300, 25));
-		paneles.get(2).add(botonFTP);
+		buttonFTP = new JButton("FTP");
+		buttonFTP.setPreferredSize(new Dimension(300, 25));
+		paneles.get(2).add(buttonFTP);
 
 		setContentPane(panel);
 		pack();
