@@ -68,7 +68,7 @@ public class Methods {
 	public void log(String user, int action, String description) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("root", "jdbc:mysql://localhost/hospital_royal", "");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal","root", "");
 			Statement statement = connection.createStatement();
 			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
