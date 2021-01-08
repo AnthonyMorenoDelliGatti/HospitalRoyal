@@ -19,14 +19,14 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import model.ArchivoFtp;
 
-public class ListenerDescargar implements ActionListener{
-
+public class ListenerDescargar implements ActionListener {
 
 	FTPClient client;
 	String direccion;
 	String nombre;
 	Methods method;
 	String user;
+
 	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user) {
 		this.direccion = direccion;
 		this.client = client;
