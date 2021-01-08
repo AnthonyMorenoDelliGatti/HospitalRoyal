@@ -11,21 +11,24 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import controller.Hospital;
+import view.ServerView;
 public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
 	DataOutputStream outputStream;
 	Hospital hospital;
+	ServerView viewServer;
 
-	public ThreadServer(Socket client, Hospital hospital) throws IOException {
+	public ThreadServer(Socket client, Hospital hospital, ServerView viewServer) throws IOException {
 		this.client = client;
 		this.hospital = hospital;
+		this.viewServer=viewServer;
 		outputStream = new DataOutputStream(client.getOutputStream());
 		inputStream = new DataInputStream(client.getInputStream());
 	}
 
 	public void run() {
-		System.out.println("COMMUNICATING: " + client.toString());
+		viewServer.getArea().append("\nCOMMUNICATING: " + client.toString());
 		int choice = 0;
 		try {
 			outputStream = new DataOutputStream(client.getOutputStream());
@@ -40,6 +43,7 @@ public class ThreadServer extends Thread {
 						outputStream.writeUTF("normalUser");
 					}
 					outputStream.writeUTF("true");
+					outputStream.writeUTF(selectEmailsUser(user));
 					break;
 				} else {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
@@ -51,6 +55,26 @@ public class ThreadServer extends Thread {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private String selectEmailsUser(String user) {
+		String email="";
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+			Statement statement = connection.createStatement();
+			String sql = "SELECT correo FROM usuario WHERE usuario LIKE '"+user+"'";
+			ResultSet resul;
+			resul = statement.executeQuery(sql);
+			while (resul.next()) {
+				System.out.println(resul.getString(1));
+				email=resul.getString(1); //send the email of the user
+			}
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return email;
 	}
 
 	private boolean checkPermissions(String user) {

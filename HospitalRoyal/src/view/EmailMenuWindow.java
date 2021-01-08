@@ -55,17 +55,6 @@ public class EmailMenuWindow {
 
 	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
 		this.user = user;
-		client = new SMTPClient();
-		this.vStartMenu = vStartMenu;
-		try {
-			client.connect("localhost");
-			if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
-				client.disconnect();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		initialize();
 
 	}
@@ -74,7 +63,7 @@ public class EmailMenuWindow {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setForeground(WHITE);
-		frame.setBounds(100, 100, 429, 530);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -86,9 +75,9 @@ public class EmailMenuWindow {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
-		JButton btnNewButton = new JButton("");
-		btnNewButton.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//anadir.png")));
-		btnNewButton.setFocusPainted(false);
+		btnAdd = new JButton("");
+		btnAdd.setIcon(new ImageIcon("iconos\\anadir.png"));
+		btnAdd.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
@@ -98,28 +87,28 @@ public class EmailMenuWindow {
 			 }
 		});
 
-		JButton btnNewButton_1 = new JButton("");
-		btnNewButton_1.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//recargar.png")));
-		btnNewButton_1.setFocusPainted(false);
-		btnNewButton_1.setBorder(emptyBorder);
-		btnNewButton_1.setBackground(headerColor);
+		btnRecharge = new JButton("");
+		btnRecharge.setIcon(new ImageIcon("iconos\\recargar.png"));
+		btnRecharge.setFocusPainted(false);
+		btnRecharge.setBorder(emptyBorder);
+		btnRecharge.setBackground(headerColor);
 
-		JButton close = new JButton("");
-		close.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//cerrar.png")));
-		close.setFocusPainted(false);
-		close.setBorder(emptyBorder);
-		close.setBackground(headerColor);
-		close.addActionListener(new ListenerClose(frame, client, vStartMenu));
+		btnClose = new JButton("");
+		btnClose.setIcon(new ImageIcon("iconos\\cerrar.png"));
+		btnClose.setFocusPainted(false);
+		btnClose.setBorder(emptyBorder);
+		btnClose.setBackground(headerColor);
+		btnClose.addActionListener(new ListenerClose(frame, client, vStartMenu));
 
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
 
-		JButton search = new JButton("");
-		search.setIcon(new ImageIcon(EmailMenuWindow.class.getResource("//iconos//buscar.png")));
-		search.setFocusPainted(false);
-		search.setBorder(emptyBorder);
-		search.setBackground(headerColor);
-		search.addKeyListener(new ListenerSearch(textField, client));
+		btnSearch = new JButton("");
+		btnSearch.setIcon(new ImageIcon("iconos\\buscar.png"));
+		btnSearch.setFocusPainted(false);
+		btnSearch.setBorder(emptyBorder);
+		btnSearch.setBackground(headerColor);
+		btnSearch.addKeyListener(new ListenerSearch(textField, client));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
