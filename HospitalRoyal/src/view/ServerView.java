@@ -29,7 +29,6 @@ public class ServerView extends JFrame{
 		area.setEditable(false);
 		panel.add(scrollPane);
 		
-		area.append("Inicio del servidor..");
 		pack();
 		setVisible(true);
 	}

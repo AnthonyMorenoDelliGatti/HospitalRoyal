@@ -12,6 +12,7 @@ public class CreateFolderView extends JFrame{
 	JButton btnCreate;
 	JLabel lblMessage;
 	public CreateFolderView() {
+		setLocationRelativeTo(null);
 		JLabel lblNameFolder = new JLabel("Name of the new Folder:");
 		lblNameFolder.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		lblNameFolder.setBounds(20, 20, 200, 25);

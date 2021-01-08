@@ -45,7 +45,8 @@ public class VistaPrincipal extends JFrame{
 		rootPanel.add(cabecera);
 		rootPanel.add(centro);
 		setContentPane(rootPanel);
-		
+
+		setLocationRelativeTo(null);
 		generarOpciones(client, user);
 		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);

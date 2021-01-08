@@ -55,17 +55,6 @@ public class EmailMenuWindow {
 
 	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
 		this.user = user;
-		client = new SMTPClient();
-		this.vStartMenu = vStartMenu;
-		try {
-			client.connect("localhost");
-			if (!SMTPReply.isPositiveCompletion(client.getReplyCode())) {
-				client.disconnect();
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		initialize();
 
 	}
@@ -74,7 +63,7 @@ public class EmailMenuWindow {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setForeground(WHITE);
-		frame.setBounds(100, 100, 429, 530);
+		frame.setLocationRelativeTo(null);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -87,7 +76,7 @@ public class EmailMenuWindow {
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
 		btnAdd = new JButton("");
-		btnAdd.setIcon(new ImageIcon(".//iconos//anadir.png"));
+		btnAdd.setIcon(new ImageIcon("iconos\\anadir.png"));
 		btnAdd.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
@@ -99,13 +88,13 @@ public class EmailMenuWindow {
 		});
 
 		btnRecharge = new JButton("");
-		btnRecharge.setIcon(new ImageIcon(".//iconos//recargar.png"));
+		btnRecharge.setIcon(new ImageIcon("iconos\\recargar.png"));
 		btnRecharge.setFocusPainted(false);
 		btnRecharge.setBorder(emptyBorder);
 		btnRecharge.setBackground(headerColor);
 
 		btnClose = new JButton("");
-		btnClose.setIcon(new ImageIcon(".//iconos//cerrar.png"));
+		btnClose.setIcon(new ImageIcon("iconos\\cerrar.png"));
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
@@ -115,7 +104,7 @@ public class EmailMenuWindow {
 		txtSearch.setColumns(10);
 
 		btnSearch = new JButton("");
-		btnSearch.setIcon(new ImageIcon(".//iconos//buscar.png"));
+		btnSearch.setIcon(new ImageIcon("iconos\\buscar.png"));
 		btnSearch.setFocusPainted(false);
 		btnSearch.setBorder(emptyBorder);
 		btnSearch.setBackground(headerColor);

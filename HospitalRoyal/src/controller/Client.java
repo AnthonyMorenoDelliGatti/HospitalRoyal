@@ -21,8 +21,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.TimeZone;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
@@ -50,7 +57,7 @@ public class Client {
 	private EmailMenuWindow emailwindow;
 	FTPClient client;
 	Methods method;
-	String user, password;
+	String user, password, email;
 
 	public Client() {
 		serverData = new ServerData();
@@ -66,6 +73,7 @@ public class Client {
 			outputStream = new DataOutputStream(Client.getOutputStream());
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
+			System.out.println("TEST");
 			v.getLabelInfo3().setText(
 					"The connection to the Server could not be established, the program will close in 5 seconds");
 			v.pack();
@@ -91,6 +99,7 @@ public class Client {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
+
 			}
 		});
 
@@ -165,6 +174,13 @@ public class Client {
 
 			}
 		}
+		try {
+			serverStr = inputStream.readUTF();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		email = serverStr;
 		user = v.getTextUser().getText();
 		password = v.getTextPassword().getText();
 		v.dispose();
@@ -185,6 +201,38 @@ public class Client {
 			ioe.printStackTrace();
 		}
 		StartMenu(adminUser, client);
+	}
+
+	private void enviarConGMail(String destinatario, String asunto, String cuerpo) {
+		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
+		// remitente también.
+		String remitente = "hospitalroyalcontact"; // Para la dirección nomcuenta@gmail.com
+		String clave = "Hospitalroyal2021";
+
+		Properties props = System.getProperties();
+		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
+		props.put("mail.smtp.user", remitente);
+		props.put("mail.smtp.clave", clave); // La clave de la cuenta
+		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
+		props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
+		props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
+
+		Session session = Session.getDefaultInstance(props);
+		MimeMessage message = new MimeMessage(session);
+
+		try {
+			message.setFrom(new InternetAddress(remitente));
+			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podrían añadir varios de la misma
+																			// manera
+			message.setSubject(asunto);
+			message.setText(cuerpo);
+			Transport transport = session.getTransport("smtp");
+			transport.connect("smtp.gmail.com", remitente, clave);
+			transport.sendMessage(message, message.getAllRecipients());
+			transport.close();
+		} catch (MessagingException me) {
+			me.printStackTrace(); // Si se produce un error
+		}
 	}
 
 	private void StartMenu(boolean adminUser, FTPClient client) {
@@ -251,7 +299,8 @@ public class Client {
 					principalView.getButtons().get(2).addActionListener(
 							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
 					// eliminar archivos y carpetas
-					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
+					principalView.getButtons().get(3)
+							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
 					vStartMenu.setVisible(false);
 				}
 			});
@@ -259,8 +308,10 @@ public class Client {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					
+					enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
+					
 					vStartMenu.setVisible(false);
-					SMTPClient smtpclient = new SMTPClient();
 					emailwindow = new EmailMenuWindow(user, vStartMenu);
 					exists(client);
 					try {
@@ -271,7 +322,7 @@ public class Client {
 					}
 				}
 			});
-		}else {
+		} else {
 			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
 
 				@Override
@@ -294,7 +345,8 @@ public class Client {
 					principalView.getButtons().get(2).addActionListener(
 							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
 					// eliminar archivos y carpetas
-					principalView.getButtons().get(3).addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
+					principalView.getButtons().get(3)
+							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
 					vStartMenu.setVisible(false);
 				}
 
