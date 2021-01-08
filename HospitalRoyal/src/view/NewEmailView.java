@@ -115,6 +115,7 @@ public class NewEmailView {
 
 		close = new JButton("");
 		close.setIcon(new ImageIcon("..\\iconos\\remove-button.png"));
+
 		close.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		close.setBorder(emptyBorder);
@@ -174,6 +175,7 @@ public class NewEmailView {
 
 		send = new JButton("");
 		send.setIcon(new ImageIcon("..\\iconos\\enviar.png"));
+
 		send.setFocusPainted(false);
 		send.setBorder(emptyBorder);
 		send.setBackground(body);
@@ -276,9 +278,9 @@ public class NewEmailView {
 	private JLabel obtenerIcono(ArchivoMail i) {
 		String direcIcono;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
-			direcIcono = "/iconos/carpeta.png";
+			direcIcono = "iconos/carpeta.png";
 		} else {
-			direcIcono = "/iconos/text-document.png";
+			direcIcono = "iconos/text-document.png";
 		}
 		Icon icon = new ImageIcon(Email.class.getResource(direcIcono));
 		JLabel l = new JLabel(icon);

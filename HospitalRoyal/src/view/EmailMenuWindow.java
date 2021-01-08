@@ -91,6 +91,7 @@ public class EmailMenuWindow {
 
 		btnAdd = new JButton("");
 		btnAdd.setIcon(new ImageIcon("..//iconos//anadir.png"));
+
 		btnAdd.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
@@ -103,13 +104,14 @@ public class EmailMenuWindow {
 
 		btnRecharge = new JButton("");
 		btnRecharge.setIcon(new ImageIcon("..//iconos//recargar.png"));
+
 		btnRecharge.setFocusPainted(false);
 		btnRecharge.setBorder(emptyBorder);
 		btnRecharge.setBackground(headerColor);
 
-
 		btnClose = new JButton("");
 		btnClose.setIcon(new ImageIcon("..//iconos//cerrar.png"));
+
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
@@ -123,6 +125,7 @@ public class EmailMenuWindow {
 
 		btnSearch = new JButton("");
 		btnSearch.setIcon(new ImageIcon("..//iconos//buscar.png"));
+
 		btnSearch.setFocusPainted(false);
 		btnSearch.setBorder(emptyBorder);
 		btnSearch.setBackground(headerColor);

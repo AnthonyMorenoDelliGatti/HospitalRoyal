@@ -48,7 +48,7 @@ public class ListenerEliminar implements ActionListener {
 			if (archivo.getIsCarpeta() == 0) {
 				try {
 					client.deleteFile(archivo.getDireccion());	
-					method.log(user, 3, "ha borrado el archivo "+ archivo.getNombre());
+					method.log(user, 3, "Delete file: "+ archivo.getNombre());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
