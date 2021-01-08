@@ -52,10 +52,10 @@ public class VistaPrincipal extends JFrame{
 	}
 	
 	private void generarOpciones(FTPClient client, String user) {
-		JButton btnatras = generarBotonCabecera("iconos\\atras.png");
-		JButton btnadelante = generarBotonCabecera("iconos\\flecha-correcta.png");
-		JButton btncarpeta = generarBotonCabecera("iconos\\folder.png");
-		JButton btnsubir = generarBotonCabecera("iconos\\upload-file.png");
+		JButton btnatras = generarBotonCabecera("..\\iconos\\atras.png");
+		JButton btnadelante = generarBotonCabecera("..\\iconos\\flecha-correcta.png");
+		JButton btncarpeta = generarBotonCabecera("..\\iconos\\folder.png");
+		JButton btnsubir = generarBotonCabecera("..\\iconos\\upload-file.png");
 	}
 
 	private JButton generarBotonCabecera(String direccion) {
