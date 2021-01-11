@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -23,16 +24,18 @@ public class ListenerDescargar implements ActionListener {
 
 	FTPClient client;
 	String direccion;
-	String nombre;
+	String name;
 	Methods method;
 	String user;
+	DataOutputStream outputStream;
 
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user) {
+	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user, DataOutputStream outputStream) {
 		this.direccion = direccion;
 		this.client = client;
-		this.nombre = nombre;
+		this.name = nombre;
 		this.method = method;
 		this.user = user;
+		this.outputStream = outputStream;
 	}
 
 	@Override
@@ -41,17 +44,17 @@ public class ListenerDescargar implements ActionListener {
 		try {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
-				if (fileList[i].getName().equals(nombre)) {
+				if (fileList[i].getName().equals(name)) {
 					JFileChooser f = new JFileChooser();
 					f.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 					f.showOpenDialog(f);
 					String path = f.getSelectedFile().getAbsolutePath();
-					OutputStream outputStream = new BufferedOutputStream(
-							new FileOutputStream(path + File.separator + nombre));
+					OutputStream outputStream2 = new BufferedOutputStream(
+							new FileOutputStream(path + File.separator + name));
 					client.setFileType(FTP.BINARY_FILE_TYPE);
-					client.retrieveFile("." + direccion, outputStream);
-					System.out.println("DOWNLOAD SUCCESFULL");
-					method.log(user, 8, " Download file: " + nombre);
+					client.retrieveFile("." + direccion, outputStream2);
+					outputStream.writeUTF("8");
+					outputStream.writeUTF(name);
 				}
 			}
 
