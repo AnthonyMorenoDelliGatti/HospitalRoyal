@@ -57,9 +57,12 @@ public class EmailMenuWindow {
 	private StartMenuView vStartMenu;
 	private NewEmailView newEmail;
 	String user;
-
-	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
+	String password;
+	String email;
+	public EmailMenuWindow(String user, String password, String email, StartMenuView vStartMenu) {
 		this.user = user;
+		this.password = password;
+		this.email = email;
 		initialize();
 
 	}
@@ -92,11 +95,8 @@ public class EmailMenuWindow {
                     public void run() {
                         try {
                             ArrayList<String> archivos = new ArrayList<>();
-                            NewEmailView window = new NewEmailView(client, user);
+                            NewEmailView window = new NewEmailView(client, user, email, password);
                             window.getFrame().setVisible(true);
-                            window.getClose().addActionListener(new ListenerClose(window.getFrame(), client, vStartMenu));
-                            window.getUpLoad().addActionListener(new ListenerImport());
-                            window.getSend().addActionListener(new ListenerSend());
 
                         } catch (Exception e) {
                             e.printStackTrace();

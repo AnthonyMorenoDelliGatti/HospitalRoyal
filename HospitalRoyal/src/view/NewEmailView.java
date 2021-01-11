@@ -58,10 +58,13 @@ public class NewEmailView {
 	private JButton upLoad;
 	private String user;
 	private SMTPClient client;
-	
-	public NewEmailView(SMTPClient client, String user) {
+	String email;
+	String password;
+	public NewEmailView(SMTPClient client, String user, String email, String password) {
 		this.client = client;
 		this.user = user;
+		this.email = email;
+		this.password = password;
 		initialize();
 		
 	}
@@ -167,6 +170,7 @@ public class NewEmailView {
 		send.setFocusPainted(false);
 		send.setBorder(emptyBorder);
 		send.setBackground(body);
+		send.addActionListener(new ListenerSend(email, password, this));
 		panel_6.add(send);
 
 		upLoad = new JButton("");

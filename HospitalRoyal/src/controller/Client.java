@@ -326,7 +326,7 @@ public class Client {
 //					enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
 					
 					vStartMenu.setVisible(false);
-					emailwindow = new EmailMenuWindow(user, vStartMenu);
+					emailwindow = new EmailMenuWindow(user, password, email, vStartMenu);
 					emailwindow.getFrame().setVisible(true);
 					exists(client);
 					try {
@@ -385,7 +385,7 @@ public class Client {
 				public void actionPerformed(ActionEvent arg0) {
 					vStartMenu.setVisible(false);
 					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(user, vStartMenu);
+					emailwindow = new EmailMenuWindow(email, password, user, vStartMenu);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);
