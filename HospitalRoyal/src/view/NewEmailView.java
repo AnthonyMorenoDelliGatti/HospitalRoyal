@@ -59,21 +59,13 @@ public class NewEmailView {
 	private String user;
 	private SMTPClient client;
 	
-
-    /**
-     * Create the application.
-     */
-
-    
 	public NewEmailView(SMTPClient client, String user) {
 		this.client = client;
 		this.user = user;
 		initialize();
 		
 	}
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
