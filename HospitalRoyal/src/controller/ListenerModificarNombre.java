@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 
@@ -18,13 +19,13 @@ public class ListenerModificarNombre implements KeyListener {
 	private JTextField nombre;
 	FTPClient client;
 	private String user;
-	private Methods method;
-	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user, Methods method) {
+	DataOutputStream outputStream;
+	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user, DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.nombre = nombre;
 		this.client = client;
 		this.user = user;
-		this.method = method;
+		this.outputStream = outputStream;
 	}
 
 	private void comprobarNombre() {
@@ -40,17 +41,19 @@ public class ListenerModificarNombre implements KeyListener {
 		nombre.setEditable(false);
 	}
 
-	private void cambiarnombre(String nombre2, String nombre) {
+	private void cambiarnombre(String newName, String name) {
 		FTPFile[] fileList;
 		try {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
-				if (fileList[i].getName().equals(nombre)) {
-					client.rename(fileList[i].getName(), nombre2);
+				if (fileList[i].getName().equals(name)) {
+					client.rename(fileList[i].getName(), newName);
 				}
 			}
 			System.out.println("RENAME SUCCESFULL");
-			method.log(user, 7, " Renamed file: " + nombre + " to: " + nombre2);
+			outputStream.writeUTF("7");
+			outputStream.writeUTF(name);
+			outputStream.writeUTF(newName);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

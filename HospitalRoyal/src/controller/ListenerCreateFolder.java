@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -19,15 +20,17 @@ public class ListenerCreateFolder implements ActionListener {
 	VistaPrincipal view ;
 	VistaArchivos explorer ;
 	String user;
+	DataOutputStream outputStream;
 
 	ArrayList<ArchivoFtp> archivos;
-	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user) {
+	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user, DataOutputStream outputStream) {
 		this.client= client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
 		this.archivos=archivos;
+		this.outputStream=outputStream;
 	}
 
 	@Override
@@ -48,7 +51,8 @@ public class ListenerCreateFolder implements ActionListener {
 						createView.getLblMessage().setText("Failed to create directory");
 					}
 					method.cargarDatosLista(client, view, explorer);
-					method.log(user, 5, " Created directory: " + folder);
+					outputStream.writeUTF("5");
+					outputStream.writeUTF(folder);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

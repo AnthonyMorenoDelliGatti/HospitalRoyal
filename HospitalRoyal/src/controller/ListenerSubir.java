@@ -3,6 +3,7 @@ package controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
@@ -22,13 +23,15 @@ public class ListenerSubir implements ActionListener {
 	Methods method;
 	VistaPrincipal v;
 	VistaArchivos lista;
-	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods method) {
+	DataOutputStream outputStream;
+	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods method, DataOutputStream outputStream) {
 
 		this.client = client;
 		this.user = user;
 		this.v = v;
 		this.lista = lista;
 		this.method = method;
+		this.outputStream = outputStream;
 	}
 
 	@Override
@@ -47,7 +50,8 @@ public class ListenerSubir implements ActionListener {
 
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			method.cargarDatosLista(client, v, lista);
-			method.log(user, 4, "Upload: " + routeSplitted[routeSplitted.length - 1]);
+			outputStream.writeUTF("4");
+			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
