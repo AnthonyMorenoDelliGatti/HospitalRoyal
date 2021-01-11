@@ -48,7 +48,7 @@ public class EmailMenuWindow {
 	private Color headerColor;
 	private JFrame frame;
 	private JPanel emailBox;
-	private JTextField txtSearch,textField;
+	private JTextField txtSearch, textField;
 	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
 	private SMTPClient client;
 	private StartMenuView vStartMenu;
@@ -65,7 +65,7 @@ public class EmailMenuWindow {
 		frame = new JFrame();
 		frame.setResizable(false);
 		frame.getContentPane().setForeground(WHITE);
-		frame.setLocationRelativeTo(null);
+		frame.setBounds(100, 100, 429, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 
@@ -77,73 +77,75 @@ public class EmailMenuWindow {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
-
 		btnAdd = new JButton("");
-		btnAdd.setIcon(new ImageIcon("iconos\\anadir.png"));
+		btnAdd.setIcon(new ImageIcon("iconos/anadir.png"));
 		btnAdd.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
 		btnAdd.addActionListener(new ActionListener(){
-			 public void actionPerformed(ActionEvent e){  
-					 newEmail = new NewEmailView(client,user);
-			 }
-		});
+            public void actionPerformed(ActionEvent e){
+                   NewEmailView newEmail = new NewEmailView(client, user);
+            }
+       });
 
 		btnRecharge = new JButton("");
-		btnRecharge.setIcon(new ImageIcon("iconos\\recargar.png"));
+		btnRecharge.setIcon(new ImageIcon("iconos/recargar.png"));
 		btnRecharge.setFocusPainted(false);
 		btnRecharge.setBorder(emptyBorder);
 		btnRecharge.setBackground(headerColor);
 
 		btnClose = new JButton("");
-		btnClose.setIcon(new ImageIcon("iconos\\cerrar.png"));
+		btnClose.setIcon(new ImageIcon("iconos/cerrar.png"));
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
 		btnClose.addActionListener(new ListenerClose(frame, client, vStartMenu));
 
-		txtSearch = new JTextField();
-		txtSearch.setColumns(10);
-		
-		textField= new JTextField();
+		textField = new JTextField();
 		textField.setColumns(10);
 
 		btnSearch = new JButton("");
-		btnSearch.setIcon(new ImageIcon("iconos\\buscar.png"));
+		btnSearch.setIcon(new ImageIcon("iconos/buscar.png"));
 		btnSearch.setFocusPainted(false);
 		btnSearch.setBorder(emptyBorder);
 		btnSearch.setBackground(headerColor);
 		btnSearch.addKeyListener(new ListenerSearch(textField, client));
 
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel.createSequentialGroup().addContainerGap()
-						.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnRecharge, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-						.addGap(18).addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
-						.addGap(12).addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-						.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE)));
-		gl_panel.setVerticalGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup().addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
-						.addGroup(gl_panel.createSequentialGroup().addContainerGap().addComponent(btnClose,
-								GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_panel.createSequentialGroup().addGap(15)
-								.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-										.addComponent(txtSearch, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
-												Short.MAX_VALUE)
-										.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36,
-												Short.MAX_VALUE)
-										.addComponent(btnRecharge, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36,
-												Short.MAX_VALUE)
-										.addComponent(btnAdd, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34,
-												GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap()));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(btnAdd, GroupLayout.PREFERRED_SIZE, 51, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnRecharge, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addGap(12)
+					.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
+					.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 33, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(15)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(btnRecharge, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(btnAdd, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap())
+		);
 		panel.setBackground(headerColor);
 		panel.setLayout(gl_panel);
-
+		
 		emailBox = new JPanel();
 
 		emailBox.setLayout(new BoxLayout(emailBox, BoxLayout.Y_AXIS));
@@ -151,7 +153,6 @@ public class EmailMenuWindow {
 		JScrollPane scrollPane = new JScrollPane(emailBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		frame.getContentPane().add(scrollPane);
-		frame.setVisible(true);
 
 	}
 

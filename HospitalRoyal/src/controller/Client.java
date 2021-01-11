@@ -303,7 +303,7 @@ public class Client {
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();
-					// se introducen los listener a los botonesa
+					// se introducen los listener a los botones
 					// volver al padre
 					principalView.getButtons().get(0).addActionListener(
 							new ListenerReturn(client,method,principalView,explorer,paths));
@@ -328,6 +328,7 @@ public class Client {
 					
 					vStartMenu.setVisible(false);
 					emailwindow = new EmailMenuWindow(user, vStartMenu);
+					emailwindow.getFrame().setVisible(true);
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);
@@ -355,6 +356,7 @@ public class Client {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					/*
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password, outputStream, paths);
@@ -374,7 +376,7 @@ public class Client {
 					// eliminar archivos y carpetas
 					principalView.getButtons().get(3)
 							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
-					vStartMenu.setVisible(false);
+					vStartMenu.setVisible(false);*/
 				}
 
 			});
