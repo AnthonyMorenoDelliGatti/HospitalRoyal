@@ -19,6 +19,8 @@ public class ServerView extends JFrame{
 	
 	public ServerView() {
 		
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+		
 		panel = new JPanel();
 		BoxLayout ventana = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(ventana);

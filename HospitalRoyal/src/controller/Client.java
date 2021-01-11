@@ -76,7 +76,6 @@ public class Client {
 			outputStream = new DataOutputStream(Client.getOutputStream());
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
-			System.out.println("TEST");
 			v.getLabelInfo3().setText(
 					"The connection to the Server could not be established, the program will close in 5 seconds");
 			v.pack();
@@ -225,7 +224,7 @@ public class Client {
 
 		try {
 			message.setFrom(new InternetAddress(remitente));
-			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podrían añadir varios de la misma
+			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podran añadir varios de la misma
 																			// manera
 			message.setSubject(asunto);
 			message.setText(cuerpo);
