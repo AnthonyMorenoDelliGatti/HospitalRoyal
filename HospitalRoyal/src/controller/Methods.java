@@ -29,6 +29,7 @@ public class Methods {
 		try {
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
+			if(fileList.length > 0) {
 			for (int i = 0; i < fileList.length; i++) {
 				String nameFile = fileList[i].getName();
 				int isDirectory = 0;
@@ -56,6 +57,11 @@ public class Methods {
 					ex.printStackTrace();
 				}
 				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
+				view.getCentro().removeAll();
+				view.agregarExplorador(explorer.visualizarListado(archivos));
+				view.pack();
+			}
+			}else {
 				view.getCentro().removeAll();
 				view.agregarExplorador(explorer.visualizarListado(archivos));
 				view.pack();

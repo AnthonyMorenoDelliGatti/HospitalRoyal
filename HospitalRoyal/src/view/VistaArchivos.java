@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.GridLayout;
+import java.io.DataOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,6 +24,7 @@ import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
 import controller.Methods;
 import model.ArchivoFtp;
+import model.Paths;
 import controller.ListenerArchivo;
 
 public class VistaArchivos {
@@ -32,15 +34,19 @@ public class VistaArchivos {
 	Methods method;
 	VistaPrincipal vista;
 	ArrayList<ArchivoFtp> archivos;
+	DataOutputStream outputStream;
 	String user;
+	Paths paths;
 
 	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal vista,
-			String user) {
+			String user, DataOutputStream outputStream, Paths paths) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
 		this.user = user;
+		this.paths = paths;
+		this.outputStream = outputStream;
 	}
 
 	public JPanel visualizarListado(ArrayList<ArchivoFtp> archivos) {
@@ -72,7 +78,7 @@ public class VistaArchivos {
 			panel.add(l);
 			JTextField nombre = generarNombre(panel, i);
 			panel.add(new JLabel("" + i.getUltFechaModificacion()));
-			panel.addMouseListener(new ListenerArchivo(panel, i));
+			panel.addMouseListener(new ListenerArchivo(panel, i,vista,paths,client,method,this));
 			JPopupMenu menu = generarMenu(nombre, i);
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -88,10 +94,10 @@ public class VistaArchivos {
 		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
-		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user));
+		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
 		menu.add(item2);
 		item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo, archivos, client, method, vista, this, user));
+		item3.addActionListener(new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
 		menu.add(item3);
 		return menu;
 	}
@@ -101,7 +107,7 @@ public class VistaArchivos {
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, method);
+		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, outputStream);
 		nombre.addKeyListener(listener);
 		nombre.setEditable(false);
 
@@ -111,9 +117,9 @@ public class VistaArchivos {
 	private JLabel obtenerIcono(ArchivoFtp i) {
 		String direcIcono;
 		if (i.getIsCarpeta() == 1) {
-			direcIcono = "..\\iconos\\carpeta.png";
+			direcIcono = "iconos\\carpeta.png";
 		} else {
-			direcIcono = "..\\iconos\\text-document.png";
+			direcIcono = "iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);

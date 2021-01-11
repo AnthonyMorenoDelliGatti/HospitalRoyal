@@ -299,7 +299,7 @@ public class Client {
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
-					explorer = new VistaArchivos(client, archivos, method, principalView, password);
+					explorer = new VistaArchivos(client, archivos, method, principalView, password, outputStream, paths);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();
@@ -312,10 +312,10 @@ public class Client {
 							new ListenerReturnForward(client,method,principalView,explorer,paths));
 					// crear carpeta
 					principalView.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password, outputStream));
 					// eliminar archivos y carpetas
 					principalView.getButtons().get(3)
-							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
+							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
 					vStartMenu.setVisible(false);
 				}
 			});
@@ -357,7 +357,7 @@ public class Client {
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
-					explorer = new VistaArchivos(client, archivos, method, principalView, password);
+					explorer = new VistaArchivos(client, archivos, method, principalView, password, outputStream, paths);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();
@@ -370,10 +370,10 @@ public class Client {
 							new ListenerReturnForward(client,method,principalView,explorer,paths));
 					// crear carpeta
 					principalView.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
+							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password, outputStream));
 					// eliminar archivos y carpetas
 					principalView.getButtons().get(3)
-							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method));
+							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
 					vStartMenu.setVisible(false);
 				}
 

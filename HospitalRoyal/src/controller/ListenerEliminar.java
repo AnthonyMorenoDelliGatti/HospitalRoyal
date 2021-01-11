@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -23,9 +24,10 @@ public class ListenerEliminar implements ActionListener {
 	private VistaPrincipal view;
 	private VistaArchivos explorer;
 	private String user;
+	DataOutputStream outputStream;
 
 	public ListenerEliminar(ArchivoFtp archivo, ArrayList<ArchivoFtp> archivos, FTPClient client, Methods method,
-			VistaPrincipal view, VistaArchivos explorer, String user) {
+			VistaPrincipal view, VistaArchivos explorer, String user, DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.archivos = archivos;
 		this.client = client;
@@ -33,6 +35,7 @@ public class ListenerEliminar implements ActionListener {
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
+		this.outputStream = outputStream;
 	}
 
 	@Override
@@ -44,73 +47,78 @@ public class ListenerEliminar implements ActionListener {
 		if (eleccion == JOptionPane.YES_OPTION) {
 			try {
 				String originalPath = client.printWorkingDirectory();
-			// proceso de eliminacion
-			if (archivo.getIsCarpeta() == 0) {
+				// proceso de eliminacion
+				if (archivo.getIsCarpeta() == 0) {
+					try {
+						client.deleteFile(archivo.getDireccion());
+
+						outputStream.writeUTF("3");
+						outputStream.writeUTF(archivo.getNombre());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					try {
+						if (!client.removeDirectory(archivo.getDireccion())) {
+							String previousPath = client.printWorkingDirectory();
+							client.changeWorkingDirectory(archivo.getDireccion());
+							delete(client.listFiles());
+							client.changeWorkingDirectory(previousPath);
+							client.removeDirectory(archivo.getDireccion());
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				// se actualiza la vista
 				try {
-					client.deleteFile(archivo.getDireccion());	
-					method.log(user, 3, "Delete file: "+ archivo.getNombre());
+					client.changeWorkingDirectory(originalPath);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-			} else {
-				try {
-					if(!client.removeDirectory(archivo.getDireccion())) {
-						String previousPath = client.printWorkingDirectory();
-						client.changeWorkingDirectory(archivo.getDireccion());
-						delete(client.listFiles());
-						client.changeWorkingDirectory(previousPath);
-						client.removeDirectory(archivo.getDireccion());
-					}			
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			// se actualiza la vista
-			try {
-				client.changeWorkingDirectory(originalPath);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-			method.cargarDatosLista(client, view, explorer);
+				method.cargarDatosLista(client, view, explorer);
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();
-			};
+			}
+			;
 		}
 	}
 
 	private void delete(FTPFile[] listFiles) {
-		if(listFiles.length != 0) {
-		for(FTPFile file : listFiles) {
-			if (!file.isDirectory()) {
-				try {
-					client.deleteFile(client.printWorkingDirectory()+"/"+file.getName());				
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			} else {
-				try {
-					if(!client.removeDirectory(client.printWorkingDirectory()+"/"+file.getName())) {
-						String previousPath = client.printWorkingDirectory();
-						System.out.println(client.printWorkingDirectory()+"/"+file.getName());
-						client.changeWorkingDirectory(client.printWorkingDirectory()+"/"+file.getName());
-						delete(client.listFiles());
-						client.changeWorkingDirectory(previousPath);
-						client.removeDirectory(client.printWorkingDirectory()+"/"+file.getName());
-						method.log(user, 6, "ha borrado la carpeta "+ file.getName());
-					}			
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+		if (listFiles.length != 0) {
+			for (FTPFile file : listFiles) {
+				if (!file.isDirectory()) {
+					try {
+						client.deleteFile(client.printWorkingDirectory() + "/" + file.getName());
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} else {
+					try {
+						if (!client.removeDirectory(client.printWorkingDirectory() + "/" + file.getName())) {
+							String previousPath = client.printWorkingDirectory();
+							System.out.println(client.printWorkingDirectory() + "/" + file.getName());
+							client.changeWorkingDirectory(client.printWorkingDirectory() + "/" + file.getName());
+							delete(client.listFiles());
+							client.changeWorkingDirectory(previousPath);
+							client.removeDirectory(client.printWorkingDirectory() + "/" + file.getName());
+
+							outputStream.writeUTF("6");
+							outputStream.writeUTF(file.getName());
+						}
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		}
-		}
-		
+
 	}
 
 }
