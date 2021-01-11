@@ -19,6 +19,7 @@ public class Login extends JFrame {
 	JButton buttonLogin;
 	JTextField textUser, textPassword;
 	public Login() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
 		rootPanel = new JPanel();
 		setLocationRelativeTo(null);
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
@@ -42,13 +43,13 @@ public class Login extends JFrame {
 		
 		buttonLogin = new JButton("Iniciar Sesion");
 		paneles.get(5).add(buttonLogin);
-		labelInfo3 = new JLabel();
-		add(labelInfo3);
+		labelInfo3 = new JLabel("");
+		paneles.get(6).add(labelInfo3);
 		setContentPane(rootPanel);
 	}
 
 	private void generarPaneles(ArrayList<JPanel> paneles) {
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 7; i++) {
 			paneles.add(new JPanel());
 			paneles.get(i).setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 			rootPanel.add(paneles.get(i));

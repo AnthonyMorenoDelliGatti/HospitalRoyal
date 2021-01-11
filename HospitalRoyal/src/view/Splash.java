@@ -26,10 +26,10 @@ public class Splash extends JFrame implements Runnable{
 		setContentPane(contentPane);
 		this.setUndecorated(true);
 		JLabel icono = new JLabel();
-		icono.setIcon(new ImageIcon("iconos/Logo.PNG"));
+		icono.setIcon(new ImageIcon("..//iconos/Logo.PNG"));
 		contentPane.add(icono,BorderLayout.CENTER);
 		JLabel gif = new JLabel();
-		gif.setIcon(new ImageIcon("iconos/cargando.gif"));
+		gif.setIcon(new ImageIcon("..//iconos//cargando.gif"));
 		contentPane.add(gif,BorderLayout.EAST);
 		contentPane.setBackground(new Color(255, 209, 247));
 		pack();
