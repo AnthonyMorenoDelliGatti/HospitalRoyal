@@ -46,7 +46,43 @@ public class ThreadServer extends Thread {
 					}
 					outputStream.writeUTF("true");
 					outputStream.writeUTF(selectEmailsUser(user));
-					break;
+					while(true) {
+						String action = inputStream.readUTF();
+						int actionId = Integer.parseInt(action);
+						switch (actionId) {
+						case 3:
+							//Borrar archivo
+							String fileName = inputStream.readUTF();
+							method.log(user, 3, "Delete file: " + fileName);
+							break;
+						case 4:
+							//Subir archivo
+							String route = inputStream.readUTF();
+							method.log(user, 4, "Upload: " + route);
+							break;
+						case 5:
+							//Crear carpeta
+							String folder = inputStream.readUTF();
+							method.log(user, 5, " Created directory: " + folder);
+							break;
+						case 6:
+							//Borrar carpeta
+							String folderName = inputStream.readUTF();
+							method.log(user, 6, "ha borrado la carpeta " + folderName);
+							break;
+						case 7:
+							//Cambiar nombre
+							String name = inputStream.readUTF();
+							String newName = inputStream.readUTF();
+							method.log(user, 7, " Renamed file: " + name + " to: " + newName);
+							break;
+						case 8:
+							//Descargar archivo
+							String fileNameDownload = inputStream.readUTF();
+							method.log(user, 8, " Download file: " + fileNameDownload);
+							break;
+						}
+					}
 				} else {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
 				}
@@ -69,7 +105,6 @@ public class ThreadServer extends Thread {
 			ResultSet resul;
 			resul = statement.executeQuery(sql);
 			while (resul.next()) {
-				System.out.println(resul.getString(1));
 				email=resul.getString(1); //send the email of the user
 			}
 		} catch (ClassNotFoundException | SQLException e) {
