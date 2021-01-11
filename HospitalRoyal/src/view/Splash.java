@@ -20,7 +20,7 @@ public class Splash extends JFrame implements Runnable{
 	
 	public Splash() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 587, 668);
+		setLocationRelativeTo(null);
 		contentPane = new JPanel();
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);

@@ -20,6 +20,7 @@ public class Login extends JFrame {
 	JTextField textUser, textPassword;
 	public Login() {
 		rootPanel = new JPanel();
+		setLocationRelativeTo(null);
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
 		setResizable(false);
 		
