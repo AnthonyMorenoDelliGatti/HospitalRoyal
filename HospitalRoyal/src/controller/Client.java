@@ -225,7 +225,7 @@ public class Client {
 
 		try {
 			message.setFrom(new InternetAddress(remitente));
-			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podrían añadir varios de la misma
+			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podran añadir varios de la misma
 																			// manera
 			message.setSubject(asunto);
 			message.setText(cuerpo);
