@@ -7,6 +7,7 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.TextField;
+import java.awt.Toolkit;
 import java.awt.image.ImageObserver;
 import java.awt.image.ImageProducer;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class StartMenuView extends JFrame {
 		setMinimumSize(new Dimension(400, 200));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setResizable(false);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("..//iconos//logo.png"));
 
 		setLocationRelativeTo(null);
 
