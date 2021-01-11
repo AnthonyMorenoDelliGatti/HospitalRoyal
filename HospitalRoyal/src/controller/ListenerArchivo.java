@@ -40,7 +40,15 @@ public class ListenerArchivo implements MouseListener {
 			if(archivo.getIsCarpeta() == 1) { // y el archivo es carpeta
 				// se abre carpeta
 				try {
-					client.changeWorkingDirectory(client.printWorkingDirectory()+archivo.getNombre());
+					String nuevaDireccion ;
+					if(client.printWorkingDirectory().equalsIgnoreCase("/")) {
+						nuevaDireccion = client.printWorkingDirectory()+archivo.getNombre();
+					}
+					else {
+						nuevaDireccion = client.printWorkingDirectory()+"/"+archivo.getNombre();
+					}
+					client.changeWorkingDirectory(nuevaDireccion);
+					System.out.println(nuevaDireccion);
 					vista.getButtons().get(0).setEnabled(true);
 					vista.getButtons().get(1).setEnabled(false);
 					paths.getPathguardados().clear();
@@ -54,7 +62,7 @@ public class ListenerArchivo implements MouseListener {
 	}
 
 	/**
-	 * Selecci�n de carpetas
+	 * Seleccion de carpetas
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
