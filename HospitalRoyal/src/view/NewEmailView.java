@@ -2,8 +2,8 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -23,7 +23,6 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -35,10 +34,11 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import controllerMail.ListenerArchivo;
 import controllerMail.ListenerBotonModificarNombre;
-import controllerMail.ListenerEliminar;
-import controllerMail.ListenerModificarNombre;
 import controllerMail.ListenerClose;
-
+import controllerMail.ListenerEliminar;
+import controllerMail.ListenerImport;
+import controllerMail.ListenerModificarNombre;
+import controllerMail.ListenerSend;
 import model.ArchivoMail;
 import model.Email;
 
@@ -63,25 +63,13 @@ public class NewEmailView {
 		this.client = client;
 		this.user = user;
 		initialize();
-		dropFile();
-//		
-//		if(archivos.isEmpty()) {
-//			scrollPane.setVisible(false);
-//			
-//		}
-//		else { // cargar archivos 
-//			for(int i = 0; i < archivos.size(); i++) {
-//				filesPanel.add(new Button("a"));
-//			}
-//		}
+		
 	}
-	/**
-	 * Initialize the contents of the frame.
-	 */
+
 	private void initialize() {
 		frame = new JFrame();
 		frame.setResizable(false);
-		frame.setLocationRelativeTo(null);
+		frame.setBounds(100, 100, 450, 497);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setUndecorated(true);
@@ -187,10 +175,14 @@ public class NewEmailView {
 		upLoad.setBorder(emptyBorder);
 		upLoad.setBackground(body);
 		panel_6.add(upLoad);
-		
+		dropFile();
 		frame.setVisible(true);
+		
 	}
 
+	public JFrame getFrame() {
+		return frame;
+	}
 	private void dropFile() {
 		TransferHandler th = new TransferHandler() {
 
@@ -278,9 +270,9 @@ public class NewEmailView {
 	private JLabel obtenerIcono(ArchivoMail i) {
 		String direcIcono;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
-			direcIcono = "iconos/carpeta.png";
+			direcIcono = "iconos\\carpeta.png";
 		} else {
-			direcIcono = "iconos/text-document.png";
+			direcIcono = "iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(Email.class.getResource(direcIcono));
 		JLabel l = new JLabel(icon);

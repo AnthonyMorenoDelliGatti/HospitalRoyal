@@ -13,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 import javax.swing.JRootPane;
@@ -30,6 +31,8 @@ import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
 import controller.ListenerUpdate;
+import controllerMail.ListenerImport;
+import controllerMail.ListenerSend;
 import model.ArchivoMail;
 import model.Email;
 
@@ -85,7 +88,22 @@ public class EmailMenuWindow {
 		btnAdd.setBackground(headerColor);
 		btnAdd.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                   NewEmailView newEmail = new NewEmailView(client, user);
+            	EventQueue.invokeLater(new Runnable() {
+                    public void run() {
+                        try {
+                            ArrayList<String> archivos = new ArrayList<>();
+                            NewEmailView window = new NewEmailView(client, user);
+                            window.getFrame().setVisible(true);
+                            window.getClose().addActionListener(new ListenerClose(window.getFrame(), client, vStartMenu));
+                            window.getUpLoad().addActionListener(new ListenerImport());
+                            window.getSend().addActionListener(new ListenerSend());
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+                   
             }
        });
 
