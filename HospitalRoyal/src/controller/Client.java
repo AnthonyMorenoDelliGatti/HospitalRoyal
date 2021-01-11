@@ -299,7 +299,7 @@ public class Client {
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
-					explorer = new VistaArchivos(client, archivos, method, principalView, password);
+					explorer = new VistaArchivos(client, archivos, method, principalView, password,paths);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();
@@ -357,7 +357,7 @@ public class Client {
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
-					explorer = new VistaArchivos(client, archivos, method, principalView, password);
+					explorer = new VistaArchivos(client, archivos, method, principalView, password, paths);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();

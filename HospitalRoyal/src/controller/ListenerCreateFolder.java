@@ -40,9 +40,8 @@ public class ListenerCreateFolder implements ActionListener {
 			public void actionPerformed(ActionEvent arg0) {
 				String folder = "/" + createView.getTxtNameFolder().getText();
 				try {
-					Boolean success = client.makeDirectory(folder);
+					Boolean success = client.makeDirectory(client.printWorkingDirectory()+folder);
 					if (success) {
-						createView.getLblMessage().setText("Successfully created directory: " + folder);
 						createView.dispose();
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
