@@ -30,6 +30,7 @@ import controller.ListenerClose;
 import controller.ListenerEmail;
 import controller.ListenerSearch;
 import controller.ListenerUpdate;
+import model.ArchivoMail;
 import model.Email;
 
 import java.awt.Color;
@@ -51,6 +52,7 @@ public class EmailMenuWindow {
 	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
 	private SMTPClient client;
 	private StartMenuView vStartMenu;
+	private NewEmailView newEmail;
 	String user;
 
 	public EmailMenuWindow(String user, StartMenuView vStartMenu) {
@@ -75,6 +77,7 @@ public class EmailMenuWindow {
 		JPanel panel = new JPanel();
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 
+
 		btnAdd = new JButton("");
 		btnAdd.setIcon(new ImageIcon("iconos\\anadir.png"));
 		btnAdd.setFocusPainted(false);
@@ -83,7 +86,7 @@ public class EmailMenuWindow {
 		btnAdd.setBackground(headerColor);
 		btnAdd.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e){  
-					NewEmailView newEmail = new NewEmailView(client,user);
+					 newEmail = new NewEmailView(client,user);
 			 }
 		});
 
@@ -102,6 +105,9 @@ public class EmailMenuWindow {
 
 		txtSearch = new JTextField();
 		txtSearch.setColumns(10);
+		
+		textField= new JTextField();
+		textField.setColumns(10);
 
 		btnSearch = new JButton("");
 		btnSearch.setIcon(new ImageIcon("iconos\\buscar.png"));

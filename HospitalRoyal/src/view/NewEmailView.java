@@ -61,7 +61,7 @@ public class NewEmailView {
 	
 	public NewEmailView(SMTPClient client, String user) {
 		this.client = client;
-		this.user = user + "@HospitalRoyal.es";
+		this.user = user;
 		initialize();
 		dropFile();
 //		
@@ -114,7 +114,8 @@ public class NewEmailView {
 		panel_4.setBackground(headerColor);
 
 		close = new JButton("");
-		close.setIcon(new ImageIcon("iconos/remove-button.png"));
+		close.setIcon(new ImageIcon("..\\iconos\\remove-button.png"));
+
 		close.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		close.setBorder(emptyBorder);
@@ -173,14 +174,15 @@ public class NewEmailView {
 		panel_6.setBackground(body);
 
 		send = new JButton("");
-		send.setIcon(new ImageIcon("iconos/enviar.png"));
+		send.setIcon(new ImageIcon("..\\iconos\\enviar.png"));
+
 		send.setFocusPainted(false);
 		send.setBorder(emptyBorder);
 		send.setBackground(body);
 		panel_6.add(send);
 
 		upLoad = new JButton("");
-		upLoad.setIcon(new ImageIcon("iconos/subir.png"));
+		upLoad.setIcon(new ImageIcon("..\\iconos\\subir.png"));
 		upLoad.setFocusPainted(false);
 		upLoad.setBorder(emptyBorder);
 		upLoad.setBackground(body);

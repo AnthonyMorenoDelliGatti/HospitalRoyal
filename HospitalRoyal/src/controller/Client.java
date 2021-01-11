@@ -39,6 +39,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
 import model.ArchivoFtp;
+import model.Paths;
 import model.ServerData;
 import view.VistaArchivos;
 import view.VistaPrincipal;
@@ -58,6 +59,8 @@ public class Client {
 	FTPClient client;
 	Methods method;
 	String user, password, email;
+	Boolean adminUser;
+	Paths paths = new Paths();
 
 	public Client() {
 		serverData = new ServerData();
@@ -67,7 +70,7 @@ public class Client {
 		v.pack();
 		String Host = "localhost";
 		int Puerto = 5000;
-		boolean adminUser = true;
+		adminUser = true;
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -205,15 +208,15 @@ public class Client {
 
 	private void enviarConGMail(String destinatario, String asunto, String cuerpo) {
 		// Esto es lo que va delante de @gmail.com en tu cuenta de correo. Es el
-		// remitente también.
-		String remitente = "hospitalroyalcontact"; // Para la dirección nomcuenta@gmail.com
+		// remitente tambiÃ©n.
+		String remitente = "hospitalroyalcontact"; // Para la direcciÃ³n nomcuenta@gmail.com
 		String clave = "Hospitalroyal2021";
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
 		props.put("mail.smtp.user", remitente);
 		props.put("mail.smtp.clave", clave); // La clave de la cuenta
-		props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
+		props.put("mail.smtp.auth", "true"); // Usar autenticaciÃ³n mediante usuario y clave
 		props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
 		props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
 
@@ -222,7 +225,7 @@ public class Client {
 
 		try {
 			message.setFrom(new InternetAddress(remitente));
-			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podrían añadir varios de la misma
+			message.addRecipients(Message.RecipientType.TO, destinatario); // Se podrÃ­an aÃ±adir varios de la misma
 																			// manera
 			message.setSubject(asunto);
 			message.setText(cuerpo);
@@ -288,13 +291,25 @@ public class Client {
 
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
+					try {
+						paths.setPathLimit(client.printWorkingDirectory());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
 					principalView.pack();
-					// se introducen los listener a los botones
+					// se introducen los listener a los botonesa
+					// volver al padre
+					principalView.getButtons().get(0).addActionListener(
+							new ListenerReturn(client,method,principalView,explorer,paths));
+					//volver al anterior
+					principalView.getButtons().get(1).addActionListener(
+							new ListenerReturnForward(client,method,principalView,explorer,paths));
 					// crear carpeta
 					principalView.getButtons().get(2).addActionListener(
 							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
@@ -334,6 +349,12 @@ public class Client {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					try {
+						paths.setPathLimit(client.printWorkingDirectory());
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password);
@@ -341,6 +362,12 @@ public class Client {
 					principalView.setVisible(true);
 					principalView.pack();
 					// se introducen los listener a los botones
+					// volver al padre
+					principalView.getButtons().get(0).addActionListener(
+							new ListenerReturn(client,method,principalView,explorer,paths));
+					//volver al anterior
+					principalView.getButtons().get(1).addActionListener(
+							new ListenerReturnForward(client,method,principalView,explorer,paths));
 					// crear carpeta
 					principalView.getButtons().get(2).addActionListener(
 							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password));
