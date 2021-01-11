@@ -24,6 +24,7 @@ import controller.ListenerEliminar;
 import controller.ListenerModificarNombre;
 import controller.Methods;
 import model.ArchivoFtp;
+import model.Paths;
 import controller.ListenerArchivo;
 
 public class VistaArchivos {
@@ -35,14 +36,16 @@ public class VistaArchivos {
 	ArrayList<ArchivoFtp> archivos;
 	DataOutputStream outputStream;
 	String user;
+	Paths paths;
 
 	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal vista,
-			String user, DataOutputStream outputStream) {
+			String user, DataOutputStream outputStream, Paths paths) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
 		this.archivos = archivos;
 		this.user = user;
+		this.paths = paths;
 		this.outputStream = outputStream;
 	}
 
@@ -75,7 +78,7 @@ public class VistaArchivos {
 			panel.add(l);
 			JTextField nombre = generarNombre(panel, i);
 			panel.add(new JLabel("" + i.getUltFechaModificacion()));
-			panel.addMouseListener(new ListenerArchivo(panel, i));
+			panel.addMouseListener(new ListenerArchivo(panel, i,vista,paths,client,method,this));
 			JPopupMenu menu = generarMenu(nombre, i);
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
