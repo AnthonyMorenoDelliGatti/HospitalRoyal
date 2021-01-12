@@ -23,7 +23,7 @@ import client.controller.Methods;
 import client.email.listener.ListenerArchivo;
 import client.email.listener.ListenerBotonModificarNombre;
 import client.email.listener.ListenerEliminar;
-import client.email.listener.ListenerModificarNombre;
+import client.ftp.listener.ListenerModificarNombre;
 import client.ftp.listener.ListenerDescargar;
 import client.model.ArchivoFtp;
 import client.model.Paths;
@@ -66,7 +66,6 @@ public class VistaArchivos {
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		rootPanel.add(scrollPane);
-		rootPanel.setBackground(Color.white);
 		return rootPanel;
 	}
 
@@ -85,7 +84,6 @@ public class VistaArchivos {
 			JPopupMenu menu = generarMenu(nombre, i);
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-			panel.setBackground(Color.white);
 
 			rootPanel.add(panel);
 		}
@@ -113,11 +111,9 @@ public class VistaArchivos {
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, outputStream);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
+		nombre.addKeyListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
+		nombre.addFocusListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
 		nombre.setEditable(false);
-		nombre.setBackground(Color.white);
 
 		return nombre;
 	}
@@ -140,7 +136,7 @@ public class VistaArchivos {
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));
 		panel.add(new JLabel("Fecha modificacion"));
-		panel.setBackground(Color.white);
+		
 		rootPanel.add(panel);
 	}
 
