@@ -26,12 +26,15 @@ import client.ftp.listener.ListenerSubir;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.login.view.Login;
+import client.menu.listener.ListenerAbout;
+import client.menu.listener.ListenerAdminEmail;
+import client.menu.listener.ListenerAdminFTP;
+import client.menu.listener.ListenerUserEmail;
+import client.menu.listener.ListenerUserFTP;
+import client.menu.view.StartMenuView;
 import client.model.ArchivoFtp;
 import client.model.Paths;
 import client.model.ServerData;
-import client.view.StartMenuView;
-
-
 
 public class Client {
 	DataOutputStream outputStream;
@@ -50,13 +53,20 @@ public class Client {
 
 	public Client() {
 		serverData = new ServerData();
-		Login v = new Login();
 		method = new Methods();
+		
+		startLogin();
+	}
+
+	public void startLogin() {
+		Login v = new Login();
 		v.setVisible(true);
 		v.getClose().addActionListener(new ListenerCloseWindow(v));
+		
 		String Host = "localhost";
 		int Puerto = 5000;
 		adminUser = true;
+			
 		try {
 			Client = new Socket(Host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
@@ -72,6 +82,9 @@ public class Client {
 			}
 			System.exit(0);
 		}
+		
+		
+		
 		v.getButtonLogin().addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -225,128 +238,14 @@ public class Client {
 
 	private void StartMenu(boolean adminUser, FTPClient client) {
 		vStartMenu = new StartMenuView();
-		vStartMenu.addWindowListener(new WindowListener() {
-
-			@Override
-			public void windowClosing(WindowEvent e) {
-				try {
-					client.logout();
-					client.disconnect();
-					method.log(user, 2, "Logout");
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				} catch (Exception e2) {
-					System.out.println(e2);
-				}
-				System.exit(0);
-			}
-
-			@Override
-			public void windowActivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowClosed(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowIconified(WindowEvent e) {
-
-			}
-
-			@Override
-			public void windowOpened(WindowEvent e) {
-
-			}
-		});
+		vStartMenu.getBtnClose().addActionListener(new client.menu.listener.ListenerClose(client, method, this, user, vStartMenu));
+		vStartMenu.getBtnAbout().addActionListener(new ListenerAbout());
+				
 		if (adminUser) {
-			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					try {
-						paths.setPathLimit(client.printWorkingDirectory());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
-					ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
-					explorer = new VistaArchivos(client, archivos, method, ftpWindow, password, outputStream, paths);
-					method.cargarDatosLista(client, ftpWindow, explorer);
-					ftpWindow.setVisible(true);
-					ftpWindow.setLocationRelativeTo(null);	
-			
-					
-					// se introducen los listener a los botones
-					// volver al padre
-					ftpWindow.getButtons().get(0).addActionListener(
-							new ListenerReturn(client,method,ftpWindow,explorer,paths));
-					//volver al anterior
-					ftpWindow.getButtons().get(1).addActionListener(
-							new ListenerReturnForward(client,method,ftpWindow,explorer,paths));
-					// crear carpeta
-					ftpWindow.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, ftpWindow, explorer, password, outputStream));
-					// eliminar archivos y carpetas
-					ftpWindow.getButtons().get(3)
-							.addActionListener(new ListenerSubir(client, user, ftpWindow, explorer, method, outputStream));
-					vStartMenu.setVisible(false);
-					
-					ftpWindow.getButtons().get(4).addActionListener(new ListenerClose(ftpWindow, null, vStartMenu));
-				}
-			});
-			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					
-//					enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
-					
-					vStartMenu.setVisible(false);
-					emailwindow = new EmailMenuWindow(user, password, email, vStartMenu);
-					emailwindow.getFrame().setVisible(true);
-					emailwindow.getFrame().setLocationRelativeTo(null);	
-
-					exists(client);
-					try {
-						client.changeWorkingDirectory(user);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-			});
+			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail().addActionListener(new ListenerAdminEmail(client, user, email, vStartMenu, emailwindow, password, this));
 		} else {
-			vStartMenu.getButtonFTP().addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					exists(client);
-					try {
-						client.changeWorkingDirectory(user);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					try {
-						paths.setPathLimit(client.printWorkingDirectory());
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(user, client, paths, this));
 					/*
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 					principalView = new VistaPrincipal(client, user, explorer, method);
@@ -368,34 +267,13 @@ public class Client {
 					principalView.getButtons().get(3)
 							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
 					vStartMenu.setVisible(false);*/
-				}
-
-			});
-			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent arg0) {
-					vStartMenu.setVisible(false);
-					SMTPClient smtpclient = new SMTPClient();
-					emailwindow = new EmailMenuWindow(email, password, user, vStartMenu);
-					exists(client);
-					try {
-						client.changeWorkingDirectory(user);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				private Boolean comprobarEmail() {
-					return null;
-				}
-
-			});
+		
+			vStartMenu.getButtonMail().addActionListener(new ListenerUserEmail(client, user, email, vStartMenu, emailwindow, password, this));
+	
 		}
 	}
 
-	private void exists(FTPClient client) {
+	public void exists(FTPClient client) {
 		boolean hasDirectory = false;
 		FTPFile[] files;
 		try {

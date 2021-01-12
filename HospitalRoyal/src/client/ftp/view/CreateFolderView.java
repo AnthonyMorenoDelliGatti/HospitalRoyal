@@ -49,6 +49,7 @@ public class CreateFolderView extends JFrame{
 		setContentPane(panel);
 		pack();
 		setVisible(true);
+		setLocationRelativeTo(null);
 	}
 	private void generarPaneles(ArrayList<JPanel> paneles) {
 		for (int i = 0; i < 1; i++) {

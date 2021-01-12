@@ -15,7 +15,6 @@ import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
 
 
-
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;

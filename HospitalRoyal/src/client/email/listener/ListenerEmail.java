@@ -9,8 +9,8 @@ import javax.swing.JPanel;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.email.view.EmailMenuWindow;
+import client.menu.view.StartMenuView;
 import client.model.Email;
-import client.view.StartMenuView;
 
 
 public class ListenerEmail implements MouseListener {

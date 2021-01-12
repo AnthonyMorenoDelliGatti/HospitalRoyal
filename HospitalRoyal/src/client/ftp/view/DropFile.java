@@ -58,7 +58,7 @@ public class DropFile {
 	public void cargarDatos(Archivo archivo) {
 		// Consejo: guardaria en un array los paneles para borrar más tarde
 		JPanel panel = obterPanelArchivo(archivo); 
-		dropPanel.add(panel); // aquí deberia agregar el panel pero no lo hace, no he averiguado xq
+		dropPanel.add(panel);
 	}
 
 	private void dropFile() {

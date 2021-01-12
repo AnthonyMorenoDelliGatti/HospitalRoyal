@@ -19,7 +19,7 @@ import javax.swing.border.Border;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Methods;
-import client.view.StartMenuView;
+import client.menu.view.StartMenuView;
 
 
 /**

@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
 import client.ftp.listener.ListenerSearch;
+import client.menu.view.StartMenuView;
 import client.model.Email;
-import client.view.StartMenuView;
 
 public class EmailMenuWindow {
 
@@ -50,6 +51,7 @@ public class EmailMenuWindow {
 		this.user = user;
 		this.password = password;
 		this.email = email;
+		this.vStartMenu = vStartMenu;
 		initialize();
 
 	}
@@ -61,6 +63,7 @@ public class EmailMenuWindow {
 		frame.setBounds(100, 100, 429, 530);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\email.png"));
 
 		headerColor = new Color(255, 194, 121);
 
@@ -105,7 +108,7 @@ public class EmailMenuWindow {
 		btnClose.setFocusPainted(false);
 		btnClose.setBorder(emptyBorder);
 		btnClose.setBackground(headerColor);
-		btnClose.addActionListener(new ListenerClose(frame, client, vStartMenu));
+		btnClose.addActionListener(new ListenerClose(frame, vStartMenu));
 
 		textField = new JTextField();
 		textField.setColumns(10);
