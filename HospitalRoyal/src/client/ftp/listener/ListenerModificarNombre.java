@@ -1,9 +1,10 @@
-package controller;
+package client.ftp.listener;
 
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.DataOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.JTextField;
@@ -11,15 +12,17 @@ import javax.swing.JTextField;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import model.ArchivoFtp;
+import client.model.ArchivoFtp;
 
-public class ListenerModificarNombre implements KeyListener {
+
+public class ListenerModificarNombre implements KeyListener, FocusListener {
 
 	private ArchivoFtp archivo;
 	private JTextField nombre;
 	FTPClient client;
 	private String user;
 	DataOutputStream outputStream;
+	
 	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user, DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.nombre = nombre;
@@ -71,15 +74,24 @@ public class ListenerModificarNombre implements KeyListener {
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
 			comprobarNombre();
-		} else {
 		}
-
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		comprobarNombre();
 	}
 
 }

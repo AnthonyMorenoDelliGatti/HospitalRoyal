@@ -1,5 +1,6 @@
-package view;
+package client.ftp.view;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.io.DataOutputStream;
 import java.util.ArrayList;
@@ -18,28 +19,30 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import controller.ListenerBotonModificarNombre;
-import controller.ListenerDescargar;
-import controller.ListenerEliminar;
-import controller.ListenerModificarNombre;
-import controller.Methods;
-import model.ArchivoFtp;
-import model.Paths;
-import controller.ListenerArchivo;
+import client.controller.Methods;
+import client.email.listener.ListenerArchivo;
+import client.email.listener.ListenerBotonModificarNombre;
+import client.email.listener.ListenerEliminar;
+import client.email.listener.ListenerModificarNombre;
+import client.ftp.listener.ListenerDescargar;
+import client.model.ArchivoFtp;
+import client.model.Paths;
+
+
 
 public class VistaArchivos {
 
 	JMenuItem item, item2, item3;
 	FTPClient client;
 	Methods method;
-	VistaPrincipal vista;
+	FTPWindow vista;
 	ArrayList<ArchivoFtp> archivos;
 	DataOutputStream outputStream;
 	String user;
 	Paths paths;
 
-	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal vista,
-			String user, DataOutputStream outputStream, Paths paths) {
+	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, FTPWindow vista, String user,
+			DataOutputStream outputStream, Paths paths) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
@@ -63,7 +66,7 @@ public class VistaArchivos {
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
 				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 		rootPanel.add(scrollPane);
-
+		rootPanel.setBackground(Color.white);
 		return rootPanel;
 	}
 
@@ -78,12 +81,13 @@ public class VistaArchivos {
 			panel.add(l);
 			JTextField nombre = generarNombre(panel, i);
 			panel.add(new JLabel("" + i.getUltFechaModificacion()));
-			panel.addMouseListener(new ListenerArchivo(panel, i,vista,paths,client,method,this));
+			panel.addMouseListener(new ListenerArchivo(panel, i, vista, paths, client, method, this));
 			JPopupMenu menu = generarMenu(nombre, i);
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-			rootPanel.add(panel);
+			panel.setBackground(Color.white);
 
+			rootPanel.add(panel);
 		}
 	}
 
@@ -94,10 +98,12 @@ public class VistaArchivos {
 		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
 		JMenuItem item2 = new JMenuItem("Descargar");
-		item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
+		item2.addActionListener(
+				new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
 		menu.add(item2);
 		item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
+		item3.addActionListener(
+				new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
 		menu.add(item3);
 		return menu;
 	}
@@ -108,8 +114,10 @@ public class VistaArchivos {
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre, client, user, outputStream);
-		nombre.addKeyListener(listener);
+		nombre.addActionListener(listener);
+		nombre.addFocusListener(listener);
 		nombre.setEditable(false);
+		nombre.setBackground(Color.white);
 
 		return nombre;
 	}
@@ -117,9 +125,9 @@ public class VistaArchivos {
 	private JLabel obtenerIcono(ArchivoFtp i) {
 		String direcIcono;
 		if (i.getIsCarpeta() == 1) {
-			direcIcono = "..//iconos//carpeta.png";
+			direcIcono = "iconos//carpeta.png";
 		} else {
-			direcIcono = "..//iconos//text-document.png";
+			direcIcono = "iconos//text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
@@ -132,6 +140,7 @@ public class VistaArchivos {
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));
 		panel.add(new JLabel("Fecha modificacion"));
+		panel.setBackground(Color.white);
 		rootPanel.add(panel);
 	}
 

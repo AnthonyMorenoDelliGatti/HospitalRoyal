@@ -1,4 +1,4 @@
-package controller;
+package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,17 +6,19 @@ import java.io.IOException;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import model.Paths;
-import view.VistaArchivos;
-import view.VistaPrincipal;
+import client.controller.Methods;
+import client.ftp.view.FTPWindow;
+import client.ftp.view.VistaArchivos;
+import client.model.Paths;
+
 
 public class ListenerReturn implements ActionListener{
 	FTPClient client;
 	Methods method;
-	VistaPrincipal principalView;
+	FTPWindow principalView;
 	VistaArchivos explorer;
 	Paths paths;
-	public ListenerReturn(FTPClient client, Methods method, VistaPrincipal principalView, VistaArchivos explorer, Paths paths) {
+	public ListenerReturn(FTPClient client, Methods method, FTPWindow principalView, VistaArchivos explorer, Paths paths) {
 		this.client = client;
 		this.method = method;
 		this.principalView = principalView;

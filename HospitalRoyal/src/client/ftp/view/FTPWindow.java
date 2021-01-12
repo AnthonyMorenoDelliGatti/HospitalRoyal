@@ -1,7 +1,8 @@
-package view;
+package client.ftp.view;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -15,72 +16,135 @@ import javax.swing.border.Border;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import controller.ListenerSubir;
-import controller.Methods;
+import client.controller.Methods;
 
-public class VistaPrincipal extends JFrame{
+
+/**
+ *	Window that allows you to view files, rename, create folders and upload files.
+ *
+ */
+public class FTPWindow extends JFrame {
 
 	private JPanel rootPanel;
-	private JPanel cabecera;
-	private JPanel centro;
-	private Color colorCabecera;
+	private JPanel leftHeader;
+	private JPanel body;
+	private JPanel rigthHeader;
+	private Color colorHeader;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
-	private Methods method;	
-	public VistaPrincipal(FTPClient client, String user, VistaArchivos lista, Methods method) {
-		rootPanel = new JPanel();
-		this.lista= lista;
-		this.method = method;
+	private Methods method;
 
-		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));	
+	/**
+	 * Builder
+	 * 
+	 * @param client - FTPClient - contains customer
+	 * @param user   - String - 
+	 * @param lista  - VistaArchivos -
+	 * @param method - Methods -
+	 */
+	public FTPWindow(FTPClient client, String user, VistaArchivos lista, Methods method) {
+		colorHeader = new Color(204, 252, 255);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
 		
-		cabecera = new JPanel();
-		cabecera.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-		colorCabecera = new Color(255, 194, 121);
-		cabecera.setBackground(colorCabecera);
+		this.lista = lista;
+		this.method = method;
 		
-		centro = new JPanel();
-		centro.setLayout(new BoxLayout(centro, BoxLayout.X_AXIS));	
+		rootPanel = new JPanel();
+		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
 		
-		rootPanel.add(cabecera);
-		rootPanel.add(centro);
+		JPanel header = generateHeader();
+
+		body = new JPanel();
+		body.setLayout(new BoxLayout(body, BoxLayout.X_AXIS));
+		
+		
+		rootPanel.add(header);
+		rootPanel.add(body);
 		setContentPane(rootPanel);
 
-		setLocationRelativeTo(null);
-		generarOpciones(client, user);
+		generateOptions();
 		
+		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-	
-	private void generarOpciones(FTPClient client, String user) {
-		JButton btnatras = generarBotonCabecera("iconos\\atras.png");
-		JButton btnadelante = generarBotonCabecera("iconos\\flecha-correcta.png");
-		JButton btncarpeta = generarBotonCabecera("iconos\\folder.png");
-		JButton btnsubir = generarBotonCabecera("iconos\\upload-file.png");
-		btnatras.setEnabled(false);
-		btnadelante.setEnabled(false);
+
+	/**
+	 * Generate the header
+	 * 
+	 * @return header - JPanel - contains the header
+	 * 
+	 */
+	private JPanel generateHeader() {
+		JPanel header = new JPanel();
+		header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
+		
+		leftHeader = new JPanel();
+		leftHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		leftHeader.setBackground(colorHeader);
+
+		rigthHeader = new JPanel();
+		rigthHeader.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
+		rigthHeader.setBackground(colorHeader);
+		
+		header.add(leftHeader);
+		header.add(rigthHeader);
+		
+		return header;
 	}
 
-	private JButton generarBotonCabecera(String direccion) {
-		JButton boton = new JButton();
-		Icon icon = new ImageIcon(direccion);
-		boton.setIcon(icon);
-		boton.setBackground(colorCabecera);
-		boton.setFocusPainted(false);
+	/**
+	 * Generate the options found in the header
+	 * 
+	 */
+	private void generateOptions() {
+		JButton back = generateHeaderButton("iconos//atras.png", leftHeader);
+		back.setEnabled(false);
+		
+		JButton forward = generateHeaderButton("iconos//flecha-correcta.png", leftHeader);
+		forward.setEnabled(false);
+		
+		generateHeaderButton("iconos//folder2.png", leftHeader); // folder
+		generateHeaderButton("iconos//subir.png", leftHeader); // upload
+		generateHeaderButton("iconos//cerrar.png", rigthHeader);// close
+	}
+
+	/**
+	 * Generates a button that is placed in the header
+	 * 
+	 * @param direction - String -
+	 * @param panel - JPanel - 
+	 * @return - JButton - 
+	 */
+	private JButton generateHeaderButton(String direction, JPanel panel) {
+		JButton button = new JButton();
+		Icon icon = new ImageIcon(direction);
+		button.setIcon(icon);
+		button.setBackground(colorHeader);
+		button.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
-		boton.setBorder(emptyBorder);
-		cabecera.add(boton);
-		buttons.add(boton);
-		return boton;
+		button.setBorder(emptyBorder);
+		panel.add(button);
+		buttons.add(button);
+		return button;
 	}
-	
-	public void agregarExplorador(JPanel jPanel) {
-		centro.add(jPanel);
+
+	/**
+	 * Add a panel to the body
+	 * 
+	 * @param jPanel - JPanel - contains a panel containing the files to display
+	 */
+	public void addExplorer(JPanel jPanel) {
+		body.add(jPanel);
 	}
-	
-	public void actualizarExplorador(JPanel explorer) {
-		centro.remove(1); // borra el anterior explorador
-		agregarExplorador(explorer);
+
+	/**
+	 * Replace one panel with another in the body
+	 * 
+	 * @param explorer
+	 */
+	public void updateExplorer(JPanel explorer) {
+		body.remove(1); // borra el anterior explorador
+		addExplorer(explorer);
 	}
 
 	public ArrayList<JButton> getButtons() {
@@ -92,12 +156,10 @@ public class VistaPrincipal extends JFrame{
 	}
 
 	public JPanel getCentro() {
-		return centro;
+		return body;
 	}
 
 	public void setCentro(JPanel centro) {
-		this.centro = centro;
+		this.body = centro;
 	}
-
-
 }

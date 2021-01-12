@@ -1,8 +1,9 @@
-package client.ftp.listener;
+package client.email.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import client.model.ArchivoFtp;
@@ -15,6 +16,7 @@ public class ListenerBotonModificarNombre implements ActionListener{
 	public ListenerBotonModificarNombre(JTextField nombre, ArchivoFtp archivo) {
 		this.nombre = nombre;
 	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		nombre.setEditable(true);

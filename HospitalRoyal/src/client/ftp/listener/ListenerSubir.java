@@ -1,30 +1,26 @@
-package controller;
+package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
 
-import javax.swing.JFileChooser;
-
-import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import model.ArchivoFtp;
-import view.VistaArchivos;
-import view.VistaPrincipal;
+import client.controller.Methods;
+import client.ftp.view.DropFile;
+import client.ftp.view.FTPWindow;
+import client.ftp.view.VistaArchivos;
+
+
 
 public class ListenerSubir implements ActionListener {
 	FTPClient client;
 	String user;
 	Methods method;
-	VistaPrincipal v;
+	FTPWindow v;
 	VistaArchivos lista;
 	DataOutputStream outputStream;
-	public ListenerSubir(FTPClient client, String user, VistaPrincipal v, VistaArchivos lista, Methods method, DataOutputStream outputStream) {
+	public ListenerSubir(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method, DataOutputStream outputStream) {
 
 		this.client = client;
 		this.user = user;
@@ -36,26 +32,10 @@ public class ListenerSubir implements ActionListener {
 
 	@Override
 	public synchronized void actionPerformed(ActionEvent e) {
-		try {
-			client.setFileType(FTP.BINARY_FILE_TYPE);
-			JFileChooser fileChooser = new JFileChooser();
-			fileChooser.showOpenDialog(fileChooser);
-			String route = "";
-			route = fileChooser.getSelectedFile().getAbsolutePath();
-			BufferedInputStream in = new BufferedInputStream(new FileInputStream(route));
-			String[] routeSplitted = route.split("\\\\");
-			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
-			in.close();
-			System.out.println("UPLOAD SUCCESFULL");
-
-			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
-			method.cargarDatosLista(client, v, lista);
-			outputStream.writeUTF("4");
-			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
-		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		DropFile drop = new DropFile();
+		drop.getFrame().setVisible(true);
+		drop.getClose().addActionListener(new ListenerCloseWindow(drop.getFrame()));
+		drop.getSave().addActionListener(new ListenerSave());
+		drop.getFileChooserBtn().addActionListener(new ListenerFileChooser(client, user, v, lista, method, outputStream));
 	}
-
 }

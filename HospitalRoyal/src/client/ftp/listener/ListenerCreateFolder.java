@@ -1,4 +1,4 @@
-package controller;
+package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,22 +8,25 @@ import java.util.ArrayList;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import model.ArchivoFtp;
-import view.CreateFolderView;
-import view.VistaArchivos;
-import view.VistaPrincipal;
+import client.controller.Methods;
+import client.ftp.view.CreateFolderView;
+import client.ftp.view.FTPWindow;
+import client.ftp.view.VistaArchivos;
+import client.model.ArchivoFtp;
+
+
 
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
 	Methods method;
-	VistaPrincipal view ;
+	FTPWindow view ;
 	VistaArchivos explorer ;
 	String user;
 	DataOutputStream outputStream;
 
 	ArrayList<ArchivoFtp> archivos;
-	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, VistaPrincipal view , VistaArchivos explorer, String user, DataOutputStream outputStream) {
+	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, FTPWindow view , VistaArchivos explorer, String user, DataOutputStream outputStream) {
 		this.client= client;
 		this.method = method;
 		this.view = view;

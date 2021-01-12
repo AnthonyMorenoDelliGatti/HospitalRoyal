@@ -1,4 +1,4 @@
-package controller;
+package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -11,9 +11,12 @@ import javax.swing.JOptionPane;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import model.ArchivoFtp;
-import view.VistaArchivos;
-import view.VistaPrincipal;
+import client.controller.Methods;
+import client.ftp.view.FTPWindow;
+import client.ftp.view.VistaArchivos;
+import client.model.ArchivoFtp;
+
+
 
 public class ListenerEliminar implements ActionListener {
 
@@ -21,13 +24,13 @@ public class ListenerEliminar implements ActionListener {
 	private ArrayList<ArchivoFtp> archivos;
 	private FTPClient client;
 	private Methods method;
-	private VistaPrincipal view;
+	private FTPWindow view;
 	private VistaArchivos explorer;
 	private String user;
 	DataOutputStream outputStream;
 
 	public ListenerEliminar(ArchivoFtp archivo, ArrayList<ArchivoFtp> archivos, FTPClient client, Methods method,
-			VistaPrincipal view, VistaArchivos explorer, String user, DataOutputStream outputStream) {
+			FTPWindow view, VistaArchivos explorer, String user, DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.archivos = archivos;
 		this.client = client;
@@ -41,7 +44,7 @@ public class ListenerEliminar implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Object[] opciones = { "SI", "NO" };
-		int eleccion = JOptionPane.showOptionDialog(null, "Corfima su eliminacion?", "Confirmacion",
+		int eleccion = JOptionPane.showOptionDialog(null, "¿Corfima su eliminación?", "Confirmación",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "");
 
 		if (eleccion == JOptionPane.YES_OPTION) {

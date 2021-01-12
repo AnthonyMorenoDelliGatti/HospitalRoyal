@@ -1,4 +1,4 @@
-package view;
+package client.ftp.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,7 +21,7 @@ public class SplashSubidaArchivo extends JFrame{
 		panel.setBackground(Color.white);
 		this.setUndecorated(true);
 		btn = new JButton("");
-		btn.setIcon(new ImageIcon(SplashSubidaArchivo.class.getResource("descargaSplash.png")));
+		btn.setIcon(new ImageIcon(("iconos//descargaSplash.png")));
 		btn.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btn.setBorder(emptyBorder);

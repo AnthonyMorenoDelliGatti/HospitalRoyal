@@ -1,12 +1,10 @@
-package client.ftp.listener;
-
+package client.email.listener;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
 
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -15,8 +13,6 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
 import client.model.Paths;
-
-
 
 public class ListenerArchivo implements MouseListener {
 
@@ -27,10 +23,8 @@ public class ListenerArchivo implements MouseListener {
 	private FTPClient client;
 	private Methods method;
 	private VistaArchivos explorer;
-	private JTextField name;
-
-	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client,
-			Methods method, VistaArchivos vistaArchivos, JTextField name) {
+	
+	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client, Methods method, VistaArchivos vistaArchivos) {
 		this.panel = panel;
 		this.archivo = archivo;
 		this.vista = vista;
@@ -38,21 +32,21 @@ public class ListenerArchivo implements MouseListener {
 		this.client = client;
 		this.method = method;
 		this.explorer = vistaArchivos;
-		this.name = name;
 	}
-
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		if (e.getClickCount() == 2) { // si se hace doble click
-			if (archivo.getIsCarpeta() == 1) { // y el archivo es carpeta
+			if(archivo.getIsCarpeta() == 1) { // y el archivo es carpeta
 				// se abre carpeta
 				try {
-					String nuevaDireccion;
-					if (client.printWorkingDirectory().equalsIgnoreCase("/")) {
-						nuevaDireccion = client.printWorkingDirectory() + archivo.getNombre();
-					} else {
-						nuevaDireccion = client.printWorkingDirectory() + "/" + archivo.getNombre();
+					String nuevaDireccion ;
+					if(client.printWorkingDirectory().equalsIgnoreCase("/")) {
+						nuevaDireccion = client.printWorkingDirectory()+archivo.getNombre();
+					}
+					else {
+						nuevaDireccion = client.printWorkingDirectory()+"/"+archivo.getNombre();
 					}
 					client.changeWorkingDirectory(nuevaDireccion);
 					System.out.println(nuevaDireccion);
@@ -75,13 +69,11 @@ public class ListenerArchivo implements MouseListener {
 	public void mouseEntered(MouseEvent e) {
 		Color color = new Color(211, 238, 240);
 		panel.setBackground(color);
-		name.setBackground(color);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		panel.setBackground(Color.white);
-		name.setBackground(Color.white);
+		panel.setBackground(null);
 	}
 
 	@Override
@@ -97,3 +89,4 @@ public class ListenerArchivo implements MouseListener {
 	}
 
 }
+

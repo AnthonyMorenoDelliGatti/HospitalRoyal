@@ -1,4 +1,4 @@
-package controller;
+package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,7 +8,8 @@ import javax.swing.JFrame;
 
 import org.apache.commons.net.smtp.SMTPClient;
 
-import view.StartMenuView;
+import client.view.StartMenuView;
+
 
 public class ListenerClose implements ActionListener {
 
