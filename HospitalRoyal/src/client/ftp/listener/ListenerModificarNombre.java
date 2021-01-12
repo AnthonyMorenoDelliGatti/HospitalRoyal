@@ -1,5 +1,6 @@
 package client.ftp.listener;
 
+import java.awt.Color;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -14,16 +15,16 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import client.model.ArchivoFtp;
 
-
-public class ListenerModificarNombre implements KeyListener, FocusListener {
+public class ListenerModificarNombre implements FocusListener, KeyListener {
 
 	private ArchivoFtp archivo;
 	private JTextField nombre;
 	FTPClient client;
 	private String user;
 	DataOutputStream outputStream;
-	
-	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user, DataOutputStream outputStream) {
+
+	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user,
+			DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.nombre = nombre;
 		this.client = client;
@@ -53,7 +54,6 @@ public class ListenerModificarNombre implements KeyListener, FocusListener {
 					client.rename(fileList[i].getName(), newName);
 				}
 			}
-			System.out.println("RENAME SUCCESFULL");
 			outputStream.writeUTF("7");
 			outputStream.writeUTF(name);
 			outputStream.writeUTF(newName);
@@ -65,6 +65,18 @@ public class ListenerModificarNombre implements KeyListener, FocusListener {
 	}
 
 	@Override
+	public void focusGained(FocusEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void focusLost(FocusEvent arg0) {
+		nombre.setEditable(false);
+		comprobarNombre();
+	}
+
+	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
 
@@ -73,25 +85,16 @@ public class ListenerModificarNombre implements KeyListener, FocusListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			nombre.setEditable(false);
 			comprobarNombre();
 		}
+
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
 		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void focusGained(FocusEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void focusLost(FocusEvent arg0) {
-		comprobarNombre();
 	}
 
 }
