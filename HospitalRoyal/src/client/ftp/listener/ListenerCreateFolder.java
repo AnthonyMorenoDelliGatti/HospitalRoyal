@@ -38,6 +38,7 @@ public class ListenerCreateFolder implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
+		view.setEnabled(false);
 		CreateFolderView createView = new CreateFolderView();
 		createView.setVisible(true);
 		createView.pack();
@@ -49,6 +50,7 @@ public class ListenerCreateFolder implements ActionListener {
 					Boolean success = client.makeDirectory(client.printWorkingDirectory()+folder);
 					if (success) {
 						createView.dispose();
+						view.setEnabled(true);
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
 					}

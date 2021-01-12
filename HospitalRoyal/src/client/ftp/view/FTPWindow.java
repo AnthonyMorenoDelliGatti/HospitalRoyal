@@ -3,6 +3,8 @@ package client.ftp.view;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -17,6 +19,7 @@ import javax.swing.border.Border;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Methods;
+import client.view.StartMenuView;
 
 
 /**
@@ -33,6 +36,7 @@ public class FTPWindow extends JFrame {
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
 	private Methods method;
+	StartMenuView principalView;
 
 	/**
 	 * Builder
@@ -41,14 +45,15 @@ public class FTPWindow extends JFrame {
 	 * @param user   - String - 
 	 * @param lista  - VistaArchivos -
 	 * @param method - Methods -
+	 * @param vStartMenu 
 	 */
-	public FTPWindow(FTPClient client, String user, VistaArchivos lista, Methods method) {
+	public FTPWindow(FTPClient client, String user, VistaArchivos lista, Methods method, StartMenuView principalView) {
 		colorHeader = new Color(204, 252, 255);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
 		
 		this.lista = lista;
 		this.method = method;
-		
+		this.principalView = principalView;
 		rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
 		
@@ -66,6 +71,49 @@ public class FTPWindow extends JFrame {
 		
 		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		this.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				principalView.setVisible(true);	
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+						
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 	}
 
 	/**
