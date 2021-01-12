@@ -97,10 +97,13 @@ public class VistaArchivos {
 		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
-		JMenuItem item2 = new JMenuItem("Descargar");
-		item2.addActionListener(
-				new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
-		menu.add(item2);
+		if(archivo.getIsCarpeta() == 0) {
+			JMenuItem item2 = new JMenuItem("Descargar");
+			item2.addActionListener(
+					new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
+			menu.add(item2);
+		}
+		
 		item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(
 				new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
