@@ -91,8 +91,7 @@ public class ThreadServer extends Thread {
 			outputStream.writeUTF("false");
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			viewServer.getArea().append("\n" + client.toString() + " has been suddenly disconnected");
 		}
 	}
 
