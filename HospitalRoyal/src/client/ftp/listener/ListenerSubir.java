@@ -2,6 +2,8 @@ package client.ftp.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.DataOutputStream;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -32,10 +34,11 @@ public class ListenerSubir implements ActionListener {
 
 	@Override
 	public synchronized void actionPerformed(ActionEvent e) {
-		DropFile drop = new DropFile();
+		v.setEnabled(false);
+		DropFile drop = new DropFile(v);
 		drop.getFrame().setVisible(true);
 		drop.getClose().addActionListener(new ListenerCloseWindow(drop.getFrame()));
-		drop.getSave().addActionListener(new ListenerSave());
-		drop.getFileChooserBtn().addActionListener(new ListenerFileChooser(client, user, v, lista, method, outputStream));
+		drop.getSave().addActionListener(new ListenerSave(drop, client, outputStream, v, method, lista));
+		drop.getFileChooserBtn().addActionListener(new ListenerFileChooser(client, user, v, lista, method, outputStream, drop));
 	}
 }

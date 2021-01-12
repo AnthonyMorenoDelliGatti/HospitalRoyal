@@ -11,8 +11,11 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.border.Border;
 
+import client.controller.Client;
+
 public class SplashSubidaArchivo extends JFrame{
 
+	Thread splash = new Thread();
 	private JProgressBar barra;
 	JPanel panel = new JPanel();
 	JButton btn;
@@ -21,7 +24,7 @@ public class SplashSubidaArchivo extends JFrame{
 		panel.setBackground(Color.white);
 		this.setUndecorated(true);
 		btn = new JButton("");
-		btn.setIcon(new ImageIcon(("iconos//descargaSplash.png")));
+		btn.setIcon(new ImageIcon(("iconos\\descargaSplash.png")));
 		btn.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btn.setBorder(emptyBorder);
@@ -36,14 +39,13 @@ public class SplashSubidaArchivo extends JFrame{
 		setContentPane(panel);
 		pack();
 		setVisible(true);
-		
 		cargar();
 	}
 	private void cargar() {
 		for(int i=0;i<=100;i++) {
 			barra.setValue(i);
 			if(i==100) {
-				System.exit(0);
+				this.dispose();	
 			}
 		}
 	}

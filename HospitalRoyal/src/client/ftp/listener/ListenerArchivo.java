@@ -55,7 +55,6 @@ public class ListenerArchivo implements MouseListener {
 						nuevaDireccion = client.printWorkingDirectory() + "/" + archivo.getNombre();
 					}
 					client.changeWorkingDirectory(nuevaDireccion);
-					System.out.println(nuevaDireccion);
 					vista.getButtons().get(0).setEnabled(true);
 					vista.getButtons().get(1).setEnabled(false);
 					paths.getPathguardados().clear();
