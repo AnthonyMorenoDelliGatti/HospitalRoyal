@@ -45,6 +45,7 @@ public class EmailMenuWindow {
 	String user;
 	String password;
 	String email;
+
 	public EmailMenuWindow(String user, String password, String email, StartMenuView vStartMenu) {
 		this.user = user;
 		this.password = password;
