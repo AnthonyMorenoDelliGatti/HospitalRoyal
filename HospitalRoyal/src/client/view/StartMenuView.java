@@ -54,6 +54,7 @@ public class StartMenuView extends JFrame {
 		setContentPane(panel);
 		pack();
 		setVisible(true);
+		
 
 	}
 

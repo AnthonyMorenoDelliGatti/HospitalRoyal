@@ -37,7 +37,7 @@ public class Client {
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
 	Socket Client;
-	FTPWindow principalView;
+	FTPWindow ftpWindow;
 	VistaArchivos explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
@@ -283,29 +283,29 @@ public class Client {
 						e.printStackTrace();
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
-					principalView = new FTPWindow(client, user, explorer, method);
-					explorer = new VistaArchivos(client, archivos, method, principalView, password, outputStream, paths);
-					method.cargarDatosLista(client, principalView, explorer);
-					principalView.setVisible(true);
-					principalView.setLocationRelativeTo(null);	
+					ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
+					explorer = new VistaArchivos(client, archivos, method, ftpWindow, password, outputStream, paths);
+					method.cargarDatosLista(client, ftpWindow, explorer);
+					ftpWindow.setVisible(true);
+					ftpWindow.setLocationRelativeTo(null);	
 			
 					
 					// se introducen los listener a los botones
 					// volver al padre
-					principalView.getButtons().get(0).addActionListener(
-							new ListenerReturn(client,method,principalView,explorer,paths));
+					ftpWindow.getButtons().get(0).addActionListener(
+							new ListenerReturn(client,method,ftpWindow,explorer,paths));
 					//volver al anterior
-					principalView.getButtons().get(1).addActionListener(
-							new ListenerReturnForward(client,method,principalView,explorer,paths));
+					ftpWindow.getButtons().get(1).addActionListener(
+							new ListenerReturnForward(client,method,ftpWindow,explorer,paths));
 					// crear carpeta
-					principalView.getButtons().get(2).addActionListener(
-							new ListenerCreateFolder(client, archivos, method, principalView, explorer, password, outputStream));
+					ftpWindow.getButtons().get(2).addActionListener(
+							new ListenerCreateFolder(client, archivos, method, ftpWindow, explorer, password, outputStream));
 					// eliminar archivos y carpetas
-					principalView.getButtons().get(3)
-							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
+					ftpWindow.getButtons().get(3)
+							.addActionListener(new ListenerSubir(client, user, ftpWindow, explorer, method, outputStream));
 					vStartMenu.setVisible(false);
 					
-					principalView.getButtons().get(4).addActionListener(new ListenerClose(principalView, null, vStartMenu));
+					ftpWindow.getButtons().get(4).addActionListener(new ListenerClose(ftpWindow, null, vStartMenu));
 				}
 			});
 			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
