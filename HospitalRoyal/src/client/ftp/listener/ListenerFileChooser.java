@@ -13,6 +13,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Methods;
+import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
@@ -27,19 +28,22 @@ public class ListenerFileChooser implements ActionListener{
 	private FTPWindow v;
 	private VistaArchivos lista;
 	private DataOutputStream outputStream;
+	private DropFile drop;
 	
-	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method, DataOutputStream outputStream) {
+	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method, DataOutputStream outputStream, DropFile drop) {
 		this.client = client;
 		this.user = user;
 		this.v = v;
 		this.lista = lista;
 		this.method = method;
 		this.outputStream = outputStream;
+		this.drop=drop;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		try {
+			drop.getFrame().setEnabled(false);
 			client.setFileType(FTP.BINARY_FILE_TYPE);
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.showOpenDialog(fileChooser);
@@ -49,12 +53,12 @@ public class ListenerFileChooser implements ActionListener{
 			String[] routeSplitted = route.split("\\\\");
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
-			System.out.println("UPLOAD SUCCESFULL");
-
+			drop.getFrame().dispose();
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			method.cargarDatosLista(client, v, lista);
 			outputStream.writeUTF("4");
 			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
+			drop.getFrame().dispose();
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

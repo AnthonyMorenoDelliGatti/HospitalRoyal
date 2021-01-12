@@ -55,32 +55,38 @@ public class ThreadServer extends Thread {
 							//Borrar archivo
 							String fileName = inputStream.readUTF();
 							method.log(user, 3, "Delete file: " + fileName);
+							viewServer.getArea().append("\n"+client.toString()+" Delete file: " + fileName);
 							break;
 						case 4:
 							//Subir archivo
 							String route = inputStream.readUTF();
 							method.log(user, 4, "Upload: " + route);
+							viewServer.getArea().append("\n"+client.toString()+" Upload: " + route);
 							break;
 						case 5:
 							//Crear carpeta
 							String folder = inputStream.readUTF();
-							method.log(user, 5, " Created directory: " + folder);
+							method.log(user, 5, "Created directory: " + folder);
+							viewServer.getArea().append("\n"+client.toString()+" Created directory: " + folder);
 							break;
 						case 6:
 							//Borrar carpeta
 							String folderName = inputStream.readUTF();
-							method.log(user, 6, "ha borrado la carpeta " + folderName);
+							method.log(user, 6, " has deleted the folder " + folderName);
+							viewServer.getArea().append("\n"+client.toString()+" has deleted the folder " + folderName);
 							break;
 						case 7:
 							//Cambiar nombre
 							String name = inputStream.readUTF();
 							String newName = inputStream.readUTF();
 							method.log(user, 7, " Renamed file: " + name + " to: " + newName);
+							viewServer.getArea().append("\n"+client.toString()+" Renamed file: " + name + " to: " + newName);
 							break;
 						case 8:
 							//Descargar archivo
 							String fileNameDownload = inputStream.readUTF();
 							method.log(user, 8, " Download file: " + fileNameDownload);
+							viewServer.getArea().append("\n"+client.toString()+" Download file: " + fileNameDownload);
 							break;
 						}
 					}

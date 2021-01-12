@@ -7,6 +7,8 @@ import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +32,7 @@ import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
 import client.model.Archivo;
+import client.view.Splash;
 
 public class DropFile {
 
@@ -39,13 +42,17 @@ public class DropFile {
 	private JButton close;
 	private JButton save;
 	private JButton fileChooserBtn;
+	private ArrayList<String> pathFiles=new ArrayList<>(); 
+	private FTPWindow v;
 
 	/**
 	 * Create the application.
+	 * @param v 
 	 */
-	public DropFile() {
+	public DropFile(FTPWindow v) {
 		initialize();
 		dropFile();
+		this.v=v;
 	}
 
 	public void cargarDatos(Archivo archivo) {
@@ -68,9 +75,8 @@ public class DropFile {
 					ArrayList<Archivo> archivos = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
-
 						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
-						// implementar el proceso de splash
+						pathFiles.add(i.getPath());
 					}
 					
 					generarListado(archivos);
@@ -85,6 +91,10 @@ public class DropFile {
 		dropPanel.setTransferHandler(th);
 	}
 	
+	public ArrayList<String> getPathFiles() {
+		return pathFiles;
+	}
+
 	private void generarListado(ArrayList<Archivo> archivos) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
@@ -129,8 +139,53 @@ public class DropFile {
 		headerColor = new Color(204, 252, 255);
 		 
 		frame = new JFrame();
+		frame.addWindowListener(new WindowListener() {
+			
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+				SplashSubidaArchivo splash = new SplashSubidaArchivo();
+				splash.setVisible(true);
+				v.setEnabled(true);
+			}
+			
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
 		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setUndecorated(true);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
