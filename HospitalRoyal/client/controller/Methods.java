@@ -16,16 +16,16 @@ import java.util.TimeZone;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
+import ftp.view.FTPWindow;
+import ftp.view.VistaArchivos;
 import model.ArchivoFtp;
-import view.VistaArchivos;
-import view.VistaPrincipal;
 
 public class Methods {
 	
 	public Methods() {
 
 	}
-	public void cargarDatosLista(FTPClient client, VistaPrincipal view, VistaArchivos explorer) {
+	public void cargarDatosLista(FTPClient client, FTPWindow view, VistaArchivos explorer) {
 		try {
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
@@ -58,12 +58,12 @@ public class Methods {
 				}
 				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
 				view.getCentro().removeAll();
-				view.agregarExplorador(explorer.visualizarListado(archivos));
+				view.addExplorer(explorer.visualizarListado(archivos));
 				view.pack();
 			}
 			}else {
 				view.getCentro().removeAll();
-				view.agregarExplorador(explorer.visualizarListado(archivos));
+				view.addExplorer(explorer.visualizarListado(archivos));
 				view.pack();
 			}
 		} catch (IOException e) {
