@@ -15,5 +15,6 @@ public class ListenerCloseWindow implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		frame.dispose();
+		System.exit(0);
 	}
 }
