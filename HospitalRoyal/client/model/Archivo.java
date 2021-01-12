@@ -5,11 +5,11 @@ package model;
  * Ejemplo rápido de objeto que se necesita para la vista del cliente
  *
  */
-public class ArchivoMail{
+public class Archivo{
 
 	private String nombre, ultFechaModificacion, direccion;
 
-	public ArchivoMail(String nombre, String ultFechaModificacion, String direccion) {
+	public Archivo(String nombre, String ultFechaModificacion, String direccion) {
 		this.nombre = nombre;
 		this.ultFechaModificacion = ultFechaModificacion;
 		this.direccion = direccion;

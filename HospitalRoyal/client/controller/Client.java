@@ -38,20 +38,27 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.smtp.SMTPClient;
 
+import ftp.listener.ListenerClose;
+import ftp.listener.ListenerCloseWindow;
+import ftp.listener.ListenerCreateFolder;
+import ftp.listener.ListenerReturn;
+import ftp.listener.ListenerReturnForward;
+import ftp.listener.ListenerSubir;
+import ftp.view.FTPWindow;
+import ftp.view.VistaArchivos;
+import login.view.Login;
 import model.ArchivoFtp;
 import model.Paths;
 import model.ServerData;
-import view.VistaArchivos;
-import view.VistaPrincipal;
-import view.EmailMenuWindow;
-import view.Login;
+import email.view.*;
+import ftp.*;
 import view.StartMenuView;
 
 public class Client {
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
 	Socket Client;
-	VistaPrincipal principalView;
+	FTPWindow principalView;
 	VistaArchivos explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
@@ -67,7 +74,7 @@ public class Client {
 		Login v = new Login();
 		method = new Methods();
 		v.setVisible(true);
-		v.pack();
+		v.getClose().addActionListener(new ListenerCloseWindow(v));
 		String Host = "localhost";
 		int Puerto = 5000;
 		adminUser = true;
@@ -76,7 +83,7 @@ public class Client {
 			outputStream = new DataOutputStream(Client.getOutputStream());
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
-			v.getLabelInfo3().setText(
+			v.getLabelInfo().setText(
 					"The connection to the Server could not be established, the program will close in 5 seconds");
 			v.pack();
 			try {
@@ -160,7 +167,7 @@ public class Client {
 				adminUser = false;
 			}
 			if (serverStr.equals("false")) {
-				v.getLabelInfo3().setText("Maximo 3 intentos para iniciar sesion");
+				v.getLabelInfo().setText("Maximo 3 intentos para iniciar sesion");
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException e1) {
@@ -170,7 +177,7 @@ public class Client {
 			}
 			try {
 				serverStr = inputStream.readUTF();
-				v.getLabelInfo3().setText(serverStr);
+				v.getLabelInfo().setText(serverStr);
 				v.pack();
 			} catch (Exception e) {
 
@@ -297,11 +304,13 @@ public class Client {
 						e.printStackTrace();
 					}
 					ArrayList<ArchivoFtp> archivos = new ArrayList<>();
-					principalView = new VistaPrincipal(client, user, explorer, method);
+					principalView = new FTPWindow(client, user, explorer, method);
 					explorer = new VistaArchivos(client, archivos, method, principalView, password, outputStream, paths);
 					method.cargarDatosLista(client, principalView, explorer);
 					principalView.setVisible(true);
-					principalView.pack();
+					principalView.setLocationRelativeTo(null);	
+			
+					
 					// se introducen los listener a los botones
 					// volver al padre
 					principalView.getButtons().get(0).addActionListener(
@@ -316,6 +325,8 @@ public class Client {
 					principalView.getButtons().get(3)
 							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
 					vStartMenu.setVisible(false);
+					
+					principalView.getButtons().get(4).addActionListener(new ListenerClose(principalView, null, vStartMenu));
 				}
 			});
 			vStartMenu.getButtonMail().addActionListener(new ActionListener() {
@@ -328,6 +339,8 @@ public class Client {
 					vStartMenu.setVisible(false);
 					emailwindow = new EmailMenuWindow(user, password, email, vStartMenu);
 					emailwindow.getFrame().setVisible(true);
+					emailwindow.getFrame().setLocationRelativeTo(null);	
+
 					exists(client);
 					try {
 						client.changeWorkingDirectory(user);

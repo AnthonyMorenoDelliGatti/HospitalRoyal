@@ -2,6 +2,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
@@ -20,7 +21,7 @@ public class ServerView extends JFrame{
 	public ServerView() {
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-		
+		setIconImage(Toolkit.getDefaultToolkit().getImage("..//iconos//logo.png"));
 		panel = new JPanel();
 		BoxLayout ventana = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(ventana);
