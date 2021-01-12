@@ -99,7 +99,7 @@ public class ThreadServer extends Thread {
 	private String selectEmailsUser(String user) {
 		String email="";
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
 			String sql = "SELECT correo FROM usuario WHERE usuario LIKE '"+user+"'";
@@ -117,7 +117,7 @@ public class ThreadServer extends Thread {
 
 	private boolean checkPermissions(String user) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
 			String sql = "SELECT * FROM usuario";
@@ -139,7 +139,7 @@ public class ThreadServer extends Thread {
 
 	private static boolean checkUser(String user, String password) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
 			Statement statement = connection.createStatement();
 			String sql = "SELECT * FROM usuario";
