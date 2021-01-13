@@ -26,7 +26,7 @@ public class StartMenuView extends JFrame {
 	JButton buttonMail;
 	JButton buttonFTP;
 
-	public StartMenuView() {
+	public StartMenuView(SplashPostLogin splashPostLogin) {
 		super("HOSPITAL ROYAL");
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 		setMinimumSize(new Dimension(400, 200));
@@ -55,7 +55,7 @@ public class StartMenuView extends JFrame {
 		pack();
 		setVisible(true);
 		
-
+		splashPostLogin.dispose();
 	}
 
 	private void generarPaneles(ArrayList<JPanel> paneles) {

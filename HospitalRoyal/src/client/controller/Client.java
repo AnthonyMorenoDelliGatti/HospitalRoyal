@@ -29,6 +29,7 @@ import client.login.view.Login;
 import client.model.ArchivoFtp;
 import client.model.Paths;
 import client.model.ServerData;
+import client.view.SplashPostLogin;
 import client.view.StartMenuView;
 
 
@@ -188,7 +189,8 @@ public class Client {
 		} catch (IOException ioe) {
 			ioe.printStackTrace();
 		}
-		StartMenu(adminUser, client);
+		SplashPostLogin splashPostLogin = new SplashPostLogin();
+		StartMenu(adminUser, client, splashPostLogin);
 	}
 
 //	private void enviarConGMail(String destinatario, String asunto, String cuerpo) {
@@ -223,10 +225,9 @@ public class Client {
 //		}
 //	}
 
-	private void StartMenu(boolean adminUser, FTPClient client) {
-		vStartMenu = new StartMenuView();
+	private void StartMenu(boolean adminUser, FTPClient client, SplashPostLogin splashPostLogin) {
+		vStartMenu = new StartMenuView(splashPostLogin);
 		vStartMenu.addWindowListener(new WindowListener() {
-
 			@Override
 			public void windowClosing(WindowEvent e) {
 				try {
