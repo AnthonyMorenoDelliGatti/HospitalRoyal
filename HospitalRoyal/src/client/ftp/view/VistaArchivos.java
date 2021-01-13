@@ -74,6 +74,7 @@ public class VistaArchivos {
 		Collections.sort(archivos);
 		for (ArchivoFtp i : archivos) {
 			panel = new JPanel();
+			panel.setBackground(Color.white);
 			panel.setLayout(experimentLayout);
 
 			JLabel l = obtenerIcono(i);
@@ -117,6 +118,7 @@ public class VistaArchivos {
 		nombre.addKeyListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
 		nombre.addFocusListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
 		nombre.setEditable(false);
+		nombre.setBackground(Color.white);
 
 		return nombre;
 	}
@@ -135,6 +137,7 @@ public class VistaArchivos {
 
 	private void cabecera(JPanel rootPanel, GridLayout experimentLayout) {
 		JPanel panel = new JPanel();
+		panel.setBackground(Color.white);
 		panel.setLayout(experimentLayout);
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));

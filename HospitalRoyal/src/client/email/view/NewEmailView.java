@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
 import java.io.File;
@@ -34,13 +35,12 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerArchivo;
 import client.email.listener.ListenerBotonModificarNombre;
 import client.email.listener.ListenerClose;
+import client.email.listener.ListenerCloseWindow;
 import client.email.listener.ListenerEliminar;
 import client.email.listener.ListenerModificarNombre;
 import client.email.listener.ListenerSend;
 import client.model.Archivo;
 import client.model.Email;
-
-
 
 public class NewEmailView {
 	private JFrame frame;
@@ -75,6 +75,7 @@ public class NewEmailView {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setUndecorated(true);
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\email.png"));
 
 		headerColor = new Color(204, 252, 255);
 		body = Color.WHITE;
@@ -111,7 +112,7 @@ public class NewEmailView {
 		close.setBorder(emptyBorder);
 		close.setBackground(headerColor);
 		panel_4.add(close);
-		close.addActionListener(new ListenerClose(frame, client, null));
+		close.addActionListener(new ListenerCloseWindow(frame));
 
 		JPanel panel_1 = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) panel_1.getLayout();
@@ -181,6 +182,7 @@ public class NewEmailView {
 		dropFile();
 		frame.setVisible(true);
 
+		frame.setLocationRelativeTo(null);
 	}
 
 	public JFrame getFrame() {

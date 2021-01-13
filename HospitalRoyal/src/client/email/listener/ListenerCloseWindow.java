@@ -1,4 +1,5 @@
-package client.ftp.listener;
+package client.email.listener;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
