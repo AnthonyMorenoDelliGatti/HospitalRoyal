@@ -1,5 +1,6 @@
 package client.ftp.listener;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +19,7 @@ public class ListenerBotonModificarNombre implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		nombre.setEditable(true);
+		nombre.setBackground(Color.WHITE);
 		nombre.requestFocus();
 	}
 }

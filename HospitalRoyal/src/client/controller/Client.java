@@ -27,9 +27,8 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.login.view.Login;
 import client.menu.listener.ListenerAbout;
-import client.menu.listener.ListenerAdminEmail;
+import client.menu.listener.ListenerEmail;
 import client.menu.listener.ListenerAdminFTP;
-import client.menu.listener.ListenerUserEmail;
 import client.menu.listener.ListenerUserFTP;
 import client.menu.view.StartMenuView;
 import client.model.ArchivoFtp;
@@ -243,7 +242,7 @@ public class Client {
 				
 		if (adminUser) {
 			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail().addActionListener(new ListenerAdminEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
 		} else {
 			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(user, client, paths, this));
 					/*
@@ -268,7 +267,7 @@ public class Client {
 							.addActionListener(new ListenerSubir(client, user, principalView, explorer, method, outputStream));
 					vStartMenu.setVisible(false);*/
 		
-			vStartMenu.getButtonMail().addActionListener(new ListenerUserEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
 	
 		}
 	}

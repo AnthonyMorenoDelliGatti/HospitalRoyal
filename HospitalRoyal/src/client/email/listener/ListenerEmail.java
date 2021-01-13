@@ -3,12 +3,19 @@ package client.email.listener;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
+import javax.swing.JEditorPane;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.WindowConstants;
 
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.email.view.EmailMenuWindow;
+import client.email.view.EmailView;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
@@ -20,17 +27,29 @@ public class ListenerEmail implements MouseListener {
 	private Email email;
 	private FTPClient client;
 	private StartMenuView vStarMenu;
+	String password;
 
-	public ListenerEmail(JPanel panel, Email email) {
+	public ListenerEmail(JPanel panel, Email email, EmailMenuWindow vista, String password) {
 		this.panel = panel;
 		this.email = email;
-		
+		this.vista = vista;
+		this.password = password;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2) {
-
+			try
+	        {
+				vista.getFrame().setEnabled(false);
+	            EmailView ev = new EmailView(email, vista);
+	            ev.getResponder().addActionListener(new ListenerReply(email, password));
+	            ev.getReenviar().addActionListener(new ListenerForward(email, password));
+	        }
+	        catch (Exception er)
+	        {
+	            er.printStackTrace();
+	        }
 		}
 	}
 

@@ -38,11 +38,11 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 		if (text.trim().length() > 0) {
 			archivo.setNombre(text);
 			cambiarnombre(text, nombreanterior);
-
 		} else {
 			nombre.setText(archivo.getNombre());
 		}
 		nombre.setEditable(false);
+		nombre.setBackground(Color.white);
 	}
 
 	private void cambiarnombre(String newName, String name) {
@@ -57,6 +57,7 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 			outputStream.writeUTF("7");
 			outputStream.writeUTF(name);
 			outputStream.writeUTF(newName);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -72,7 +73,6 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		nombre.setEditable(false);
 		comprobarNombre();
 	}
 
@@ -85,8 +85,8 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			nombre.setEditable(false);
 			comprobarNombre();
+			
 		}
 
 	}

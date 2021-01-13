@@ -10,6 +10,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.swing.JOptionPane;
 
 import client.email.view.NewEmailView;
 
@@ -30,6 +31,7 @@ public class ListenerSend implements ActionListener{
 		String to = view.getTo().getText();
 		String subject = view.getSubject().getText();
 		String message = view.getTextPane().getText();
+		view.getFrame().dispose();
 		enviarConGMail(user,password,to,subject,message);
 	}
 	private void enviarConGMail(String remitente, String clave, String destinatario, String asunto, String cuerpo) {
@@ -54,8 +56,11 @@ public class ListenerSend implements ActionListener{
 		transport.connect("smtp.gmail.com", remitente, clave);
 		transport.sendMessage(message, message.getAllRecipients());
 		transport.close();
+		view.getFrame().dispose();
 	} catch (MessagingException me) {
-		me.printStackTrace(); // Si se produce un error
+		JOptionPane op = new JOptionPane();
+		op.showMessageDialog(view.getFrame(), "An error has ocurred, please check de email adress");
+		
 	}
 }
 }

@@ -23,6 +23,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.SwingUtilities;
@@ -52,21 +53,18 @@ public class NewEmailView {
 	private JScrollPane scrollPane;
 	private JPanel dropPanel;
 	private JButton close;
-	private JTextPane textPane;
+	private JTextArea textPane;
 	private JButton send;
 	private JButton upLoad;
-	private String user;
-	private SMTPClient client;
 	String email;
 	String password;
 
-	public NewEmailView(SMTPClient client, String user, String email, String password) {
-		this.client = client;
-		this.user = user;
+	public NewEmailView( String email, String password) {
 		this.email = email;
 		this.password = password;
 		initialize();
 	}
+
 
 	private void initialize() {
 		frame = new JFrame();
@@ -144,16 +142,18 @@ public class NewEmailView {
 		frame.getContentPane().add(dropPanel, BorderLayout.CENTER);
 		dropPanel.setLayout(null);
 		dropPanel.setBackground(body);
-
-		textPane = new JTextPane();
+		textPane = new JTextArea();
 		textPane.setBounds(10, 11, 430, 146);
 		textPane.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		dropPanel.add(textPane);
-
+		textPane.setLineWrap(true);
+		JScrollPane scroll = new JScrollPane(textPane);
+		scroll.setBounds(10, 11, 430, 146);
+		scroll.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		dropPanel.add(scroll);
 		filesPanel = new JPanel();
 		filesPanel.setLayout(new BoxLayout(filesPanel, BoxLayout.Y_AXIS));
 		scrollPane = new JScrollPane(filesPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		filesPanel.setBackground(body);
 		scrollPane.setBounds(10, 173, 430, 160);
 		dropPanel.add(scrollPane);
@@ -324,11 +324,11 @@ public class NewEmailView {
 		this.upLoad = upLoad;
 	}
 
-	public JTextPane getTextPane() {
+	public JTextArea getTextPane() {
 		return textPane;
 	}
 
-	public void setTextPane(JTextPane textPane) {
+	public void setTextPane(JTextArea textPane) {
 		this.textPane = textPane;
 	}
 
