@@ -38,7 +38,6 @@ public class ListenerSave implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		ArrayList <String> pathFiles = drop.getPathFiles();
 		for(String path : pathFiles) {
-			System.out.println(path);
 			BufferedInputStream in;
 			try {
 				in = new BufferedInputStream(new FileInputStream(path));

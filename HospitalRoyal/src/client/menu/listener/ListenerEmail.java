@@ -3,6 +3,7 @@ package client.menu.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+
 import java.util.Properties;
 
 import javax.mail.BodyPart;
@@ -14,6 +15,7 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
+
 
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -45,9 +47,6 @@ public class ListenerEmail implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
-//		enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
-
 		vStartMenu.setVisible(false);
 		emailWindow = new EmailMenuWindow(user, password, email, vStartMenu);
 		emailWindow.getFrame().setVisible(true);
@@ -91,5 +90,4 @@ public class ListenerEmail implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
 }

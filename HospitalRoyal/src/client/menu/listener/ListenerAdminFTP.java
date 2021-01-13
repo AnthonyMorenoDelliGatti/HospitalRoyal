@@ -55,7 +55,7 @@ public class ListenerAdminFTP implements ActionListener{
 		}
 		ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 		ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
-		explorer = new VistaArchivos(client, archivos, method, ftpWindow, password, outputStream, paths);
+		explorer = new VistaArchivos(client, archivos, method, ftpWindow, password, outputStream, paths, true);
 		method.cargarDatosLista(client, ftpWindow, explorer);
 		ftpWindow.setVisible(true);
 		ftpWindow.setLocationRelativeTo(null);	
