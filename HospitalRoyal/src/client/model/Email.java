@@ -3,7 +3,7 @@ package client.model;
 public class Email {
 
 	private String to, subject, user;
-	private String text;
+	private Object text;
 	private String fecha;
 	private Boolean isRead;
 
@@ -13,7 +13,7 @@ public class Email {
 	 * @param subject
 	 * @param user    - poner un objeto usuario o algo que haga referencia
 	 */
-	public Email(String to, String subject, String user, String text, String fecha, boolean isRead) {
+	public Email(String to, String subject, String user, Object text, String fecha, boolean isRead) {
 		this.to = to;
 		this.subject = subject;
 		this.user = user;
@@ -46,11 +46,11 @@ public class Email {
 		this.user = user;
 	}
 
-	public String getText() {
+	public Object getText() {
 		return text;
 	}
 
-	public void setText(String text) {
+	public void setText(Object text) {
 		this.text = text;
 	}
 

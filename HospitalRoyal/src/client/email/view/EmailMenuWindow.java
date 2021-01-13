@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,6 +30,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
 import client.ftp.listener.ListenerSearch;
+import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
@@ -85,7 +87,7 @@ public class EmailMenuWindow {
                     public void run() {
                         try {
                             ArrayList<String> archivos = new ArrayList<>();
-                            NewEmailView window = new NewEmailView(client, user, email, password);
+                            NewEmailView window = new NewEmailView(email, password);
                             window.getFrame().setVisible(true);
 
                         } catch (Exception e) {
@@ -167,17 +169,14 @@ public class EmailMenuWindow {
 	// Agregar un correo
 	public void viewEmails(Email email) {
 		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
-
-		panel.add(new JLabel(email.getUser()));
-		panel.add(new JLabel(email.getSubject()));
-		panel.add(new JLabel(email.getFecha()));
-
+		panel.setLayout(new GridLayout(0,1));
+		panel.add(new JLabel("From: "+email.getUser()));
+		panel.add(new JLabel("Subject: "+email.getSubject()));
+		panel.add(new JLabel("Send: " + email.getFecha().toString()));
 		if (!email.getIsRead()) {
 			panel.setBackground(WHITE);
 		}
-
-		panel.addMouseListener(new ListenerEmail(panel, email));
+		panel.addMouseListener(new ListenerEmail(panel, email, this, password));
 		emailBox.add(panel);
 	}
 
