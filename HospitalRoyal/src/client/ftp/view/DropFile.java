@@ -174,7 +174,7 @@ public class DropFile {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				// TODO Auto-generated method stub
-				SplashSubidaArchivo splash = new SplashSubidaArchivo(v, "download");
+				SplashSubidaArchivo splash = new SplashSubidaArchivo(v, "upload");
 				splash.setVisible(true);
 			}
 			

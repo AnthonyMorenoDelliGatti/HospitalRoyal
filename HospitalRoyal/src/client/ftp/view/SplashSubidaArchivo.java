@@ -29,9 +29,9 @@ public class SplashSubidaArchivo extends JFrame {
 		panel.setBackground(Color.white);
 		this.setUndecorated(true);
 		btn = new JButton("");
-		if (tipe.equals("download")) {
-			btn.setIcon(new ImageIcon(("iconos\\descargaSplash.png")));
-		} else if (tipe.equals("upload")) {
+		if (tipe.equals("upload")) {
+			btn.setIcon(new ImageIcon(("iconos\\subidaSplash.png")));
+		} else if (tipe.equals("download")) {
 			btn.setIcon(new ImageIcon(("iconos\\descargaSplash.png")));
 		}
 		btn.setFocusPainted(false);

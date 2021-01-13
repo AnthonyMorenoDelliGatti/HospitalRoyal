@@ -16,6 +16,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import client.controller.Methods;
+import client.ftp.view.FTPWindow;
+import client.ftp.view.SplashSubidaArchivo;
 
 
 public class ListenerDescargar implements ActionListener {
@@ -26,19 +28,22 @@ public class ListenerDescargar implements ActionListener {
 	Methods method;
 	String user;
 	DataOutputStream outputStream;
+	FTPWindow vista;
 
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user, DataOutputStream outputStream) {
+	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user, DataOutputStream outputStream, FTPWindow vista) {
 		this.direccion = direccion;
 		this.client = client;
 		this.name = nombre;
 		this.method = method;
 		this.user = user;
 		this.outputStream = outputStream;
+		this.vista=vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		FTPFile[] fileList;
+		vista.setEnabled(false);
 		try {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
@@ -51,6 +56,8 @@ public class ListenerDescargar implements ActionListener {
 							new FileOutputStream(path + File.separator + name));
 					client.setFileType(FTP.BINARY_FILE_TYPE);
 					client.retrieveFile("." + direccion, outputStream2);
+					SplashSubidaArchivo splash = new SplashSubidaArchivo(vista, "upload");
+					splash.setVisible(true);
 					outputStream.writeUTF("8");
 					outputStream.writeUTF(name);
 				}
