@@ -137,7 +137,7 @@ public class VistaArchivos {
 
 	private void cabecera(JPanel rootPanel, GridLayout experimentLayout) {
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.white);
+		panel.setBackground(new Color(204, 252, 255));
 		panel.setLayout(experimentLayout);
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));

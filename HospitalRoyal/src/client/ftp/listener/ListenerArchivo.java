@@ -72,7 +72,7 @@ public class ListenerArchivo implements MouseListener {
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		Color color = new Color(211, 238, 240);
+		Color color = new Color(204, 252, 255);
 		panel.setBackground(color);
 		name.setBackground(color);
 	}
