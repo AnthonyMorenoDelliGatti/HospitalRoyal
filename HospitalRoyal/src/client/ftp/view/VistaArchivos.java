@@ -99,7 +99,7 @@ public class VistaArchivos {
 		if(archivo.getIsCarpeta() == 0) {
 			JMenuItem item2 = new JMenuItem("Descargar");
 			item2.addActionListener(
-					new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream));
+					new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream, vista));
 			menu.add(item2);
 		}
 		
