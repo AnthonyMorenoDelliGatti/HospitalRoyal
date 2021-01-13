@@ -77,6 +77,7 @@ public class ListenerEliminar implements ActionListener {
 				}
 				// se actualiza la vista
 				try {
+					view.pack();
 					client.changeWorkingDirectory(originalPath);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block

@@ -32,6 +32,7 @@ public class ListenerReturn implements ActionListener{
 					paths.getPathguardados().add(client.printWorkingDirectory());
 					client.changeToParentDirectory();
 					principalView.getButtons().get(1).setEnabled(true);
+					principalView.pack();
 					method.cargarDatosLista(client, principalView, explorer);
 					if(client.printWorkingDirectory().equalsIgnoreCase(paths.getPathLimit())) {
 						principalView.getButtons().get(0).setEnabled(false);

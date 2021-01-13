@@ -183,6 +183,8 @@ public class FTPWindow extends JFrame {
 	 */
 	public void addExplorer(JPanel jPanel) {
 		body.add(jPanel);
+		setBounds(600,600,600,600);
+		setLocationRelativeTo(null);
 	}
 
 	/**
@@ -193,6 +195,9 @@ public class FTPWindow extends JFrame {
 	public void updateExplorer(JPanel explorer) {
 		body.remove(1); // borra el anterior explorador
 		addExplorer(explorer);
+
+		setBounds(600,600,600,600);
+		setLocationRelativeTo(null);
 	}
 
 	public ArrayList<JButton> getButtons() {

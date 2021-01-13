@@ -54,6 +54,7 @@ public class ListenerFileChooser implements ActionListener {
 			in.close();
 			drop.getFrame().dispose();
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
+			v.pack();
 			method.cargarDatosLista(client, v, lista);
 			outputStream.writeUTF("4");
 			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
