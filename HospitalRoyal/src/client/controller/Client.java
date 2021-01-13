@@ -71,8 +71,9 @@ public class Client {
 			outputStream = new DataOutputStream(Client.getOutputStream());
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
-			v.getLabelInfo().setText(
-					"The connection to the Server could not be established, the program will close in 5 seconds");
+			JOptionPane.showMessageDialog(null,
+					"The connection to the Server could not be established, the program will close in 5 seconds",
+					"ERROR", JOptionPane.WARNING_MESSAGE);
 			v.pack();
 			try {
 				Thread.sleep(5 * 1000);
@@ -95,7 +96,11 @@ public class Client {
 						if (serverStr.equals("INCORRECT USER OR PASSWORD")) {
 							JOptionPane.showMessageDialog(null, "User or password incorrect", "FAILED TO LOGIN",
 									JOptionPane.WARNING_MESSAGE);
-							v.getTextPassword().setText("");;
+							v.getTextPassword().setText("");
+							
+						} else if (serverStr.equals("DB NOT CONNECTED")) {
+							JOptionPane.showMessageDialog(null, "The database is not available, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+									JOptionPane.WARNING_MESSAGE);
 						} else {
 							login(v);
 						}
@@ -159,22 +164,32 @@ public class Client {
 		});
 	}
 
-	private void login(Login v) throws IOException {
+	private void login(Login v) {
 		String serverStr = "";
-		serverStr = inputStream.readUTF();
+		try {
+			serverStr = inputStream.readUTF();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if (serverStr.equals("normalUser")) {
 			adminUser = false;
 		}
-		serverStr = inputStream.readUTF();
+		try {
+			serverStr = inputStream.readUTF();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		email = serverStr;
 		user = v.getTextUser().getText();
 		password = v.getTextPassword().getText();
 		v.dispose();
 		client = new FTPClient();
 		String servFTP = "localhost";
-		System.out.println("Conected to: " + servFTP);
 		try {
 			client.connect(servFTP);
+			System.out.println("Conected to: " + servFTP);
 			boolean login = client.login(user, password);
 			if (login) {
 				System.out.println("Correct login...");
@@ -184,7 +199,8 @@ public class Client {
 				System.exit(1);
 			}
 		} catch (IOException ioe) {
-			ioe.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
 	}
@@ -196,12 +212,16 @@ public class Client {
 		vStartMenu.getBtnAbout().addActionListener(new ListenerAbout());
 
 		if (adminUser) {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer,
+					method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail()
+					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
 		} else {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
-	
+			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer,
+					method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail()
+					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+
 		}
-	}		
+	}
 }

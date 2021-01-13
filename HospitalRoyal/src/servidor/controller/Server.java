@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import javax.swing.JOptionPane;
+
 import client.controller.Methods;
 import servidor.view.ServerView;
 public class Server {
@@ -28,7 +30,9 @@ public class Server {
 				hilo.start();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Server already started", "FAILED STARTING SERVER",
+					JOptionPane.WARNING_MESSAGE);
+			viewServer.dispose();
 		}
 	}
 
