@@ -18,6 +18,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import client.email.listener.ListenerClose;
 import client.email.view.EmailMenuWindow;
+import client.email.view.EmailSplash;
 import client.ftp.listener.ListenerCloseWindow;
 import client.ftp.listener.ListenerCreateFolder;
 import client.ftp.listener.ListenerReturn;
@@ -317,8 +318,10 @@ public class Client {
 //					enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
 					
 					vStartMenu.setVisible(false);
+					EmailSplash emailSplash = new EmailSplash();
 					emailwindow = new EmailMenuWindow(user, password, email, vStartMenu);
 					emailwindow.getFrame().setVisible(true);
+					emailSplash.dispose();
 					emailwindow.getFrame().setLocationRelativeTo(null);	
 
 					exists(client);
