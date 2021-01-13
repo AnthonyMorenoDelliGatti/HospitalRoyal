@@ -5,23 +5,22 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.smtp.SMTPClient;
 
 import client.controller.Client;
 import client.email.view.EmailMenuWindow;
 import client.menu.view.StartMenuView;
 
-public class ListenerUserEmail implements ActionListener {
+public class ListenerEmail implements ActionListener {
 
-	private FTPClient client;
+	private FTPClient client; 
 	private String user;
 	private String email;
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailWindow;
 	private String password;
 	private Client client2;
-
-	public ListenerUserEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
+	
+	public ListenerEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
 			EmailMenuWindow emailWindow, String password, Client client2) {
 		this.client = client;
 		this.user = user;
@@ -33,14 +32,13 @@ public class ListenerUserEmail implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		vStartMenu.setVisible(false);
-		SMTPClient smtpclient = new SMTPClient();
-		emailWindow = new EmailMenuWindow(email, password, user, vStartMenu);
+	public void actionPerformed(ActionEvent arg0) {
 		
-	}
-
-	private Boolean comprobarEmail() {
-		return null;
+//		enviarConGMail("user.hospitalroyal@gmail.com", "PRUEBA", "FIOHEDAOUFHAF"); //PRUEBA
+		
+		vStartMenu.setVisible(false);
+		emailWindow = new EmailMenuWindow(user, password, email, vStartMenu);
+		emailWindow.getFrame().setVisible(true);
+		emailWindow.getFrame().setLocationRelativeTo(null);	
 	}
 }
