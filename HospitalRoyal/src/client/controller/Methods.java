@@ -61,12 +61,12 @@ public class Methods {
 				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
 				view.getCentro().removeAll();
 				view.addExplorer(explorer.visualizarListado(archivos));
-				view.pack();
+				//view.pack();
 			}
 			}else {
 				view.getCentro().removeAll();
 				view.addExplorer(explorer.visualizarListado(archivos));
-				view.pack();
+				//view.pack();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block

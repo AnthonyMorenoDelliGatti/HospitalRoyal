@@ -100,6 +100,7 @@ public class ListenerCreateFolder implements ActionListener {
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
 					}
+					view.pack();
 					method.cargarDatosLista(client, view, explorer);
 					outputStream.writeUTF("5");
 					outputStream.writeUTF(folder);

@@ -48,6 +48,7 @@ public class ListenerSave implements ActionListener{
 				outputStream.writeUTF("4");
 				outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);				
 				drop.getFrame().dispose();
+				//v.pack();
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
