@@ -18,9 +18,7 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
 
-
-
-public class ListenerFileChooser implements ActionListener{
+public class ListenerFileChooser implements ActionListener {
 
 	private FTPClient client;
 	private String user;
@@ -29,15 +27,16 @@ public class ListenerFileChooser implements ActionListener{
 	private VistaArchivos lista;
 	private DataOutputStream outputStream;
 	private DropFile drop;
-	
-	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method, DataOutputStream outputStream, DropFile drop) {
+
+	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method,
+			DataOutputStream outputStream, DropFile drop) {
 		this.client = client;
 		this.user = user;
 		this.v = v;
 		this.lista = lista;
 		this.method = method;
 		this.outputStream = outputStream;
-		this.drop=drop;
+		this.drop = drop;
 	}
 
 	@Override
@@ -60,8 +59,7 @@ public class ListenerFileChooser implements ActionListener{
 			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
 			drop.getFrame().dispose();
 		} catch (Exception e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} 
+			drop.getFrame().dispose();
+		}
 	}
 }

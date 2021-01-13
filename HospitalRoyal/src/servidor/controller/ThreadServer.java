@@ -36,57 +36,67 @@ public class ThreadServer extends Thread {
 		try {
 			outputStream = new DataOutputStream(client.getOutputStream());
 			inputStream = new DataInputStream(client.getInputStream());
-			for (int i = 0; i < 3; i++) {// 3 intentos
+			int loop=1;
+			while(loop==1) {
 				String user = inputStream.readUTF();
 				String password = inputStream.readUTF();
 				if (checkUser(user, password)) {
+					outputStream.writeUTF("CORRECT USER OR PASSWORD");
 					// USUARIO Y CONTRASE�A CORRECTOS
 					method.log(user, 1, "Log in");
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");
+						System.out.println("dsfsdf");
+					}else {
+						outputStream.writeUTF("adminUser");
 					}
-					outputStream.writeUTF("true");
 					outputStream.writeUTF(selectEmailsUser(user));
-					while(true) {
+					while(loop==1) {
 						String action = inputStream.readUTF();
 						int actionId = Integer.parseInt(action);
 						switch (actionId) {
+						case 2:
+							//Logout
+							method.log(user, 2, "Logout");
+							viewServer.getArea().append("\n"+client.toString()+" logged out");
+							loop=0;
+							break;
 						case 3:
 							//Borrar archivo
 							String fileName = inputStream.readUTF();
 							method.log(user, 3, "Delete file: " + fileName);
-							viewServer.getArea().append("\n"+client.toString()+" Delete file: " + fileName);
+							viewServer.getArea().append("\n"+client.toString()+" deleted file: " + fileName);
 							break;
 						case 4:
 							//Subir archivo
 							String route = inputStream.readUTF();
 							method.log(user, 4, "Upload: " + route);
-							viewServer.getArea().append("\n"+client.toString()+" Upload: " + route);
+							viewServer.getArea().append("\n"+client.toString()+" uploaded: " + route);
 							break;
 						case 5:
 							//Crear carpeta
 							String folder = inputStream.readUTF();
 							method.log(user, 5, "Created directory: " + folder);
-							viewServer.getArea().append("\n"+client.toString()+" Created directory: " + folder);
+							viewServer.getArea().append("\n"+client.toString()+" created directory: " + folder);
 							break;
 						case 6:
 							//Borrar carpeta
 							String folderName = inputStream.readUTF();
 							method.log(user, 6, " has deleted the folder " + folderName);
-							viewServer.getArea().append("\n"+client.toString()+" has deleted the folder " + folderName);
+							viewServer.getArea().append("\n"+client.toString()+" deleted the folder " + folderName);
 							break;
 						case 7:
 							//Cambiar nombre
 							String name = inputStream.readUTF();
 							String newName = inputStream.readUTF();
-							method.log(user, 7, " Renamed file: " + name + " to: " + newName);
-							viewServer.getArea().append("\n"+client.toString()+" Renamed file: " + name + " to: " + newName);
+							method.log(user, 7, " renamed file: " + name + " to: " + newName);
+							viewServer.getArea().append("\n"+client.toString()+" renamed file: " + name + " to: " + newName);
 							break;
 						case 8:
 							//Descargar archivo
 							String fileNameDownload = inputStream.readUTF();
-							method.log(user, 8, " Download file: " + fileNameDownload);
-							viewServer.getArea().append("\n"+client.toString()+" Download file: " + fileNameDownload);
+							method.log(user, 8, " downloaded file: " + fileNameDownload);
+							viewServer.getArea().append("\n"+client.toString()+" downloaded file: " + fileNameDownload);
 							break;
 						}
 					}
@@ -94,8 +104,6 @@ public class ThreadServer extends Thread {
 					outputStream.writeUTF("INCORRECT USER OR PASSWORD");
 				}
 			}
-			outputStream.writeUTF("false");
-
 		} catch (IOException e) {
 			viewServer.getArea().append("\n" + client.toString() + " has been suddenly disconnected");
 		}
