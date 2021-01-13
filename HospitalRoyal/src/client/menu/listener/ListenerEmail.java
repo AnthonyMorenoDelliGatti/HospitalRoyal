@@ -81,8 +81,6 @@ public class ListenerEmail implements ActionListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-		client2.exists(client);
 		try {
 			client.changeWorkingDirectory(user);
 		} catch (IOException e) {
