@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -28,16 +29,20 @@ public class AboutView extends JFrame {
 	private JPanel rigthHeader;
 	private JPanel leftHeader;
 	private JButton buttonReturn;
-	private Color colorHeader;
+	private Color colorHeader , colorBody;
 	private AboutModel model;
 	private JLabel lblNewLabel;
+	private JLabel lblNewLabel_1;
 
 	/**
 	 * Create the frame.
 	 */
 	public AboutView() {
+		setResizable(false);
+		setSize(500, 750);
 		colorHeader = new Color(204, 252, 255);
-		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\logo.png"));
+		colorBody = new Color(255, 255, 255);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\acerca-de.png"));
 		
 		rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
@@ -50,8 +55,10 @@ public class AboutView extends JFrame {
 		leftHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		leftHeader.setBackground(colorHeader);
 		header.add(leftHeader);
-		body = new JPanel();
 		
+		body = new JPanel();
+		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
+		body.setBackground(colorBody);
 		rootPanel.add(header);
 		
 		rigthHeader = new JPanel();
@@ -59,10 +66,14 @@ public class AboutView extends JFrame {
 		rigthHeader.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		rigthHeader.setBackground(colorHeader);
 		
+		Icon logoAcercaDe = new ImageIcon("iconos//acerca-de.png");
+		JLabel lblicono = new JLabel(logoAcercaDe);
+		leftHeader.add(lblicono);
+		
 		buttonReturn = new JButton();
 		Icon icon = new ImageIcon("iconos//cerrar.png");
 		buttonReturn.setIcon(icon);
-		buttonReturn.setBackground(colorHeader);
+		buttonReturn.setBackground(colorBody);
 		buttonReturn.setFocusPainted(false);
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		buttonReturn.setBorder(emptyBorder);
@@ -73,20 +84,51 @@ public class AboutView extends JFrame {
 		generateElements();
 
 		setUndecorated(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+		setLocationRelativeTo(null);
 	}
 
 	public void generateElements() {
 		model = new AboutModel();
-		Icon icon = new ImageIcon("iconos//cerrar.png");
+		
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		body.setLayout(new GridLayout(0, 1, 0, 0));
 		
-		JLabel lblNewLabel = new JLabel("Informacion de la aplicacion:");
-		body.add(lblNewLabel);
+		JLabel lblInfo = new JLabel("Information of the application:");
+		lblInfo.setAlignmentX(body.CENTER_ALIGNMENT);
+		body.add(lblInfo);
+		
+		Icon logo = new ImageIcon("iconos//mini logo.png");
+		
+		JLabel lblname = new JLabel("Name: "+model.getName());
+		lblname.setAlignmentX(body.CENTER_ALIGNMENT);
+		body.add(lblname);	
+		
+		JLabel lblicono = new JLabel(logo);
+		lblicono.setAlignmentX(body.CENTER_ALIGNMENT);
+		body.add(lblicono);
+		
+		JLabel lblversion = new JLabel("Version: "+model.getVersion());
+		lblversion.setAlignmentX(body.CENTER_ALIGNMENT);
+		body.add(lblversion);	
+		
+		for(int i = 0 ; i < model.getAuthors().size() ; i++) {
+			JLabel lblauthors = new JLabel(model.getAuthors().get(i));
+			lblauthors.setAlignmentX(body.CENTER_ALIGNMENT);
+			body.add(lblauthors);	
+		}
+		
+		JLabel lblDate = new JLabel("Date: "+model.getDate());
+		lblDate.setAlignmentX(body.CENTER_ALIGNMENT);
+		body.add(lblDate);
+		
+		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"©");
+		lblCopyright.setAlignmentX(body.CENTER_ALIGNMENT);
+		lblCopyright.setOpaque(false);
+		body.add(lblCopyright);
+		
+		
 		setContentPane(rootPanel);
-		
-		
 	}
 
 	public JButton getButtonReturn() {
