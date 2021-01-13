@@ -39,7 +39,6 @@ public class SplashSubidaArchivo extends JFrame {
 		btn.setBorder(emptyBorder);
 		btn.setBackground(Color.white);
 		panel.add(btn, BorderLayout.CENTER);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		JProgressBar progressbar = new JProgressBar();
 		progressbar.setStringPainted(true);
@@ -68,6 +67,7 @@ public class SplashSubidaArchivo extends JFrame {
 
 		setContentPane(panel);
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 

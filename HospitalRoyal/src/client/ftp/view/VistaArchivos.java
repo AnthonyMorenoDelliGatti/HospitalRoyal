@@ -28,8 +28,6 @@ import client.ftp.listener.ListenerDescargar;
 import client.model.ArchivoFtp;
 import client.model.Paths;
 
-
-
 public class VistaArchivos {
 
 	JMenuItem item, item2, item3;
@@ -40,9 +38,11 @@ public class VistaArchivos {
 	DataOutputStream outputStream;
 	String user;
 	Paths paths;
+	JPopupMenu menu;
+	boolean admin;
 
 	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, FTPWindow vista, String user,
-			DataOutputStream outputStream, Paths paths) {
+			DataOutputStream outputStream, Paths paths, boolean admin) {
 		this.client = client;
 		this.method = method;
 		this.vista = vista;
@@ -50,6 +50,7 @@ public class VistaArchivos {
 		this.user = user;
 		this.paths = paths;
 		this.outputStream = outputStream;
+		this.admin = admin;
 	}
 
 	public JPanel visualizarListado(ArrayList<ArchivoFtp> archivos) {
@@ -61,6 +62,7 @@ public class VistaArchivos {
 
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
 		generarListado(panel, experimentLayout, archivos);
 
 		JScrollPane scrollPane = new JScrollPane(panel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
@@ -82,8 +84,10 @@ public class VistaArchivos {
 			JTextField nombre = generarNombre(panel, i);
 			panel.add(new JLabel("" + i.getUltFechaModificacion()));
 			panel.addMouseListener(new ListenerArchivo(panel, i, vista, paths, client, method, this, nombre));
-			JPopupMenu menu = generarMenu(nombre, i);
-			panel.setComponentPopupMenu(menu);
+			if (admin) {
+				JPopupMenu menu = generarMenu(nombre, i);
+				panel.setComponentPopupMenu(menu);
+			}
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 			rootPanel.add(panel);
@@ -96,13 +100,13 @@ public class VistaArchivos {
 		item = new JMenuItem("Cambiar nombre");
 		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
 		menu.add(item);
-		if(archivo.getIsCarpeta() == 0) {
+		if (archivo.getIsCarpeta() == 0) {
 			JMenuItem item2 = new JMenuItem("Descargar");
-			item2.addActionListener(
-					new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method, user, outputStream, vista));
+			item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method,
+					user, outputStream, vista));
 			menu.add(item2);
 		}
-		
+
 		item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(
 				new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
@@ -142,32 +146,12 @@ public class VistaArchivos {
 		panel.add(new JLabel(""));
 		panel.add(new JLabel("Nombre"));
 		panel.add(new JLabel("Fecha modificacion"));
-		
+
 		rootPanel.add(panel);
 	}
 
-	public JMenuItem getItem() {
-		return item;
-	}
-
-	public void setItem(JMenuItem item) {
-		this.item = item;
-	}
-
-	public JMenuItem getItem2() {
-		return item2;
-	}
-
-	public void setItem2(JMenuItem item2) {
-		this.item2 = item2;
-	}
-
-	public JMenuItem getItem3() {
-		return item3;
-	}
-
-	public void setItem3(JMenuItem item3) {
-		this.item3 = item3;
+	public JPopupMenu getMenu() {
+		return menu;
 	}
 
 }

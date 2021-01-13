@@ -96,6 +96,7 @@ public class Client {
 						if (serverStr.equals("INCORRECT USER OR PASSWORD")) {
 							JOptionPane.showMessageDialog(null, "User or password incorrect", "FAILED TO LOGIN",
 									JOptionPane.WARNING_MESSAGE);
+							v.getTextPassword().setText("");;
 						} else {
 							login(v);
 						}
@@ -201,51 +202,12 @@ public class Client {
 			vStartMenu.getButtonMail().addActionListener(
 					new ListenerAdminEmail(client, user, email, vStartMenu, emailwindow, password, this));
 		} else {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(user, client, paths, this));
-			/*
-			 * ArrayList<ArchivoFtp> archivos = new ArrayList<>(); principalView = new
-			 * VistaPrincipal(client, user, explorer, method); explorer = new
-			 * VistaArchivos(client, archivos, method, principalView, password,
-			 * outputStream, paths); method.cargarDatosLista(client, principalView,
-			 * explorer); principalView.setVisible(true); principalView.pack(); // se
-			 * introducen los listener a los botones // volver al padre
-			 * principalView.getButtons().get(0).addActionListener( new
-			 * ListenerReturn(client,method,principalView,explorer,paths)); //volver al
-			 * anterior principalView.getButtons().get(1).addActionListener( new
-			 * ListenerReturnForward(client,method,principalView,explorer,paths)); // crear
-			 * carpeta principalView.getButtons().get(2).addActionListener( new
-			 * ListenerCreateFolder(client, archivos, method, principalView, explorer,
-			 * password, outputStream)); // eliminar archivos y carpetas
-			 * principalView.getButtons().get(3) .addActionListener(new
-			 * ListenerSubir(client, user, principalView, explorer, method, outputStream));
-			 * vStartMenu.setVisible(false);
-			 */
+			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer,
+					method, vStartMenu, password, outputStream));
 
 			vStartMenu.getButtonMail().addActionListener(
 					new ListenerUserEmail(client, user, email, vStartMenu, emailwindow, password, this));
 
-		}
-	}
-
-	public void exists(FTPClient client) {
-		boolean hasDirectory = false;
-		FTPFile[] files;
-		try {
-			files = client.listFiles();
-			for (int i = 0; i < files.length; i++) {
-				int type = files[i].getType();
-				if (type == 1) {
-					if (files[i].getName().equals(user)) {
-						hasDirectory = true;
-					}
-				}
-			}
-			if (!hasDirectory) {
-				client.makeDirectory("/" + user);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }
