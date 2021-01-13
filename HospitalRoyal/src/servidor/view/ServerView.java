@@ -33,6 +33,7 @@ public class ServerView extends JFrame{
 		panel.add(scrollPane);
 		
 		pack();
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 

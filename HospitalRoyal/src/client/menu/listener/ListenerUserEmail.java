@@ -37,13 +37,7 @@ public class ListenerUserEmail implements ActionListener {
 		vStartMenu.setVisible(false);
 		SMTPClient smtpclient = new SMTPClient();
 		emailWindow = new EmailMenuWindow(email, password, user, vStartMenu);
-		client2.exists(client);
-		try {
-			client.changeWorkingDirectory(user);
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
+		
 	}
 
 	private Boolean comprobarEmail() {

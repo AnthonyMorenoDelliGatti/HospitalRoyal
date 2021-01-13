@@ -46,7 +46,6 @@ public class ThreadServer extends Thread {
 					method.log(user, 1, "Log in");
 					if(checkPermissions(user)) {
 						outputStream.writeUTF("normalUser");
-						System.out.println("dsfsdf");
 					}else {
 						outputStream.writeUTF("adminUser");
 					}

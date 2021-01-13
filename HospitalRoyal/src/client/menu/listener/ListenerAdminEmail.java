@@ -40,13 +40,5 @@ public class ListenerAdminEmail implements ActionListener {
 		emailWindow = new EmailMenuWindow(user, password, email, vStartMenu);
 		emailWindow.getFrame().setVisible(true);
 		emailWindow.getFrame().setLocationRelativeTo(null);	
-
-		client2.exists(client);
-		try {
-			client.changeWorkingDirectory(user);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 }
