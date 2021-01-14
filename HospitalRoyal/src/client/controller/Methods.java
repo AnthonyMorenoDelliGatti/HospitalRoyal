@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -61,31 +63,36 @@ public class Methods {
 				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
 				view.getCentro().removeAll();
 				view.addExplorer(explorer.visualizarListado(archivos));
-				view.pack();
+				//view.pack();
 			}
 			}else {
 				view.getCentro().removeAll();
 				view.addExplorer(explorer.visualizarListado(archivos));
-				view.pack();
+				//view.pack();
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+
+	public Statement DBConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+		Statement statement = connection.createStatement();
+		return statement;
+	}
+	
 	public void log(String user, int action, String description) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
-			Statement statement = connection.createStatement();
+			Statement statement = DBConnection();
 			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
 			statement.execute(sql);
 			statement.close();
-			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "The database is not available", "FAILED TO LINK WITH DATA BASE",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }
