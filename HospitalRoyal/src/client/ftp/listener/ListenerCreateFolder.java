@@ -107,9 +107,7 @@ public class ListenerCreateFolder implements ActionListener {
 					method.cargarDatosLista(client, view, explorer);
 					
 					Rectangle tamanio=new Rectangle(600,600,600,600);
-					if(view.getBounds()==tamanio) {
-						
-					}else {
+					if(view.getBounds()!=tamanio) {
 						view.pack();
 						view.setBounds(600,600,600,view.getBounds().height);
 						view.setLocationRelativeTo(null);

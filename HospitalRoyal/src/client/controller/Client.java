@@ -72,7 +72,7 @@ public class Client {
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-					"The connection to the Server could not be established, the program will close in 5 seconds",
+					"The connection to the Server could not be established, the program will close",
 					"ERROR", JOptionPane.WARNING_MESSAGE);
 			v.pack();
 			try {
@@ -205,7 +205,7 @@ public class Client {
 			}
 		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(null,
-					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					"Canï¿½t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);

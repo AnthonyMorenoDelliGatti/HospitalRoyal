@@ -31,7 +31,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
-import client.ftp.listener.ListenerSearch;
+import client.email.listener.ListenerSearch;
 import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
 import client.model.ArchivoFtp;
@@ -132,7 +132,7 @@ public class EmailMenuWindow {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnRecharge, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
 					.addGap(12)
 					.addComponent(lblSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
@@ -148,7 +148,7 @@ public class EmailMenuWindow {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(15)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(txtSearch, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
 								.addComponent(lblSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
 								.addComponent(btnRecharge, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
 								.addComponent(btnAdd, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))))
@@ -196,7 +196,7 @@ public class EmailMenuWindow {
 			}
 			
 		}
-		emailBox.updateUI();;
+		emailBox.updateUI();
 	}
 
 	// vaciar el buzon

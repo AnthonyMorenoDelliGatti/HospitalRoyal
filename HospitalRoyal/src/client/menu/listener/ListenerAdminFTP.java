@@ -1,5 +1,6 @@
 package client.menu.listener;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -58,6 +59,16 @@ public class ListenerAdminFTP implements ActionListener {
 			method.cargarDatosLista(client, ftpWindow, explorer);
 			ftpWindow.setVisible(true);
 			ftpWindow.setLocationRelativeTo(null);
+			Rectangle tamanio=new Rectangle(600,600,600,600);
+			if(ftpWindow.getBounds()!=tamanio) {
+				ftpWindow.pack();
+				ftpWindow.setBounds(600,600,600,ftpWindow.getBounds().height);
+				ftpWindow.setLocationRelativeTo(null);
+				if(ftpWindow.getBounds().height>=600) {
+					ftpWindow.setBounds(600,600,600,600);
+					ftpWindow.setLocationRelativeTo(null);
+				}
+			}
 
 			// se introducen los listener a los botones
 			// volver al padre
