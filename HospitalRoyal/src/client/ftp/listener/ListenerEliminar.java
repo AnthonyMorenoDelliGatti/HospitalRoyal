@@ -1,5 +1,6 @@
 package client.ftp.listener;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -77,13 +78,25 @@ public class ListenerEliminar implements ActionListener {
 				}
 				// se actualiza la vista
 				try {
-					view.pack();
 					client.changeWorkingDirectory(originalPath);
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				method.cargarDatosLista(client, view, explorer);
+
+				Rectangle tamanio=new Rectangle(600,600,600,600);
+				if(view.getBounds()==tamanio) {
+					
+				}else {
+					view.pack();
+					view.setBounds(600,600,600,view.getBounds().height);
+					view.setLocationRelativeTo(null);
+					if(view.getBounds().height>600) {
+						view.setBounds(600,600,600,600);
+						view.setLocationRelativeTo(null);
+					}
+				}
 			} catch (IOException e2) {
 				// TODO Auto-generated catch block
 				e2.printStackTrace();

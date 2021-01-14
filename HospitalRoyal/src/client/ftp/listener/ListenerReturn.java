@@ -32,10 +32,19 @@ public class ListenerReturn implements ActionListener{
 					paths.getPathguardados().add(client.printWorkingDirectory());
 					client.changeToParentDirectory();
 					principalView.getButtons().get(1).setEnabled(true);
-					principalView.pack();
+					
 					method.cargarDatosLista(client, principalView, explorer);
 					if(client.printWorkingDirectory().equalsIgnoreCase(paths.getPathLimit())) {
 						principalView.getButtons().get(0).setEnabled(false);
+					}else {
+						
+						principalView.pack();
+						principalView.setBounds(600,600,600,principalView.getBounds().height);
+						principalView.setLocationRelativeTo(null);
+						if(principalView.getBounds().height>=600) {
+							principalView.setBounds(600,600,600,600);
+							principalView.setLocationRelativeTo(null);
+						}
 					}
 				}
 			} catch (IOException e1) {
