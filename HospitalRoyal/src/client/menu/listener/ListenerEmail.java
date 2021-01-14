@@ -27,7 +27,9 @@ import javax.swing.JLabel;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Client;
+import client.email.listener.ListenerUpdate;
 import client.email.view.EmailMenuWindow;
+import client.ftp.listener.ListenerSearch;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
@@ -39,6 +41,7 @@ public class ListenerEmail implements ActionListener {
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailWindow;
 	private String password;
+	ArrayList<Email> mails;
 
 	public ListenerEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
 			EmailMenuWindow emailWindow, String password) {
@@ -71,26 +74,17 @@ public class ListenerEmail implements ActionListener {
 			folder.open(Folder.READ_ONLY);
 			folder.isOpen();
 			Message[] mensajes = folder.getMessages();
-			ArrayList<Email> mails = new ArrayList<>();
-			String mensaje= "";
+			mails = new ArrayList<>();
 			for (int i = 0; i < mensajes.length; i++) {
-//				Multipart mp = (Multipart) mensajes[i].getContent(); // here it breaks
-//				BodyPart bp = mp.getBodyPart(0);
-//				mensaje = bp.getContent();
-				if(mensajes[i].getContentType().equals("text/*")) {
-					mensaje+=mensajes[i].getContent();
-				}
 				Email correo = new Email(email, mensajes[i].getSubject(), mensajes[i].getFrom()[0].toString(),
 						mensajes[i], mensajes[i].getSentDate().toString(), false);
 				mails.add(correo);
 			}
 			emailWindow.viewEmails(mails);
+			emailWindow.getTxtSearch().addKeyListener(new ListenerSearch(emailWindow, mails));
+			emailWindow.getBtnRecharge().addActionListener(new ListenerUpdate(emailWindow, store, email));
 		} catch (MessagingException e1) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		try {
 			client.changeWorkingDirectory(user);
@@ -98,6 +92,7 @@ public class ListenerEmail implements ActionListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	
