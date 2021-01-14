@@ -205,7 +205,7 @@ public class Client {
 			}
 		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(null,
-					"CanÂ´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
