@@ -1,52 +1,67 @@
 package client.ftp.listener;
 
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import org.apache.commons.net.smtp.SMTPClient;
 
+import client.email.view.EmailMenuWindow;
+import client.model.Email;
+
 public class ListenerSearch implements KeyListener {
 
-	private JTextField text;
-	private SMTPClient client;
+	private EmailMenuWindow emailWindow;
+	private JPanel emailBox;
 	String user;
-	public ListenerSearch(JTextField text, SMTPClient client) {
-		this.text = text;
-		this.client = client;
-		this.user = user;
+	ArrayList<Email> mails;
+	ArrayList<Email> mailsb = new ArrayList<Email>();
+	public ListenerSearch(EmailMenuWindow emailWindow, ArrayList<Email> mails) {
+		this.emailWindow = emailWindow;
+		this.mails = mails;
 	}
-	private String buscar(String archivoABuscar, String client) {
-		File directory = new File(client);
-	    File[] archivos = directory.listFiles();
-	    for (File archivo : archivos) {
-	        if (archivo.getName().equals(archivoABuscar + ".txt")) {
-	            return archivo.getName();
-	        }
-	    }
-	    return null;
+	private void buscar() {
+		mailsb.clear();
+		if(emailWindow.getTxtSearch().getText().equals("")) {
+			emailWindow.viewEmails(mails);
+		}else {
+			for (Email mail : mails) {
+		        int resultado = mail.getUser().indexOf(emailWindow.getTxtSearch().getText());
+		        if(resultado != -1) {
+		        	mailsb.add(mail);
+		        }
+		    }
+			for (Email mail : mailsb) {
+				System.out.println(mail.getUser());
+			}
+		    emailWindow.viewEmails(mailsb);
+		}
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		System.out.println(buscar(text.getText() , "C:/Email/"+user));
+		
 		
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		buscar();
 		
 	}
 

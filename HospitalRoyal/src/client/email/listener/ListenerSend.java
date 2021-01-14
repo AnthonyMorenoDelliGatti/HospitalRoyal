@@ -45,10 +45,9 @@ public class ListenerSend implements ActionListener{
 		try {
 			texto.setText(message);
 			multiParte.addBodyPart(texto);
-			//Enviar los archivos del panel(no funciona)
 //			for(int i = 0; i< view.getFilesPanel().getComponentCount(); i++) {
 //				BodyPart archivo = new MimeBodyPart();
-//				archivo.setDataHandler(view.dropFile());
+//				archivo.setDataHandler(new DataHandler(new FileDataSource(view.getFilesPanel().getComponent(i).)));
 //				multiParte.addBodyPart(archivo);
 //			}
 		} catch (MessagingException e1) {
