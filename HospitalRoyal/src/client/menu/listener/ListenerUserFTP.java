@@ -11,7 +11,7 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import client.controller.Client;
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.listener.ListenerClose;
 import client.ftp.listener.ListenerCreateFolder;
 import client.ftp.listener.ListenerReturn;
@@ -30,13 +30,13 @@ public class ListenerUserFTP implements ActionListener {
 	private FTPWindow ftpWindow;
 	private String user;
 	private VistaArchivos explorer;
-	private Methods method;
+	private MethodList method;
 	private StartMenuView vStartMenu;
 	private String password;
 	private DataOutputStream outputStream;
 
 	public ListenerUserFTP(Paths paths, FTPClient client, FTPWindow ftpWindow, String user, VistaArchivos explorer,
-			Methods method, StartMenuView vStartMenu, String password, DataOutputStream outputStream) {
+			MethodList method, StartMenuView vStartMenu, String password, DataOutputStream outputStream) {
 		this.paths = paths;
 		this.client = client;
 		this.ftpWindow = ftpWindow;

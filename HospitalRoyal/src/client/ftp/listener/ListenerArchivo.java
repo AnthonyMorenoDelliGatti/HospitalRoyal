@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
@@ -25,12 +25,12 @@ public class ListenerArchivo implements MouseListener {
 	private FTPWindow vista;
 	private Paths paths;
 	private FTPClient client;
-	private Methods method;
+	private MethodList method;
 	private VistaArchivos explorer;
 	private JTextField name;
 
 	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client,
-			Methods method, VistaArchivos vistaArchivos, JTextField name) {
+			MethodList method, VistaArchivos vistaArchivos, JTextField name) {
 		this.panel = panel;
 		this.archivo = archivo;
 		this.vista = vista;

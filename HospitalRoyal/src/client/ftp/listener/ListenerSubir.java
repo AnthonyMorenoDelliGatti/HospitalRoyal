@@ -8,7 +8,7 @@ import java.io.DataOutputStream;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
@@ -18,11 +18,11 @@ import client.ftp.view.VistaArchivos;
 public class ListenerSubir implements ActionListener {
 	FTPClient client;
 	String user;
-	Methods method;
+	MethodList method;
 	FTPWindow v;
 	VistaArchivos lista;
 	DataOutputStream outputStream;
-	public ListenerSubir(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method, DataOutputStream outputStream) {
+	public ListenerSubir(FTPClient client, String user, FTPWindow v, VistaArchivos lista, MethodList method, DataOutputStream outputStream) {
 
 		this.client = client;
 		this.user = user;

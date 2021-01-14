@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashSubidaArchivo;
@@ -23,9 +23,9 @@ public class ListenerSave implements ActionListener{
 	private FTPClient client;
 	private DataOutputStream outputStream;
 	private FTPWindow v;
-	private Methods method;
+	private MethodList method;
 	private VistaArchivos lista;
-	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, Methods method, VistaArchivos lista) {
+	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, MethodList method, VistaArchivos lista) {
 		this.drop=drop;
 		this.client=client;
 		this.outputStream=outputStream;

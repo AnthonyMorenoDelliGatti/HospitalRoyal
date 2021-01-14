@@ -9,7 +9,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.Archivo;
@@ -24,7 +24,7 @@ public class ListenerEliminar implements ActionListener {
 		this.archivo = archivo;
 	}
 
-	public ListenerEliminar(ArchivoFtp archivo2, ArrayList<ArchivoFtp> archivos, FTPClient client, Methods method,
+	public ListenerEliminar(ArchivoFtp archivo2, ArrayList<ArchivoFtp> archivos, FTPClient client, MethodList method,
 			FTPWindow vista, VistaArchivos vistaArchivos, String user, DataOutputStream outputStream) {
 		// TODO Auto-generated constructor stub
 	}

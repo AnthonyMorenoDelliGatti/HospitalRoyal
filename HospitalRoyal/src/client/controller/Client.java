@@ -45,14 +45,14 @@ public class Client {
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailwindow;
 	FTPClient client;
-	Methods method;
+	MethodList method;
 	String user, password, email;
 	Boolean adminUser;
 	Paths paths = new Paths();
 
 	public Client() {
 		serverData = new ServerData();
-		method = new Methods();
+		method = new MethodList();
 
 		startLogin();
 	}
@@ -205,7 +205,7 @@ public class Client {
 			}
 		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(null,
-					"CanÂ´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
