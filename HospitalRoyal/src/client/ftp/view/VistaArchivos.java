@@ -74,21 +74,29 @@ public class VistaArchivos {
 		JPanel panel;
 		Collections.sort(archivos);
 		for (ArchivoFtp i : archivos) {
-			panel = new JPanel();
-			panel.setBackground(Color.WHITE);
-			panel.setLayout(experimentLayout);
-
-			JLabel l = obtenerIcono(i);
-			panel.add(l);
-			JTextField nombre = generarNombre(panel, i);
-			panel.add(new JLabel("" + i.getUltFechaModificacion()));
-			panel.addMouseListener(new ListenerArchivo(panel, i, vista, paths, client, method, this, nombre));
-			if (admin) {
-				JPopupMenu menu = generarMenu(nombre, i);
-				panel.setComponentPopupMenu(menu);
+			if (i.getUltFechaModificacion().equals("")) {
+				panel = new JPanel();
+				panel.setBackground(Color.WHITE);
+				panel.setLayout(experimentLayout);
+				JLabel mensaje = new JLabel();
+				mensaje.setText(i.getNombre());
+				panel.add(mensaje);
+				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+			} else {
+				panel = new JPanel();
+				panel.setBackground(Color.WHITE);
+				panel.setLayout(experimentLayout);
+				JLabel l = obtenerIcono(i);
+				panel.add(l);
+				JTextField nombre = generarNombre(panel, i);
+				panel.add(new JLabel("" + i.getUltFechaModificacion()));
+				panel.addMouseListener(new ListenerArchivo(panel, i, vista, paths, client, method, this, nombre));
+				if (admin) {
+					JPopupMenu menu = generarMenu(nombre, i);
+					panel.setComponentPopupMenu(menu);
+				}
+				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			}
-			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-
 			rootPanel.add(panel);
 		}
 	}
