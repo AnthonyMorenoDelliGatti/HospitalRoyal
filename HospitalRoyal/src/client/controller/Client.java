@@ -205,7 +205,7 @@ public class Client {
 			}
 		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(null,
-					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					"CanÂ´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
@@ -218,16 +218,11 @@ public class Client {
 		vStartMenu.getBtnAbout().addActionListener(new ListenerAbout());
 
 		if (adminUser) {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer,
-					method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail()
-					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		} else {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer,
-					method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail()
-					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
-
+			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		}
 	}
 }

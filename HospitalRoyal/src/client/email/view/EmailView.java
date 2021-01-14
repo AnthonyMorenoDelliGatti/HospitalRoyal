@@ -3,11 +3,21 @@ package client.email.view;
 import java.awt.BorderLayout;
 import java.awt.Button;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.awt.Label;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.swing.ImageIcon;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -17,6 +27,9 @@ public class EmailView {
 	EmailMenuWindow vista;
 	Button responder;
 	Button reenviar;
+	private static JPanel archivos;
+	private static JPanel imagenes;
+	private static String texto;
 	public EmailView(Email email, EmailMenuWindow vista){
 		this.vista = vista;
 		BorderLayout layoutmail = new BorderLayout();
@@ -29,17 +42,25 @@ public class EmailView {
 	    editor.setBounds(0, 0, 430, 300); 
 	    editor.setEditable(false);
 	    JPanel botones = new JPanel(new FlowLayout());
+	    imagenes = new JPanel(new GridLayout(1,0));
+	    archivos = new JPanel();
+		archivos.setLayout(new GridLayout(0,1));
 	    responder = new Button("Reply");
 	    reenviar = new Button("Forward");
 		botones.add(responder);
 		botones.add(reenviar);
-	    v.getContentPane().add(scroll,BorderLayout.CENTER);
-	    v.getContentPane().add(botones,BorderLayout.SOUTH);
+	    v.getContentPane().add(scroll,BorderLayout.NORTH);
+	    v.getContentPane().add(imagenes,BorderLayout.EAST);
+	    v.getContentPane().add(archivos,BorderLayout.WEST);
+	    v.getContentPane().add(botones,BorderLayout.AFTER_LAST_LINE);
 	    editor.setVisible(true);
 		editor.setContentType("text/html");
-		editor.setText("<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getFecha()+ " <br> " +
-		"<b>Subject: </b>"+ email.getSubject()+ " <hr> " + email.getText());
+		texto = "<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getFecha()+ " <br> " +
+				"<b>Subject: </b>"+ email.getSubject()+ " <hr> ";
+		analizaParteDeMensaje(email.getContent());
+		editor.setText(texto);
 	    v.setVisible(true);
+	    v.pack();
 	    v.setLocationRelativeTo(null);
 	    email.setIsRead(true);
 	    v.addWindowListener(new WindowListener() {
@@ -87,11 +108,74 @@ public class EmailView {
 			}
 		});
 	}
+
 	public Button getResponder() {
 		return responder;
 	}
+
 	public Button getReenviar() {
 		return reenviar;
 	}
-	
+	private static void analizaParteDeMensaje(Part unaParte)
+    {
+        try
+        {
+          // Si es multipart, se analiza cada una de sus partes recursivamente.
+            if (unaParte.isMimeType("multipart/*"))
+            {
+                Multipart multi;
+                multi = (Multipart) unaParte.getContent();
+
+                for (int j = 0; j < multi.getCount(); j++)
+                {
+                    analizaParteDeMensaje(multi.getBodyPart(j));
+                }
+            }
+            else
+            {
+              // Si es texto, se escribe el texto.
+                if (unaParte.isMimeType("text/plain"))
+                {
+                    System.out.println("Texto " + unaParte.getContentType());
+                    System.out.println(unaParte.getContent());
+                    texto += unaParte.getContent().toString();
+                    System.out.println("---------------------------------");
+                }
+                else
+                {
+                  // Si es imagen, se guarda en fichero y se visualiza en JFrame
+                    if (unaParte.isMimeType("image/*"))
+                    {
+                        System.out.println(
+                            "Imagen " + unaParte.getContentType());
+                        System.out.println("Fichero=" + unaParte.getFileName());
+                        JLabel lblLogo = new JLabel();
+                        lblLogo.setBounds(270,10,100,100);
+                        Image img = ImageIO.read(unaParte.getInputStream());
+                        Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(),
+                                Image.SCALE_SMOOTH);
+                        lblLogo.setIcon(new ImageIcon(dimg));
+                        imagenes.add(lblLogo);       
+                        System.out.println("---------------------------------");
+
+//                        visualizaImagenEnJFrame(unaParte);
+                    }
+                    else
+                    {
+                      // Si no es ninguna de las anteriores, se escribe en pantalla
+                      // el tipo.
+                        System.out.println(
+                            "Recibido " + unaParte.getContentType());
+                        archivos.add(new JLabel(unaParte.getFileName()));
+                        System.out.println("---------------------------------");
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
 }
