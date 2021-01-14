@@ -58,8 +58,9 @@ public class ListenerArchivo implements MouseListener {
 					vista.getButtons().get(0).setEnabled(true);
 					vista.getButtons().get(1).setEnabled(false);
 					paths.getPathguardados().clear();
-					vista.pack();
 					method.cargarDatosLista(client, vista, explorer);
+					
+					vista.pack();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
