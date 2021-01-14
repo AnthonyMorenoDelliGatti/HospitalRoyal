@@ -32,8 +32,15 @@ public class ListenerReturnForward implements ActionListener{
 					client.changeWorkingDirectory(paths.getPathguardados().get(paths.getPathguardados().size()-1));
 					paths.getPathguardados().remove(paths.getPathguardados().size()-1);
 					method.cargarDatosLista(client,principalView, explorer);
+
 					principalView.pack();
-					principalView.getButtons().get(0).setEnabled(true);
+					principalView.setBounds(600,600,600,principalView.getBounds().height);
+					principalView.setLocationRelativeTo(null);
+					if(principalView.getBounds().height>=600) {
+						principalView.setBounds(600,600,600,600);
+						principalView.setLocationRelativeTo(null);
+					}
+				principalView.getButtons().get(0).setEnabled(true);
 					if(paths.getPathguardados().size() == 0) {
 						principalView.getButtons().get(1).setEnabled(false);
 					}

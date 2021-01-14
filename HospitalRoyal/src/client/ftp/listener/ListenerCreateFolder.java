@@ -1,5 +1,6 @@
 package client.ftp.listener;
 
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
@@ -100,8 +101,20 @@ public class ListenerCreateFolder implements ActionListener {
 					} else {
 						createView.getLblMessage().setText("Failed to create directory");
 					}
-					view.pack();
 					method.cargarDatosLista(client, view, explorer);
+					
+					Rectangle tamanio=new Rectangle(600,600,600,600);
+					if(view.getBounds()==tamanio) {
+						
+					}else {
+						view.pack();
+						view.setBounds(600,600,600,view.getBounds().height);
+						view.setLocationRelativeTo(null);
+						if(view.getBounds().height>=600) {
+							view.setBounds(600,600,600,600);
+							view.setLocationRelativeTo(null);
+						}
+					}
 					outputStream.writeUTF("5");
 					outputStream.writeUTF(folder);
 				} catch (IOException e) {

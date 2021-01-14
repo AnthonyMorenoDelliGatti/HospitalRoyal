@@ -40,6 +40,13 @@ public class ListenerSubir implements ActionListener {
 		drop.getClose().addActionListener(new ListenerCloseWindow(drop.getFrame()));
 		drop.getSave().addActionListener(new ListenerSave(drop, client, outputStream, v, method, lista));
 		drop.getFileChooserBtn().addActionListener(new ListenerFileChooser(client, user, v, lista, method, outputStream, drop));
+
 		v.pack();
+		v.setBounds(600,600,600,v.getBounds().height);
+		v.setLocationRelativeTo(null);
+		if(v.getBounds().height>=600) {
+			v.setBounds(600,600,600,600);
+			v.setLocationRelativeTo(null);
+		}
 	}
 }
