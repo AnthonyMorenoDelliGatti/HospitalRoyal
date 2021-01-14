@@ -56,7 +56,7 @@ public class DropFile {
 	}
 
 	public void cargarDatos(Archivo archivo) {
-		// Consejo: guardaria en un array los paneles para borrar más tarde
+		// Consejo: guardaria en un array los paneles para borrar mï¿½s tarde
 		JPanel panel = obterPanelArchivo(archivo); 
 		dropPanel.add(panel);
 	}
