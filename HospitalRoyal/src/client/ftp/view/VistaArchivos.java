@@ -78,7 +78,7 @@ public class VistaArchivos {
 				panel = new JPanel();
 				panel.setBackground(Color.WHITE);
 				panel.setLayout(experimentLayout);
-				JTextField mensaje = new JTextField(10);
+				JLabel mensaje = new JLabel();
 				mensaje.setText(i.getNombre());
 				panel.add(mensaje);
 				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
