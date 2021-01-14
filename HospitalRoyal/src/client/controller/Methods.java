@@ -33,6 +33,9 @@ public class Methods {
 		try {
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
+			if(fileList.length <= 0) {
+				archivos.add(new ArchivoFtp("This folder is empty", "", 0, ""));
+			}
 			if(fileList.length > 0) {
 			for (int i = 0; i < fileList.length; i++) {
 				String nameFile = fileList[i].getName();
