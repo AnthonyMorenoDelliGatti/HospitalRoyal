@@ -45,14 +45,14 @@ public class Client {
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailwindow;
 	FTPClient client;
-	Methods method;
+	MethodList method;
 	String user, password, email;
 	Boolean adminUser;
 	Paths paths = new Paths();
 
 	public Client() {
 		serverData = new ServerData();
-		method = new Methods();
+		method = new MethodList();
 
 		startLogin();
 	}

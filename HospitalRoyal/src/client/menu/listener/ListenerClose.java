@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Client;
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.menu.view.StartMenuView;
 
 public class ListenerClose implements ActionListener {

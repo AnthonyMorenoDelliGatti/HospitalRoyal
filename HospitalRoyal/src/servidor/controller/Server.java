@@ -8,17 +8,17 @@ import java.net.Socket;
 
 import javax.swing.JOptionPane;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import servidor.view.ServerView;
 public class Server {
 
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
-	static Methods method;
+	static MethodList method;
 	public static void main(String[] args) {
 		ServerView viewServer = new ServerView();
 		viewServer.getArea().append("Server started... ");
-		method = new Methods();
+		method = new MethodList();
 		try {
 			ServerSocket server;
 			server = new ServerSocket(5000);

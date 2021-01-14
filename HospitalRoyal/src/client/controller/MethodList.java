@@ -24,9 +24,9 @@ import client.model.ArchivoFtp;
 
 
 
-public class Methods {
+public class MethodList {
 	
-	public Methods() {
+	public MethodList() {
 
 	}
 	public void cargarDatosLista(FTPClient client, FTPWindow view, VistaArchivos explorer) {

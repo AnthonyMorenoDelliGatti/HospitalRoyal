@@ -12,7 +12,7 @@ import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import servidor.view.ServerView;
 
 public class ThreadServer extends Thread {
@@ -20,12 +20,12 @@ public class ThreadServer extends Thread {
 	DataInputStream inputStream;
 	DataOutputStream outputStream;
 	Hospital hospital;
-	static Methods method;
+	static MethodList method;
 	static ServerView viewServer;
 	static boolean connectedDB;
 	private String user;
 
-	public ThreadServer(Socket client, Hospital hospital, ServerView viewServer, Methods method) throws IOException {
+	public ThreadServer(Socket client, Hospital hospital, ServerView viewServer, MethodList method) throws IOException {
 		this.client = client;
 		this.hospital = hospital;
 		this.viewServer = viewServer;

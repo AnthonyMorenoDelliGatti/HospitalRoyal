@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.CreateFolderView;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
@@ -21,7 +21,7 @@ import client.model.ArchivoFtp;
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
-	Methods method;
+	MethodList method;
 	FTPWindow view;
 	VistaArchivos explorer;
 	String user;
@@ -29,7 +29,7 @@ public class ListenerCreateFolder implements ActionListener {
 
 	ArrayList<ArchivoFtp> archivos;
 
-	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, FTPWindow view,
+	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, MethodList method, FTPWindow view,
 			VistaArchivos explorer, String user, DataOutputStream outputStream) {
 		this.client = client;
 		this.method = method;

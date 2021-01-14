@@ -19,7 +19,7 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.listener.ListenerArchivo;
 import client.ftp.listener.ListenerBotonModificarNombre;
 import client.ftp.listener.ListenerEliminar;
@@ -32,7 +32,7 @@ public class VistaArchivos {
 
 	JMenuItem item, item2, item3;
 	FTPClient client;
-	Methods method;
+	MethodList method;
 	FTPWindow vista;
 	ArrayList<ArchivoFtp> archivos;
 	DataOutputStream outputStream;
@@ -41,7 +41,7 @@ public class VistaArchivos {
 	JPopupMenu menu;
 	boolean admin;
 
-	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, Methods method, FTPWindow vista, String user,
+	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, MethodList method, FTPWindow vista, String user,
 			DataOutputStream outputStream, Paths paths, boolean admin) {
 		this.client = client;
 		this.method = method;

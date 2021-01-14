@@ -15,7 +15,7 @@ import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashSubidaArchivo;
 
@@ -25,12 +25,12 @@ public class ListenerDescargar implements ActionListener {
 	FTPClient client;
 	String direccion;
 	String name;
-	Methods method;
+	MethodList method;
 	String user;
 	DataOutputStream outputStream;
 	FTPWindow vista;
 
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, Methods method, String user, DataOutputStream outputStream, FTPWindow vista) {
+	public ListenerDescargar(String direccion, String nombre, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow vista) {
 		this.direccion = direccion;
 		this.client = client;
 		this.name = nombre;
