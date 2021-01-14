@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
@@ -31,6 +33,9 @@ public class Methods {
 		try {
 			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
+			if(fileList.length <= 0) {
+				archivos.add(new ArchivoFtp("This folder is empty", "", 0, ""));
+			}
 			if(fileList.length > 0) {
 			for (int i = 0; i < fileList.length; i++) {
 				String nameFile = fileList[i].getName();
@@ -73,19 +78,24 @@ public class Methods {
 			e.printStackTrace();
 		}
 	}
+
+	public Statement DBConnection() throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
+		Statement statement = connection.createStatement();
+		return statement;
+	}
+	
 	public void log(String user, int action, String description) {
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection("jdbc:mysql://localhost/hospital_royal", "root", "");
-			Statement statement = connection.createStatement();
+			Statement statement = DBConnection();
 			String sql = "INSERT INTO `log`(`descripcion`, `accion`, `usuario`) VALUES ('" + description + "'," + action
 					+ ",'" + user + "')";
 			statement.execute(sql);
 			statement.close();
-			connection.close();
 		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "The database is not available", "FAILED TO LINK WITH DATA BASE",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 }
