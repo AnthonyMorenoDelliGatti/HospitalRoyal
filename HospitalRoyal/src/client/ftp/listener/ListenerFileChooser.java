@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 import org.apache.commons.net.ftp.FTP;
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
@@ -22,13 +22,13 @@ public class ListenerFileChooser implements ActionListener {
 
 	private FTPClient client;
 	private String user;
-	private Methods method;
+	private MethodList method;
 	private FTPWindow v;
 	private VistaArchivos lista;
 	private DataOutputStream outputStream;
 	private DropFile drop;
 
-	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, Methods method,
+	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, MethodList method,
 			DataOutputStream outputStream, DropFile drop) {
 		this.client = client;
 		this.user = user;

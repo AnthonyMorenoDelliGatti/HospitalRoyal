@@ -24,6 +24,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.net.smtp.SMTPClient;
 
@@ -32,6 +33,7 @@ import client.email.listener.ListenerEmail;
 import client.ftp.listener.ListenerSearch;
 import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
+import client.model.ArchivoFtp;
 import client.model.Email;
 
 public class EmailMenuWindow {
@@ -39,6 +41,7 @@ public class EmailMenuWindow {
 	public static final Color WHITE = new Color(255, 255, 255);
 	private Color headerColor;
 	private JFrame frame;
+	private JPanel panel;
 	private JPanel emailBox;
 	private JTextField txtSearch, textField;
 	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
@@ -167,17 +170,20 @@ public class EmailMenuWindow {
 	}
 
 	// Agregar un correo
-	public void viewEmails(Email email) {
-		JPanel panel = new JPanel();
+	public void viewEmails(ArrayList<Email> mails) {
+		for (Email i : mails) {
+		panel = new JPanel();
 		panel.setLayout(new GridLayout(0,1));
-		panel.add(new JLabel("From: "+email.getUser()));
-		panel.add(new JLabel("Subject: "+email.getSubject()));
-		panel.add(new JLabel("Send: " + email.getFecha().toString()));
-		if (!email.getIsRead()) {
+		panel.add(new JLabel("From: "+i.getUser()));
+		panel.add(new JLabel("Subject: "+i.getSubject()));
+		panel.add(new JLabel("Send: " + i.getFecha().toString()));
+		if (!i.getIsRead()) {
 			panel.setBackground(WHITE);
 		}
-		panel.addMouseListener(new ListenerEmail(panel, email, this, password));
+		panel.addMouseListener(new ListenerEmail(panel, i, this, password));
+		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		emailBox.add(panel);
+		}
 	}
 
 	// vaciar el buzon

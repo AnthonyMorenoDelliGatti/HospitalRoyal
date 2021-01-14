@@ -8,7 +8,7 @@ import java.io.IOException;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Client;
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.menu.view.StartMenuView;
 
 public class ListenerClose implements ActionListener {
@@ -31,13 +31,14 @@ public class ListenerClose implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		try {
 			outputStream.writeUTF("2");
+			
+			vStartMenu.dispose();
 			client.logout();
 			client.disconnect();
-			vStartMenu.dispose();
 			System.exit(0);
 			//client2.startLogin();
 		} catch (IOException e1) {
-			e1.printStackTrace();
+			System.exit(0);
 		} catch (Exception e2) {
 			System.out.println(e2);
 		}

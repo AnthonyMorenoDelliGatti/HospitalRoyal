@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashSubidaArchivo;
@@ -23,9 +23,9 @@ public class ListenerSave implements ActionListener{
 	private FTPClient client;
 	private DataOutputStream outputStream;
 	private FTPWindow v;
-	private Methods method;
+	private MethodList method;
 	private VistaArchivos lista;
-	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, Methods method, VistaArchivos lista) {
+	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, MethodList method, VistaArchivos lista) {
 		this.drop=drop;
 		this.client=client;
 		this.outputStream=outputStream;
@@ -48,7 +48,15 @@ public class ListenerSave implements ActionListener{
 				outputStream.writeUTF("4");
 				outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);				
 				drop.getFrame().dispose();
-				//v.pack();
+				
+
+				v.pack();
+				v.setBounds(600,600,600,v.getBounds().height);
+				v.setLocationRelativeTo(null);
+				if(v.getBounds().height>=600) {
+					v.setBounds(600,600,600,600);
+					v.setLocationRelativeTo(null);
+				}
 			} catch (FileNotFoundException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

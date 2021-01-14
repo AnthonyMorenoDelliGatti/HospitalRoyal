@@ -80,7 +80,7 @@ public class Login extends JFrame {
 		buttonLogin = new JButton("LOGIN");
 		buttonLogin.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		buttonLogin.setForeground(new Color(244, 112, 255));
-		buttonLogin.setBounds(255, 346, 89, 23);
+		buttonLogin.setBounds(233, 326, 89, 23);
 		getContentPane().add(buttonLogin);
 
 		labelInfo = new JLabel("");

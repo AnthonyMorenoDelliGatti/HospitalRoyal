@@ -45,14 +45,14 @@ public class Client {
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailwindow;
 	FTPClient client;
-	Methods method;
+	MethodList method;
 	String user, password, email;
 	Boolean adminUser;
 	Paths paths = new Paths();
 
 	public Client() {
 		serverData = new ServerData();
-		method = new Methods();
+		method = new MethodList();
 
 		startLogin();
 	}
@@ -97,10 +97,15 @@ public class Client {
 							JOptionPane.showMessageDialog(null, "User or password incorrect", "FAILED TO LOGIN",
 									JOptionPane.WARNING_MESSAGE);
 							v.getTextPassword().setText("");
-							
+
 						} else if (serverStr.equals("DB NOT CONNECTED")) {
-							JOptionPane.showMessageDialog(null, "The database is not available, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
-									JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null,
+									"The database is not available, sorry for the issue.\nTry it again later",
+									"FAILED TO LOGIN", JOptionPane.WARNING_MESSAGE);
+						} else if (serverStr.equals("ALREADY CONNECTED")) {
+							JOptionPane.showMessageDialog(null,
+									"User is already connected",
+									"FAILED TO LOGIN", JOptionPane.WARNING_MESSAGE);
 						} else {
 							login(v);
 						}
@@ -199,7 +204,8 @@ public class Client {
 				System.exit(1);
 			}
 		} catch (IOException ioe) {
-			JOptionPane.showMessageDialog(null, "Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+			JOptionPane.showMessageDialog(null,
+					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
@@ -212,15 +218,12 @@ public class Client {
 		vStartMenu.getBtnAbout().addActionListener(new ListenerAbout());
 
 		if (adminUser) {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer,
-					method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail()
-					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		} else {
-			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer,
-					method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail()
-					.addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+
+			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		}
 	}
 }

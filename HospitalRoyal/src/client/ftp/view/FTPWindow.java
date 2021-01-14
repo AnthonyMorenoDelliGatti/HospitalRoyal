@@ -18,7 +18,7 @@ import javax.swing.border.Border;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.menu.view.StartMenuView;
 
 
@@ -35,7 +35,7 @@ public class FTPWindow extends JFrame {
 	private Color colorHeader;
 	private ArrayList<JButton> buttons = new ArrayList();
 	VistaArchivos lista;
-	private Methods method;
+	private MethodList method;
 	StartMenuView principalView;
 
 	/**
@@ -47,7 +47,7 @@ public class FTPWindow extends JFrame {
 	 * @param method - Methods -
 	 * @param vStartMenu 
 	 */
-	public FTPWindow(FTPClient client, String user, VistaArchivos lista, Methods method, StartMenuView principalView) {
+	public FTPWindow(FTPClient client, String user, VistaArchivos lista, MethodList method, StartMenuView principalView) {
 		colorHeader = new Color(204, 252, 255);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
 		

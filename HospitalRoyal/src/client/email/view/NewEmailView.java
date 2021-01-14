@@ -58,7 +58,7 @@ public class NewEmailView {
 	private JButton upLoad;
 	String email;
 	String password;
-
+	
 	public NewEmailView( String email, String password) {
 		this.email = email;
 		this.password = password;
@@ -185,11 +185,16 @@ public class NewEmailView {
 		frame.setLocationRelativeTo(null);
 	}
 
+	public JPanel getFilesPanel() {
+		return filesPanel;
+	}
+
+
 	public JFrame getFrame() {
 		return frame;
 	}
 
-	private void dropFile() {
+	public void dropFile() {
 		TransferHandler th = new TransferHandler() {
 
 			@Override
@@ -204,9 +209,7 @@ public class NewEmailView {
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
 
-						// String nombre, String ultFechaModificacion, int isCarpeta, String direccion
 						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
-						// implementar el proceso de splash
 					}
 
 					generarListado(archivos);

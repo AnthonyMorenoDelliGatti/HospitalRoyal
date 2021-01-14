@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
@@ -21,10 +21,10 @@ public class ListenerArchivo implements MouseListener {
 	private FTPWindow vista;
 	private Paths paths;
 	private FTPClient client;
-	private Methods method;
+	private MethodList method;
 	private VistaArchivos explorer;
 	
-	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client, Methods method, VistaArchivos vistaArchivos) {
+	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client, MethodList method, VistaArchivos vistaArchivos) {
 		this.panel = panel;
 		this.archivo = archivo;
 		this.vista = vista;

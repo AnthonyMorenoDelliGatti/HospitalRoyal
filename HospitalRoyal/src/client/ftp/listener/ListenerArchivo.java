@@ -1,6 +1,7 @@
 package client.ftp.listener;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.IOException;
@@ -10,13 +11,11 @@ import javax.swing.JTextField;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Methods;
+import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.VistaArchivos;
 import client.model.ArchivoFtp;
 import client.model.Paths;
-
-
 
 public class ListenerArchivo implements MouseListener {
 
@@ -25,12 +24,12 @@ public class ListenerArchivo implements MouseListener {
 	private FTPWindow vista;
 	private Paths paths;
 	private FTPClient client;
-	private Methods method;
+	private MethodList method;
 	private VistaArchivos explorer;
 	private JTextField name;
 
 	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client,
-			Methods method, VistaArchivos vistaArchivos, JTextField name) {
+			MethodList method, VistaArchivos vistaArchivos, JTextField name) {
 		this.panel = panel;
 		this.archivo = archivo;
 		this.vista = vista;
@@ -61,6 +60,12 @@ public class ListenerArchivo implements MouseListener {
 					method.cargarDatosLista(client, vista, explorer);
 					
 					vista.pack();
+					vista.setBounds(600,600,600,vista.getBounds().height);
+					vista.setLocationRelativeTo(null);
+					if(vista.getBounds().height>=600) {
+						vista.setBounds(600,600,600,600);
+						vista.setLocationRelativeTo(null);
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
