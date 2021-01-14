@@ -97,10 +97,15 @@ public class Client {
 							JOptionPane.showMessageDialog(null, "User or password incorrect", "FAILED TO LOGIN",
 									JOptionPane.WARNING_MESSAGE);
 							v.getTextPassword().setText("");
-							
+
 						} else if (serverStr.equals("DB NOT CONNECTED")) {
-							JOptionPane.showMessageDialog(null, "The database is not available, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
-									JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(null,
+									"The database is not available, sorry for the issue.\nTry it again later",
+									"FAILED TO LOGIN", JOptionPane.WARNING_MESSAGE);
+						} else if (serverStr.equals("ALREADY CONNECTED")) {
+							JOptionPane.showMessageDialog(null,
+									"User is already connected",
+									"FAILED TO LOGIN", JOptionPane.WARNING_MESSAGE);
 						} else {
 							login(v);
 						}
@@ -199,7 +204,8 @@ public class Client {
 				System.exit(1);
 			}
 		} catch (IOException ioe) {
-			JOptionPane.showMessageDialog(null, "Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+			JOptionPane.showMessageDialog(null,
+					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
