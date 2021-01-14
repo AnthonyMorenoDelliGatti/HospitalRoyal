@@ -21,7 +21,7 @@ public class ThreadServer extends Thread {
 	DataOutputStream outputStream;
 	Hospital hospital;
 	static Methods method;
-	ServerView viewServer;
+	static ServerView viewServer;
 	static boolean connectedDB;
 	private String user;
 
@@ -173,8 +173,7 @@ public class ThreadServer extends Thread {
 			}
 			connectedDB = true;
 		} catch (ClassNotFoundException | SQLException e) {
-			JOptionPane.showMessageDialog(null, "The database is not available", "FAILED TO LINK WITH DATA BASE",
-					JOptionPane.WARNING_MESSAGE);
+			viewServer.getArea().append("\n***WARNING: The database is not available***");
 			connectedDB = false;
 		}
 		return email;
@@ -195,8 +194,7 @@ public class ThreadServer extends Thread {
 			}
 			connectedDB = true;
 		} catch (ClassNotFoundException | SQLException e) {
-			JOptionPane.showMessageDialog(null, "The database is not available", "FAILED TO LINK WITH DATA BASE",
-					JOptionPane.WARNING_MESSAGE);
+			viewServer.getArea().append("\n***WARNING: The database is not available***");
 			connectedDB = false;
 		}
 		return false;
@@ -217,8 +215,7 @@ public class ThreadServer extends Thread {
 			}
 			connectedDB = true;
 		} catch (ClassNotFoundException | SQLException e) {
-			JOptionPane.showMessageDialog(null, "The database is not available", "FAILED TO LINK WITH DATA BASE",
-					JOptionPane.WARNING_MESSAGE);
+			viewServer.getArea().append("\n***WARNING: The database is not available***");
 			connectedDB = false;
 		}
 		return false;

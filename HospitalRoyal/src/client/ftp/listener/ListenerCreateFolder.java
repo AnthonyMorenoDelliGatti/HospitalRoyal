@@ -8,6 +8,8 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Methods;
@@ -98,7 +100,8 @@ public class ListenerCreateFolder implements ActionListener {
 						createView.dispose();
 						view.setEnabled(true);
 					} else {
-						createView.getLblMessage().setText("Failed to create directory");
+						JOptionPane.showMessageDialog(null, "The folder already exist or the process has failed", "FAILED TO CREATE DIRECTORY",
+								JOptionPane.WARNING_MESSAGE);
 					}
 					view.pack();
 					method.cargarDatosLista(client, view, explorer);
