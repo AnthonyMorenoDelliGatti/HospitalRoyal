@@ -197,10 +197,10 @@ public class Client {
 
 		if (adminUser) {
 			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		} else {
 			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
-			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password, this));
+			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 	
 		}
 	}		

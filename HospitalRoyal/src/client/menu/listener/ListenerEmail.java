@@ -1,11 +1,16 @@
 package client.menu.listener;
 
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -15,7 +20,9 @@ import javax.mail.NoSuchProviderException;
 import javax.mail.Part;
 import javax.mail.Session;
 import javax.mail.Store;
-
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
 
 import org.apache.commons.net.ftp.FTPClient;
 
@@ -32,17 +39,15 @@ public class ListenerEmail implements ActionListener {
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailWindow;
 	private String password;
-	private Client client2;
 
 	public ListenerEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
-			EmailMenuWindow emailWindow, String password, Client client2) {
+			EmailMenuWindow emailWindow, String password) {
 		this.client = client;
 		this.user = user;
 		this.email = email;
 		this.vStartMenu = vStartMenu;
 		this.emailWindow = emailWindow;
 		this.password = password;
-		this.client2 = client2;
 	}
 
 	@Override
@@ -66,20 +71,26 @@ public class ListenerEmail implements ActionListener {
 			folder.open(Folder.READ_ONLY);
 			folder.isOpen();
 			Message[] mensajes = folder.getMessages();
-			Object mensaje = "";
+			ArrayList<Email> mails = new ArrayList<>();
+			String mensaje= "";
 			for (int i = 0; i < mensajes.length; i++) {
-				Multipart mp = (Multipart) mensajes[i].getContent(); // here it breaks
-				BodyPart bp = mp.getBodyPart(0);
-				mensaje = bp.getContent();
-				emailWindow.viewEmails(new Email(email, mensajes[i].getSubject(), mensajes[i].getFrom()[0].toString(),
-						mensaje, mensajes[i].getSentDate().toString(), false));
+//				Multipart mp = (Multipart) mensajes[i].getContent(); // here it breaks
+//				BodyPart bp = mp.getBodyPart(0);
+//				mensaje = bp.getContent();
+				if(mensajes[i].getContentType().equals("text/*")) {
+					mensaje+=mensajes[i].getContent();
+				}
+				Email correo = new Email(email, mensajes[i].getSubject(), mensajes[i].getFrom()[0].toString(),
+						mensajes[i], mensajes[i].getSentDate().toString(), false);
+				mails.add(correo);
 			}
+			emailWindow.viewEmails(mails);
 		} catch (MessagingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (IOException e1) {
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			e.printStackTrace();
 		}
 		try {
 			client.changeWorkingDirectory(user);
@@ -88,4 +99,8 @@ public class ListenerEmail implements ActionListener {
 			e.printStackTrace();
 		}
 	}
+
+	
+
+	
 }
