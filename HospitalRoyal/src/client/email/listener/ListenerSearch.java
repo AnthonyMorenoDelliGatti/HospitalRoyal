@@ -1,4 +1,4 @@
-package client.ftp.listener;
+package client.email.listener;
 
 import java.awt.Component;
 import java.awt.event.ActionEvent;
@@ -40,9 +40,6 @@ public class ListenerSearch implements KeyListener {
 		        	mailsb.add(mail);
 		        }
 		    }
-			for (Email mail : mailsb) {
-				System.out.println(mail.getUser());
-			}
 		    emailWindow.viewEmails(mailsb);
 		}
 	}

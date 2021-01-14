@@ -27,9 +27,9 @@ import javax.swing.JLabel;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.Client;
+import client.email.listener.ListenerSearch;
 import client.email.listener.ListenerUpdate;
 import client.email.view.EmailMenuWindow;
-import client.ftp.listener.ListenerSearch;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
