@@ -13,13 +13,13 @@ import javax.swing.JFileChooser;
 import org.apache.commons.net.ftp.FTP;
 
 import client.email.view.NewEmailView;
-import client.model.Archivo;
+import client.model.Archive;
 
 public class ListenerFCEmail implements ActionListener {
 	NewEmailView window;
-	ArrayList<Archivo> archivos;
+	ArrayList<Archive> archivos;
 
-	public ListenerFCEmail(NewEmailView window, ArrayList<Archivo> archivos) {
+	public ListenerFCEmail(NewEmailView window, ArrayList<Archive> archivos) {
 		this.window = window;
 		this.archivos = archivos;
 	}
@@ -36,7 +36,7 @@ public class ListenerFCEmail implements ActionListener {
 			long lastModification = fileChooser.getSelectedFile().lastModified();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 			String fechaComoCadena = sdf.format(new Date());
-			Archivo archivo = new Archivo(fileChooser.getSelectedFile().getName(), fechaComoCadena, route);
+			Archive archivo = new Archive(fileChooser.getSelectedFile().getName(), fechaComoCadena, route);
 			archivos.add(archivo);
 			window.getFrame().setEnabled(true);
 			window.generarListado(archivos);

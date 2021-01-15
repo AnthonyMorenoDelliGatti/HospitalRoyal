@@ -23,7 +23,7 @@ import com.sun.mail.handlers.multipart_mixed;
 
 import client.email.view.NewEmailView;
 
-import client.model.Archivo;
+import client.model.Archive;
 
 import client.menu.view.SplashEmail;
 
@@ -33,12 +33,12 @@ public class ListenerSend implements ActionListener{
 	String mail;
 	String password;
 	NewEmailView view;
-	ArrayList<Archivo> archivos;
-	public ListenerSend(String mail, String password, NewEmailView view, ArrayList<Archivo> archivos) {
+	ArrayList<Archive> archives;
+	public ListenerSend(String mail, String password, NewEmailView view, ArrayList<Archive> archives) {
 		this.mail = mail;
 		this.password = password;
 		this.view = view;
-		this.archivos = archivos;
+		this.archives = archives;
 	}
 
 	@Override

@@ -33,7 +33,7 @@ public class SplashEmail extends JFrame{
 		gif.setIcon(new ImageIcon("iconos\\cargando.gif"));
 		gif.setBorder(BorderFactory.createEmptyBorder());
 		contentPane.add(gif,BorderLayout.EAST);
-		AWTUtilities.setWindowOpacity (this,0.7f);
+		AWTUtilities.setWindowOpacity(this,0.7f);
 		pack();
 		Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 300, 300);
         AWTUtilities.setWindowShape(this, forma);

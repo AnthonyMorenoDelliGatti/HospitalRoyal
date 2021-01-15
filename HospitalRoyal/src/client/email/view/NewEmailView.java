@@ -39,7 +39,6 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerButtonModifyName;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerCloseWindow;
-import client.email.listener.ListenerEliminar;
 import client.email.listener.ListenerFCEmail;
 import client.email.view.SplashSubidaArchivo;
 import client.email.listener.ListenerModifyName;
@@ -62,7 +61,7 @@ public class NewEmailView {
 	private JLabel lbldrag;
 	private JButton upLoad;
 	private JPanel panelArchivos;
-	private ArrayList<Archivo> archivos;
+	private ArrayList<Archive> archives;
 	String email;
 	String password;
 	JFrame frameMenu;
@@ -82,7 +81,7 @@ public class NewEmailView {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setUndecorated(true);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\email.png"));
-		archivos = new ArrayList<>();
+		archives = new ArrayList<>();
 		headerColor = new Color(204, 252, 255);
 		body = Color.WHITE;
 
@@ -165,7 +164,7 @@ public class NewEmailView {
 		filesPanel.setBackground(body);
 		scrollPane.setBounds(10, 173, 430, 160);
 		dropPanel.add(scrollPane);
-		generarListado(archivos);
+		generarListado(archives);
 		JPanel panel_6 = new JPanel();
 		FlowLayout flowLayout_2 = (FlowLayout) panel_6.getLayout();
 		flowLayout_2.setHgap(25);
@@ -178,7 +177,7 @@ public class NewEmailView {
 		send.setFocusPainted(false);
 		send.setBorder(emptyBorder);
 		send.setBackground(body);
-		send.addActionListener(new ListenerSend(email, password, this, archivos));
+		send.addActionListener(new ListenerSend(email, password, this, archives));
 		panel_6.add(send);
 
 		upLoad = new JButton("");
@@ -186,7 +185,7 @@ public class NewEmailView {
 		upLoad.setFocusPainted(false);
 		upLoad.setBorder(emptyBorder);
 		upLoad.setBackground(body);
-		upLoad.addActionListener(new ListenerFCEmail(this, archivos));
+		upLoad.addActionListener(new ListenerFCEmail(this, archives));
 		panel_6.add(upLoad);
 		dropFile();
 		frame.setVisible(true);
@@ -274,7 +273,7 @@ public class NewEmailView {
 		dropPanel.updateUI();
 	}
 
-	private void generarListado(ArrayList<Archive> archives) {
+	public void generarListado(ArrayList<Archive> archives) {
 		filesPanel.removeAll();
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
 		panelArchivos = new JPanel();
@@ -308,7 +307,7 @@ public class NewEmailView {
 		JPopupMenu menu = new JPopupMenu();
 
 		JMenuItem item = new JMenuItem("Delete");
-		item.addActionListener(new ListenerEliminarArchivo(archivo, this));
+		item.addActionListener(new ListenerEliminarArchivo(archive, this));
 		menu.add(item);
 		return menu;
 	}
@@ -333,7 +332,7 @@ public class NewEmailView {
 		} else {
 			direcIcon = "iconos\\text-document.png";
 		}
-		Icon icon = new ImageIcon(direcIcono);
+		Icon icon = new ImageIcon(direcIcon);
 		JLabel l = new JLabel(icon);
 		return l;
 	}
@@ -386,8 +385,8 @@ public class NewEmailView {
 		this.textPane = textPane;
 	}
 
-	public ArrayList<Archivo> getArchivos() {
-		return archivos;
+	public ArrayList<Archive> getArchives() {
+		return archives;
 	}
 
 }
