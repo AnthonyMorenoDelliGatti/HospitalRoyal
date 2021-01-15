@@ -32,9 +32,9 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
 import client.email.listener.ListenerSearch;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.menu.view.StartMenuView;
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 import client.model.Email;
 
 public class EmailMenuWindow {

@@ -13,17 +13,17 @@ import javax.swing.JTextField;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 
-public class ListenerModificarNombre implements FocusListener, KeyListener {
+public class ListenerModifyName implements FocusListener, KeyListener {
 
-	private ArchivoFtp archivo;
+	private FileFtp archivo;
 	private JTextField nombre;
 	FTPClient client;
 	private String user;
 	DataOutputStream outputStream;
 
-	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user,
+	public ListenerModifyName(FileFtp archivo, JTextField nombre, FTPClient client, String user,
 			DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.nombre = nombre;

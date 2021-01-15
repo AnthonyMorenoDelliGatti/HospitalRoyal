@@ -16,11 +16,11 @@ import client.ftp.listener.ListenerClose;
 import client.ftp.listener.ListenerCreateFolder;
 import client.ftp.listener.ListenerReturn;
 import client.ftp.listener.ListenerReturnForward;
-import client.ftp.listener.ListenerSubir;
+import client.ftp.listener.ListenerUpload;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.menu.view.StartMenuView;
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 import client.model.Paths;
 
 public class ListenerAdminFTP implements ActionListener {
@@ -29,13 +29,13 @@ public class ListenerAdminFTP implements ActionListener {
 	private FTPClient client;
 	private FTPWindow ftpWindow;
 	private String user;
-	private VistaArchivos explorer;
+	private FileView explorer;
 	private MethodList method;
 	private StartMenuView vStartMenu;
 	private String password;
 	private DataOutputStream outputStream;
 
-	public ListenerAdminFTP(Paths paths, FTPClient client, FTPWindow ftpWindow, String user, VistaArchivos explorer,
+	public ListenerAdminFTP(Paths paths, FTPClient client, FTPWindow ftpWindow, String user, FileView explorer,
 			MethodList method, StartMenuView vStartMenu, String password, DataOutputStream outputStream) {
 		this.paths = paths;
 		this.client = client;
@@ -53,10 +53,10 @@ public class ListenerAdminFTP implements ActionListener {
 		try {
 			paths.setPathLimit(client.printWorkingDirectory());
 
-			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
+			ArrayList<FileFtp> archivos = new ArrayList<>();
 			ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
-			explorer = new VistaArchivos(client, archivos, method, ftpWindow, password, outputStream, paths, true);
-			method.cargarDatosLista(client, ftpWindow, explorer);
+			explorer = new FileView(client, archivos, method, ftpWindow, password, outputStream, paths, true);
+			method.DataListLoad(client, ftpWindow, explorer);
 			ftpWindow.setVisible(true);
 			ftpWindow.setLocationRelativeTo(null);
 			Rectangle tamanio=new Rectangle(600,600,600,600);
@@ -82,7 +82,7 @@ public class ListenerAdminFTP implements ActionListener {
 					new ListenerCreateFolder(client, archivos, method, ftpWindow, explorer, password, outputStream));
 			// eliminar archivos y carpetas
 			ftpWindow.getButtons().get(3)
-					.addActionListener(new ListenerSubir(client, user, ftpWindow, explorer, method, outputStream));
+					.addActionListener(new ListenerUpload(client, user, ftpWindow, explorer, method, outputStream));
 			vStartMenu.setVisible(false);
 
 			ftpWindow.getButtons().get(4).addActionListener(new ListenerClose(ftpWindow, vStartMenu));

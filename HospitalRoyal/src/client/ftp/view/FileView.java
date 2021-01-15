@@ -20,28 +20,28 @@ import javax.swing.border.EmptyBorder;
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.MethodList;
-import client.ftp.listener.ListenerArchivo;
-import client.ftp.listener.ListenerBotonModificarNombre;
-import client.ftp.listener.ListenerEliminar;
-import client.ftp.listener.ListenerModificarNombre;
-import client.ftp.listener.ListenerDescargar;
-import client.model.ArchivoFtp;
+import client.ftp.listener.ListenerFile;
+import client.ftp.listener.ListenerButtonModifyName;
+import client.ftp.listener.ListenerEliminate;
+import client.ftp.listener.ListenerModifyName;
+import client.ftp.listener.ListenerDownload;
+import client.model.FileFtp;
 import client.model.Paths;
 
-public class VistaArchivos {
+public class FileView {
 
 	JMenuItem item, item2, item3;
 	FTPClient client;
 	MethodList method;
 	FTPWindow vista;
-	ArrayList<ArchivoFtp> archivos;
+	ArrayList<FileFtp> archivos;
 	DataOutputStream outputStream;
 	String user;
 	Paths paths;
 	JPopupMenu menu;
 	boolean admin;
 
-	public VistaArchivos(FTPClient client, ArrayList<ArchivoFtp> archivos, MethodList method, FTPWindow vista, String user,
+	public FileView(FTPClient client, ArrayList<FileFtp> archivos, MethodList method, FTPWindow vista, String user,
 			DataOutputStream outputStream, Paths paths, boolean admin) {
 		this.client = client;
 		this.method = method;
@@ -53,7 +53,7 @@ public class VistaArchivos {
 		this.admin = admin;
 	}
 
-	public JPanel visualizarListado(ArrayList<ArchivoFtp> archivos) {
+	public JPanel visualizarListado(ArrayList<FileFtp> archivos) {
 		JPanel rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
@@ -70,10 +70,10 @@ public class VistaArchivos {
 		return rootPanel;
 	}
 
-	private void generarListado(JPanel rootPanel, GridLayout experimentLayout, ArrayList<ArchivoFtp> archivos) {
+	private void generarListado(JPanel rootPanel, GridLayout experimentLayout, ArrayList<FileFtp> archivos) {
 		JPanel panel;
 		Collections.sort(archivos);
-		for (ArchivoFtp i : archivos) {
+		for (FileFtp i : archivos) {
 			if (i.getUltFechaModificacion().equals("")) {
 				panel = new JPanel();
 				panel.setBackground(Color.WHITE);
@@ -90,7 +90,7 @@ public class VistaArchivos {
 				panel.add(l);
 				JTextField nombre = generarNombre(panel, i);
 				panel.add(new JLabel("" + i.getUltFechaModificacion()));
-				panel.addMouseListener(new ListenerArchivo(panel, i, vista, paths, client, method, this, nombre));
+				panel.addMouseListener(new ListenerFile(panel, i, vista, paths, client, method, this, nombre));
 				if (admin) {
 					JPopupMenu menu = generarMenu(nombre, i);
 					panel.setComponentPopupMenu(menu);
@@ -101,40 +101,40 @@ public class VistaArchivos {
 		}
 	}
 
-	private JPopupMenu generarMenu(JTextField nombre, ArchivoFtp archivo) {
+	private JPopupMenu generarMenu(JTextField nombre, FileFtp archivo) {
 		JPopupMenu menu = new JPopupMenu();
 
 		item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre, archivo));
+		item.addActionListener(new ListenerButtonModifyName(nombre, archivo));
 		menu.add(item);
 		if (archivo.getIsCarpeta() == 0) {
 			JMenuItem item2 = new JMenuItem("Descargar");
-			item2.addActionListener(new ListenerDescargar(archivo.getDireccion(), archivo.getNombre(), client, method,
+			item2.addActionListener(new ListenerDownload(archivo.getDireccion(), archivo.getNombre(), client, method,
 					user, outputStream, vista));
 			menu.add(item2);
 		}
 
 		item3 = new JMenuItem("Eliminar");
 		item3.addActionListener(
-				new ListenerEliminar(archivo, archivos, client, method, vista, this, user, outputStream));
+				new ListenerEliminate(archivo, archivos, client, method, vista, this, user, outputStream));
 		menu.add(item3);
 		return menu;
 	}
 
-	private JTextField generarNombre(JPanel panel, ArchivoFtp i) {
+	private JTextField generarNombre(JPanel panel, FileFtp i) {
 		JTextField nombre = new JTextField(10);
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		nombre.addKeyListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
-		nombre.addFocusListener(new ListenerModificarNombre(i, nombre, client, user, outputStream));
+		nombre.addKeyListener(new ListenerModifyName(i, nombre, client, user, outputStream));
+		nombre.addFocusListener(new ListenerModifyName(i, nombre, client, user, outputStream));
 		nombre.setEditable(false);
 		nombre.setBackground(Color.WHITE);
 
 		return nombre;
 	}
 
-	private JLabel obtenerIcono(ArchivoFtp i) {
+	private JLabel obtenerIcono(FileFtp i) {
 		String direcIcono;
 		if (i.getIsCarpeta() == 1) {
 			direcIcono = "iconos//carpeta.png";

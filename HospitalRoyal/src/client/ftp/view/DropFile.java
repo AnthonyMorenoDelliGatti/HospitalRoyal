@@ -31,7 +31,7 @@ import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import client.model.Archivo;
+import client.model.Archive;
 import client.view.Splash;
 
 public class DropFile {
@@ -55,7 +55,7 @@ public class DropFile {
 		this.v=v;
 	}
 
-	public void cargarDatos(Archivo archivo) {
+	public void cargarDatos(Archive archivo) {
 		// Consejo: guardaria en un array los paneles para borrar m�s tarde
 		JPanel panel = obterPanelArchivo(archivo); 
 		dropPanel.add(panel);
@@ -72,10 +72,10 @@ public class DropFile {
 			@Override
 			public boolean importData(JComponent comp, Transferable t) {
 				try {
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<Archive> archivos = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
-						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
+						archivos.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
 						pathFiles.add(i.getPath());
 					}
 					
@@ -95,10 +95,10 @@ public class DropFile {
 		return pathFiles;
 	}
 
-	private void generarListado(ArrayList<Archivo> archivos) {
+	private void generarListado(ArrayList<Archive> archivos) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-		for (Archivo i : archivos) {
+		for (Archive i : archivos) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
 			
@@ -119,7 +119,7 @@ public class DropFile {
 		}
 	}
 	
-	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
+	private JPopupMenu generarMenu(JTextField nombre, Archive archivo) {
 		JPopupMenu menu = new JPopupMenu();
 
 		JMenuItem item = new JMenuItem("Cambiar nombre");
@@ -174,7 +174,7 @@ public class DropFile {
 			@Override
 			public void windowClosed(WindowEvent e) {
 				// TODO Auto-generated method stub
-				SplashSubidaArchivo splash = new SplashSubidaArchivo(v, "upload");
+				SplashUploadFile splash = new SplashUploadFile(v, "upload");
 				splash.setVisible(true);
 			}
 			
@@ -269,7 +269,7 @@ public class DropFile {
 		frame.setLocationRelativeTo(null);	
 	}
 	
-	private JPanel obterPanelArchivo(Archivo archivo) {
+	private JPanel obterPanelArchivo(Archive archivo) {
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
 		JPanel panel = new JPanel();
 		panel.setLayout(experimentLayout);
@@ -289,7 +289,7 @@ public class DropFile {
 	}
 	
 
-	private JTextField generarNombre(JPanel panel, Archivo i) {
+	private JTextField generarNombre(JPanel panel, Archive i) {
 		JTextField nombre = new JTextField(10);
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
@@ -302,7 +302,7 @@ public class DropFile {
 		return nombre;
 	}
 
-	private JLabel obtenerIcono(Archivo i) {
+	private JLabel obtenerIcono(Archive i) {
 		String direcIcono;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
 			direcIcono = "iconos//carpeta.png";

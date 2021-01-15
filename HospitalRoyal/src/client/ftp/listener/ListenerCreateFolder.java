@@ -16,22 +16,22 @@ import org.apache.commons.net.ftp.FTPClient;
 import client.controller.MethodList;
 import client.ftp.view.CreateFolderView;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
 	MethodList method;
 	FTPWindow view;
-	VistaArchivos explorer;
+	FileView explorer;
 	String user;
 	DataOutputStream outputStream;
 
-	ArrayList<ArchivoFtp> archivos;
+	ArrayList<FileFtp> archivos;
 
-	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, MethodList method, FTPWindow view,
-			VistaArchivos explorer, String user, DataOutputStream outputStream) {
+	public ListenerCreateFolder(FTPClient client, ArrayList<FileFtp> archivos, MethodList method, FTPWindow view,
+			FileView explorer, String user, DataOutputStream outputStream) {
 		this.client = client;
 		this.method = method;
 		this.view = view;
@@ -104,7 +104,7 @@ public class ListenerCreateFolder implements ActionListener {
 						JOptionPane.showMessageDialog(null, "The folder already exist or the process has failed", "FAILED TO CREATE DIRECTORY",
 								JOptionPane.WARNING_MESSAGE);
 					}
-					method.cargarDatosLista(client, view, explorer);
+					method.DataListLoad(client, view, explorer);
 					
 					Rectangle tamanio=new Rectangle(600,600,600,600);
 					if(view.getBounds()!=tamanio) {

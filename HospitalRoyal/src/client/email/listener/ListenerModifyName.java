@@ -10,20 +10,20 @@ import javax.swing.JTextField;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.model.Archivo;
-import client.model.ArchivoFtp;
+import client.model.Archive;
+import client.model.FileFtp;
 
-public class ListenerModificarNombre implements ActionListener, FocusListener{
+public class ListenerModifyName implements ActionListener, FocusListener{
 
-	private Archivo archivo;
+	private Archive archivo;
 	private JTextField nombre;
 	
-	public ListenerModificarNombre(Archivo archivo, JTextField nombre) {
+	public ListenerModifyName(Archive archivo, JTextField nombre) {
 		this.archivo = archivo;
 		this.nombre = nombre;
 	}
 	
-	public ListenerModificarNombre(ArchivoFtp i, JTextField nombre2, FTPClient client, String user,
+	public ListenerModifyName(FileFtp i, JTextField nombre2, FTPClient client, String user,
 			DataOutputStream outputStream) {
 		// TODO Auto-generated constructor stub
 	}

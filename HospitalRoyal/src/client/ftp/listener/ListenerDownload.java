@@ -17,10 +17,10 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.SplashSubidaArchivo;
+import client.ftp.view.SplashUploadFile;
 
 
-public class ListenerDescargar implements ActionListener {
+public class ListenerDownload implements ActionListener {
 
 	FTPClient client;
 	String direccion;
@@ -30,7 +30,7 @@ public class ListenerDescargar implements ActionListener {
 	DataOutputStream outputStream;
 	FTPWindow vista;
 
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow vista) {
+	public ListenerDownload(String direccion, String nombre, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow vista) {
 		this.direccion = direccion;
 		this.client = client;
 		this.name = nombre;
@@ -56,7 +56,7 @@ public class ListenerDescargar implements ActionListener {
 							new FileOutputStream(path + File.separator + name));
 					client.setFileType(FTP.BINARY_FILE_TYPE);
 					client.retrieveFile("." + direccion, outputStream2);
-					SplashSubidaArchivo splash = new SplashSubidaArchivo(vista, "upload");
+					SplashUploadFile splash = new SplashUploadFile(vista, "upload");
 					splash.setVisible(true);
 					outputStream.writeUTF("8");
 					outputStream.writeUTF(name);

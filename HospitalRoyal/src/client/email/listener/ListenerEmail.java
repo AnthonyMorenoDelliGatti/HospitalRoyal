@@ -22,17 +22,17 @@ import client.model.Email;
 
 public class ListenerEmail implements MouseListener {
 
-	private EmailMenuWindow vista;
+	private EmailMenuWindow view;
 	private JPanel panel;
 	private Email email;
 	private FTPClient client;
 	private StartMenuView vStarMenu;
 	String password;
 
-	public ListenerEmail(JPanel panel, Email email, EmailMenuWindow vista, String password) {
+	public ListenerEmail(JPanel panel, Email email, EmailMenuWindow view, String password) {
 		this.panel = panel;
 		this.email = email;
-		this.vista = vista;
+		this.view = view;
 		this.password = password;
 	}
 
@@ -41,8 +41,8 @@ public class ListenerEmail implements MouseListener {
 		if (e.getClickCount() == 2) {
 			try
 	        {
-				vista.getFrame().setEnabled(false);
-	            EmailView ev = new EmailView(email, vista);
+				view.getFrame().setEnabled(false);
+	            EmailView ev = new EmailView(email, view);
 	            ev.getResponder().addActionListener(new ListenerReply(email, password));
 	            ev.getReenviar().addActionListener(new ListenerForward(email, password));
 	        }
@@ -54,7 +54,7 @@ public class ListenerEmail implements MouseListener {
 	}
 
 	/**
-	 * Seleccion de carpetas
+	 * Select folder
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -65,7 +65,7 @@ public class ListenerEmail implements MouseListener {
 	@Override
 	public void mouseExited(MouseEvent e) {
 		if (!email.getIsRead()) {
-			panel.setBackground(vista.WHITE);
+			panel.setBackground(view.WHITE);
 		} else {
 			panel.setBackground(null);
 		}

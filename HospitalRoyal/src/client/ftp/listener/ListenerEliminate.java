@@ -14,24 +14,24 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 
 
 
-public class ListenerEliminar implements ActionListener {
+public class ListenerEliminate implements ActionListener {
 
-	private ArchivoFtp archivo;
-	private ArrayList<ArchivoFtp> archivos;
+	private FileFtp archivo;
+	private ArrayList<FileFtp> archivos;
 	private FTPClient client;
 	private MethodList method;
 	private FTPWindow view;
-	private VistaArchivos explorer;
+	private FileView explorer;
 	private String user;
 	DataOutputStream outputStream;
 
-	public ListenerEliminar(ArchivoFtp archivo, ArrayList<ArchivoFtp> archivos, FTPClient client, MethodList method,
-			FTPWindow view, VistaArchivos explorer, String user, DataOutputStream outputStream) {
+	public ListenerEliminate(FileFtp archivo, ArrayList<FileFtp> archivos, FTPClient client, MethodList method,
+			FTPWindow view, FileView explorer, String user, DataOutputStream outputStream) {
 		this.archivo = archivo;
 		this.archivos = archivos;
 		this.client = client;
@@ -83,7 +83,7 @@ public class ListenerEliminar implements ActionListener {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				method.cargarDatosLista(client, view, explorer);
+				method.DataListLoad(client, view, explorer);
 
 				Rectangle tamanio=new Rectangle(600,600,600,600);
 				if(view.getBounds()==tamanio) {

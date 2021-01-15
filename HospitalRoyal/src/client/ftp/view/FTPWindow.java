@@ -35,7 +35,7 @@ public class FTPWindow extends JFrame {
 	private JPanel rigthHeader;
 	private Color colorHeader;
 	private ArrayList<JButton> buttons = new ArrayList();
-	VistaArchivos lista;
+	FileView lista;
 	private MethodList method;
 	StartMenuView principalView;
 
@@ -48,7 +48,7 @@ public class FTPWindow extends JFrame {
 	 * @param method     - Methods -
 	 * @param vStartMenu
 	 */
-	public FTPWindow(FTPClient client, String user, VistaArchivos lista, MethodList method,
+	public FTPWindow(FTPClient client, String user, FileView lista, MethodList method,
 			StartMenuView principalView) {
 		colorHeader = new Color(204, 252, 255);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));

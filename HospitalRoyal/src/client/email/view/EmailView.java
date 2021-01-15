@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 
-import client.email.listener.ListenerDescargar;
+import client.email.listener.ListenerDownload;
 import client.model.Email;
 
 public class EmailView {
@@ -147,7 +147,7 @@ public class EmailView {
 						lblLogo.setIcon(new ImageIcon(dimg));
 						JPopupMenu menu = new JPopupMenu();
 						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDescargar(unaParte));
+						item.addActionListener(new ListenerDownload(unaParte));
 						menu.add(item);
 						imagenes.setComponentPopupMenu(menu);
 						imagenes.add(lblLogo);
@@ -157,7 +157,7 @@ public class EmailView {
 						lblarchivo.setBackground(Color.white);
 						JPopupMenu menu = new JPopupMenu();
 						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDescargar(unaParte));
+						item.addActionListener(new ListenerDownload(unaParte));
 						menu.add(item);
 						archivos.setComponentPopupMenu(menu);
 						archivos.add(new JLabel(unaParte.getFileName()));

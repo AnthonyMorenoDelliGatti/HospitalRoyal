@@ -17,14 +17,14 @@ import javax.swing.border.Border;
 
 import client.controller.Client;
 
-public class SplashSubidaArchivo extends JFrame {
+public class SplashUploadFile extends JFrame {
 
 	Thread splash = new Thread();
 	private JProgressBar barra;
 	JPanel panel = new JPanel();
 	JButton btn;
 
-	public SplashSubidaArchivo(FTPWindow v, String tipe) {
+	public SplashUploadFile(FTPWindow v, String tipe) {
 		panel.setLayout(new BorderLayout(0, 0));
 		panel.setBackground(Color.white);
 		this.setUndecorated(true);

@@ -8,7 +8,7 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.model.Paths;
 
 
@@ -16,9 +16,9 @@ public class ListenerReturnForward implements ActionListener{
 	FTPClient client;
 	MethodList method;
 	FTPWindow principalView;
-	VistaArchivos explorer;
+	FileView explorer;
 	Paths paths;
-	public ListenerReturnForward(FTPClient client, MethodList method, FTPWindow principalView, VistaArchivos explorer, Paths paths) {
+	public ListenerReturnForward(FTPClient client, MethodList method, FTPWindow principalView, FileView explorer, Paths paths) {
 		this.client = client;
 		this.method = method;
 		this.principalView = principalView;
@@ -31,7 +31,7 @@ public class ListenerReturnForward implements ActionListener{
 				if(paths.getPathguardados().size()>0) {
 					client.changeWorkingDirectory(paths.getPathguardados().get(paths.getPathguardados().size()-1));
 					paths.getPathguardados().remove(paths.getPathguardados().size()-1);
-					method.cargarDatosLista(client,principalView, explorer);
+					method.DataListLoad(client,principalView, explorer);
 
 					principalView.pack();
 					principalView.setBounds(600,600,600,principalView.getBounds().height);

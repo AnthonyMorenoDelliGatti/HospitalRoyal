@@ -13,23 +13,23 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 import client.model.Paths;
 
-public class ListenerArchivo implements MouseListener {
+public class ListenerFile implements MouseListener {
 
 	private JPanel panel;
-	private ArchivoFtp archivo;
+	private FileFtp archivo;
 	private FTPWindow vista;
 	private Paths paths;
 	private FTPClient client;
 	private MethodList method;
-	private VistaArchivos explorer;
+	private FileView explorer;
 	private JTextField name;
 
-	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client,
-			MethodList method, VistaArchivos vistaArchivos, JTextField name) {
+	public ListenerFile(JPanel panel, FileFtp archivo, FTPWindow vista, Paths paths, FTPClient client,
+			MethodList method, FileView vistaArchivos, JTextField name) {
 		this.panel = panel;
 		this.archivo = archivo;
 		this.vista = vista;
@@ -57,7 +57,7 @@ public class ListenerArchivo implements MouseListener {
 					vista.getButtons().get(0).setEnabled(true);
 					vista.getButtons().get(1).setEnabled(false);
 					paths.getPathguardados().clear();
-					method.cargarDatosLista(client, vista, explorer);
+					method.DataListLoad(client, vista, explorer);
 					
 					vista.pack();
 					vista.setBounds(600,600,600,vista.getBounds().height);

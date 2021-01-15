@@ -7,14 +7,14 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 
 
-public class ListenerBotonModificarNombre implements ActionListener{
+public class ListenerButtonModifyName implements ActionListener{
 
 	private JTextField nombre;
 	
-	public ListenerBotonModificarNombre(JTextField nombre, ArchivoFtp archivo) {
+	public ListenerButtonModifyName(JTextField nombre, FileFtp archivo) {
 		this.nombre = nombre;
 	}
 

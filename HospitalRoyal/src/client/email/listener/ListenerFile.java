@@ -10,52 +10,50 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 import client.model.Paths;
 
-public class ListenerArchivo implements MouseListener {
+public class ListenerFile implements MouseListener {
 
 	private JPanel panel;
-	private ArchivoFtp archivo;
-	private FTPWindow vista;
+	private FileFtp fileFtp;
+	private FTPWindow viewFTP;
 	private Paths paths;
 	private FTPClient client;
 	private MethodList method;
-	private VistaArchivos explorer;
+	private FileView explorer;
 	
-	public ListenerArchivo(JPanel panel, ArchivoFtp archivo, FTPWindow vista, Paths paths, FTPClient client, MethodList method, VistaArchivos vistaArchivos) {
+	public ListenerFile(JPanel panel, FileFtp fileFtp, FTPWindow viewFtp, Paths paths, FTPClient client, MethodList method, FileView fileView) {
 		this.panel = panel;
-		this.archivo = archivo;
-		this.vista = vista;
+		this.fileFtp = fileFtp;
+		this.viewFTP = viewFtp;
 		this.paths = paths;
 		this.client = client;
 		this.method = method;
-		this.explorer = vistaArchivos;
+		this.explorer = fileView;
 	}
 	
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		if (e.getClickCount() == 2) { // si se hace doble click
-			if(archivo.getIsCarpeta() == 1) { // y el archivo es carpeta
-				// se abre carpeta
+		if (e.getClickCount() == 2) { // if a double click is made
+			if(fileFtp.getIsCarpeta() == 1) { // and the file is a folder
+				// the folder is open
 				try {
-					String nuevaDireccion ;
+					String newDirection ;
 					if(client.printWorkingDirectory().equalsIgnoreCase("/")) {
-						nuevaDireccion = client.printWorkingDirectory()+archivo.getNombre();
+						newDirection = client.printWorkingDirectory()+fileFtp.getNombre();
 					}
 					else {
-						nuevaDireccion = client.printWorkingDirectory()+"/"+archivo.getNombre();
+						newDirection = client.printWorkingDirectory()+"/"+fileFtp.getNombre();
 					}
-					client.changeWorkingDirectory(nuevaDireccion);
-					System.out.println(nuevaDireccion);
-					vista.getButtons().get(0).setEnabled(true);
-					vista.getButtons().get(1).setEnabled(false);
+					client.changeWorkingDirectory(newDirection);
+					System.out.println(newDirection);
+					viewFTP.getButtons().get(0).setEnabled(true);
+					viewFTP.getButtons().get(1).setEnabled(false);
 					paths.getPathguardados().clear();
-					method.cargarDatosLista(client, vista, explorer);
+					method.DataListLoad(client, viewFTP, explorer);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -63,7 +61,7 @@ public class ListenerArchivo implements MouseListener {
 	}
 
 	/**
-	 * Seleccion de carpetas
+	 * Folder selection
 	 */
 	@Override
 	public void mouseEntered(MouseEvent e) {
@@ -78,13 +76,11 @@ public class ListenerArchivo implements MouseListener {
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

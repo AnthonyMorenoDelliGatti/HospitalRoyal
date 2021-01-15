@@ -33,14 +33,12 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.net.smtp.SMTPClient;
 
-import client.email.listener.ListenerArchivo;
-import client.email.listener.ListenerBotonModificarNombre;
+import client.email.listener.ListenerButtonModifyName;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerCloseWindow;
-import client.email.listener.ListenerEliminar;
-import client.email.listener.ListenerModificarNombre;
+import client.email.listener.ListenerModifyName;
 import client.email.listener.ListenerSend;
-import client.model.Archivo;
+import client.model.Archive;
 import client.model.Email;
 
 public class NewEmailView {
@@ -205,11 +203,11 @@ public class NewEmailView {
 			@Override
 			public boolean importData(JComponent comp, Transferable t) {
 				try {
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<Archive> archivos = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
 
-						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
+						archivos.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
 					}
 
 					generarListado(archivos);
@@ -224,10 +222,10 @@ public class NewEmailView {
 		dropPanel.setTransferHandler(th);
 	}
 
-	private void generarListado(ArrayList<Archivo> archivos) {
+	private void generarListado(ArrayList<Archive> archivos) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-		for (Archivo i : archivos) {
+		for (Archive i : archivos) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
 
@@ -249,25 +247,22 @@ public class NewEmailView {
 		}
 	}
 
-	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
+	private JPopupMenu generarMenu(JTextField nombre, Archive archivo) {
 		JPopupMenu menu = new JPopupMenu();
 
 		JMenuItem item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre, null));
+		item.addActionListener(new ListenerButtonModifyName(nombre, null));
 		menu.add(item);
 
-		JMenuItem item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo));
-		menu.add(item3);
 		return menu;
 	}
 
-	private JTextField generarNombre(JPanel panel, Archivo i) {
+	private JTextField generarNombre(JPanel panel, Archive i) {
 		JTextField nombre = new JTextField(10);
 		nombre.setText(i.getNombre());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);
+		ListenerModifyName listener = new ListenerModifyName(i, nombre);
 		nombre.addActionListener(listener);
 		nombre.addFocusListener(listener);
 		nombre.setEditable(false);
@@ -275,7 +270,7 @@ public class NewEmailView {
 		return nombre;
 	}
 
-	private JLabel obtenerIcono(Archivo i) {
+	private JLabel obtenerIcono(Archive i) {
 		String direcIcono;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
 			direcIcono = "iconos\\carpeta.png";

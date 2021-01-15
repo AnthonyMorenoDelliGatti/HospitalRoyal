@@ -13,10 +13,10 @@ import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.swing.JFileChooser;
 
-public class ListenerDescargar implements ActionListener {
+public class ListenerDownload implements ActionListener {
 	Part unaParte;
 
-	public ListenerDescargar(Part unaParte) {
+	public ListenerDownload(Part unaParte) {
 		this.unaParte = unaParte;
 	}
 

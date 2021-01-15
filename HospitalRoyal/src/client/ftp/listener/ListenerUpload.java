@@ -11,18 +11,18 @@ import org.apache.commons.net.ftp.FTPClient;
 import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 
 
 
-public class ListenerSubir implements ActionListener {
+public class ListenerUpload implements ActionListener {
 	FTPClient client;
 	String user;
 	MethodList method;
 	FTPWindow v;
-	VistaArchivos lista;
+	FileView lista;
 	DataOutputStream outputStream;
-	public ListenerSubir(FTPClient client, String user, FTPWindow v, VistaArchivos lista, MethodList method, DataOutputStream outputStream) {
+	public ListenerUpload(FTPClient client, String user, FTPWindow v, FileView lista, MethodList method, DataOutputStream outputStream) {
 
 		this.client = client;
 		this.user = user;
