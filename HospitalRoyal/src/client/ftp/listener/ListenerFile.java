@@ -17,6 +17,20 @@ import client.ftp.view.FileView;
 import client.model.FileFtp;
 import client.model.Paths;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that enter a folder
+ */
 public class ListenerFile implements MouseListener {
 
 	private JPanel panel;
@@ -28,6 +42,17 @@ public class ListenerFile implements MouseListener {
 	private FileView explorer;
 	private JTextField name;
 
+	/**
+	 * class' constructor
+	 * @param panel window panel
+	 * @param fileFtp file of the ftp
+	 * @param vista ftp's window
+	 * @param paths object that contains the model class for the paths of the ftp
+	 * @param client ftp's client
+	 * @param method object that contains the class that makes the list of files
+	 * @param fileView window with the list of files
+	 * @param name jtextfield where the name is shown
+	 */
 	public ListenerFile(JPanel panel, FileFtp fileFtp, FTPWindow vista, Paths paths, FTPClient client,
 			MethodList method, FileView fileView, JTextField name) {
 		this.panel = panel;

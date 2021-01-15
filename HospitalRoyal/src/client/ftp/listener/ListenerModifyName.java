@@ -15,6 +15,20 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import client.model.FileFtp;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the option of modify name
+ */
 public class ListenerModifyName implements FocusListener, KeyListener {
 
 	private FileFtp fileFtp;
@@ -23,6 +37,15 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 	private String user;
 	DataOutputStream outputStream;
 
+	/**
+	 * class' constructor
+	 * 
+	 * @param fileFtp ftp's file
+	 * @param name jtextfield with the name of the file
+	 * @param client ftp's client
+	 * @param user name of the user
+	 * @param outputStream
+	 */
 	public ListenerModifyName(FileFtp fileFtp, JTextField name, FTPClient client, String user,
 			DataOutputStream outputStream) {
 		this.fileFtp = fileFtp;
@@ -31,7 +54,9 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 		this.user = user;
 		this.outputStream = outputStream;
 	}
-
+	/**
+	 * method that check if the name of the file is a valid one
+	 */
 	private void checkName() {
 		String text = name.getText();
 		String previousName = fileFtp.getName();
@@ -44,7 +69,13 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 		name.setEditable(false);
 		name.setBackground(Color.white);
 	}
-
+	/**
+	 * method that change the name of a file
+	 * 
+	 * @param newName the new name of the file
+	 * 
+	 * @param name the previous name of the file
+	 */
 	private void cambiarnombre(String newName, String name) {
 		FTPFile[] fileList;
 		try {

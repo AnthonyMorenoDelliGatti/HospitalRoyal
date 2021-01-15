@@ -17,8 +17,20 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.model.FileFtp;
 
-
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the eliminate option
+ */
 public class ListenerEliminate implements ActionListener {
 
 	private FileFtp fileFtp;
@@ -30,6 +42,18 @@ public class ListenerEliminate implements ActionListener {
 	private String user;
 	DataOutputStream outputStream;
 
+	/**
+	 * class' constructor
+	 * 
+	 * @param fileFtp file of the ftp
+	 * @param filesFtp arraylist of files of the ftp
+	 * @param client ftp client
+	 * @param method object that contains the class that make the list of files
+	 * @param view ftp's window
+	 * @param explorer window that contains the list of files
+	 * @param user name of the user
+	 * @param outputStream
+	 */
 	public ListenerEliminate(FileFtp fileFtp, ArrayList<FileFtp> filesFtp, FTPClient client, MethodList method,
 			FTPWindow view, FileView explorer, String user, DataOutputStream outputStream) {
 		this.fileFtp = fileFtp;
@@ -99,7 +123,10 @@ public class ListenerEliminate implements ActionListener {
 			;
 		}
 	}
-
+/**
+ *  method that delete a file
+ * @param listFiles list of files of the ftp
+ */
 	private void delete(FTPFile[] listFiles) {
 		if (listFiles.length != 0) {
 			for (FTPFile file : listFiles) {

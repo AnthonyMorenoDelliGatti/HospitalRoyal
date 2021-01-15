@@ -20,7 +20,20 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the star menu's window
+ */
 public class StartMenuView extends JFrame {
 
 	private JButton buttonMail;
@@ -30,7 +43,7 @@ public class StartMenuView extends JFrame {
 	private JButton btnClose;
 		
 	/**
-	 * Create the application.
+	 * class' constructor
 	 */
 	public StartMenuView() {
 		initialize();
@@ -38,7 +51,9 @@ public class StartMenuView extends JFrame {
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
-
+	/**
+	 * method that control the slider of the window
+	 */
 	public void sliderShow() {
 		new Thread(new Runnable() {
 			
@@ -72,7 +87,7 @@ public class StartMenuView extends JFrame {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * method that initialize the contents of the frame.
 	 */
 	private void initialize() {
 		setBounds(100, 100, 682, 436);
