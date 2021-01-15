@@ -29,33 +29,33 @@ public class CreateFolderView extends JFrame{
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
 		
 		setLocationRelativeTo(null);
-		ArrayList<JPanel> paneles = new ArrayList<>();
-		generarPaneles(paneles);
+		ArrayList<JPanel> panels = new ArrayList<>();
+		generarPaneles(panels);
 		
-		paneles.get(0).setBackground(Color.white);
+		panels.get(0).setBackground(Color.white);
 		
 		Icon icon = new ImageIcon("iconos//carpeta.png");
 		JLabel l = new JLabel(icon);
-		paneles.get(0).add(l);
+		panels.get(0).add(l);
 		
 		txtNameFolder = new JTextField();
 		txtNameFolder.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		txtNameFolder.setColumns(10);
-		paneles.get(0).add(txtNameFolder);
+		panels.get(0).add(txtNameFolder);
 
 		btnCreate = new JButton("Create");
-		paneles.get(0).add(btnCreate);
+		panels.get(0).add(btnCreate);
 		
 		setContentPane(panel);
 		pack();
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
-	private void generarPaneles(ArrayList<JPanel> paneles) {
+	private void generarPaneles(ArrayList<JPanel> panels) {
 		for (int i = 0; i < 1; i++) {
-			paneles.add(new JPanel());
-			paneles.get(i).setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
-			panel.add(paneles.get(i));
+			panels.add(new JPanel());
+			panels.get(i).setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+			panel.add(panels.get(i));
 		}
 	}
 

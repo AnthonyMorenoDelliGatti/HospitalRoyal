@@ -20,7 +20,7 @@ import client.controller.Client;
 public class SplashUploadFile extends JFrame {
 
 	Thread splash = new Thread();
-	private JProgressBar barra;
+	private JProgressBar bar;
 	JPanel panel = new JPanel();
 	JButton btn;
 

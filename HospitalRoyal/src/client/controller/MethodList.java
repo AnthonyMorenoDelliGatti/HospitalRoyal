@@ -64,13 +64,13 @@ public class MethodList {
 					ex.printStackTrace();
 				}
 				FileFtps.add(new FileFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
-				view.getCentro().removeAll();
-				view.addExplorer(explorer.visualizarListado(FileFtps));
+				view.getCenter().removeAll();
+				view.addExplorer(explorer.ShowLists(FileFtps));
 				//view.pack();
 			}
 			}else {
-				view.getCentro().removeAll();
-				view.addExplorer(explorer.visualizarListado(FileFtps));
+				view.getCenter().removeAll();
+				view.addExplorer(explorer.ShowLists(FileFtps));
 				//view.pack();
 			}
 		} catch (IOException e) {

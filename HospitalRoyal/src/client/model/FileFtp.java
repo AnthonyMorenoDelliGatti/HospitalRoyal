@@ -42,7 +42,7 @@ public class FileFtp implements Comparable<FileFtp> {
 		this.nombre = nombre;
 	}
 
-	public String getUltFechaModificacion() {
+	public String getUltDateModification() {
 		return ultFechaModificacion;
 	}
 

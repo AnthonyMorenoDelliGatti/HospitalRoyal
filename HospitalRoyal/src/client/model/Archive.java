@@ -35,7 +35,7 @@ public class Archive{
 		this.nombre = nombre;
 	}
 
-	public String getUltFechaModificacion() {
+	public String getUltDateModification() {
 		return ultFechaModificacion;
 	}
 
