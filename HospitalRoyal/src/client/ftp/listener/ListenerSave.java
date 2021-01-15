@@ -24,14 +24,14 @@ public class ListenerSave implements ActionListener{
 	private DataOutputStream outputStream;
 	private FTPWindow v;
 	private MethodList method;
-	private FileView lista;
-	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, MethodList method, FileView lista) {
+	private FileView list;
+	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, MethodList method, FileView list) {
 		this.drop=drop;
 		this.client=client;
 		this.outputStream=outputStream;
 		this.v=v;
 		this.method=method;
-		this.lista=lista;
+		this.list=list;
 	}
 
 	@Override
@@ -44,7 +44,7 @@ public class ListenerSave implements ActionListener{
 				String[] routeSplitted = path.split("\\\\");
 				client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 				in.close();
-				method.DataListLoad(client, v, lista);
+				method.DataListLoad(client, v, list);
 				outputStream.writeUTF("4");
 				outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);				
 				drop.getFrame().dispose();
@@ -58,10 +58,8 @@ public class ListenerSave implements ActionListener{
 					v.setLocationRelativeTo(null);
 				}
 			} catch (FileNotFoundException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}

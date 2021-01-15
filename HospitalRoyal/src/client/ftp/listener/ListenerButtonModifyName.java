@@ -11,15 +11,15 @@ import client.model.FileFtp;
 
 public class ListenerButtonModifyName implements ActionListener{
 
-	private JTextField nombre;
+	private JTextField name;
 	
-	public ListenerButtonModifyName(JTextField nombre, FileFtp archivo) {
-		this.nombre = nombre;
+	public ListenerButtonModifyName(JTextField name, FileFtp fileFtp) {
+		this.name = name;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		nombre.setEditable(true);
-		nombre.setBackground(Color.WHITE);
-		nombre.requestFocus();
+		name.setEditable(true);
+		name.setBackground(Color.WHITE);
+		name.requestFocus();
 	}
 }

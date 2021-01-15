@@ -13,21 +13,21 @@ import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 
-
-
 public class ListenerUpload implements ActionListener {
 	FTPClient client;
 	String user;
 	MethodList method;
 	FTPWindow v;
-	FileView lista;
+	FileView list;
 	DataOutputStream outputStream;
-	public ListenerUpload(FTPClient client, String user, FTPWindow v, FileView lista, MethodList method, DataOutputStream outputStream) {
+
+	public ListenerUpload(FTPClient client, String user, FTPWindow v, FileView list, MethodList method,
+			DataOutputStream outputStream) {
 
 		this.client = client;
 		this.user = user;
 		this.v = v;
-		this.lista = lista;
+		this.list = list;
 		this.method = method;
 		this.outputStream = outputStream;
 	}
@@ -38,14 +38,15 @@ public class ListenerUpload implements ActionListener {
 		DropFile drop = new DropFile(v);
 		drop.getFrame().setVisible(true);
 		drop.getClose().addActionListener(new ListenerCloseWindow(drop.getFrame()));
-		drop.getSave().addActionListener(new ListenerSave(drop, client, outputStream, v, method, lista));
-		drop.getFileChooserBtn().addActionListener(new ListenerFileChooser(client, user, v, lista, method, outputStream, drop));
+		drop.getSave().addActionListener(new ListenerSave(drop, client, outputStream, v, method, list));
+		drop.getFileChooserBtn()
+				.addActionListener(new ListenerFileChooser(client, user, v, list, method, outputStream, drop));
 
 		v.pack();
-		v.setBounds(600,600,600,v.getBounds().height);
+		v.setBounds(600, 600, 600, v.getBounds().height);
 		v.setLocationRelativeTo(null);
-		if(v.getBounds().height>=600) {
-			v.setBounds(600,600,600,600);
+		if (v.getBounds().height >= 600) {
+			v.setBounds(600, 600, 600, 600);
 			v.setLocationRelativeTo(null);
 		}
 	}

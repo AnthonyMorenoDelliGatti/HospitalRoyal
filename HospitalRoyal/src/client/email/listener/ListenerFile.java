@@ -42,10 +42,10 @@ public class ListenerFile implements MouseListener {
 				try {
 					String newDirection ;
 					if(client.printWorkingDirectory().equalsIgnoreCase("/")) {
-						newDirection = client.printWorkingDirectory()+fileFtp.getNombre();
+						newDirection = client.printWorkingDirectory()+fileFtp.getName();
 					}
 					else {
-						newDirection = client.printWorkingDirectory()+"/"+fileFtp.getNombre();
+						newDirection = client.printWorkingDirectory()+"/"+fileFtp.getName();
 					}
 					client.changeWorkingDirectory(newDirection);
 					System.out.println(newDirection);

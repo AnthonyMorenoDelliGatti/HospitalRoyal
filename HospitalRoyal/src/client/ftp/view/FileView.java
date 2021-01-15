@@ -79,7 +79,7 @@ public class FileView {
 				panel.setBackground(Color.WHITE);
 				panel.setLayout(experimentLayout);
 				JLabel mensaje = new JLabel();
-				mensaje.setText(i.getNombre());
+				mensaje.setText(i.getName());
 				panel.add(mensaje);
 				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			} else {
@@ -109,7 +109,7 @@ public class FileView {
 		menu.add(item);
 		if (archivo.getIsCarpeta() == 0) {
 			JMenuItem item2 = new JMenuItem("Descargar");
-			item2.addActionListener(new ListenerDownload(archivo.getDireccion(), archivo.getNombre(), client, method,
+			item2.addActionListener(new ListenerDownload(archivo.getDireccion(), archivo.getName(), client, method,
 					user, outputStream, vista));
 			menu.add(item2);
 		}
@@ -123,7 +123,7 @@ public class FileView {
 
 	private JTextField generarNombre(JPanel panel, FileFtp i) {
 		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getNombre());
+		nombre.setText(i.getName());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		nombre.addKeyListener(new ListenerModifyName(i, nombre, client, user, outputStream));

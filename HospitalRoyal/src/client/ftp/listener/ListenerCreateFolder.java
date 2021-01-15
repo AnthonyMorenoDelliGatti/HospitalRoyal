@@ -30,14 +30,14 @@ public class ListenerCreateFolder implements ActionListener {
 
 	ArrayList<FileFtp> archivos;
 
-	public ListenerCreateFolder(FTPClient client, ArrayList<FileFtp> archivos, MethodList method, FTPWindow view,
+	public ListenerCreateFolder(FTPClient client, ArrayList<FileFtp> filesFtp, MethodList method, FTPWindow view,
 			FileView explorer, String user, DataOutputStream outputStream) {
 		this.client = client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
-		this.archivos = archivos;
+		this.archivos = filesFtp;
 		this.outputStream = outputStream;
 	}
 
@@ -51,25 +51,21 @@ public class ListenerCreateFolder implements ActionListener {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -87,7 +83,6 @@ public class ListenerCreateFolder implements ActionListener {
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -119,7 +114,6 @@ public class ListenerCreateFolder implements ActionListener {
 					outputStream.writeUTF("5");
 					outputStream.writeUTF(folder);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

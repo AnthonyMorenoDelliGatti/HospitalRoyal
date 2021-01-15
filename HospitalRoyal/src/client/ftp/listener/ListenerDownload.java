@@ -23,27 +23,27 @@ import client.ftp.view.SplashUploadFile;
 public class ListenerDownload implements ActionListener {
 
 	FTPClient client;
-	String direccion;
+	String direction;
 	String name;
 	MethodList method;
 	String user;
 	DataOutputStream outputStream;
-	FTPWindow vista;
+	FTPWindow view;
 
-	public ListenerDownload(String direccion, String nombre, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow vista) {
-		this.direccion = direccion;
+	public ListenerDownload(String direction, String name, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow view) {
+		this.direction = direction;
 		this.client = client;
-		this.name = nombre;
+		this.name = name;
 		this.method = method;
 		this.user = user;
 		this.outputStream = outputStream;
-		this.vista=vista;
+		this.view=view;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		FTPFile[] fileList;
-		vista.setEnabled(false);
+		view.setEnabled(false);
 		try {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
@@ -55,8 +55,8 @@ public class ListenerDownload implements ActionListener {
 					OutputStream outputStream2 = new BufferedOutputStream(
 							new FileOutputStream(path + File.separator + name));
 					client.setFileType(FTP.BINARY_FILE_TYPE);
-					client.retrieveFile("." + direccion, outputStream2);
-					SplashUploadFile splash = new SplashUploadFile(vista, "upload");
+					client.retrieveFile("." + direction, outputStream2);
+					SplashUploadFile splash = new SplashUploadFile(view, "upload");
 					splash.setVisible(true);
 					outputStream.writeUTF("8");
 					outputStream.writeUTF(name);
@@ -64,7 +64,6 @@ public class ListenerDownload implements ActionListener {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

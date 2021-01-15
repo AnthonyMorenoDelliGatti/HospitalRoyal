@@ -21,8 +21,8 @@ import client.model.FileFtp;
 
 public class ListenerEliminate implements ActionListener {
 
-	private FileFtp archivo;
-	private ArrayList<FileFtp> archivos;
+	private FileFtp fileFtp;
+	private ArrayList<FileFtp> filesFtp;
 	private FTPClient client;
 	private MethodList method;
 	private FTPWindow view;
@@ -30,10 +30,10 @@ public class ListenerEliminate implements ActionListener {
 	private String user;
 	DataOutputStream outputStream;
 
-	public ListenerEliminate(FileFtp archivo, ArrayList<FileFtp> archivos, FTPClient client, MethodList method,
+	public ListenerEliminate(FileFtp fileFtp, ArrayList<FileFtp> filesFtp, FTPClient client, MethodList method,
 			FTPWindow view, FileView explorer, String user, DataOutputStream outputStream) {
-		this.archivo = archivo;
-		this.archivos = archivos;
+		this.fileFtp = fileFtp;
+		this.filesFtp = filesFtp;
 		this.client = client;
 		this.method = method;
 		this.view = view;
@@ -44,49 +44,45 @@ public class ListenerEliminate implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Object[] opciones = { "SI", "NO" };
-		int eleccion = JOptionPane.showOptionDialog(null, "¿Corfima su eliminación?", "Confirmación",
+		Object[] opciones = { "YES", "NO" };
+		int eleccion = JOptionPane.showOptionDialog(null, "Confirm it's elimination?", "Confirmation",
 				JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, opciones, "");
 
 		if (eleccion == JOptionPane.YES_OPTION) {
 			try {
 				String originalPath = client.printWorkingDirectory();
-				// proceso de eliminacion
-				if (archivo.getIsCarpeta() == 0) {
+				if (fileFtp.getIsCarpeta() == 0) {
 					try {
-						client.deleteFile(archivo.getDireccion());
+						client.deleteFile(fileFtp.getDireccion());
 
 						outputStream.writeUTF("3");
-						outputStream.writeUTF(archivo.getNombre());
+						outputStream.writeUTF(fileFtp.getName());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else {
 					try {
-						if (!client.removeDirectory(archivo.getDireccion())) {
+						if (!client.removeDirectory(fileFtp.getDireccion())) {
 							String previousPath = client.printWorkingDirectory();
-							client.changeWorkingDirectory(archivo.getDireccion());
+							client.changeWorkingDirectory(fileFtp.getDireccion());
 							delete(client.listFiles());
 							client.changeWorkingDirectory(previousPath);
-							client.removeDirectory(archivo.getDireccion());
+							client.removeDirectory(fileFtp.getDireccion());
 						}
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}
-				// se actualiza la vista
+				// View is updated
 				try {
 					client.changeWorkingDirectory(originalPath);
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				method.DataListLoad(client, view, explorer);
 
-				Rectangle tamanio=new Rectangle(600,600,600,600);
-				if(view.getBounds()==tamanio) {
+				Rectangle size=new Rectangle(600,600,600,600);
+				if(view.getBounds()==size) {
 					
 				}else {
 					view.pack();
@@ -98,7 +94,6 @@ public class ListenerEliminate implements ActionListener {
 					}
 				}
 			} catch (IOException e2) {
-				// TODO Auto-generated catch block
 				e2.printStackTrace();
 			}
 			;
@@ -112,7 +107,6 @@ public class ListenerEliminate implements ActionListener {
 					try {
 						client.deleteFile(client.printWorkingDirectory() + "/" + file.getName());
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else {
@@ -129,7 +123,6 @@ public class ListenerEliminate implements ActionListener {
 							outputStream.writeUTF(file.getName());
 						}
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				}

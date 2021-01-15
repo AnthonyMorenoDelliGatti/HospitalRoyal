@@ -34,7 +34,7 @@ public class FileFtp implements Comparable<FileFtp> {
 		return 0;
 	}
 
-	public String getNombre() {
+	public String getName() {
 		return nombre;
 	}
 
