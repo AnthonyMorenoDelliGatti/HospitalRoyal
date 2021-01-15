@@ -15,7 +15,6 @@ import javax.swing.JTextArea;
 public class ServerView extends JFrame{
 	
 	private JPanel panel;
-	//private ArrayList<JLabel>acciones=new ArrayList<JLabel>();
 	private JTextArea area;
 	
 	public ServerView() {
@@ -52,14 +51,4 @@ public class ServerView extends JFrame{
 	public void setArea(JTextArea area) {
 		this.area = area;
 	}
-	
-/*
-	public ArrayList<JLabel> getAcciones() {
-		return acciones;
-	}
-
-	public void setAcciones(ArrayList<JLabel> acciones) {
-		this.acciones = acciones;
-	}
-	*/
 }
