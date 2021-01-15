@@ -28,6 +28,23 @@ import javax.swing.JScrollPane;
 import client.email.listener.ListenerDownload;
 import client.model.Email;
 
+/**
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Window to show an email content
+ *
+ */
+
 public class EmailView {
 	EmailMenuWindow view;
 	Button respond;
@@ -35,7 +52,11 @@ public class EmailView {
 	private static JPanel panelFiles;
 	private static JPanel images;
 	private static String text;
-
+	/**
+	 * 
+	 * @param email: the Email to show
+	 * @param view: the Window that contains all the emails
+	 */
 	public EmailView(Email email, EmailMenuWindow view) {
 		this.view = view;
 		BorderLayout layoutmail = new BorderLayout();
@@ -116,7 +137,11 @@ public class EmailView {
 	public Button getResend() {
 		return resend;
 	}
-
+	/**
+	 * Method to obtain the text of a mail
+	 * 
+	 * @param part: the part that contains the text of the mail
+	 */
 	private static void analizePartOfTheMessage(Part part) {
 		try {
 			// If is multipart, each part is analized recursively.

@@ -19,6 +19,21 @@ import client.email.view.EmailView;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to view an email
+ *
+ */
 
 public class ListenerViewEmail implements MouseListener {
 
@@ -28,7 +43,13 @@ public class ListenerViewEmail implements MouseListener {
 	private FTPClient client;
 	private StartMenuView vStarMenu;
 	String password;
-
+/**
+ * 
+ * @param panel the panel that contains the email
+ * @param email: the email object
+ * @param view: the view that contains all the emails
+ * @param password:the user password
+ */
 	public ListenerViewEmail(JPanel panel, Email email, EmailMenuWindow view, String password) {
 		this.panel = panel;
 		this.email = email;

@@ -38,6 +38,23 @@ import client.menu.view.StartMenuView;
 import client.model.FileFtp;
 import client.model.Email;
 
+/**
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Window that contains the email menu
+ *
+ */
+
 public class EmailMenuWindow {
 
 	public static final Color WHITE = new Color(255, 255, 255);
@@ -54,7 +71,13 @@ public class EmailMenuWindow {
 	String user;
 	String password;
 	String email;
-
+	/**
+	 * 
+	 * @param user: user nickname
+	 * @param password: user password
+	 * @param email: user password
+	 * @param vStartMenu: the menu ftp/mail
+	 */
 	public EmailMenuWindow(String user, String password, String email, StartMenuView vStartMenu) {
 		this.user = user;
 		this.password = password;
@@ -169,9 +192,12 @@ public class EmailMenuWindow {
 
 	}
 
-	// Add a mail
+	/**
+	 * Add a mail
+	 * @param mails: contains all the emails
+	 */
 	public void viewEmails(ArrayList<Email> mails) {
-		emailBox.removeAll();
+		restartEmailBox();
 		
 		if (mails.isEmpty()) {
 			panel = new JPanel();

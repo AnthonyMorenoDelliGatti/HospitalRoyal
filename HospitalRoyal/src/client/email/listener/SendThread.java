@@ -22,13 +22,35 @@ import client.email.view.NewEmailView;
 import client.menu.view.SplashEmail;
 import client.model.Email;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Thread that send an email
+ *
+ */
+
 public class SendThread extends Thread {
 
 	String mail;
 	String password;
 	NewEmailView view;
 	SplashEmail splash;
-
+/**
+ * 
+ * @param mail: the user mail
+ * @param password: the user password
+ * @param view: the view that contains the email
+ * @param splash: the splash window that activates during sending
+ */
 	public SendThread(String mail, String password, NewEmailView view, SplashEmail splash) {
 		this.mail = mail;
 		this.password = password;
@@ -52,10 +74,18 @@ public class SendThread extends Thread {
 			e1.printStackTrace();
 		}
 		view.getFrame().dispose();
-		enviarConGMail(user, password, to, subject, multiParte);
+		sendEmail(user, password, to, subject, multiParte);
 	}
-
-	private void enviarConGMail(String remitente, String clave, String destinatario, String asunto, Multipart cuerpo) {
+/**
+ * Method to send an email
+ * 
+ * @param remitente: the user that send the email
+ * @param clave: the user password
+ * @param destinatario: the user to send
+ * @param asunto: the subject
+ * @param cuerpo: the contains of the email
+ */
+	private void sendEmail(String remitente, String clave, String destinatario, String asunto, Multipart cuerpo) {
 
 		Properties props = System.getProperties();
 		props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google

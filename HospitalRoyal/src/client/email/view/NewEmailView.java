@@ -39,6 +39,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.listener.ListenerButtonModifyName;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerCloseWindow;
+import client.email.listener.ListenerEliminarArchivo;
 import client.email.listener.ListenerFCEmail;
 import client.email.view.SplashSubidaArchivo;
 import client.email.listener.ListenerModifyName;
