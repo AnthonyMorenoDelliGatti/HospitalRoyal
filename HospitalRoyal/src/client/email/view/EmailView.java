@@ -103,7 +103,7 @@ public class EmailView {
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
+				vista.getFrame().setEnabled(true);
 
 			}
 

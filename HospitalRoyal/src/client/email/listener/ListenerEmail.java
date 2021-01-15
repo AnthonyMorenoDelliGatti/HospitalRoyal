@@ -43,8 +43,8 @@ public class ListenerEmail implements MouseListener {
 	        {
 				vista.getFrame().setEnabled(false);
 	            EmailView ev = new EmailView(email, vista);
-	            ev.getResponder().addActionListener(new ListenerReply(email, password));
-	            ev.getReenviar().addActionListener(new ListenerForward(email, password));
+	            ev.getResponder().addActionListener(new ListenerReply(email, password, vista));
+	            ev.getReenviar().addActionListener(new ListenerForward(email, password, vista));
 	        }
 	        catch (Exception er)
 	        {

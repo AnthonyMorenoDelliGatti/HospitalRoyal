@@ -13,6 +13,7 @@ import javax.mail.Part;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import client.email.view.EmailMenuWindow;
 import client.email.view.NewEmailView;
 import client.model.Email;
 
@@ -20,17 +21,19 @@ public class ListenerForward implements ActionListener {
 	Email email;
 	static NewEmailView ev;
 	String password;
-	public ListenerForward(Email email, String password) {
+	EmailMenuWindow vista;
+	public ListenerForward(Email email, String password, EmailMenuWindow vista) {
 		this.email = email;
 		this.password = password;
+		this.vista = vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password);
+		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 
-				"\n Date: " + email.getFecha() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo());
+				"\n Date: " + email.getFecha() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo() + "\n");
 		ev.getTextPane().setCaretPosition(0);
 		ev.getTextPane().requestFocus();
 		analizaParteDeMensaje(email.getContent());
@@ -57,27 +60,6 @@ public class ListenerForward implements ActionListener {
                 if (unaParte.isMimeType("text/plain"))
                 {
                     ev.getTextPane().append(unaParte.getContent().toString());
-                }
-                else
-                {
-                  // Si es imagen, se guarda en fichero y se visualiza en JFrame
-                    if (unaParte.isMimeType("image/*"))
-                    {
-                        JLabel lblLogo = new JLabel();
-                        lblLogo.setIcon( new ImageIcon(
-                                ImageIO.read(unaParte.getInputStream())));
-                        lblLogo.setSize(new Dimension(150,150));   
-                        ev.getFilesPanel().add(lblLogo);
-
-//                        visualizaImagenEnJFrame(unaParte);
-                    }
-                    else
-                    {
-                      JLabel lblarchivo = new JLabel(unaParte.getFileName());
-                      lblarchivo.setSize(new Dimension(150,100));
-                      lblarchivo.setBackground(Color.white);
-                        ev.getFilesPanel().add(lblarchivo);
-                    }
                 }
             }
         }

@@ -22,16 +22,19 @@ import javax.swing.JOptionPane;
 import com.sun.mail.handlers.multipart_mixed;
 
 import client.email.view.NewEmailView;
+import client.model.Archivo;
 
 
 public class ListenerSend implements ActionListener{
 	String mail;
 	String password;
 	NewEmailView view;
-	public ListenerSend(String mail, String password, NewEmailView view) {
+	ArrayList<Archivo> archivos;
+	public ListenerSend(String mail, String password, NewEmailView view, ArrayList<Archivo> archivos) {
 		this.mail = mail;
 		this.password = password;
 		this.view = view;
+		this.archivos = archivos;
 	}
 
 	@Override
@@ -45,11 +48,13 @@ public class ListenerSend implements ActionListener{
 		try {
 			texto.setText(message);
 			multiParte.addBodyPart(texto);
-//			for(int i = 0; i< view.getFilesPanel().getComponentCount(); i++) {
-//				BodyPart archivo = new MimeBodyPart();
-//				archivo.setDataHandler(new DataHandler(new FileDataSource(view.getFilesPanel().getComponent(i).)));
-//				multiParte.addBodyPart(archivo);
-//			}
+			for(int i = 0; i< archivos.size(); i++) {
+				BodyPart archivo = new MimeBodyPart();
+				archivo.setDataHandler(new DataHandler(new FileDataSource(archivos.get(i).getDireccion())));
+				archivo.setFileName(archivos.get(i).getNombre());
+				System.out.println(archivos.get(i).getDireccion());
+				multiParte.addBodyPart(archivo);
+			}
 		} catch (MessagingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -80,7 +85,7 @@ public class ListenerSend implements ActionListener{
 		transport.sendMessage(message, message.getAllRecipients());
 		transport.close();
 		view.getFrame().dispose();
-	} catch (MessagingException me) {
+	} catch (Exception me) {
 		JOptionPane op = new JOptionPane();
 		op.showMessageDialog(view.getFrame(), "An error has ocurred, please check de email adress");
 		
