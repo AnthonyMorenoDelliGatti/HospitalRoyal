@@ -53,7 +53,6 @@ public class ListenerFileChooser implements ActionListener {
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			drop.getFrame().dispose();
-			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
 			v.pack();
 			method.cargarDatosLista(client, v, lista);
 			outputStream.writeUTF("4");

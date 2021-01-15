@@ -31,6 +31,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
+import client.email.listener.ListenerFCEmail;
 import client.email.listener.ListenerSearch;
 import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
@@ -91,8 +92,9 @@ public class EmailMenuWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
+							frame.setEnabled(false);
 							ArrayList<String> archivos = new ArrayList<>();
-							NewEmailView window = new NewEmailView(email, password);
+							NewEmailView window = new NewEmailView(email, password, frame);
 							window.getFrame().setVisible(true);
 
 						} catch (Exception e) {

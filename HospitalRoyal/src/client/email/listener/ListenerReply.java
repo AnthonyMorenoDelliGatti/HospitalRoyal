@@ -13,6 +13,7 @@ import javax.mail.Part;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import client.email.view.EmailMenuWindow;
 import client.email.view.NewEmailView;
 import client.model.Email;
 
@@ -20,14 +21,16 @@ public class ListenerReply implements ActionListener {
 	private Email email;
 	String password;
 	static NewEmailView ev;
-	public ListenerReply(Email email, String password) {
+	EmailMenuWindow vista;
+	public ListenerReply(Email email, String password, EmailMenuWindow vista) {
 		this.email = email;
 		this.password = password;
+		this.vista = vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password);
+		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n On "+email.getFecha() + ", " + email.getUser() + " wrote:\n");
@@ -57,27 +60,6 @@ public class ListenerReply implements ActionListener {
                 if (unaParte.isMimeType("text/plain"))
                 {
                     ev.getTextPane().append(unaParte.getContent().toString());
-                }
-                else
-                {
-                  // Si es imagen, se guarda en fichero y se visualiza en JFrame
-                	if (unaParte.isMimeType("image/*"))
-                    {
-                        JLabel lblLogo = new JLabel();
-                        lblLogo.setIcon( new ImageIcon(
-                                ImageIO.read(unaParte.getInputStream())));
-                        lblLogo.setSize(new Dimension(150,150));   
-                        ev.getFilesPanel().add(lblLogo);
-
-//                        visualizaImagenEnJFrame(unaParte);
-                    }
-                    else
-                    {
-                      JLabel lblarchivo = new JLabel(unaParte.getFileName());
-                      lblarchivo.setSize(new Dimension(150,100));
-                      lblarchivo.setBackground(Color.white);
-                        ev.getFilesPanel().add(lblarchivo);
-                    }
                 }
             }
         }

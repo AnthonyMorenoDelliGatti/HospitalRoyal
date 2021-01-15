@@ -2,11 +2,14 @@ package client.email.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,6 +41,7 @@ import client.email.listener.ListenerBotonModificarNombre;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerCloseWindow;
 import client.email.listener.ListenerEliminar;
+import client.email.listener.ListenerFCEmail;
 import client.email.listener.ListenerModificarNombre;
 import client.email.listener.ListenerSend;
 import client.model.Archivo;
@@ -55,16 +59,20 @@ public class NewEmailView {
 	private JButton close;
 	private JTextArea textPane;
 	private JButton send;
+	private JLabel lbldrag;
 	private JButton upLoad;
+	private JPanel panelArchivos;
+	private ArrayList<Archivo> archivos;
 	String email;
 	String password;
-	
-	public NewEmailView( String email, String password) {
+	JFrame frameMenu;
+
+	public NewEmailView(String email, String password, JFrame frameMenu) {
 		this.email = email;
 		this.password = password;
+		this.frameMenu = frameMenu;
 		initialize();
 	}
-
 
 	private void initialize() {
 		frame = new JFrame();
@@ -74,7 +82,7 @@ public class NewEmailView {
 		frame.getContentPane().setLayout(new BorderLayout(0, 0));
 		frame.setUndecorated(true);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\email.png"));
-
+		archivos = new ArrayList<>();
 		headerColor = new Color(204, 252, 255);
 		body = Color.WHITE;
 
@@ -157,7 +165,7 @@ public class NewEmailView {
 		filesPanel.setBackground(body);
 		scrollPane.setBounds(10, 173, 430, 160);
 		dropPanel.add(scrollPane);
-
+		generarListado(archivos);
 		JPanel panel_6 = new JPanel();
 		FlowLayout flowLayout_2 = (FlowLayout) panel_6.getLayout();
 		flowLayout_2.setHgap(25);
@@ -170,7 +178,7 @@ public class NewEmailView {
 		send.setFocusPainted(false);
 		send.setBorder(emptyBorder);
 		send.setBackground(body);
-		send.addActionListener(new ListenerSend(email, password, this));
+		send.addActionListener(new ListenerSend(email, password, this, archivos));
 		panel_6.add(send);
 
 		upLoad = new JButton("");
@@ -178,17 +186,59 @@ public class NewEmailView {
 		upLoad.setFocusPainted(false);
 		upLoad.setBorder(emptyBorder);
 		upLoad.setBackground(body);
+		upLoad.addActionListener(new ListenerFCEmail(this, archivos));
 		panel_6.add(upLoad);
 		dropFile();
 		frame.setVisible(true);
-
 		frame.setLocationRelativeTo(null);
+		frame.addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				frameMenu.setEnabled(true);
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				frameMenu.setEnabled(true);
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 	}
 
 	public JPanel getFilesPanel() {
 		return filesPanel;
 	}
-
 
 	public JFrame getFrame() {
 		return frame;
@@ -205,7 +255,6 @@ public class NewEmailView {
 			@Override
 			public boolean importData(JComponent comp, Transferable t) {
 				try {
-					ArrayList<Archivo> archivos = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
 
@@ -222,43 +271,51 @@ public class NewEmailView {
 			}
 		};
 		dropPanel.setTransferHandler(th);
+		dropPanel.updateUI();
 	}
 
-	private void generarListado(ArrayList<Archivo> archivos) {
-		JPanel panel;
-		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-		for (Archivo i : archivos) {
-			panel = new JPanel();
-			panel.setLayout(experimentLayout);
+	public void generarListado(ArrayList<Archivo> archivos) {
+		filesPanel.removeAll();
+		GridLayout experimentLayout = new GridLayout(0, 1, 5, 5);
+		panelArchivos = new JPanel();
+		panelArchivos.setLayout(experimentLayout);
+		if (archivos.size() != 0) {
+			for (Archivo i : archivos) {
+				JLabel l = obtenerIcono(i);
+				l.setMaximumSize(new Dimension(430, 75));
+				panelArchivos.add(l);
 
-			JLabel l = obtenerIcono(i);
-			panel.add(l);
+				JTextField nombre = generarNombre(panelArchivos, i);
+				nombre.setBackground(body);
 
-			JTextField nombre = generarNombre(panel, i);
-			nombre.setBackground(body);
+				// panel.add(new JLabel(i.getUltFechaModificacion()));
 
-			// panel.add(new JLabel(i.getUltFechaModificacion()));
+				// panel.addMouseListener(new ListenerArchivo(panel, i));
 
-			// panel.addMouseListener(new ListenerArchivo(panel, i));
+				JPopupMenu menu = generarMenu(nombre, i);
 
-			JPopupMenu menu = generarMenu(nombre, i);
-
-			panel.setComponentPopupMenu(menu);
-			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-			filesPanel.add(panel);
+				panelArchivos.setComponentPopupMenu(menu);
+				panelArchivos.setBorder(new EmptyBorder(10, 10, 10, 10));
+				
+			}
+		} else {
+			lbldrag = new JLabel(new ImageIcon("iconos\\descargar.png"));
+			lbldrag.setText("Drag a file to attach");
+			lbldrag.setSize(new Dimension(430, 160));
+			panelArchivos = new JPanel();
+			panelArchivos.add(lbldrag);
 		}
+		filesPanel.add(panelArchivos);
+		filesPanel.updateUI();
+		SwingUtilities.updateComponentTreeUI(frame);
 	}
 
 	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
 		JPopupMenu menu = new JPopupMenu();
 
-		JMenuItem item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerBotonModificarNombre(nombre, null));
+		JMenuItem item = new JMenuItem("Eliminar");
+		item.addActionListener(new ListenerEliminarArchivo(archivo, this));
 		menu.add(item);
-
-		JMenuItem item3 = new JMenuItem("Eliminar");
-		item3.addActionListener(new ListenerEliminar(archivo));
-		menu.add(item3);
 		return menu;
 	}
 
@@ -282,7 +339,7 @@ public class NewEmailView {
 		} else {
 			direcIcono = "iconos\\text-document.png";
 		}
-		Icon icon = new ImageIcon(Email.class.getResource(direcIcono));
+		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);
 		return l;
 	}
@@ -333,6 +390,10 @@ public class NewEmailView {
 
 	public void setTextPane(JTextArea textPane) {
 		this.textPane = textPane;
+	}
+
+	public ArrayList<Archivo> getArchivos() {
+		return archivos;
 	}
 
 }
