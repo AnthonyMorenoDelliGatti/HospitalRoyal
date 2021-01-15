@@ -15,13 +15,28 @@ import javax.swing.JProgressBar;
 
 import com.sun.awt.AWTUtilities;
 
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the splash of the email
+ */
 public class SplashEmail extends JFrame{
 
 	Thread splash = new Thread();
 	private JPanel contentPane;
 	JProgressBar progressBar = new JProgressBar();
-	
+	/**
+	 * class' constructor
+	 */
 	public SplashEmail() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\logo.png"));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);

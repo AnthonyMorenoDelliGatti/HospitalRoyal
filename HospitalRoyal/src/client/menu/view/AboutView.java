@@ -20,7 +20,20 @@ import javax.swing.border.EmptyBorder;
 import client.model.AboutModel;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the about window
+ */
 public class AboutView extends JFrame {
 
 	private JPanel rootPanel;
@@ -35,7 +48,7 @@ public class AboutView extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * Create the frame.
+	 * class's constructor
 	 */
 	public AboutView() {
 		setResizable(false);
@@ -87,7 +100,9 @@ public class AboutView extends JFrame {
 
 		setLocationRelativeTo(null);
 	}
-
+	/**
+	 * method that generate the elements of the jframe
+	 */
 	public void generateElements() {
 		model = new AboutModel();
 		
