@@ -29,7 +29,7 @@ public class ListenerViewEmail implements MouseListener {
 	private StartMenuView vStarMenu;
 	String password;
 
-	public ListenerViewEmail(JPanel panel, Email email, EmailMenuWindow vista, String password) {
+	public ListenerViewEmail(JPanel panel, Email email, EmailMenuWindow view, String password) {
 		this.panel = panel;
 		this.email = email;
 		this.view = view;
