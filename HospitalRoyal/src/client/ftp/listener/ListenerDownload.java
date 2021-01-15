@@ -18,9 +18,21 @@ import org.apache.commons.net.ftp.FTPFile;
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashUploadFile;
-
-
-public class ListenerDownload implements ActionListener {
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the download option of the ftp window
+ */
+ public class ListenerDownload implements ActionListener {
 
 	FTPClient client;
 	String direction;
@@ -30,6 +42,18 @@ public class ListenerDownload implements ActionListener {
 	DataOutputStream outputStream;
 	FTPWindow view;
 
+	/**
+	 * class' constructor
+	 * 
+	 * @param direction direction of the download
+	 * @param name name of he file
+	 * @param client client of the ftpserver
+	 * @param method object that contains the class that make the list of files in the ftp window
+	 * @param user name of the user
+	 * @param outputStream
+	 * @param view ftp's window
+	 */
+	
 	public ListenerDownload(String direction, String name, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow view) {
 		this.direction = direction;
 		this.client = client;

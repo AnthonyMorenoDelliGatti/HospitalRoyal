@@ -11,13 +11,35 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.model.Paths;
 
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the forward button
+ */
 public class ListenerReturnForward implements ActionListener{
 	FTPClient client;
 	MethodList method;
 	FTPWindow mainView;
 	FileView explorer;
 	Paths paths;
+	/**
+	 * class'construct 
+	 * 
+	 * @param client ftp's client
+	 * @param method object that contains the class that makes the list of files
+	 * @param mainView ftp's main view
+	 * @param explorer window that contains the list of files
+	 * @param paths object that contains the path that the ftp will work with
+	 */
 	public ListenerReturnForward(FTPClient client, MethodList method, FTPWindow mainView, FileView explorer, Paths paths) {
 		this.client = client;
 		this.method = method;

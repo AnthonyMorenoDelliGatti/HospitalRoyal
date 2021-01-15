@@ -19,6 +19,20 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.model.FileFtp;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the create folder windows and create a folder
+ */
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
@@ -30,6 +44,17 @@ public class ListenerCreateFolder implements ActionListener {
 
 	ArrayList<FileFtp> archivos;
 
+	/**
+	 * class' constructor
+	 * 
+	 * @param client the client of the ftp
+	 * @param filesFtp arraylist of ftp
+	 * @param method object that contains the method to make the list of files
+	 * @param view object that contains the ftp window
+	 * @param explorer object that contains the window where the list of files is
+	 * @param user the name of the user
+	 * @param outputStream
+	 */
 	public ListenerCreateFolder(FTPClient client, ArrayList<FileFtp> filesFtp, MethodList method, FTPWindow view,
 			FileView explorer, String user, DataOutputStream outputStream) {
 		this.client = client;
