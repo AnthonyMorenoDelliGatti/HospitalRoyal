@@ -8,21 +8,13 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
-import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import org.apache.commons.net.ftp.FTPClient;
-import org.apache.commons.net.ftp.FTPFile;
-import org.apache.commons.net.smtp.SMTPClient;
 
-import client.email.listener.ListenerClose;
 import client.email.view.EmailMenuWindow;
 import client.ftp.listener.ListenerCloseWindow;
-import client.ftp.listener.ListenerCreateFolder;
-import client.ftp.listener.ListenerReturn;
-import client.ftp.listener.ListenerReturnForward;
-import client.ftp.listener.ListenerUpload;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.login.view.Login;
@@ -31,7 +23,6 @@ import client.menu.listener.ListenerEmail;
 import client.menu.listener.ListenerAdminFTP;
 import client.menu.listener.ListenerUserFTP;
 import client.menu.view.StartMenuView;
-import client.model.FileFtp;
 import client.model.Paths;
 import client.model.ServerData;
 /**
@@ -62,6 +53,7 @@ public class Client {
 	String user, password, email;
 	Boolean adminUser;
 	Paths paths = new Paths();
+	String host = "localhost"; //Change localhost with 192.168.13.122 if the server is operational
 
 	/**
 	 * class' constructor
@@ -80,12 +72,11 @@ public class Client {
 		v.setVisible(true);
 		v.getClose().addActionListener(new ListenerCloseWindow(v));
 
-		String Host = "192.168.13.122";
 		int Puerto = 5000;
 		adminUser = true;
 
 		try {
-			Client = new Socket(Host, Puerto);
+			Client = new Socket(host, Puerto);
 			outputStream = new DataOutputStream(Client.getOutputStream());
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
@@ -213,15 +204,10 @@ public class Client {
 		password = v.getTextPassword().getText();
 		v.dispose();
 		client = new FTPClient();
-		String servFTP = "192.168.13.122";
 		try {
-			client.connect(servFTP);
-			System.out.println("Conected to: " + servFTP);
+			client.connect(host);
 			boolean login = client.login(user, password);
-			if (login) {
-				System.out.println("Correct login...");
-			} else {
-				System.out.println("Incorrect login...");
+			if (!login) {
 				client.disconnect();
 				System.exit(1);
 			}

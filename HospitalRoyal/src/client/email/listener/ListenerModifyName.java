@@ -12,12 +12,32 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import client.model.Archive;
 import client.model.FileFtp;
+/**
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to change the name of an archive
+ *
+ */
 
 public class ListenerModifyName implements ActionListener, FocusListener{
 
 	private Archive archive;
 	private JTextField name;
-	
+	/**
+	 * 
+	 * @param archive: the archive to change name
+	 * @param name: the JTextField that contains the name
+	 */
 	public ListenerModifyName(Archive archive, JTextField name) {
 		this.archive = archive;
 		this.name = name;
@@ -27,12 +47,13 @@ public class ListenerModifyName implements ActionListener, FocusListener{
 	public void actionPerformed(ActionEvent e) {
 		checkName();
 	}
-
+	/**
+	 * Method to change the name
+	 */
 	private void checkName() {
 		String text = name.getText();
 		if(text.trim().length() > 0) {
 			archive.setName(text);
-			//send the new name to the server
 		}
 		else{
 			name.setText(archive.getName());

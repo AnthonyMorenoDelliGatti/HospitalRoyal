@@ -18,6 +18,7 @@ import org.apache.commons.net.ftp.FTPFile;
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashUploadFile;
+
 /**
  * 
  * @authors Anthony Moreno Delli Gatti
@@ -34,6 +35,7 @@ import client.ftp.view.SplashUploadFile;
  */
  public class ListenerDownload implements ActionListener {
 
+
 	FTPClient client;
 	String direction;
 	String name;
@@ -41,6 +43,7 @@ import client.ftp.view.SplashUploadFile;
 	String user;
 	DataOutputStream outputStream;
 	FTPWindow view;
+
 
 	/**
 	 * class' constructor
@@ -55,13 +58,14 @@ import client.ftp.view.SplashUploadFile;
 	 */
 	
 	public ListenerDownload(String direction, String name, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow view) {
+
 		this.direction = direction;
 		this.client = client;
 		this.name = name;
 		this.method = method;
 		this.user = user;
 		this.outputStream = outputStream;
-		this.view=view;
+		this.view = view;
 	}
 
 	@Override
@@ -89,6 +93,8 @@ import client.ftp.view.SplashUploadFile;
 
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (NullPointerException e2) {
+			view.setEnabled(true);
 		}
 	}
 

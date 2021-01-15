@@ -16,13 +16,33 @@ import javax.swing.border.Border;
 
 import client.ftp.view.FTPWindow;
 
+/**
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Window splash while the user is uploading a file
+ *
+ */
+
 public class SplashSubidaArchivo extends JFrame {
 
 	Thread splash = new Thread();
 	private JProgressBar barra;
 	JPanel panel = new JPanel();
 	JButton btn;
-
+	/**
+	 * 
+	 * @param panel2 the panel to show the splash
+	 */
 	public SplashSubidaArchivo(JFrame panel2) {
 		panel.setLayout(new BorderLayout(0, 0));
 		panel.setBackground(Color.white);

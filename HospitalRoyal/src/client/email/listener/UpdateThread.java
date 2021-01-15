@@ -11,6 +11,23 @@ import javax.mail.Store;
 import client.email.view.EmailMenuWindow;
 import client.menu.view.SplashEmail;
 import client.model.Email;
+/**
+ * 
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Thread to update the inbox
+ *
+ */
 
 public class UpdateThread extends Thread {
 
@@ -18,7 +35,13 @@ public class UpdateThread extends Thread {
 	Store store;
 	String email;
 	SplashEmail splash;
-
+/**
+ * 
+ * @param emailWindow: the window that contains the emails
+ * @param store: Objects which store all the emails in the inbox
+ * @param email: user email
+ * @param splash: the splash during update
+ */
 	public UpdateThread(EmailMenuWindow emailWindow, Store store, String email, SplashEmail splash) {
 		this.emailWindow = emailWindow;
 		this.store = store;

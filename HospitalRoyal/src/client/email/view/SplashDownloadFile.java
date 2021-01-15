@@ -14,13 +14,33 @@ import javax.swing.JProgressBar;
 import javax.swing.Timer;
 import javax.swing.border.Border;
 
+/**
+ * 
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Window splash while the user is downloading a file
+ *
+ */
+
 public class SplashDownloadFile extends JFrame {
 
 	Thread splash = new Thread();
 	private JProgressBar barra;
 	JPanel panel = new JPanel();
 	JButton btn;
-
+/**
+ * 
+ * @param panel2 the panel to show the splash
+ */
 	public SplashDownloadFile(JPanel panel2) {
 		panel.setLayout(new BorderLayout(0, 0));
 		panel.setBackground(Color.white);

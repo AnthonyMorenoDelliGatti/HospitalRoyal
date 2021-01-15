@@ -3,21 +3,7 @@ package client.email.listener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Properties;
 
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.swing.JOptionPane;
-
-import com.sun.mail.handlers.multipart_mixed;
 
 import client.email.view.NewEmailView;
 
@@ -25,13 +11,34 @@ import client.model.Archive;
 
 import client.menu.view.SplashEmail;
 
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to send an email
+ *
+ */
 
 public class ListenerSend implements ActionListener{
 	String mail;
 	String password;
 	NewEmailView view;
 	ArrayList<Archive> archives;
+	/**
+	 * 
+	 * @param mail: the user mail
+	 * @param password: the user password
+	 * @param view: the view that contains the email
+	 * @param archives: the archives attached to the email
+	 */
 	public ListenerSend(String mail, String password, NewEmailView view, ArrayList<Archive> archives) {
 		this.mail = mail;
 		this.password = password;
