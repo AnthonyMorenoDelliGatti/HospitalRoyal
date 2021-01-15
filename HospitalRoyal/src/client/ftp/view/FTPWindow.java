@@ -5,6 +5,7 @@ import java.awt.FlowLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -21,9 +22,9 @@ import org.apache.commons.net.ftp.FTPClient;
 import client.controller.MethodList;
 import client.menu.view.StartMenuView;
 
-
 /**
- *	Window that allows you to view files, rename, create folders and upload files.
+ * Window that allows you to view files, rename, create folders and upload
+ * files.
  *
  */
 public class FTPWindow extends JFrame {
@@ -41,77 +42,82 @@ public class FTPWindow extends JFrame {
 	/**
 	 * Builder
 	 * 
-	 * @param client - FTPClient - contains customer
-	 * @param user   - String - 
-	 * @param lista  - VistaArchivos -
-	 * @param method - Methods -
-	 * @param vStartMenu 
+	 * @param client     - FTPClient - contains customer
+	 * @param user       - String -
+	 * @param lista      - VistaArchivos -
+	 * @param method     - Methods -
+	 * @param vStartMenu
 	 */
-	public FTPWindow(FTPClient client, String user, VistaArchivos lista, MethodList method, StartMenuView principalView) {
+	public FTPWindow(FTPClient client, String user, VistaArchivos lista, MethodList method,
+			StartMenuView principalView) {
 		colorHeader = new Color(204, 252, 255);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
-		
+
 		this.lista = lista;
 		this.method = method;
 		this.principalView = principalView;
 		rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
-		
+
 		JPanel header = generateHeader();
 
 		body = new JPanel();
 		body.setLayout(new BoxLayout(body, BoxLayout.X_AXIS));
-		
-		
+
 		rootPanel.add(header);
 		rootPanel.add(body);
 		setContentPane(rootPanel);
 
 		generateOptions();
-		
+
 		setUndecorated(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.addWindowListener(new WindowListener() {
-			
+
 			@Override
 			public void windowOpened(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowIconified(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeiconified(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowDeactivated(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
-			
+
 			@Override
 			public void windowClosing(WindowEvent e) {
-				principalView.setVisible(true);	
-				
+				principalView.setVisible(true);
 			}
-			
+
 			@Override
 			public void windowClosed(WindowEvent e) {
-						
+
+				try {
+					client.changeWorkingDirectory("/");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
-			
+
 			@Override
 			public void windowActivated(WindowEvent e) {
 				// TODO Auto-generated method stub
-				
+
 			}
 		});
 	}
@@ -125,7 +131,7 @@ public class FTPWindow extends JFrame {
 	private JPanel generateHeader() {
 		JPanel header = new JPanel();
 		header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
-		
+
 		leftHeader = new JPanel();
 		leftHeader.setLayout(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		leftHeader.setBackground(colorHeader);
@@ -133,10 +139,10 @@ public class FTPWindow extends JFrame {
 		rigthHeader = new JPanel();
 		rigthHeader.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 10));
 		rigthHeader.setBackground(colorHeader);
-		
+
 		header.add(leftHeader);
 		header.add(rigthHeader);
-		
+
 		return header;
 	}
 
@@ -147,10 +153,10 @@ public class FTPWindow extends JFrame {
 	private void generateOptions() {
 		JButton back = generateHeaderButton("iconos//atras.png", leftHeader);
 		back.setEnabled(false);
-		
+
 		JButton forward = generateHeaderButton("iconos//flecha-correcta.png", leftHeader);
 		forward.setEnabled(false);
-		
+
 		generateHeaderButton("iconos//folder2.png", leftHeader); // folder
 		generateHeaderButton("iconos//subir.png", leftHeader); // upload
 		generateHeaderButton("iconos//cerrar.png", rigthHeader);// close
@@ -160,8 +166,8 @@ public class FTPWindow extends JFrame {
 	 * Generates a button that is placed in the header
 	 * 
 	 * @param direction - String -
-	 * @param panel - JPanel - 
-	 * @return - JButton - 
+	 * @param panel     - JPanel -
+	 * @return - JButton -
 	 */
 	private JButton generateHeaderButton(String direction, JPanel panel) {
 		JButton button = new JButton();
@@ -183,7 +189,7 @@ public class FTPWindow extends JFrame {
 	 */
 	public void addExplorer(JPanel jPanel) {
 		body.add(jPanel);
-		setBounds(600,600,600,600);
+		setBounds(600, 600, 600, 600);
 		setLocationRelativeTo(null);
 	}
 
@@ -196,7 +202,7 @@ public class FTPWindow extends JFrame {
 		body.remove(1); // borra el anterior explorador
 		addExplorer(explorer);
 
-		setBounds(600,600,600,600);
+		setBounds(600, 600, 600, 600);
 		setLocationRelativeTo(null);
 	}
 
