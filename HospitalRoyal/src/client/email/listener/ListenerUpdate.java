@@ -10,6 +10,7 @@ import javax.mail.MessagingException;
 import javax.mail.Store;
 
 import client.email.view.EmailMenuWindow;
+import client.menu.view.SplashEmail;
 import client.model.Email;
 
 public class ListenerUpdate implements ActionListener {
@@ -24,24 +25,10 @@ public class ListenerUpdate implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		Folder folder;
-		try {
-			folder = store.getFolder("INBOX");
-			folder.open(Folder.READ_ONLY);
-			folder.isOpen();
-			Message[] messages = folder.getMessages();
-			ArrayList<Email> mails = new ArrayList<>();
-			for (int i = 0; i < messages.length; i++) {
-				Email mail = new Email(email, messages[i].getSubject(), messages[i].getFrom()[0].toString(),
-						messages[i], messages[i].getSentDate().toString(), false);
-				mails.add(mail);
-			}
-			emailWindow.viewEmails(mails);
-		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
+		SplashEmail splash = new SplashEmail();
+		splash.toFront();
+		UpdateThread thread = new UpdateThread(emailWindow, store, email, splash);
+		thread.start();
 	}
 
 }
