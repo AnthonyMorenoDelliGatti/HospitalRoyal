@@ -266,7 +266,7 @@ public class DropFile {
 
 		JTextField nombre = generateName(panel, archive);
 
-		panel.add(new JLabel(archive.getUltDateModification()));
+		panel.add(new JLabel(archive.getLastModificationDate()));
 
 
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));

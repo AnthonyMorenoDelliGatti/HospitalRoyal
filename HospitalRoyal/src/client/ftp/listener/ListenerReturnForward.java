@@ -28,9 +28,9 @@ public class ListenerReturnForward implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 			try {
-				if(paths.getPathguardados().size()>0) {
-					client.changeWorkingDirectory(paths.getPathguardados().get(paths.getPathguardados().size()-1));
-					paths.getPathguardados().remove(paths.getPathguardados().size()-1);
+				if(paths.getSavedPaths().size()>0) {
+					client.changeWorkingDirectory(paths.getSavedPaths().get(paths.getSavedPaths().size()-1));
+					paths.getSavedPaths().remove(paths.getSavedPaths().size()-1);
 					method.DataListLoad(client,mainView, explorer);
 
 					mainView.pack();
@@ -41,7 +41,7 @@ public class ListenerReturnForward implements ActionListener{
 						mainView.setLocationRelativeTo(null);
 					}
 				mainView.getButtons().get(0).setEnabled(true);
-					if(paths.getPathguardados().size() == 0) {
+					if(paths.getSavedPaths().size() == 0) {
 						mainView.getButtons().get(1).setEnabled(false);
 					}
 				}

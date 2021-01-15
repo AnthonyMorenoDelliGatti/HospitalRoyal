@@ -61,7 +61,7 @@ public class EmailView {
 		v.getContentPane().add(buttons, BorderLayout.AFTER_LAST_LINE);
 		editor.setVisible(true);
 		editor.setContentType("text/html");
-		text = "<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getFecha()
+		text = "<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getDate()
 				+ " <br> " + "<b>Subject: </b>" + email.getSubject() + " <hr> ";
 		analizePartOfTheMessage(email.getContent());
 		editor.setText(text);

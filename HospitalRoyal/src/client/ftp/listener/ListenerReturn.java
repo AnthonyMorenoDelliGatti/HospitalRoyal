@@ -29,7 +29,7 @@ public class ListenerReturn implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			try {
 				if(!client.printWorkingDirectory().equalsIgnoreCase(paths.getPathLimit())) {
-					paths.getPathguardados().add(client.printWorkingDirectory());
+					paths.getSavedPaths().add(client.printWorkingDirectory());
 					client.changeToParentDirectory();
 					mainView.getButtons().get(1).setEnabled(true);
 					

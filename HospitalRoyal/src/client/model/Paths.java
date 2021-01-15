@@ -3,16 +3,16 @@ package client.model;
 import java.util.ArrayList;
 
 public class Paths {
-	ArrayList<String> pathguardados;
+	ArrayList<String> savedpaths;
 	String pathLimit;
 	public Paths() {
-		pathguardados = new ArrayList<>();
+		savedpaths = new ArrayList<>();
 	}
-	public ArrayList<String> getPathguardados() {
-		return pathguardados;
+	public ArrayList<String> getSavedPaths() {
+		return savedpaths;
 	}
-	public void setPathguardados(ArrayList<String> pathguardados) {
-		this.pathguardados = pathguardados;
+	public void setSavedPaths(ArrayList<String> savedpaths) {
+		this.savedpaths = savedpaths;
 	}
 	public String getPathLimit() {
 		return pathLimit;

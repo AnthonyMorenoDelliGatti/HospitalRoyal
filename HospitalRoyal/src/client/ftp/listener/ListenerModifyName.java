@@ -36,7 +36,7 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 		String text = name.getText();
 		String previousName = fileFtp.getName();
 		if (text.trim().length() > 0) {
-			fileFtp.setNombre(text);
+			fileFtp.setName(text);
 			cambiarnombre(text, previousName);
 		} else {
 			name.setText(fileFtp.getName());

@@ -30,7 +30,7 @@ public class ListenerForward implements ActionListener {
 		ev = new NewEmailView(email.getTo(), password);
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 
-				"\n Date: " + email.getFecha() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo());
+				"\n Date: " + email.getDate() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo());
 		ev.getTextPane().setCaretPosition(0);
 		ev.getTextPane().requestFocus();
 		analizePartOfTheMessage(email.getContent());

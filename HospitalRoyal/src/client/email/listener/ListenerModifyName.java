@@ -31,7 +31,7 @@ public class ListenerModifyName implements ActionListener, FocusListener{
 	private void checkName() {
 		String text = name.getText();
 		if(text.trim().length() > 0) {
-			archive.setNombre(text);
+			archive.setName(text);
 			//send the new name to the server
 		}
 		else{

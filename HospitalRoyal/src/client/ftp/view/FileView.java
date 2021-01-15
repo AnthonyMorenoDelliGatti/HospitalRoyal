@@ -74,7 +74,7 @@ public class FileView {
 		JPanel panel;
 		Collections.sort(filesFtp);
 		for (FileFtp i : filesFtp) {
-			if (i.getUltDateModification().equals("")) {
+			if (i.getLastModificationDate().equals("")) {
 				panel = new JPanel();
 				panel.setBackground(Color.WHITE);
 				panel.setLayout(experimentLayout);
@@ -89,7 +89,7 @@ public class FileView {
 				JLabel l = obtainIcon(i);
 				panel.add(l);
 				JTextField name = generateName(panel, i);
-				panel.add(new JLabel("" + i.getUltDateModification()));
+				panel.add(new JLabel("" + i.getLastModificationDate()));
 				panel.addMouseListener(new ListenerFile(panel, i, view, paths, client, method, this, name));
 				if (admin) {
 					JPopupMenu menu = generateMenu(name, i);
@@ -107,9 +107,9 @@ public class FileView {
 		item = new JMenuItem("Change name");
 		item.addActionListener(new ListenerButtonModifyName(name, fileFtp));
 		menu.add(item);
-		if (fileFtp.getIsCarpeta() == 0) {
+		if (fileFtp.getIsFolder() == 0) {
 			JMenuItem item2 = new JMenuItem("Download");
-			item2.addActionListener(new ListenerDownload(fileFtp.getDireccion(), fileFtp.getName(), client, method,
+			item2.addActionListener(new ListenerDownload(fileFtp.getDirection(), fileFtp.getName(), client, method,
 					user, outputStream, view));
 			menu.add(item2);
 		}
@@ -136,7 +136,7 @@ public class FileView {
 
 	private JLabel obtainIcon(FileFtp i) {
 		String direcIcon;
-		if (i.getIsCarpeta() == 1) {
+		if (i.getIsFolder() == 1) {
 			direcIcon = "iconos//carpeta.png";
 		} else {
 			direcIcon = "iconos//text-document.png";

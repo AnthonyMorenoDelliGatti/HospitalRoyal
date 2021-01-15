@@ -43,7 +43,7 @@ public class ListenerFile implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2) { // if double click is made
-			if (fileFtp.getIsCarpeta() == 1) { //and the file is a folder
+			if (fileFtp.getIsFolder() == 1) { //and the file is a folder
 				// the folder is open
 				try {
 					String newDirecction;
@@ -55,7 +55,7 @@ public class ListenerFile implements MouseListener {
 					client.changeWorkingDirectory(newDirecction);
 					view.getButtons().get(0).setEnabled(true);
 					view.getButtons().get(1).setEnabled(false);
-					paths.getPathguardados().clear();
+					paths.getSavedPaths().clear();
 					method.DataListLoad(client, view, explorer);
 					
 					view.pack();

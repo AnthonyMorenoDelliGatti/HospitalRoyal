@@ -51,9 +51,9 @@ public class ListenerEliminate implements ActionListener {
 		if (eleccion == JOptionPane.YES_OPTION) {
 			try {
 				String originalPath = client.printWorkingDirectory();
-				if (fileFtp.getIsCarpeta() == 0) {
+				if (fileFtp.getIsFolder() == 0) {
 					try {
-						client.deleteFile(fileFtp.getDireccion());
+						client.deleteFile(fileFtp.getDirection());
 
 						outputStream.writeUTF("3");
 						outputStream.writeUTF(fileFtp.getName());
@@ -62,12 +62,12 @@ public class ListenerEliminate implements ActionListener {
 					}
 				} else {
 					try {
-						if (!client.removeDirectory(fileFtp.getDireccion())) {
+						if (!client.removeDirectory(fileFtp.getDirection())) {
 							String previousPath = client.printWorkingDirectory();
-							client.changeWorkingDirectory(fileFtp.getDireccion());
+							client.changeWorkingDirectory(fileFtp.getDirection());
 							delete(client.listFiles());
 							client.changeWorkingDirectory(previousPath);
-							client.removeDirectory(fileFtp.getDireccion());
+							client.removeDirectory(fileFtp.getDirection());
 						}
 					} catch (IOException e1) {
 						e1.printStackTrace();

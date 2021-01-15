@@ -1,24 +1,19 @@
 package client.model;
 
-/**
- * 
- * Ejemplo rápido de objeto que se necesita para la vista del cliente
- *
- */
 public class Archive{
 
-	private String nombre, ultFechaModificacion, direccion;
+	private String name, lastModificationDate, direction;
 
-	public Archive(String nombre, String ultFechaModificacion, String direccion) {
-		this.nombre = nombre;
-		this.ultFechaModificacion = ultFechaModificacion;
-		this.direccion = direccion;
+	public Archive(String name, String lastModificationDate, String direction) {
+		this.name = name;
+		this.lastModificationDate = lastModificationDate;
+		this.direction = direction;
 	}
 
 	public String getExtension() {
 		String extension = "";
 		try {
-			extension = nombre.split("\\.")[1];
+			extension = name.split("\\.")[1];
 		}
 		catch(Exception e){
 			extension = "folder";
@@ -28,28 +23,27 @@ public class Archive{
 	}
 	
 	public String getName() {
-		return nombre;
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getUltDateModification() {
-		return ultFechaModificacion;
+	public String getLastModificationDate() {
+		return lastModificationDate;
 	}
 
-	public void setUltFechaModificacion(String ultFechaModificacion) {
-		this.ultFechaModificacion = ultFechaModificacion;
+	public void setLastModificationDate(String lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
 	}
 
-
-	public String getDireccion() {
-		return direccion;
+	public String getDirection() {
+		return direction;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 
 }

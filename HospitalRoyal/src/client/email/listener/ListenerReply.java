@@ -30,7 +30,7 @@ public class ListenerReply implements ActionListener {
 		ev = new NewEmailView(email.getTo(), password);
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
-		ev.getTextPane().setText("\n\n\n\n On "+email.getFecha() + ", " + email.getUser() + " wrote:\n");
+		ev.getTextPane().setText("\n\n\n\n On "+email.getDate() + ", " + email.getUser() + " wrote:\n");
 		analizePartOfTheMessage(email.getContent());
 	}
 	private static void analizePartOfTheMessage(Part part)

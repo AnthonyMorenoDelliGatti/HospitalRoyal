@@ -8,21 +8,15 @@ public class Email {
 
 	private String to, subject, user;
 	private Part content;
-	private String fecha;
+	private String date;
 	private Boolean isRead;
 
-	/**
-	 * 
-	 * @param to      - poner un objeto usuario o algo que haga referencia
-	 * @param subject
-	 * @param user    - poner un objeto usuario o algo que haga referencia
-	 */
-	public Email(String to, String subject, String user, Part content, String fecha, boolean isRead) {
+	public Email(String to, String subject, String user, Part content, String date, boolean isRead) {
 		this.to = to;
 		this.subject = subject;
 		this.user = user;
 		this.content = content;
-		this.fecha = fecha;
+		this.date = date;
 		this.isRead = isRead;
 	}
 
@@ -58,12 +52,12 @@ public class Email {
 		this.content = content;
 	}
 
-	public String getFecha() {
-		return fecha;
+	public String getDate() {
+		return date;
 	}
 
-	public void setFecha(String fecha) {
-		this.fecha = fecha;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
 	public Boolean getIsRead() {

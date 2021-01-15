@@ -2,68 +2,64 @@ package client.model;
 
 import java.util.Date;
 
-/**
- * 
- * Ejemplo r�pido de objeto que se necesita para la vista del cliente
- *
- */
 public class FileFtp implements Comparable<FileFtp> {
 
-	private String nombre, direccion, ultFechaModificacion;
-	private int isCarpeta;
+	private String name, direction, lastModificationDate;
+	private int isFolder;
 
-	public FileFtp(String nombre, String ultFechaModificacion, int isCarpeta, String direccion) {
-		this.nombre = nombre;
-		this.ultFechaModificacion = ultFechaModificacion;
-		this.isCarpeta = isCarpeta;
-		this.direccion = direccion;
+	public FileFtp(String name, String lastModificationTime, int isFolder, String direction) {
+		this.name = name;
+		this.lastModificationDate = lastModificationTime;
+		this.isFolder = isFolder;
+		this.direction = direction;
 	}
 
 	/**
-	 * Metodo para ordenar un array de archivos por si es carpeta o no, teniendo
-	 * preferencia carpeta
+	 * 
+	 * Method to sort an array of files if is a folder or not , having preference folder
+	 * 
 	 */
 	@Override
 	public int compareTo(FileFtp o) {
-		if (isCarpeta < o.isCarpeta) {
+		if (isFolder < o.isFolder) {
 			return 1;
 		}
-		if (isCarpeta > o.isCarpeta) {
+		if (isFolder > o.isFolder) {
 			return -1;
 		}
 		return 0;
 	}
 
 	public String getName() {
-		return nombre;
+		return name;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public String getUltDateModification() {
-		return ultFechaModificacion;
+	public String getLastModificationDate() {
+		return lastModificationDate;
 	}
 
-	public void setUltFechaModificacion(String ultFechaModificacion) {
-		this.ultFechaModificacion = ultFechaModificacion;
+	public void setLastModificationTime(String lastModificationDate) {
+		this.lastModificationDate = lastModificationDate;
 	}
 
-	public int getIsCarpeta() {
-		return isCarpeta;
+	public int getIsFolder() {
+		return isFolder;
 	}
 
-	public void setIsCarpeta(int isCarpeta) {
-		this.isCarpeta = isCarpeta;
+	public void setIsFolder(int isFolder) {
+		this.isFolder = isFolder;
 	}
 
-	public String getDireccion() {
-		return direccion;
+	public String getDirection() {
+		return direction;
 	}
 
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
+	public void setDirection(String direction) {
+		this.direction = direction;
 	}
 
 }

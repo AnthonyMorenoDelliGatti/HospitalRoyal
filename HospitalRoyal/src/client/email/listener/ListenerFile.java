@@ -37,7 +37,7 @@ public class ListenerFile implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (e.getClickCount() == 2) { // if a double click is made
-			if(fileFtp.getIsCarpeta() == 1) { // and the file is a folder
+			if(fileFtp.getIsFolder() == 1) { // and the file is a folder
 				// the folder is open
 				try {
 					String newDirection ;
@@ -51,7 +51,7 @@ public class ListenerFile implements MouseListener {
 					System.out.println(newDirection);
 					viewFTP.getButtons().get(0).setEnabled(true);
 					viewFTP.getButtons().get(1).setEnabled(false);
-					paths.getPathguardados().clear();
+					paths.getSavedPaths().clear();
 					method.DataListLoad(client, viewFTP, explorer);
 				} catch (IOException e1) {
 					e1.printStackTrace();

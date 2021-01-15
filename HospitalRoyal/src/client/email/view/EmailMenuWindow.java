@@ -184,7 +184,7 @@ public class EmailMenuWindow {
 				panel.setLayout(new GridLayout(0, 1));
 				panel.add(new JLabel("From: " + i.getUser()));
 				panel.add(new JLabel("Subject: " + i.getSubject()));
-				panel.add(new JLabel("Send: " + i.getFecha().toString()));
+				panel.add(new JLabel("Send: " + i.getDate().toString()));
 				if (!i.getIsRead()) {
 					panel.setBackground(WHITE);
 				}
