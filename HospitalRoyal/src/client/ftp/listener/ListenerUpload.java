@@ -12,7 +12,20 @@ import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the upload button
+ */
 public class ListenerUpload implements ActionListener {
 	FTPClient client;
 	String user;
@@ -20,7 +33,16 @@ public class ListenerUpload implements ActionListener {
 	FTPWindow v;
 	FileView list;
 	DataOutputStream outputStream;
-
+	/**
+	 * class' constructor
+	 * 
+	 * @param client ftp's client
+ 	 * @param user name of the user
+	 * @param v ftp's main window
+	 * @param list window that contains the list of files
+	 * @param method object that contains the class that makes the list of files
+	 * @param outputStream
+	 */
 	public ListenerUpload(FTPClient client, String user, FTPWindow v, FileView list, MethodList method,
 			DataOutputStream outputStream) {
 

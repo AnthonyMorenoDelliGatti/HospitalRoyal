@@ -17,13 +17,33 @@ import javax.swing.JPanel;
 import client.email.view.SplashDownloadFile;
 import client.email.view.SplashSubidaArchivo;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to download an attached file on an email
+ *
+ */
 
 public class ListenerDownload implements ActionListener {
 	Part part;
 	JPanel panel;
+	/**
+	 * 
+	 * @param part : the part which contais the file to download
+	 * @param panel : the panel to open the splash
+	 */
 	public ListenerDownload(Part part, JPanel panel) {
 		this.part = part;
-
+		this.panel = panel;
 	}
 
 	@Override

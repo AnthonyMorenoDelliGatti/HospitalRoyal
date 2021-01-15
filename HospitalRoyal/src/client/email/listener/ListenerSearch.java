@@ -18,6 +18,22 @@ import org.apache.commons.net.smtp.SMTPClient;
 import client.email.view.EmailMenuWindow;
 import client.model.Email;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to search an email by the user that sent it
+ *
+ */
+
 public class ListenerSearch implements KeyListener {
 
 	private EmailMenuWindow emailWindow;
@@ -25,10 +41,18 @@ public class ListenerSearch implements KeyListener {
 	String user;
 	ArrayList<Email> mails;
 	ArrayList<Email> mailsb = new ArrayList<Email>();
+	/**
+	 * 
+	 * @param emailWindow: the window that contains the mails
+	 * @param mails: an ArrayList that contains all the emails in the inbox
+	 */
 	public ListenerSearch(EmailMenuWindow emailWindow, ArrayList<Email> mails) {
 		this.emailWindow = emailWindow;
 		this.mails = mails;
 	}
+	/**
+	 * Method to search
+	 */
 	private void search() {
 		mailsb.clear();
 		if(emailWindow.getTxtSearch().getText().equals("")) {

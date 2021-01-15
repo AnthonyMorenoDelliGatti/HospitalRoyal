@@ -33,6 +33,7 @@ import java.awt.GridLayout;
  *@version 1.0
  *
  *description: Clase que muestra una ventana de informacion de la aplicacion
+ *
  */
 public class AboutView extends JFrame {
 
@@ -48,7 +49,7 @@ public class AboutView extends JFrame {
 	private JLabel lblNewLabel_1;
 
 	/**
-	 * Create the frame.
+	 * class's constructor
 	 */
 	public AboutView() {
 		setResizable(false);
@@ -103,7 +104,7 @@ public class AboutView extends JFrame {
 
 	/**
 	 * Metodo que genera los elementos de la ventana
-	 */
+
 	public void generateElements() {
 		model = new AboutModel();
 		
@@ -138,7 +139,7 @@ public class AboutView extends JFrame {
 		lblDate.setAlignmentX(body.CENTER_ALIGNMENT);
 		body.add(lblDate);
 		
-		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"©");
+		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"Â©");
 		lblCopyright.setAlignmentX(body.CENTER_ALIGNMENT);
 		lblCopyright.setOpaque(false);
 		body.add(lblCopyright);

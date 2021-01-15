@@ -3,14 +3,35 @@ package client.model;
 import java.util.ArrayList;
 
 import javax.mail.Part;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the data of the mail
+ */
 public class Email {
 
 	private String to, subject, user;
 	private Part content;
 	private String date;
 	private Boolean isRead;
-
+/**
+ * class' constructor
+ * @param to the name to who the email is send
+ * @param subject subject of the mail
+ * @param user the name of the user sending the mail
+ * @param content the content of the mail
+ * @param date date it was send 
+ * @param isRead variable to check if the mail was read
+ */
 	public Email(String to, String subject, String user, Part content, String date, boolean isRead) {
 		this.to = to;
 		this.subject = subject;

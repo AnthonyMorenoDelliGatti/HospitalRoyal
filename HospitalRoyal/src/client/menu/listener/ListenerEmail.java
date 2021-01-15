@@ -2,6 +2,7 @@ package client.menu.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -24,6 +25,7 @@ import client.model.Email;
  *
  *description:Clase que acciona la ejecucion del mail y sus vistas
  */
+
 
 public class ListenerEmail implements ActionListener {
 

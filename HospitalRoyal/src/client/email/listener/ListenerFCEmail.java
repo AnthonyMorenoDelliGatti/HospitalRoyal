@@ -15,13 +15,33 @@ import org.apache.commons.net.ftp.FTP;
 import client.email.view.NewEmailView;
 import client.model.Archive;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to attach an file to an email using the filechosser button
+ *
+ */
+
 public class ListenerFCEmail implements ActionListener {
 	NewEmailView window;
-	ArrayList<Archive> archivos;
-
-	public ListenerFCEmail(NewEmailView window, ArrayList<Archive> archivos) {
+	ArrayList<Archive> archives;
+	/**
+	 * 
+	 * @param window: the frame of email to add the file
+	 * @param archivos: an arraylist that contains al the archives attach
+	 */
+	public ListenerFCEmail(NewEmailView window, ArrayList<Archive> archives) {
 		this.window = window;
-		this.archivos = archivos;
+		this.archives = archives;
 	}
 
 	@Override
@@ -35,11 +55,11 @@ public class ListenerFCEmail implements ActionListener {
 			String[] routeSplitted = route.split("\\\\");
 			long lastModification = fileChooser.getSelectedFile().lastModified();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-			String fechaComoCadena = sdf.format(new Date());
-			Archive archivo = new Archive(fileChooser.getSelectedFile().getName(), fechaComoCadena, route);
-			archivos.add(archivo);
+			String stringDate = sdf.format(new Date());
+			Archive archive = new Archive(fileChooser.getSelectedFile().getName(), stringDate, route);//create an archive object with the selected file and the sistem date
+			archives.add(archive);
 			window.getFrame().setEnabled(true);
-			window.generarListado(archivos);
+			window.generarListado(archives);
 		} catch (Exception ex) {
 			window.getFrame().setEnabled(true);
 		}

@@ -21,17 +21,18 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 /**
- * @author Anthony Moreno Delli Gatti
- *         Francisco Manuel Rodriguez Martin
- *         Juan Salguero Ibarrola
- *         Nicolas Rosa Hinojosa
- *         Gonzalo Ruiz de Mier Mora
- *         
- *date 15/01/2021
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
  *
- *@version 1.0
+ *	date 13/01/2021
  *
- *description:Clase que crea una ventana que funciona como menu principal
+ *	@version 1.0
+ *
+ *	description: class that control the star menu's window
  */
 public class StartMenuView extends JFrame {
 
@@ -42,7 +43,7 @@ public class StartMenuView extends JFrame {
 	private JButton btnClose;
 		
 	/**
-	 * Create the application.
+	 * class' constructor
 	 */
 	public StartMenuView() {
 		initialize();
@@ -52,7 +53,7 @@ public class StartMenuView extends JFrame {
 	}
 
 	/**
-	 * Metodo que muestra imagenes en la ventana en la que cambian con el tiempo
+	 * method that control the slider of the window
 	 */
 	public void sliderShow() {
 		new Thread(new Runnable() {
@@ -87,7 +88,7 @@ public class StartMenuView extends JFrame {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * method that initialize the contents of the frame.
 	 */
 	private void initialize() {
 		setBounds(100, 100, 682, 436);
