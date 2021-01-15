@@ -29,15 +29,15 @@ import client.email.listener.ListenerDownload;
 import client.model.Email;
 
 public class EmailView {
-	EmailMenuWindow vista;
-	Button responder;
-	Button reenviar;
-	private static JPanel archivos;
-	private static JPanel imagenes;
-	private static String texto;
+	EmailMenuWindow view;
+	Button respond;
+	Button resend;
+	private static JPanel panelFiles;
+	private static JPanel images;
+	private static String text;
 
-	public EmailView(Email email, EmailMenuWindow vista) {
-		this.vista = vista;
+	public EmailView(Email email, EmailMenuWindow view) {
+		this.view = view;
 		BorderLayout layoutmail = new BorderLayout();
 		JFrame v = new JFrame("" + email.getTo());
 		JEditorPane editor = new JEditorPane();
@@ -47,24 +47,24 @@ public class EmailView {
 		scroll.setBounds(0, 0, 430, 300);
 		editor.setBounds(0, 0, 430, 300);
 		editor.setEditable(false);
-		JPanel botones = new JPanel(new FlowLayout());
-		imagenes = new JPanel(new GridLayout(1, 0));
-		archivos = new JPanel();
-		archivos.setLayout(new GridLayout(0, 1));
-		responder = new Button("Reply");
-		reenviar = new Button("Forward");
-		botones.add(responder);
-		botones.add(reenviar);
+		JPanel buttons = new JPanel(new FlowLayout());
+		images = new JPanel(new GridLayout(1, 0));
+		panelFiles = new JPanel();
+		panelFiles.setLayout(new GridLayout(0, 1));
+		respond = new Button("Reply");
+		resend = new Button("Forward");
+		buttons.add(respond);
+		buttons.add(resend);
 		v.getContentPane().add(scroll, BorderLayout.NORTH);
-		v.getContentPane().add(imagenes, BorderLayout.EAST);
-		v.getContentPane().add(archivos, BorderLayout.WEST);
-		v.getContentPane().add(botones, BorderLayout.AFTER_LAST_LINE);
+		v.getContentPane().add(images, BorderLayout.EAST);
+		v.getContentPane().add(panelFiles, BorderLayout.WEST);
+		v.getContentPane().add(buttons, BorderLayout.AFTER_LAST_LINE);
 		editor.setVisible(true);
 		editor.setContentType("text/html");
-		texto = "<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getFecha()
+		text = "<b>From: </b>" + email.getUser() + "&nbsp&nbsp&nbsp&nbsp<b>Send Date: </b>" + email.getFecha()
 				+ " <br> " + "<b>Subject: </b>" + email.getSubject() + " <hr> ";
-		analizaParteDeMensaje(email.getContent());
-		editor.setText(texto);
+		analizePartOfTheMessage(email.getContent());
+		editor.setText(text);
 		v.setVisible(true);
 		v.pack();
 		v.setLocationRelativeTo(null);
@@ -73,94 +73,88 @@ public class EmailView {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				vista.getFrame().setEnabled(true);
+				view.getFrame().setEnabled(true);
 
 			}
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 	}
 
-	public Button getResponder() {
-		return responder;
+	public Button getRespond() {
+		return respond;
 	}
 
-	public Button getReenviar() {
-		return reenviar;
+	public Button getResend() {
+		return resend;
 	}
 
-	private static void analizaParteDeMensaje(Part unaParte) {
+	private static void analizePartOfTheMessage(Part part) {
 		try {
-			// Si es multipart, se analiza cada una de sus partes recursivamente.
-			if (unaParte.isMimeType("multipart/*")) {
+			// If is multipart, each part is analized recursively.
+			if (part.isMimeType("multipart/*")) {
 				Multipart multi;
-				multi = (Multipart) unaParte.getContent();
+				multi = (Multipart) part.getContent();
 
 				for (int j = 0; j < multi.getCount(); j++) {
-					analizaParteDeMensaje(multi.getBodyPart(j));
+					analizePartOfTheMessage(multi.getBodyPart(j));
 				}
 			} else {
-				// Si es texto, se escribe el texto.
-				if (unaParte.isMimeType("text/plain")) {
-					texto += unaParte.getContent().toString();
+				// If is text, text is written.
+				if (part.isMimeType("text/plain")) {
+					text += part.getContent().toString();
 				} else {
-					// Si es imagen, se guarda en fichero y se visualiza en JFrame
-					if (unaParte.isMimeType("image/*")) {
+					// If is image, is saved in file and visualized on JFrame
+					if (part.isMimeType("image/*")) {
 						JLabel lblLogo = new JLabel();
 						lblLogo.setBounds(270, 10, 100, 100);
-						Image img = ImageIO.read(unaParte.getInputStream());
+						Image img = ImageIO.read(part.getInputStream());
 						Image dimg = img.getScaledInstance(lblLogo.getWidth(), lblLogo.getHeight(), Image.SCALE_SMOOTH);
 						lblLogo.setIcon(new ImageIcon(dimg));
 						JPopupMenu menu = new JPopupMenu();
-						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDownload(unaParte));
+						JMenuItem item = new JMenuItem("Download");
+						item.addActionListener(new ListenerDownload(part));
 						menu.add(item);
-						imagenes.setComponentPopupMenu(menu);
-						imagenes.add(lblLogo);
+						images.setComponentPopupMenu(menu);
+						images.add(lblLogo);
 					} else {
-						JLabel lblarchivo = new JLabel();
-						lblarchivo.setMaximumSize(new Dimension(100, 100));
-						lblarchivo.setBackground(Color.white);
+						JLabel lblFile = new JLabel();
+						lblFile.setMaximumSize(new Dimension(100, 100));
+						lblFile.setBackground(Color.white);
 						JPopupMenu menu = new JPopupMenu();
-						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDownload(unaParte));
+						JMenuItem item = new JMenuItem("Download");
+						item.addActionListener(new ListenerDownload(part));
 						menu.add(item);
-						archivos.setComponentPopupMenu(menu);
-						archivos.add(new JLabel(unaParte.getFileName()));
+						panelFiles.setComponentPopupMenu(menu);
+						panelFiles.add(new JLabel(part.getFileName()));
 
 					}
 				}

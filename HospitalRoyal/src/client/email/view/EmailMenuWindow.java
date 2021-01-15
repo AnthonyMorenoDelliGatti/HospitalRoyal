@@ -167,7 +167,7 @@ public class EmailMenuWindow {
 
 	}
 
-	// Agregar un correo
+	// Add a mail
 	public void viewEmails(ArrayList<Email> mails) {
 		emailBox.removeAll();
 		
@@ -199,7 +199,7 @@ public class EmailMenuWindow {
 		emailBox.updateUI();
 	}
 
-	// vaciar el buzon
+	// empty the inbox
 	public void restartEmailBox() {
 		emailBox.removeAll();
 	}

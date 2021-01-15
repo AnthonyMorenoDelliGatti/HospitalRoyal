@@ -203,14 +203,14 @@ public class NewEmailView {
 			@Override
 			public boolean importData(JComponent comp, Transferable t) {
 				try {
-					ArrayList<Archive> archivos = new ArrayList<>();
+					ArrayList<Archive> archives = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
 
-						archivos.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
+						archives.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
 					}
 
-					generarListado(archivos);
+					generarListado(archives);
 					SwingUtilities.updateComponentTreeUI(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -222,24 +222,20 @@ public class NewEmailView {
 		dropPanel.setTransferHandler(th);
 	}
 
-	private void generarListado(ArrayList<Archive> archivos) {
+	private void generarListado(ArrayList<Archive> archives) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-		for (Archive i : archivos) {
+		for (Archive i : archives) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
 
-			JLabel l = obtenerIcono(i);
+			JLabel l = obtainIcon(i);
 			panel.add(l);
 
-			JTextField nombre = generarNombre(panel, i);
+			JTextField nombre = generateName(panel, i);
 			nombre.setBackground(body);
-
-			// panel.add(new JLabel(i.getUltFechaModificacion()));
-
-			// panel.addMouseListener(new ListenerArchivo(panel, i));
-
-			JPopupMenu menu = generarMenu(nombre, i);
+			
+			JPopupMenu menu = generateMenu(nombre, i);
 
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
@@ -247,37 +243,37 @@ public class NewEmailView {
 		}
 	}
 
-	private JPopupMenu generarMenu(JTextField nombre, Archive archivo) {
+	private JPopupMenu generateMenu(JTextField name, Archive archive) {
 		JPopupMenu menu = new JPopupMenu();
 
-		JMenuItem item = new JMenuItem("Cambiar nombre");
-		item.addActionListener(new ListenerButtonModifyName(nombre, null));
+		JMenuItem item = new JMenuItem("Change name");
+		item.addActionListener(new ListenerButtonModifyName(name, null));
 		menu.add(item);
 
 		return menu;
 	}
 
-	private JTextField generarNombre(JPanel panel, Archive i) {
-		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getName());
-		panel.add(nombre);
-		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModifyName listener = new ListenerModifyName(i, nombre);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
-		nombre.setEditable(false);
+	private JTextField generateName(JPanel panel, Archive i) {
+		JTextField name = new JTextField(10);
+		name.setText(i.getName());
+		panel.add(name);
+		name.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		ListenerModifyName listener = new ListenerModifyName(i, name);
+		name.addActionListener(listener);
+		name.addFocusListener(listener);
+		name.setEditable(false);
 
-		return nombre;
+		return name;
 	}
 
-	private JLabel obtenerIcono(Archive i) {
-		String direcIcono;
+	private JLabel obtainIcon(Archive i) {
+		String direcIcon;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
-			direcIcono = "iconos\\carpeta.png";
+			direcIcon = "iconos\\carpeta.png";
 		} else {
-			direcIcono = "iconos\\text-document.png";
+			direcIcon = "iconos\\text-document.png";
 		}
-		Icon icon = new ImageIcon(Email.class.getResource(direcIcono));
+		Icon icon = new ImageIcon(Email.class.getResource(direcIcon));
 		JLabel l = new JLabel(icon);
 		return l;
 	}
