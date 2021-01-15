@@ -27,7 +27,7 @@ public class Archive{
 		return extension;
 	}
 	
-	public String getNombre() {
+	public String getName() {
 		return nombre;
 	}
 

@@ -259,7 +259,7 @@ public class NewEmailView {
 
 	private JTextField generarNombre(JPanel panel, Archive i) {
 		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getNombre());
+		nombre.setText(i.getName());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		ListenerModifyName listener = new ListenerModifyName(i, nombre);

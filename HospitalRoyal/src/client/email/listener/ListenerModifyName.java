@@ -15,34 +15,29 @@ import client.model.FileFtp;
 
 public class ListenerModifyName implements ActionListener, FocusListener{
 
-	private Archive archivo;
-	private JTextField nombre;
+	private Archive archive;
+	private JTextField name;
 	
-	public ListenerModifyName(Archive archivo, JTextField nombre) {
-		this.archivo = archivo;
-		this.nombre = nombre;
-	}
-	
-	public ListenerModifyName(FileFtp i, JTextField nombre2, FTPClient client, String user,
-			DataOutputStream outputStream) {
-		// TODO Auto-generated constructor stub
+	public ListenerModifyName(Archive archive, JTextField name) {
+		this.archive = archive;
+		this.name = name;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		comprobarNombre();
+		checkName();
 	}
 
-	private void comprobarNombre() {
-		String text = nombre.getText();
+	private void checkName() {
+		String text = name.getText();
 		if(text.trim().length() > 0) {
-			archivo.setNombre(text);
-			// enviar al servidor el nuevo nombre
+			archive.setNombre(text);
+			//send the new name to the server
 		}
 		else{
-			nombre.setText(archivo.getNombre());
+			name.setText(archive.getName());
 		}
-		nombre.setEditable(false);
+		name.setEditable(false);
 	}
 
 	@Override
@@ -53,7 +48,7 @@ public class ListenerModifyName implements ActionListener, FocusListener{
 
 	@Override
 	public void focusLost(FocusEvent e) {
-		comprobarNombre();
+		checkName();
 	}
 
 }

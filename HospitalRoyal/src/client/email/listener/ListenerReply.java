@@ -31,52 +31,48 @@ public class ListenerReply implements ActionListener {
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n On "+email.getFecha() + ", " + email.getUser() + " wrote:\n");
-		analizaParteDeMensaje(email.getContent());
-
-//		ev.getTextPane().setCaretPosition(0);
-//		ev.getTextPane().requestFocus();
+		analizePartOfTheMessage(email.getContent());
 	}
-	private static void analizaParteDeMensaje(Part unaParte)
+	private static void analizePartOfTheMessage(Part part)
     {
         try
         {
-          // Si es multipart, se analiza cada una de sus partes recursivamente.
-            if (unaParte.isMimeType("multipart/*"))
+          //If is multipart, each part will be analized recursively.
+            if (part.isMimeType("multipart/*"))
             {
                 Multipart multi;
-                multi = (Multipart) unaParte.getContent();
+                multi = (Multipart) part.getContent();
 
                 for (int j = 0; j < multi.getCount(); j++)
                 {
-                    analizaParteDeMensaje(multi.getBodyPart(j));
+                    analizePartOfTheMessage(multi.getBodyPart(j));
                 }
             }
             else
             {
-              // Si es texto, se escribe el texto.
-                if (unaParte.isMimeType("text/plain"))
+              // If is text, text will be written.
+                if (part.isMimeType("text/plain"))
                 {
-                    ev.getTextPane().append(unaParte.getContent().toString());
+                    ev.getTextPane().append(part.getContent().toString());
                 }
                 else
                 {
-                  // Si es imagen, se guarda en fichero y se visualiza en JFrame
-                	if (unaParte.isMimeType("image/*"))
+                  //if is image, a file is save and is show on JFrame
+                	if (part.isMimeType("image/*"))
                     {
                         JLabel lblLogo = new JLabel();
                         lblLogo.setIcon( new ImageIcon(
-                                ImageIO.read(unaParte.getInputStream())));
+                                ImageIO.read(part.getInputStream())));
                         lblLogo.setSize(new Dimension(150,150));   
                         ev.getFilesPanel().add(lblLogo);
 
-//                        visualizaImagenEnJFrame(unaParte);
                     }
                     else
                     {
-                      JLabel lblarchivo = new JLabel(unaParte.getFileName());
-                      lblarchivo.setSize(new Dimension(150,100));
-                      lblarchivo.setBackground(Color.white);
-                        ev.getFilesPanel().add(lblarchivo);
+                      JLabel lblarchive = new JLabel(part.getFileName());
+                      lblarchive.setSize(new Dimension(150,100));
+                      lblarchive.setBackground(Color.white);
+                        ev.getFilesPanel().add(lblarchive);
                     }
                 }
             }

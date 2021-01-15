@@ -40,43 +40,37 @@ public class ListenerSend implements ActionListener{
 		String to = view.getTo().getText();
 		String subject = view.getSubject().getText();
 		String message = view.getTextPane().getText();
-		MimeMultipart multiParte = new MimeMultipart();
+		MimeMultipart multiPart = new MimeMultipart();
 		BodyPart texto = new MimeBodyPart();
 		try {
 			texto.setText(message);
-			multiParte.addBodyPart(texto);
-//			for(int i = 0; i< view.getFilesPanel().getComponentCount(); i++) {
-//				BodyPart archivo = new MimeBodyPart();
-//				archivo.setDataHandler(new DataHandler(new FileDataSource(view.getFilesPanel().getComponent(i).)));
-//				multiParte.addBodyPart(archivo);
-//			}
+			multiPart.addBodyPart(texto);
 		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		view.getFrame().dispose();
-		enviarConGMail(user,password,to,subject,multiParte);
+		enviarConGMail(user,password,to,subject,multiPart);
 	}
-	private void enviarConGMail(String remitente, String clave, String destinatario, String asunto, Multipart cuerpo) {
+	private void enviarConGMail(String sender, String password, String addressee, String subject, Multipart body) {
 		
 	Properties props = System.getProperties();
-	props.put("mail.smtp.host", "smtp.gmail.com"); // El servidor SMTP de Google
-	props.put("mail.smtp.user", remitente);
-	props.put("mail.smtp.clave", clave); // La clave de la cuenta
-	props.put("mail.smtp.auth", "true"); // Usar autenticación mediante usuario y clave
-	props.put("mail.smtp.starttls.enable", "true"); // Para conectar de manera segura al servidor SMTP
-	props.put("mail.smtp.port", "587"); // El puerto SMTP seguro de Google
+	props.put("mail.smtp.host", "smtp.gmail.com"); // The server SMTP of Google
+	props.put("mail.smtp.user", sender);
+	props.put("mail.smtp.clave", password); // The password of the account
+	props.put("mail.smtp.auth", "true"); // Use autentification through user and password
+	props.put("mail.smtp.starttls.enable", "true"); // To connect on a safe way to the SMTP server
+	props.put("mail.smtp.port", "587"); // The safe SMTP port of Google
 
 	Session session = Session.getDefaultInstance(props);
 	MimeMessage message = new MimeMessage(session);
 
 	try {
-		message.setFrom(new InternetAddress(remitente));
-		message.addRecipients(Message.RecipientType.TO, destinatario); // Se podran añadir varios de la misma manera
-		message.setSubject(asunto);
-		message.setContent(cuerpo);
+		message.setFrom(new InternetAddress(sender));
+		message.addRecipients(Message.RecipientType.TO, addressee); // Varios could be added the same way
+		message.setSubject(subject);
+		message.setContent(body);
 		Transport transport = session.getTransport("smtp");
-		transport.connect("smtp.gmail.com", remitente, clave);
+		transport.connect("smtp.gmail.com", sender, password);
 		transport.sendMessage(message, message.getAllRecipients());
 		transport.close();
 		view.getFrame().dispose();

@@ -291,7 +291,7 @@ public class DropFile {
 
 	private JTextField generarNombre(JPanel panel, Archive i) {
 		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getNombre());
+		nombre.setText(i.getName());
 		panel.add(nombre);
 		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
 		//ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);

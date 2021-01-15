@@ -29,14 +29,14 @@ public class ListenerSearch implements KeyListener {
 		this.emailWindow = emailWindow;
 		this.mails = mails;
 	}
-	private void buscar() {
+	private void search() {
 		mailsb.clear();
 		if(emailWindow.getTxtSearch().getText().equals("")) {
 			emailWindow.viewEmails(mails);
 		}else {
 			for (Email mail : mails) {
-		        int resultado = mail.getUser().indexOf(emailWindow.getTxtSearch().getText());
-		        if(resultado != -1) {
+		        int result = mail.getUser().indexOf(emailWindow.getTxtSearch().getText());
+		        if(result != -1) {
 		        	mailsb.add(mail);
 		        }
 		    }
@@ -58,7 +58,7 @@ public class ListenerSearch implements KeyListener {
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		buscar();
+		search();
 		
 	}
 

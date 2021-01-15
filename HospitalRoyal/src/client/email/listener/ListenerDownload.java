@@ -14,10 +14,10 @@ import javax.mail.Part;
 import javax.swing.JFileChooser;
 
 public class ListenerDownload implements ActionListener {
-	Part unaParte;
+	Part part;
 
-	public ListenerDownload(Part unaParte) {
-		this.unaParte = unaParte;
+	public ListenerDownload(Part part) {
+		this.part = part;
 	}
 
 	@Override
@@ -28,8 +28,8 @@ public class ListenerDownload implements ActionListener {
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			fc.showOpenDialog(fc);
 		    String path = fc.getSelectedFile().getAbsolutePath();
-			is = unaParte.getInputStream();
-			File f = new File(path+ "/" + unaParte.getFileName());
+			is = part.getInputStream();
+			File f = new File(path+ "/" + part.getFileName());
 			FileOutputStream fos = new FileOutputStream(f);
 			byte[] buf = new byte[4096];
 			int bytesRead;
@@ -38,10 +38,8 @@ public class ListenerDownload implements ActionListener {
 			}
 			fos.close();
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
