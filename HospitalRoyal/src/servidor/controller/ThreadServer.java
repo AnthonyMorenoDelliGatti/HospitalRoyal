@@ -19,15 +19,13 @@ public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
 	DataOutputStream outputStream;
-	Hospital hospital;
 	static MethodList method;
 	static ServerView viewServer;
 	static boolean connectedDB;
 	private String user;
 
-	public ThreadServer(Socket client, Hospital hospital, ServerView viewServer, MethodList method) throws IOException {
+	public ThreadServer(Socket client, ServerView viewServer, MethodList method) throws IOException {
 		this.client = client;
-		this.hospital = hospital;
 		this.viewServer = viewServer;
 		outputStream = new DataOutputStream(client.getOutputStream());
 		inputStream = new DataInputStream(client.getInputStream());
@@ -47,7 +45,7 @@ public class ThreadServer extends Thread {
 				if (checkUser(user, password)) {
 					if (checkConnectedUser(user)) {
 						outputStream.writeUTF("CORRECT USER OR PASSWORD");
-						// USUARIO Y CONTRASE�A CORRECTOS
+						// Correct user and password
 						log(user, 1, "Log in");
 						changeLoginStatus(1, user);
 						if (checkPermissions(user)) {
@@ -68,32 +66,32 @@ public class ThreadServer extends Thread {
 								loop = 0;
 								break;
 							case 3:
-								// Borrar archivo
+								// delete file
 								String fileName = inputStream.readUTF();
 								log(user, 3, "Delete file: " + fileName);
 								viewServer.getArea().append("\n" + client.toString() + " deleted file: " + fileName);
 								break;
 							case 4:
-								// Subir archivo
+								// upload file
 								String route = inputStream.readUTF();
 								log(user, 4, "Upload: " + route);
 								viewServer.getArea().append("\n" + client.toString() + " uploaded: " + route);
 								break;
 							case 5:
-								// Crear carpeta
+								// create folder
 								String folder = inputStream.readUTF();
 								log(user, 5, "Created directory: " + folder);
 								viewServer.getArea().append("\n" + client.toString() + " created directory: " + folder);
 								break;
 							case 6:
-								// Borrar carpeta
+								// delee folder
 								String folderName = inputStream.readUTF();
 								log(user, 6, " has deleted the folder " + folderName);
 								viewServer.getArea()
 										.append("\n" + client.toString() + " deleted the folder " + folderName);
 								break;
 							case 7:
-								// Cambiar nombre
+								// change name
 								String name = inputStream.readUTF();
 								String newName = inputStream.readUTF();
 								log(user, 7, " renamed file: " + name + " to: " + newName);
@@ -101,7 +99,7 @@ public class ThreadServer extends Thread {
 										"\n" + client.toString() + " renamed file: " + name + " to: " + newName);
 								break;
 							case 8:
-								// Descargar archivo
+								// download file
 								String fileNameDownload = inputStream.readUTF();
 								log(user, 8, " downloaded file: " + fileNameDownload);
 								viewServer.getArea()

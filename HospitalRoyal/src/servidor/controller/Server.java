@@ -22,11 +22,10 @@ public class Server {
 		try {
 			ServerSocket server;
 			server = new ServerSocket(5000);
-			Hospital hospital = new Hospital();
 			while (true) {
 				Socket client = new Socket();
 				client = server.accept();
-				ThreadServer hilo = new ThreadServer(client, hospital, viewServer, method);
+				ThreadServer hilo = new ThreadServer(client, viewServer, method);
 				hilo.start();
 			}
 		} catch (IOException e) {
