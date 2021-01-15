@@ -2,16 +2,11 @@ package client.email.listener;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
 import javax.mail.Store;
 
 import client.email.view.EmailMenuWindow;
 import client.menu.view.SplashEmail;
-import client.model.Email;
 
 public class ListenerUpdate implements ActionListener {
 	EmailMenuWindow emailWindow;
