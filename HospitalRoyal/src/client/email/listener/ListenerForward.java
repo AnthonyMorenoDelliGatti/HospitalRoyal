@@ -1,5 +1,7 @@
 package client.email.listener;
 
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -54,36 +56,27 @@ public class ListenerForward implements ActionListener {
               // Si es texto, se escribe el texto.
                 if (unaParte.isMimeType("text/plain"))
                 {
-                    System.out.println("Texto " + unaParte.getContentType());
-                    System.out.println(unaParte.getContent());
                     ev.getTextPane().append(unaParte.getContent().toString());
-                    System.out.println("---------------------------------");
                 }
                 else
                 {
                   // Si es imagen, se guarda en fichero y se visualiza en JFrame
                     if (unaParte.isMimeType("image/*"))
                     {
-                        System.out.println(
-                            "Imagen " + unaParte.getContentType());
-                        System.out.println("Fichero=" + unaParte.getFileName());
                         JLabel lblLogo = new JLabel();
                         lblLogo.setIcon( new ImageIcon(
                                 ImageIO.read(unaParte.getInputStream())));
-                        lblLogo.setBounds(270,10,50,50);    
+                        lblLogo.setSize(new Dimension(150,150));   
                         ev.getFilesPanel().add(lblLogo);
-                        System.out.println("---------------------------------");
 
 //                        visualizaImagenEnJFrame(unaParte);
                     }
                     else
                     {
-                      // Si no es ninguna de las anteriores, se escribe en pantalla
-                      // el tipo.
-                        System.out.println(
-                            "Recibido " + unaParte.getContentType());
-                        ev.getFilesPanel().add(new JLabel(unaParte.getFileName()));
-                        System.out.println("---------------------------------");
+                      JLabel lblarchivo = new JLabel(unaParte.getFileName());
+                      lblarchivo.setSize(new Dimension(150,100));
+                      lblarchivo.setBackground(Color.white);
+                        ev.getFilesPanel().add(lblarchivo);
                     }
                 }
             }

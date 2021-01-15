@@ -2,6 +2,7 @@ package client.email.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -30,7 +31,7 @@ import org.apache.commons.net.smtp.SMTPClient;
 
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
-import client.ftp.listener.ListenerSearch;
+import client.email.listener.ListenerSearch;
 import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
 import client.model.ArchivoFtp;
@@ -44,8 +45,9 @@ public class EmailMenuWindow {
 	private JPanel panel;
 	private JPanel emailBox;
 	private JTextField txtSearch, textField;
-	private JButton btnAdd, btnRecharge, btnClose, btnSearch;
-	private SMTPClient client;
+	private JButton btnAdd, btnRecharge, btnClose;
+	JLabel lblSearch;
+
 	private StartMenuView vStartMenu;
 	private NewEmailView newEmail;
 	String user;
@@ -84,23 +86,23 @@ public class EmailMenuWindow {
 		Border emptyBorder = BorderFactory.createEmptyBorder();
 		btnAdd.setBorder(emptyBorder);
 		btnAdd.setBackground(headerColor);
-		btnAdd.addActionListener(new ActionListener(){
-            public void actionPerformed(ActionEvent e){
-            	EventQueue.invokeLater(new Runnable() {
-                    public void run() {
-                        try {
-                            ArrayList<String> archivos = new ArrayList<>();
-                            NewEmailView window = new NewEmailView(email, password);
-                            window.getFrame().setVisible(true);
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							ArrayList<String> archivos = new ArrayList<>();
+							NewEmailView window = new NewEmailView(email, password);
+							window.getFrame().setVisible(true);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
-                   
-            }
-       });
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
+
+			}
+		});
 
 		btnRecharge = new JButton("");
 		btnRecharge.setIcon(new ImageIcon("iconos/recargar.png"));
@@ -115,15 +117,11 @@ public class EmailMenuWindow {
 		btnClose.setBackground(headerColor);
 		btnClose.addActionListener(new ListenerClose(frame, vStartMenu));
 
-		textField = new JTextField();
-		textField.setColumns(10);
-
-		btnSearch = new JButton("");
-		btnSearch.setIcon(new ImageIcon("iconos/buscar.png"));
-		btnSearch.setFocusPainted(false);
-		btnSearch.setBorder(emptyBorder);
-		btnSearch.setBackground(headerColor);
-		btnSearch.addKeyListener(new ListenerSearch(textField, client));
+		txtSearch = new JTextField(10);
+		lblSearch = new JLabel("");
+		lblSearch.setIcon(new ImageIcon("iconos/buscar.png"));
+		lblSearch.setBorder(emptyBorder);
+		lblSearch.setBackground(headerColor);
 
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
@@ -134,9 +132,9 @@ public class EmailMenuWindow {
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnRecharge, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
 					.addGap(18)
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
+					.addComponent(txtSearch, GroupLayout.PREFERRED_SIZE, 126, GroupLayout.PREFERRED_SIZE)
 					.addGap(12)
-					.addComponent(btnSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+					.addComponent(lblSearch, GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
 					.addComponent(btnClose, GroupLayout.PREFERRED_SIZE, 57, GroupLayout.PREFERRED_SIZE))
 		);
@@ -150,40 +148,55 @@ public class EmailMenuWindow {
 						.addGroup(gl_panel.createSequentialGroup()
 							.addGap(15)
 							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
-								.addComponent(btnSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(txtSearch, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+								.addComponent(lblSearch, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 36, Short.MAX_VALUE)
 								.addComponent(btnRecharge, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
 								.addComponent(btnAdd, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))))
 					.addContainerGap())
 		);
 		panel.setBackground(headerColor);
 		panel.setLayout(gl_panel);
-		
+
 		emailBox = new JPanel();
 
 		emailBox.setLayout(new BoxLayout(emailBox, BoxLayout.Y_AXIS));
 
 		JScrollPane scrollPane = new JScrollPane(emailBox, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
-				JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		frame.getContentPane().add(scrollPane);
 
 	}
 
 	// Agregar un correo
 	public void viewEmails(ArrayList<Email> mails) {
-		for (Email i : mails) {
-		panel = new JPanel();
-		panel.setLayout(new GridLayout(0,1));
-		panel.add(new JLabel("From: "+i.getUser()));
-		panel.add(new JLabel("Subject: "+i.getSubject()));
-		panel.add(new JLabel("Send: " + i.getFecha().toString()));
-		if (!i.getIsRead()) {
+		emailBox.removeAll();
+		
+		if (mails.isEmpty()) {
+			panel = new JPanel();
+			panel.setLayout(new GridLayout(0, 1));
+			panel.add(new JLabel("The inbox is empty..."));
 			panel.setBackground(WHITE);
+			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+			emailBox.add(panel);
+		} else {
+			for (Email i : mails) {
+				panel = new JPanel();
+				panel.setLayout(new GridLayout(0, 1));
+				panel.add(new JLabel("From: " + i.getUser()));
+				panel.add(new JLabel("Subject: " + i.getSubject()));
+				panel.add(new JLabel("Send: " + i.getFecha().toString()));
+				if (!i.getIsRead()) {
+					panel.setBackground(WHITE);
+				}
+				panel.addMouseListener(new ListenerEmail(panel, i, this, password));
+				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
+				panel.setMaximumSize(new Dimension(430,75));
+				panel.repaint();
+				emailBox.add(panel);
+			}
+			
 		}
-		panel.addMouseListener(new ListenerEmail(panel, i, this, password));
-		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
-		emailBox.add(panel);
-		}
+		emailBox.updateUI();
 	}
 
 	// vaciar el buzon
@@ -213,14 +226,6 @@ public class EmailMenuWindow {
 
 	public void setBtnRecharge(JButton btnRecharge) {
 		this.btnRecharge = btnRecharge;
-	}
-
-	public JButton getBtnSearch() {
-		return btnSearch;
-	}
-
-	public void setBtnSearch(JButton btnSearch) {
-		this.btnSearch = btnSearch;
 	}
 
 	public JButton getBtnClose() {

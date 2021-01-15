@@ -62,7 +62,7 @@ public class Client {
 		v.setVisible(true);
 		v.getClose().addActionListener(new ListenerCloseWindow(v));
 
-		String Host = "localhost";
+		String Host = "192.168.13.122";
 		int Puerto = 5000;
 		adminUser = true;
 
@@ -72,7 +72,7 @@ public class Client {
 			inputStream = new DataInputStream(Client.getInputStream());
 		} catch (Exception e) {
 			JOptionPane.showMessageDialog(null,
-					"The connection to the Server could not be established, the program will close in 5 seconds",
+					"The connection to the Server could not be established, the program will close",
 					"ERROR", JOptionPane.WARNING_MESSAGE);
 			v.pack();
 			try {
@@ -191,7 +191,7 @@ public class Client {
 		password = v.getTextPassword().getText();
 		v.dispose();
 		client = new FTPClient();
-		String servFTP = "localhost";
+		String servFTP = "192.168.13.122";
 		try {
 			client.connect(servFTP);
 			System.out.println("Conected to: " + servFTP);
@@ -205,7 +205,7 @@ public class Client {
 			}
 		} catch (IOException ioe) {
 			JOptionPane.showMessageDialog(null,
-					"Can´t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
+					"Can¨t conect to the FTP Server, sorry for the issue.\nTry it again later", "FAILED TO LOGIN",
 					JOptionPane.WARNING_MESSAGE);
 		}
 		StartMenu(adminUser, client);
