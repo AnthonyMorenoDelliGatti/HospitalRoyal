@@ -42,7 +42,7 @@ public class ListenerFileChooser implements ActionListener {
 	private DropFile drop;
 
 	/**
-	 * class' construct
+	 * class' constructor
 	 * 
 	 * @param client ftp's client
 	 * @param user name of the user

@@ -38,7 +38,7 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 	DataOutputStream outputStream;
 
 	/**
-	 * class' construct
+	 * class' constructor
 	 * 
 	 * @param fileFtp ftp's file
 	 * @param name jtextfield with the name of the file

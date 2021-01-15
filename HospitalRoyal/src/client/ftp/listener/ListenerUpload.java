@@ -34,7 +34,7 @@ public class ListenerUpload implements ActionListener {
 	FileView list;
 	DataOutputStream outputStream;
 	/**
-	 * class' construct
+	 * class' constructor
 	 * 
 	 * @param client ftp's client
  	 * @param user name of the user

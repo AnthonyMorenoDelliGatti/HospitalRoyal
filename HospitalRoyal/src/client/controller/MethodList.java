@@ -38,7 +38,7 @@ import client.model.FileFtp;
  */
 public class MethodList {
 	/**
-	 * class' construct
+	 * class' constructor
 	 */
 	public MethodList() {
 

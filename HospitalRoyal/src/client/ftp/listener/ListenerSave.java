@@ -39,7 +39,7 @@ public class ListenerSave implements ActionListener{
 	private MethodList method;
 	private FileView list;
 	/**
-	 * class' construct
+	 * class' constructor
 	 * @param drop window that allow to drag a file to upload
 	 * @param client ftp's client 
 	 * @param outputStream

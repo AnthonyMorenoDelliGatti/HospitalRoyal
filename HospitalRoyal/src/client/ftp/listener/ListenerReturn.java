@@ -32,7 +32,7 @@ public class ListenerReturn implements ActionListener{
 	FileView explorer;
 	Paths paths;
 	/**
-	 * class' constructor
+	 * class' constructoror
 	 * 
 	 * @param client ftp's client
 	 * @param method object that contains the class that makes the list of files
