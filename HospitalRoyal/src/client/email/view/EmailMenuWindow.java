@@ -33,9 +33,9 @@ import client.email.listener.ListenerClose;
 import client.email.listener.ListenerEmail;
 import client.email.listener.ListenerFCEmail;
 import client.email.listener.ListenerSearch;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.menu.view.StartMenuView;
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 import client.model.Email;
 
 public class EmailMenuWindow {
@@ -169,7 +169,7 @@ public class EmailMenuWindow {
 
 	}
 
-	// Agregar un correo
+	// Add a mail
 	public void viewEmails(ArrayList<Email> mails) {
 		emailBox.removeAll();
 		
@@ -186,7 +186,7 @@ public class EmailMenuWindow {
 				panel.setLayout(new GridLayout(0, 1));
 				panel.add(new JLabel("From: " + i.getUser()));
 				panel.add(new JLabel("Subject: " + i.getSubject()));
-				panel.add(new JLabel("Send: " + i.getFecha().toString()));
+				panel.add(new JLabel("Send: " + i.getDate().toString()));
 				if (!i.getIsRead()) {
 					panel.setBackground(WHITE);
 				}
@@ -201,7 +201,7 @@ public class EmailMenuWindow {
 		emailBox.updateUI();
 	}
 
-	// vaciar el buzon
+	// empty the inbox
 	public void restartEmailBox() {
 		emailBox.removeAll();
 	}

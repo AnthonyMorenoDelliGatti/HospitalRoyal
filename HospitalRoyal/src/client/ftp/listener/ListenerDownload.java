@@ -17,33 +17,33 @@ import org.apache.commons.net.ftp.FTPFile;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.SplashSubidaArchivo;
+import client.ftp.view.SplashUploadFile;
 
 
-public class ListenerDescargar implements ActionListener {
+public class ListenerDownload implements ActionListener {
 
 	FTPClient client;
-	String direccion;
+	String direction;
 	String name;
 	MethodList method;
 	String user;
 	DataOutputStream outputStream;
-	FTPWindow vista;
+	FTPWindow view;
 
-	public ListenerDescargar(String direccion, String nombre, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow vista) {
-		this.direccion = direccion;
+	public ListenerDownload(String direction, String name, FTPClient client, MethodList method, String user, DataOutputStream outputStream, FTPWindow view) {
+		this.direction = direction;
 		this.client = client;
-		this.name = nombre;
+		this.name = name;
 		this.method = method;
 		this.user = user;
 		this.outputStream = outputStream;
-		this.vista=vista;
+		this.view=view;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		FTPFile[] fileList;
-		vista.setEnabled(false);
+		view.setEnabled(false);
 		try {
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
@@ -55,8 +55,8 @@ public class ListenerDescargar implements ActionListener {
 					OutputStream outputStream2 = new BufferedOutputStream(
 							new FileOutputStream(path + File.separator + name));
 					client.setFileType(FTP.BINARY_FILE_TYPE);
-					client.retrieveFile("." + direccion, outputStream2);
-					SplashSubidaArchivo splash = new SplashSubidaArchivo(vista, "upload");
+					client.retrieveFile("." + direction, outputStream2);
+					SplashUploadFile splash = new SplashUploadFile(view, "upload");
 					splash.setVisible(true);
 					outputStream.writeUTF("8");
 					outputStream.writeUTF(name);
@@ -64,7 +64,6 @@ public class ListenerDescargar implements ActionListener {
 			}
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

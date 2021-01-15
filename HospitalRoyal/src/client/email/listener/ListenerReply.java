@@ -33,33 +33,30 @@ public class ListenerReply implements ActionListener {
 		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
-		ev.getTextPane().setText("\n\n\n\n On "+email.getFecha() + ", " + email.getUser() + " wrote:\n");
-		analizaParteDeMensaje(email.getContent());
-
-//		ev.getTextPane().setCaretPosition(0);
-//		ev.getTextPane().requestFocus();
+		ev.getTextPane().setText("\n\n\n\n On "+email.getDate() + ", " + email.getUser() + " wrote:\n");
+		analizePartOfTheMessage(email.getContent());
 	}
-	private static void analizaParteDeMensaje(Part unaParte)
+	private static void analizePartOfTheMessage(Part part)
     {
         try
         {
-          // Si es multipart, se analiza cada una de sus partes recursivamente.
-            if (unaParte.isMimeType("multipart/*"))
+          //If is multipart, each part will be analized recursively.
+            if (part.isMimeType("multipart/*"))
             {
                 Multipart multi;
-                multi = (Multipart) unaParte.getContent();
+                multi = (Multipart) part.getContent();
 
                 for (int j = 0; j < multi.getCount(); j++)
                 {
-                    analizaParteDeMensaje(multi.getBodyPart(j));
+                    analizePartOfTheMessage(multi.getBodyPart(j));
                 }
             }
             else
             {
-              // Si es texto, se escribe el texto.
-                if (unaParte.isMimeType("text/plain"))
+              // If is text, text will be written.
+                if (part.isMimeType("text/plain"))
                 {
-                    ev.getTextPane().append(unaParte.getContent().toString());
+                    ev.getTextPane().append(part.getContent().toString());
                 }
             }
         }

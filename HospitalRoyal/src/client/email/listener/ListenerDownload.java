@@ -18,12 +18,12 @@ import client.email.view.SplashDownloadFile;
 import client.email.view.SplashSubidaArchivo;
 
 
-public class ListenerDescargar implements ActionListener {
-	Part unaParte;
+public class ListenerDownload implements ActionListener {
+	Part part;
 	JPanel panel;
-	public ListenerDescargar(Part unaParte, JPanel panel) {
-		this.unaParte = unaParte;
-		this.panel = panel;
+	public ListenerDownload(Part part, JPanel panel) {
+		this.part = part;
+
 	}
 
 	@Override
@@ -34,8 +34,8 @@ public class ListenerDescargar implements ActionListener {
 			fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			fc.showOpenDialog(fc);
 		    String path = fc.getSelectedFile().getAbsolutePath();
-			is = unaParte.getInputStream();
-			File f = new File(path+ "/" + unaParte.getFileName());
+			is = part.getInputStream();
+			File f = new File(path+ "/" + part.getFileName());
 			FileOutputStream fos = new FileOutputStream(f);
 			byte[] buf = new byte[4096];
 			int bytesRead;

@@ -35,7 +35,7 @@ public class FTPWindow extends JFrame {
 	private JPanel rigthHeader;
 	private Color colorHeader;
 	private ArrayList<JButton> buttons = new ArrayList();
-	VistaArchivos lista;
+	FileView lista;
 	private MethodList method;
 	StartMenuView principalView;
 
@@ -48,7 +48,7 @@ public class FTPWindow extends JFrame {
 	 * @param method     - Methods -
 	 * @param vStartMenu
 	 */
-	public FTPWindow(FTPClient client, String user, VistaArchivos lista, MethodList method,
+	public FTPWindow(FTPClient client, String user, FileView lista, MethodList method,
 			StartMenuView principalView) {
 		colorHeader = new Color(204, 252, 255);
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//ftp.png"));
@@ -76,25 +76,21 @@ public class FTPWindow extends JFrame {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -109,14 +105,12 @@ public class FTPWindow extends JFrame {
 				try {
 					client.changeWorkingDirectory("/");
 				} catch (IOException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -214,11 +208,11 @@ public class FTPWindow extends JFrame {
 		this.buttons = buttons;
 	}
 
-	public JPanel getCentro() {
+	public JPanel getCenter() {
 		return body;
 	}
 
-	public void setCentro(JPanel centro) {
-		this.body = centro;
+	public void setCenter(JPanel center) {
+		this.body = center;
 	}
 }

@@ -31,7 +31,7 @@ import javax.swing.TransferHandler;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import client.model.Archivo;
+import client.model.Archive;
 import client.view.Splash;
 
 public class DropFile {
@@ -55,8 +55,7 @@ public class DropFile {
 		this.v=v;
 	}
 
-	public void cargarDatos(Archivo archivo) {
-		// Consejo: guardaria en un array los paneles para borrar m�s tarde
+	public void cargarDatos(Archive archivo) {
 		JPanel panel = obterPanelArchivo(archivo); 
 		dropPanel.add(panel);
 	}
@@ -72,14 +71,14 @@ public class DropFile {
 			@Override
 			public boolean importData(JComponent comp, Transferable t) {
 				try {
-					ArrayList<Archivo> archivos = new ArrayList<>();
+					ArrayList<Archive> archives = new ArrayList<>();
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
-						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
+						archives.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
 						pathFiles.add(i.getPath());
 					}
 					
-					generarListado(archivos);
+					generarListado(archives);
 					SwingUtilities.updateComponentTreeUI(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -95,39 +94,34 @@ public class DropFile {
 		return pathFiles;
 	}
 
-	private void generarListado(ArrayList<Archivo> archivos) {
+	private void generarListado(ArrayList<Archive> archives) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
-		for (Archivo i : archivos) {
+		for (Archive i : archives) {
 			panel = new JPanel();
 			panel.setLayout(experimentLayout);
 			
-			JLabel l = obtenerIcono(i);
+			JLabel l = obtainIcon(i);
 			panel.add(l);
 			
-			JTextField nombre = generarNombre(panel, i);
-			nombre.setBackground(Color.white);
+			JTextField name = generateName(panel, i);
+			name.setBackground(Color.white);
 			
-			//panel.addMouseListener(new ListenerArchivo(panel, i));
+			JPopupMenu menu = generarMenu(name, i);
 
-			JPopupMenu menu = generarMenu(nombre, i);
-
-			
 			panel.setComponentPopupMenu(menu);
 			panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 			dropPanel.add(panel);
 		}
 	}
 	
-	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
+	private JPopupMenu generarMenu(JTextField name, Archive archivo) {
 		JPopupMenu menu = new JPopupMenu();
 
-		JMenuItem item = new JMenuItem("Cambiar nombre");
-		//item.addActionListener(new ListenerBotonModificarNombre(nombre));
+		JMenuItem item = new JMenuItem("Change name");
 		menu.add(item);
 
-		JMenuItem item3 = new JMenuItem("Eliminar");
-		//item3.addActionListener(new ListenerEliminar(archivo));
+		JMenuItem item3 = new JMenuItem("Eliminate");
 		menu.add(item3);
 		return menu;
 	}
@@ -143,44 +137,37 @@ public class DropFile {
 			
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowClosing(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 			
 			@Override
 			public void windowClosed(WindowEvent e) {
-				// TODO Auto-generated method stub
-				SplashSubidaArchivo splash = new SplashSubidaArchivo(v, "upload");
+				SplashUploadFile splash = new SplashUploadFile(v, "upload");
 				splash.setVisible(true);
 			}
 			
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 				
 			}
 		});
@@ -240,8 +227,8 @@ public class DropFile {
 		panel_5.setBackground(Color.WHITE);
 		dropPanel.add(panel_5);
 		
-		JLabel lblArrastreElArchivo = new JLabel("Arrastre el archivo ");
-		panel_5.add(lblArrastreElArchivo);
+		JLabel lblDragTheFile = new JLabel("Drag the file ");
+		panel_5.add(lblDragTheFile);
 		
 		JPanel panel_6 = new JPanel();
 		panel_6.setBackground(Color.WHITE);
@@ -269,19 +256,18 @@ public class DropFile {
 		frame.setLocationRelativeTo(null);	
 	}
 	
-	private JPanel obterPanelArchivo(Archivo archivo) {
+	private JPanel obterPanelArchivo(Archive archive) {
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
 		JPanel panel = new JPanel();
 		panel.setLayout(experimentLayout);
 
-		JLabel l = obtenerIcono(archivo);
+		JLabel l = obtainIcon(archive);
 		panel.add(l);
 
-		JTextField nombre = generarNombre(panel, archivo);
+		JTextField nombre = generateName(panel, archive);
 
-		panel.add(new JLabel(archivo.getUltFechaModificacion()));
+		panel.add(new JLabel(archive.getLastModificationDate()));
 
-		//panel.addMouseListener(new ListenerArchivo(panel, archivo));
 
 		panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -289,27 +275,24 @@ public class DropFile {
 	}
 	
 
-	private JTextField generarNombre(JPanel panel, Archivo i) {
-		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getNombre());
-		panel.add(nombre);
-		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		//ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);
-		//nombre.addActionListener(listener);
-		//nombre.addFocusListener(listener);
-		nombre.setEditable(false);
+	private JTextField generateName(JPanel panel, Archive i) {
+		JTextField name = new JTextField(10);
+		name.setText(i.getName());
+		panel.add(name);
+		name.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		name.setEditable(false);
 
-		return nombre;
+		return name;
 	}
 
-	private JLabel obtenerIcono(Archivo i) {
-		String direcIcono;
+	private JLabel obtainIcon(Archive i) {
+		String direcIcon;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
-			direcIcono = "iconos//carpeta.png";
+			direcIcon = "iconos//carpeta.png";
 		} else {
-			direcIcono = "iconos//text-document.png";
+			direcIcon = "iconos//text-document.png";
 		}
-		Icon icon = new ImageIcon(direcIcono);
+		Icon icon = new ImageIcon(direcIcon);
 		JLabel l = new JLabel(icon);
 		return l;
 	}

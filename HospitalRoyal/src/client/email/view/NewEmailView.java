@@ -36,16 +36,15 @@ import javax.swing.border.EmptyBorder;
 
 import org.apache.commons.net.smtp.SMTPClient;
 
-import client.email.listener.ListenerArchivo;
-import client.email.listener.ListenerBotonModificarNombre;
+import client.email.listener.ListenerButtonModifyName;
 import client.email.listener.ListenerClose;
 import client.email.listener.ListenerCloseWindow;
 import client.email.listener.ListenerEliminar;
 import client.email.listener.ListenerFCEmail;
-import client.email.listener.ListenerModificarNombre;
-import client.email.listener.ListenerSend;
 import client.email.view.SplashSubidaArchivo;
-import client.model.Archivo;
+import client.email.listener.ListenerModifyName;
+import client.email.listener.ListenerSend;
+import client.model.Archive;
 import client.model.Email;
 
 public class NewEmailView {
@@ -259,10 +258,10 @@ public class NewEmailView {
 					List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
 					for (File i : files) {
 
-						archivos.add(new Archivo(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
+						archives.add(new Archive(i.getName(), "" + i.lastModified(), i.getAbsolutePath()));
 					}
 
-					generarListado(archivos);
+					generarListado(archives);
 					SwingUtilities.updateComponentTreeUI(frame);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -275,37 +274,29 @@ public class NewEmailView {
 		dropPanel.updateUI();
 	}
 
-	public void generarListado(ArrayList<Archivo> archivos) {
+	private void generarListado(ArrayList<Archive> archives) {
 		filesPanel.removeAll();
-		GridLayout experimentLayout = new GridLayout(0, 1, 5, 5);
+		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
 		panelArchivos = new JPanel();
 		panelArchivos.setLayout(experimentLayout);
-		if (archivos.size() != 0) {
-			for (Archivo i : archivos) {
-				JLabel l = obtenerIcono(i);
-				l.setMaximumSize(new Dimension(430, 75));
+		if (archives.size() != 0) {
+			for (Archive i : archives) {
+				JLabel l = obtainIcon(i);
 				panelArchivos.add(l);
-
-				JTextField nombre = generarNombre(panelArchivos, i);
+				JTextField nombre = generateName(panelArchivos, i);
 				nombre.setBackground(body);
-
-				// panel.add(new JLabel(i.getUltFechaModificacion()));
-
-				// panel.addMouseListener(new ListenerArchivo(panel, i));
-
-				JPopupMenu menu = generarMenu(nombre, i);
-
+				JPopupMenu menu = generateMenu(nombre, i);
 				panelArchivos.setComponentPopupMenu(menu);
 				panelArchivos.setBorder(new EmptyBorder(10, 10, 10, 10));
-				
 			}
-		} else {
+		}else{
 			lbldrag = new JLabel(new ImageIcon("iconos\\descargar.png"));
 			lbldrag.setText("Drag a file to attach");
 			lbldrag.setSize(new Dimension(430, 160));
 			panelArchivos = new JPanel();
 			panelArchivos.add(lbldrag);
 		}
+			
 		filesPanel.add(panelArchivos);
 		filesPanel.updateUI();
 		SwingUtilities.updateComponentTreeUI(frame);
@@ -313,34 +304,34 @@ public class NewEmailView {
 		splash.setVisible(true);
 	}
 
-	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
+	private JPopupMenu generateMenu(JTextField name, Archive archive) {
 		JPopupMenu menu = new JPopupMenu();
 
-		JMenuItem item = new JMenuItem("Eliminar");
+		JMenuItem item = new JMenuItem("Delete");
 		item.addActionListener(new ListenerEliminarArchivo(archivo, this));
 		menu.add(item);
 		return menu;
 	}
 
-	private JTextField generarNombre(JPanel panel, Archivo i) {
-		JTextField nombre = new JTextField(10);
-		nombre.setText(i.getNombre());
-		panel.add(nombre);
-		nombre.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-		ListenerModificarNombre listener = new ListenerModificarNombre(i, nombre);
-		nombre.addActionListener(listener);
-		nombre.addFocusListener(listener);
-		nombre.setEditable(false);
+	private JTextField generateName(JPanel panel, Archive i) {
+		JTextField name = new JTextField(10);
+		name.setText(i.getName());
+		panel.add(name);
+		name.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+		ListenerModifyName listener = new ListenerModifyName(i, name);
+		name.addActionListener(listener);
+		name.addFocusListener(listener);
+		name.setEditable(false);
 
-		return nombre;
+		return name;
 	}
 
-	private JLabel obtenerIcono(Archivo i) {
-		String direcIcono;
+	private JLabel obtainIcon(Archive i) {
+		String direcIcon;
 		if (i.getExtension().equalsIgnoreCase("folder")) {
-			direcIcono = "iconos\\carpeta.png";
+			direcIcon = "iconos\\carpeta.png";
 		} else {
-			direcIcono = "iconos\\text-document.png";
+			direcIcon = "iconos\\text-document.png";
 		}
 		Icon icon = new ImageIcon(direcIcono);
 		JLabel l = new JLabel(icon);

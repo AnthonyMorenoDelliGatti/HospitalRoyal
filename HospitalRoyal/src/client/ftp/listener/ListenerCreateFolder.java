@@ -16,28 +16,28 @@ import org.apache.commons.net.ftp.FTPClient;
 import client.controller.MethodList;
 import client.ftp.view.CreateFolderView;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 
 public class ListenerCreateFolder implements ActionListener {
 
 	FTPClient client;
 	MethodList method;
 	FTPWindow view;
-	VistaArchivos explorer;
+	FileView explorer;
 	String user;
 	DataOutputStream outputStream;
 
-	ArrayList<ArchivoFtp> archivos;
+	ArrayList<FileFtp> archivos;
 
-	public ListenerCreateFolder(FTPClient client, ArrayList<ArchivoFtp> archivos, MethodList method, FTPWindow view,
-			VistaArchivos explorer, String user, DataOutputStream outputStream) {
+	public ListenerCreateFolder(FTPClient client, ArrayList<FileFtp> filesFtp, MethodList method, FTPWindow view,
+			FileView explorer, String user, DataOutputStream outputStream) {
 		this.client = client;
 		this.method = method;
 		this.view = view;
 		this.explorer = explorer;
 		this.user = user;
-		this.archivos = archivos;
+		this.archivos = filesFtp;
 		this.outputStream = outputStream;
 	}
 
@@ -51,25 +51,21 @@ public class ListenerCreateFolder implements ActionListener {
 
 			@Override
 			public void windowOpened(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowIconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeiconified(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void windowDeactivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 
@@ -87,7 +83,6 @@ public class ListenerCreateFolder implements ActionListener {
 
 			@Override
 			public void windowActivated(WindowEvent e) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -104,7 +99,7 @@ public class ListenerCreateFolder implements ActionListener {
 						JOptionPane.showMessageDialog(null, "The folder already exist or the process has failed", "FAILED TO CREATE DIRECTORY",
 								JOptionPane.WARNING_MESSAGE);
 					}
-					method.cargarDatosLista(client, view, explorer);
+					method.DataListLoad(client, view, explorer);
 					
 					Rectangle tamanio=new Rectangle(600,600,600,600);
 					if(view.getBounds()!=tamanio) {
@@ -119,7 +114,6 @@ public class ListenerCreateFolder implements ActionListener {
 					outputStream.writeUTF("5");
 					outputStream.writeUTF(folder);
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}

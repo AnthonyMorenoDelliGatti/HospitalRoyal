@@ -22,16 +22,16 @@ import client.ftp.listener.ListenerCloseWindow;
 import client.ftp.listener.ListenerCreateFolder;
 import client.ftp.listener.ListenerReturn;
 import client.ftp.listener.ListenerReturnForward;
-import client.ftp.listener.ListenerSubir;
+import client.ftp.listener.ListenerUpload;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.login.view.Login;
 import client.menu.listener.ListenerAbout;
 import client.menu.listener.ListenerEmail;
 import client.menu.listener.ListenerAdminFTP;
 import client.menu.listener.ListenerUserFTP;
 import client.menu.view.StartMenuView;
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 import client.model.Paths;
 import client.model.ServerData;
 
@@ -40,7 +40,7 @@ public class Client {
 	DataInputStream inputStream;
 	Socket Client;
 	FTPWindow ftpWindow;
-	VistaArchivos explorer;
+	FileView explorer;
 	private ServerData serverData;
 	private StartMenuView vStartMenu;
 	private EmailMenuWindow emailwindow;
@@ -221,6 +221,7 @@ public class Client {
 			vStartMenu.getButtonFTP().addActionListener(new ListenerAdminFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
 			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		} else {
+
 			vStartMenu.getButtonFTP().addActionListener(new ListenerUserFTP(paths, client, ftpWindow, user, explorer, method, vStartMenu, password, outputStream));
 			vStartMenu.getButtonMail().addActionListener(new ListenerEmail(client, user, email, vStartMenu, emailwindow, password));
 		}

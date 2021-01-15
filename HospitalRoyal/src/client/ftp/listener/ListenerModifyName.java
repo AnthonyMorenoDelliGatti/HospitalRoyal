@@ -13,36 +13,36 @@ import javax.swing.JTextField;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
-import client.model.ArchivoFtp;
+import client.model.FileFtp;
 
-public class ListenerModificarNombre implements FocusListener, KeyListener {
+public class ListenerModifyName implements FocusListener, KeyListener {
 
-	private ArchivoFtp archivo;
-	private JTextField nombre;
+	private FileFtp fileFtp;
+	private JTextField name;
 	FTPClient client;
 	private String user;
 	DataOutputStream outputStream;
 
-	public ListenerModificarNombre(ArchivoFtp archivo, JTextField nombre, FTPClient client, String user,
+	public ListenerModifyName(FileFtp fileFtp, JTextField name, FTPClient client, String user,
 			DataOutputStream outputStream) {
-		this.archivo = archivo;
-		this.nombre = nombre;
+		this.fileFtp = fileFtp;
+		this.name = name;
 		this.client = client;
 		this.user = user;
 		this.outputStream = outputStream;
 	}
 
-	private void comprobarNombre() {
-		String text = nombre.getText();
-		String nombreanterior = archivo.getNombre();
+	private void checkName() {
+		String text = name.getText();
+		String previousName = fileFtp.getName();
 		if (text.trim().length() > 0) {
-			archivo.setNombre(text);
-			cambiarnombre(text, nombreanterior);
+			fileFtp.setName(text);
+			cambiarnombre(text, previousName);
 		} else {
-			nombre.setText(archivo.getNombre());
+			name.setText(fileFtp.getName());
 		}
-		nombre.setEditable(false);
-		nombre.setBackground(Color.white);
+		name.setEditable(false);
+		name.setBackground(Color.white);
 	}
 
 	private void cambiarnombre(String newName, String name) {
@@ -59,7 +59,6 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 			outputStream.writeUTF(newName);
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -67,33 +66,29 @@ public class ListenerModificarNombre implements FocusListener, KeyListener {
 
 	@Override
 	public void focusGained(FocusEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void focusLost(FocusEvent arg0) {
-		comprobarNombre();
+		checkName();
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-			comprobarNombre();
-			
+			checkName();
 		}
 
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
 
 	}
 

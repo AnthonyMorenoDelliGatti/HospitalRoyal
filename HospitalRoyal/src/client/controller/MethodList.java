@@ -19,8 +19,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPFile;
 
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 
 
 
@@ -29,12 +29,12 @@ public class MethodList {
 	public MethodList() {
 
 	}
-	public void cargarDatosLista(FTPClient client, FTPWindow view, VistaArchivos explorer) {
+	public void DataListLoad(FTPClient client, FTPWindow view, FileView explorer) {
 		try {
-			ArrayList<ArchivoFtp> archivos = new ArrayList<>();
+			ArrayList<FileFtp> FileFtps = new ArrayList<>();
 			FTPFile[] fileList = client.listFiles();
 			if(fileList.length <= 0) {
-				archivos.add(new ArchivoFtp("This folder is empty", "", 0, ""));
+				FileFtps.add(new FileFtp("This folder is empty", "", 0, ""));
 			}
 			if(fileList.length > 0) {
 			for (int i = 0; i < fileList.length; i++) {
@@ -63,14 +63,14 @@ public class MethodList {
 				} catch (ParseException ex) {
 					ex.printStackTrace();
 				}
-				archivos.add(new ArchivoFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
-				view.getCentro().removeAll();
-				view.addExplorer(explorer.visualizarListado(archivos));
+				FileFtps.add(new FileFtp(nameFile, lastModification, isDirectory, (path + nameFile)));
+				view.getCenter().removeAll();
+				view.addExplorer(explorer.ShowLists(FileFtps));
 				//view.pack();
 			}
 			}else {
-				view.getCentro().removeAll();
-				view.addExplorer(explorer.visualizarListado(archivos));
+				view.getCenter().removeAll();
+				view.addExplorer(explorer.ShowLists(FileFtps));
 				//view.pack();
 			}
 		} catch (IOException e) {

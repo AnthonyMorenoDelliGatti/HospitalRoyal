@@ -33,33 +33,33 @@ public class ListenerForward implements ActionListener {
 		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 
-				"\n Date: " + email.getFecha() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo() + "\n");
+				"\n Date: " + email.getDate() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo() + "\n");
 		ev.getTextPane().setCaretPosition(0);
 		ev.getTextPane().requestFocus();
-		analizaParteDeMensaje(email.getContent());
+		analizePartOfTheMessage(email.getContent());
 			
 		}
-	private static void analizaParteDeMensaje(Part unaParte)
+	private static void analizePartOfTheMessage(Part part)
     {
         try
         {
-          // Si es multipart, se analiza cada una de sus partes recursivamente.
-            if (unaParte.isMimeType("multipart/*"))
+          // If is  multipart, each part will be analised recursively.
+            if (part.isMimeType("multipart/*"))
             {
                 Multipart multi;
-                multi = (Multipart) unaParte.getContent();
+                multi = (Multipart) part.getContent();
 
                 for (int j = 0; j < multi.getCount(); j++)
                 {
-                    analizaParteDeMensaje(multi.getBodyPart(j));
+                    analizePartOfTheMessage(multi.getBodyPart(j));
                 }
             }
             else
             {
-              // Si es texto, se escribe el texto.
-                if (unaParte.isMimeType("text/plain"))
+              // If is text, text is written.
+                if (part.isMimeType("text/plain"))
                 {
-                    ev.getTextPane().append(unaParte.getContent().toString());
+                    ev.getTextPane().append(part.getContent().toString());
                 }
             }
         }

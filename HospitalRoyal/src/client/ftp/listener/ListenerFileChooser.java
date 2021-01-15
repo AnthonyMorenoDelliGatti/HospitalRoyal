@@ -15,8 +15,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import client.controller.MethodList;
 import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
-import client.model.ArchivoFtp;
+import client.ftp.view.FileView;
+import client.model.FileFtp;
 
 public class ListenerFileChooser implements ActionListener {
 
@@ -24,16 +24,16 @@ public class ListenerFileChooser implements ActionListener {
 	private String user;
 	private MethodList method;
 	private FTPWindow v;
-	private VistaArchivos lista;
+	private FileView list;
 	private DataOutputStream outputStream;
 	private DropFile drop;
 
-	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, VistaArchivos lista, MethodList method,
+	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, FileView list, MethodList method,
 			DataOutputStream outputStream, DropFile drop) {
 		this.client = client;
 		this.user = user;
 		this.v = v;
-		this.lista = lista;
+		this.list = list;
 		this.method = method;
 		this.outputStream = outputStream;
 		this.drop = drop;
@@ -53,8 +53,9 @@ public class ListenerFileChooser implements ActionListener {
 			client.storeFile(routeSplitted[routeSplitted.length - 1], in);
 			in.close();
 			drop.getFrame().dispose();
+			ArrayList<FileFtp> filesFtp = new ArrayList<>();
 			v.pack();
-			method.cargarDatosLista(client, v, lista);
+			method.DataListLoad(client, v, list);
 			outputStream.writeUTF("4");
 			outputStream.writeUTF(routeSplitted[routeSplitted.length - 1]);
 			drop.getFrame().dispose();

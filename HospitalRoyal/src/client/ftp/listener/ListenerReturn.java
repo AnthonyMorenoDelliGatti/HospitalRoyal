@@ -8,20 +8,20 @@ import org.apache.commons.net.ftp.FTPClient;
 
 import client.controller.MethodList;
 import client.ftp.view.FTPWindow;
-import client.ftp.view.VistaArchivos;
+import client.ftp.view.FileView;
 import client.model.Paths;
 
 
 public class ListenerReturn implements ActionListener{
 	FTPClient client;
 	MethodList method;
-	FTPWindow principalView;
-	VistaArchivos explorer;
+	FTPWindow mainView;
+	FileView explorer;
 	Paths paths;
-	public ListenerReturn(FTPClient client, MethodList method, FTPWindow principalView, VistaArchivos explorer, Paths paths) {
+	public ListenerReturn(FTPClient client, MethodList method, FTPWindow mainView, FileView explorer, Paths paths) {
 		this.client = client;
 		this.method = method;
-		this.principalView = principalView;
+		this.mainView = mainView;
 		this.explorer = explorer;
 		this.paths = paths;
 	}
@@ -29,28 +29,25 @@ public class ListenerReturn implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 			try {
 				if(!client.printWorkingDirectory().equalsIgnoreCase(paths.getPathLimit())) {
-					paths.getPathguardados().add(client.printWorkingDirectory());
+					paths.getSavedPaths().add(client.printWorkingDirectory());
 					client.changeToParentDirectory();
-					principalView.getButtons().get(1).setEnabled(true);
+					mainView.getButtons().get(1).setEnabled(true);
 					
-					method.cargarDatosLista(client, principalView, explorer);
+					method.DataListLoad(client, mainView, explorer);
 					if(client.printWorkingDirectory().equalsIgnoreCase(paths.getPathLimit())) {
-						principalView.getButtons().get(0).setEnabled(false);
+						mainView.getButtons().get(0).setEnabled(false);
 					}
 
-					principalView.pack();
-					principalView.setBounds(600,600,600,principalView.getBounds().height);
-					principalView.setLocationRelativeTo(null);
-					if(principalView.getBounds().height>=600) {
-						principalView.setBounds(600,600,600,600);
-						principalView.setLocationRelativeTo(null);
+					mainView.pack();
+					mainView.setBounds(600,600,600,mainView.getBounds().height);
+					mainView.setLocationRelativeTo(null);
+					if(mainView.getBounds().height>=600) {
+						mainView.setBounds(600,600,600,600);
+						mainView.setLocationRelativeTo(null);
 					}
 				}
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-
 	}
-
 }

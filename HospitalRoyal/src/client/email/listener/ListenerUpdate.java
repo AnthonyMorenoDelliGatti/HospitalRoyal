@@ -29,12 +29,12 @@ public class ListenerUpdate implements ActionListener {
 			folder = store.getFolder("INBOX");
 			folder.open(Folder.READ_ONLY);
 			folder.isOpen();
-			Message[] mensajes = folder.getMessages();
+			Message[] messages = folder.getMessages();
 			ArrayList<Email> mails = new ArrayList<>();
-			for (int i = 0; i < mensajes.length; i++) {
-				Email correo = new Email(email, mensajes[i].getSubject(), mensajes[i].getFrom()[0].toString(),
-						mensajes[i], mensajes[i].getSentDate().toString(), false);
-				mails.add(correo);
+			for (int i = 0; i < messages.length; i++) {
+				Email mail = new Email(email, messages[i].getSubject(), messages[i].getFrom()[0].toString(),
+						messages[i], messages[i].getSentDate().toString(), false);
+				mails.add(mail);
 			}
 			emailWindow.viewEmails(mails);
 		} catch (MessagingException e1) {

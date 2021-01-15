@@ -26,9 +26,9 @@ public class Splash extends JFrame implements Runnable{
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		this.setUndecorated(true);
-		JLabel icono = new JLabel();
-		icono.setIcon(new ImageIcon("iconos\\Logo.PNG"));
-		contentPane.add(icono,BorderLayout.CENTER);
+		JLabel icon = new JLabel();
+		icon.setIcon(new ImageIcon("iconos\\Logo.PNG"));
+		contentPane.add(icon,BorderLayout.CENTER);
 		JLabel gif = new JLabel();
 		gif.setIcon(new ImageIcon("iconos\\cargando.gif"));
 		contentPane.add(gif,BorderLayout.EAST);
@@ -45,7 +45,6 @@ public class Splash extends JFrame implements Runnable{
 			this.dispose();
 			Client client = new Client();		
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
