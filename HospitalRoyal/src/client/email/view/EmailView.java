@@ -147,7 +147,7 @@ public class EmailView {
 						lblLogo.setIcon(new ImageIcon(dimg));
 						JPopupMenu menu = new JPopupMenu();
 						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDescargar(unaParte));
+						item.addActionListener(new ListenerDescargar(unaParte, imagenes));
 						menu.add(item);
 						imagenes.setComponentPopupMenu(menu);
 						imagenes.add(lblLogo);
@@ -157,7 +157,7 @@ public class EmailView {
 						lblarchivo.setBackground(Color.white);
 						JPopupMenu menu = new JPopupMenu();
 						JMenuItem item = new JMenuItem("Descargar");
-						item.addActionListener(new ListenerDescargar(unaParte));
+						item.addActionListener(new ListenerDescargar(unaParte, archivos));
 						menu.add(item);
 						archivos.setComponentPopupMenu(menu);
 						archivos.add(new JLabel(unaParte.getFileName()));

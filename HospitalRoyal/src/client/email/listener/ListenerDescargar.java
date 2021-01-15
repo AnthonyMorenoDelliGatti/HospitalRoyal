@@ -12,12 +12,18 @@ import java.io.InputStream;
 import javax.mail.MessagingException;
 import javax.mail.Part;
 import javax.swing.JFileChooser;
+import javax.swing.JPanel;
+
+import client.email.view.SplashDownloadFile;
+import client.email.view.SplashSubidaArchivo;
+
 
 public class ListenerDescargar implements ActionListener {
 	Part unaParte;
-
-	public ListenerDescargar(Part unaParte) {
+	JPanel panel;
+	public ListenerDescargar(Part unaParte, JPanel panel) {
 		this.unaParte = unaParte;
+		this.panel = panel;
 	}
 
 	@Override
@@ -37,12 +43,11 @@ public class ListenerDescargar implements ActionListener {
 				fos.write(buf, 0, bytesRead);
 			}
 			fos.close();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+			panel.setEnabled(false);
+			SplashDownloadFile splash = new SplashDownloadFile(panel);
+			splash.setVisible(true);
+		} catch (Exception e1) {
+			
 		}
 		
 	}

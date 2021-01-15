@@ -44,6 +44,7 @@ import client.email.listener.ListenerEliminar;
 import client.email.listener.ListenerFCEmail;
 import client.email.listener.ListenerModificarNombre;
 import client.email.listener.ListenerSend;
+import client.email.view.SplashSubidaArchivo;
 import client.model.Archivo;
 import client.model.Email;
 
@@ -308,6 +309,8 @@ public class NewEmailView {
 		filesPanel.add(panelArchivos);
 		filesPanel.updateUI();
 		SwingUtilities.updateComponentTreeUI(frame);
+		SplashSubidaArchivo splash = new SplashSubidaArchivo(frame);
+		splash.setVisible(true);
 	}
 
 	private JPopupMenu generarMenu(JTextField nombre, Archivo archivo) {
