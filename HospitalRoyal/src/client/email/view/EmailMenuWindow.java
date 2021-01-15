@@ -30,7 +30,7 @@ import javax.swing.border.EmptyBorder;
 import org.apache.commons.net.smtp.SMTPClient;
 
 import client.email.listener.ListenerClose;
-import client.email.listener.ListenerEmail;
+import client.email.listener.ListenerViewEmail;
 import client.email.listener.ListenerSearch;
 import client.ftp.view.VistaArchivos;
 import client.menu.view.StartMenuView;
@@ -188,7 +188,7 @@ public class EmailMenuWindow {
 				if (!i.getIsRead()) {
 					panel.setBackground(WHITE);
 				}
-				panel.addMouseListener(new ListenerEmail(panel, i, this, password));
+				panel.addMouseListener(new ListenerViewEmail(panel, i, this, password));
 				panel.setBorder(new EmptyBorder(10, 10, 10, 10));
 				panel.setMaximumSize(new Dimension(430,75));
 				panel.repaint();
