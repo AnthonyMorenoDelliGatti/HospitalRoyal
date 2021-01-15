@@ -13,8 +13,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
-import com.sun.awt.AWTUtilities;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que crea una ventana splash entre acciones en el email
+ */
 
 public class SplashEmail extends JFrame{
 
@@ -22,6 +33,9 @@ public class SplashEmail extends JFrame{
 	private JPanel contentPane;
 	JProgressBar progressBar = new JProgressBar();
 	
+	/**
+	 * Creacion de la ventana y sus elementos
+	 */
 	public SplashEmail() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\logo.png"));
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -33,10 +47,9 @@ public class SplashEmail extends JFrame{
 		gif.setIcon(new ImageIcon("iconos\\cargando.gif"));
 		gif.setBorder(BorderFactory.createEmptyBorder());
 		contentPane.add(gif,BorderLayout.EAST);
-		AWTUtilities.setWindowOpacity(this,0.7f);
+
 		pack();
 		Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 300, 300);
-        AWTUtilities.setWindowShape(this, forma);
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

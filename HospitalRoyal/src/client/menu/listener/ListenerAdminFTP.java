@@ -23,6 +23,19 @@ import client.menu.view.StartMenuView;
 import client.model.FileFtp;
 import client.model.Paths;
 
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que habilita todas las acciones al cliente con roll de admin
+ */
 public class ListenerAdminFTP implements ActionListener {
 
 	private Paths paths;
@@ -35,6 +48,18 @@ public class ListenerAdminFTP implements ActionListener {
 	private String password;
 	private DataOutputStream outputStream;
 
+	/**
+	 * Constructor de la clase
+	 * @param paths
+	 * @param client
+	 * @param ftpWindow
+	 * @param user
+	 * @param explorer
+	 * @param method
+	 * @param vStartMenu
+	 * @param password
+	 * @param outputStream
+	 */
 	public ListenerAdminFTP(Paths paths, FTPClient client, FTPWindow ftpWindow, String user, FileView explorer,
 			MethodList method, StartMenuView vStartMenu, String password, DataOutputStream outputStream) {
 		this.paths = paths;

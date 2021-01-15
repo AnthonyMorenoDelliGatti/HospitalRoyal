@@ -21,6 +21,19 @@ import client.menu.view.SplashEmail;
 import client.menu.view.StartMenuView;
 import client.model.Email;
 
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que funciona como hilo del email
+ */
 public class EmailThread extends Thread{
 
 	private FTPClient client;
@@ -31,6 +44,17 @@ public class EmailThread extends Thread{
 	private String password;
 	ArrayList<Email> mails;
 	SplashEmail splash;
+	
+	/**
+	 * Constructor de la clase
+	 * @param client
+	 * @param user
+	 * @param email
+	 * @param vStartMenu
+	 * @param emailWindow
+	 * @param password
+	 * @param splash
+	 */
 	
 	public EmailThread(FTPClient client, String user, String email, StartMenuView vStartMenu,
 			EmailMenuWindow emailWindow, String password, SplashEmail splash) {
@@ -43,6 +67,9 @@ public class EmailThread extends Thread{
 		this.splash=splash;
 	}
 	
+	/**
+	 * Metodo que ejecuta las acciones del hilo
+	 */
 	@Override
 	public void run() {
 		Properties prop = new Properties();

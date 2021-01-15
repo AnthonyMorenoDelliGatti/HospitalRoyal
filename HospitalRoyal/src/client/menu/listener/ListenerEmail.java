@@ -1,39 +1,29 @@
 package client.menu.listener;
 
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.imageio.ImageIO;
-import javax.mail.BodyPart;
-import javax.mail.Folder;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.NoSuchProviderException;
-import javax.mail.Part;
-import javax.mail.Session;
-import javax.mail.Store;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
 
 import org.apache.commons.net.ftp.FTPClient;
 
-import client.controller.Client;
-import client.email.listener.ListenerSearch;
-import client.email.listener.ListenerUpdate;
 import client.email.view.EmailMenuWindow;
 import client.menu.view.SplashEmail;
 import client.menu.view.StartMenuView;
 import client.model.Email;
-import client.view.Splash;
+
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description:Clase que acciona la ejecucion del mail y sus vistas
+ */
 
 public class ListenerEmail implements ActionListener {
 
@@ -45,6 +35,15 @@ public class ListenerEmail implements ActionListener {
 	private String password;
 	ArrayList<Email> mails;
 
+	/**
+	 * Constructor de la clase
+	 * @param client
+	 * @param user
+	 * @param email
+	 * @param vStartMenu
+	 * @param emailWindow
+	 * @param password
+	 */
 	public ListenerEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
 			EmailMenuWindow emailWindow, String password) {
 		this.client = client;
@@ -55,6 +54,9 @@ public class ListenerEmail implements ActionListener {
 		this.password = password;
 	}
 
+	/**
+	 * Metodo que pone en ejecucion las acciones y ventanas del mail
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		SplashEmail splash = new SplashEmail();

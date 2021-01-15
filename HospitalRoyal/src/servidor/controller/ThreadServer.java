@@ -15,6 +15,19 @@ import javax.swing.JOptionPane;
 import client.controller.MethodList;
 import servidor.view.ServerView;
 
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que funciona como hilo que se comunica con el cliente desde el servidor
+ */
 public class ThreadServer extends Thread {
 	Socket client = null;
 	DataInputStream inputStream;
@@ -24,6 +37,13 @@ public class ThreadServer extends Thread {
 	static boolean connectedDB;
 	private String user;
 
+	/**
+	 * Metodo constructor del hilo
+	 * @param client
+	 * @param viewServer
+	 * @param method
+	 * @throws IOException
+	 */
 	public ThreadServer(Socket client, ServerView viewServer, MethodList method) throws IOException {
 		this.client = client;
 		this.viewServer = viewServer;
@@ -31,7 +51,9 @@ public class ThreadServer extends Thread {
 		inputStream = new DataInputStream(client.getInputStream());
 		this.method = method;
 	}
-
+/**
+ * Metodo que ejecuta las acciones del hilo
+ */
 	public void run() {
 		viewServer.getArea().append("\nCOMMUNICATING: " + client.toString());
 		int choice = 0;
@@ -124,6 +146,14 @@ public class ThreadServer extends Thread {
 		}
 	}
 
+	/**
+	 * Metodo que hace una consulta a la tabla EstadoConectado
+	 * @param user
+	 * @return <ul>
+	 * 	<li>true: realiza la consulta</li>
+	 * 	<li>false: no existe la tabla</li>
+	 * <ul>
+	 */
 	private boolean checkConnectedUser(String user) {
 		try {
 			Statement statement = DBConnection();
@@ -143,7 +173,13 @@ public class ThreadServer extends Thread {
 		}
 		return false;
 	}
+	
 
+	/**
+	 * Metodo que realiza una consulta con la base de datos
+	 * @param i
+	 * @param user
+	 */
 	private void changeLoginStatus(int i, String user) {
 		String email = "";
 		try {
@@ -157,6 +193,11 @@ public class ThreadServer extends Thread {
 		}
 	}
 
+	/**
+	 * Metodo que realuza una consulta con la base de datos para asignar un email
+	 * @param user
+	 * @return El email
+	 */
 	private String selectEmailsUser(String user) {
 		String email = "";
 		try {

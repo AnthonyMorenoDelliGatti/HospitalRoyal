@@ -21,6 +21,19 @@ import client.model.AboutModel;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que muestra una ventana de informacion de la aplicacion
+ */
 public class AboutView extends JFrame {
 
 	private JPanel rootPanel;
@@ -88,6 +101,9 @@ public class AboutView extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Metodo que genera los elementos de la ventana
+	 */
 	public void generateElements() {
 		model = new AboutModel();
 		

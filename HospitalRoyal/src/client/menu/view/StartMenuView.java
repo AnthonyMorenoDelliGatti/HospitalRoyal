@@ -20,7 +20,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description:Clase que crea una ventana que funciona como menu principal
+ */
 public class StartMenuView extends JFrame {
 
 	private JButton buttonMail;
@@ -39,6 +51,9 @@ public class StartMenuView extends JFrame {
 		setLocationRelativeTo(null);
 	}
 
+	/**
+	 * Metodo que muestra imagenes en la ventana en la que cambian con el tiempo
+	 */
 	public void sliderShow() {
 		new Thread(new Runnable() {
 			
