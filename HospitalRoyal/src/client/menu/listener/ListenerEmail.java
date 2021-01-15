@@ -84,12 +84,10 @@ public class ListenerEmail implements ActionListener {
 			emailWindow.getTxtSearch().addKeyListener(new ListenerSearch(emailWindow, mails));
 			emailWindow.getBtnRecharge().addActionListener(new ListenerUpdate(emailWindow, store, email));
 		} catch (MessagingException e1) {
-			// TODO Auto-generated catch block
 		}
 		try {
 			client.changeWorkingDirectory(user);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

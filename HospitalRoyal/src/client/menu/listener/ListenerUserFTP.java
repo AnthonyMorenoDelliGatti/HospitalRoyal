@@ -55,23 +55,21 @@ public class ListenerUserFTP implements ActionListener {
 		try {
 			client.changeWorkingDirectory(user);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try {
 			paths.setPathLimit(client.printWorkingDirectory());
 		} catch (IOException e2) {
-			// TODO Auto-generated catch block
 			e2.printStackTrace();
 		}
-		ArrayList<FileFtp> archivos = new ArrayList<>();
+		ArrayList<FileFtp> filesFtp = new ArrayList<>();
 		ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
-		explorer = new FileView(client, archivos, method, ftpWindow, password, outputStream, paths, false);
+		explorer = new FileView(client, filesFtp, method, ftpWindow, password, outputStream, paths, false);
 		method.DataListLoad(client, ftpWindow, explorer);
 		ftpWindow.setVisible(true);
 		ftpWindow.setLocationRelativeTo(null);
-		Rectangle tamanio=new Rectangle(600,600,600,600);
-		if(ftpWindow.getBounds()!=tamanio) {
+		Rectangle size=new Rectangle(600,600,600,600);
+		if(ftpWindow.getBounds()!=size) {
 			ftpWindow.pack();
 			ftpWindow.setBounds(600,600,600,ftpWindow.getBounds().height);
 			ftpWindow.setLocationRelativeTo(null);
@@ -81,7 +79,7 @@ public class ListenerUserFTP implements ActionListener {
 			}
 		}
 
-		// se introducen los listener a los botones
+		// listeners are introduced to the buttons
 		ftpWindow.getButtons().get(0).addActionListener(
 				new ListenerReturn(client,method,ftpWindow,explorer,paths));
 		ftpWindow.getButtons().get(1).addActionListener(
@@ -113,7 +111,6 @@ public class ListenerUserFTP implements ActionListener {
 				client.makeDirectory("/" + user);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

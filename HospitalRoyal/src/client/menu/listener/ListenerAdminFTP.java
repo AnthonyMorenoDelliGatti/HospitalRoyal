@@ -53,14 +53,14 @@ public class ListenerAdminFTP implements ActionListener {
 		try {
 			paths.setPathLimit(client.printWorkingDirectory());
 
-			ArrayList<FileFtp> archivos = new ArrayList<>();
+			ArrayList<FileFtp> filesFtp = new ArrayList<>();
 			ftpWindow = new FTPWindow(client, user, explorer, method, vStartMenu);
-			explorer = new FileView(client, archivos, method, ftpWindow, password, outputStream, paths, true);
+			explorer = new FileView(client, filesFtp, method, ftpWindow, password, outputStream, paths, true);
 			method.DataListLoad(client, ftpWindow, explorer);
 			ftpWindow.setVisible(true);
 			ftpWindow.setLocationRelativeTo(null);
-			Rectangle tamanio=new Rectangle(600,600,600,600);
-			if(ftpWindow.getBounds()!=tamanio) {
+			Rectangle size=new Rectangle(600,600,600,600);
+			if(ftpWindow.getBounds()!=size) {
 				ftpWindow.pack();
 				ftpWindow.setBounds(600,600,600,ftpWindow.getBounds().height);
 				ftpWindow.setLocationRelativeTo(null);
@@ -70,17 +70,17 @@ public class ListenerAdminFTP implements ActionListener {
 				}
 			}
 
-			// se introducen los listener a los botones
-			// volver al padre
+			// listener are introduced to the buttons
+			// return to parent
 			ftpWindow.getButtons().get(0)
 					.addActionListener(new ListenerReturn(client, method, ftpWindow, explorer, paths));
-			// volver al anterior
+			// return to previous 
 			ftpWindow.getButtons().get(1)
 					.addActionListener(new ListenerReturnForward(client, method, ftpWindow, explorer, paths));
-			// crear carpeta
+			// create folder
 			ftpWindow.getButtons().get(2).addActionListener(
-					new ListenerCreateFolder(client, archivos, method, ftpWindow, explorer, password, outputStream));
-			// eliminar archivos y carpetas
+					new ListenerCreateFolder(client, filesFtp, method, ftpWindow, explorer, password, outputStream));
+			// eliminate files and folders
 			ftpWindow.getButtons().get(3)
 					.addActionListener(new ListenerUpload(client, user, ftpWindow, explorer, method, outputStream));
 			vStartMenu.setVisible(false);

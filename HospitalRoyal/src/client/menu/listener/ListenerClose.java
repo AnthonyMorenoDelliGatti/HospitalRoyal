@@ -36,7 +36,6 @@ public class ListenerClose implements ActionListener {
 			client.logout();
 			client.disconnect();
 			System.exit(0);
-			//client2.startLogin();
 		} catch (IOException e1) {
 			System.exit(0);
 		} catch (Exception e2) {
