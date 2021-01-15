@@ -5,13 +5,27 @@ import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 
-
 import org.apache.commons.net.ftp.FTPClient;
 
 import client.email.view.EmailMenuWindow;
 import client.menu.view.SplashEmail;
 import client.menu.view.StartMenuView;
 import client.model.Email;
+
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description:Clase que acciona la ejecucion del mail y sus vistas
+ */
+
 
 public class ListenerEmail implements ActionListener {
 
@@ -23,6 +37,15 @@ public class ListenerEmail implements ActionListener {
 	private String password;
 	ArrayList<Email> mails;
 
+	/**
+	 * Constructor de la clase
+	 * @param client
+	 * @param user
+	 * @param email
+	 * @param vStartMenu
+	 * @param emailWindow
+	 * @param password
+	 */
 	public ListenerEmail(FTPClient client, String user, String email, StartMenuView vStartMenu,
 			EmailMenuWindow emailWindow, String password) {
 		this.client = client;
@@ -33,6 +56,9 @@ public class ListenerEmail implements ActionListener {
 		this.password = password;
 	}
 
+	/**
+	 * Metodo que pone en ejecucion las acciones y ventanas del mail
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		SplashEmail splash = new SplashEmail();

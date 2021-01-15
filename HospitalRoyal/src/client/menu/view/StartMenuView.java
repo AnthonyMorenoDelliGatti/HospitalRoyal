@@ -51,6 +51,7 @@ public class StartMenuView extends JFrame {
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
+
 	/**
 	 * method that control the slider of the window
 	 */

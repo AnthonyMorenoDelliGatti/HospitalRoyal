@@ -33,7 +33,19 @@ import javax.swing.border.EmptyBorder;
 
 import client.model.Archive;
 import client.view.Splash;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que en la que puedes soltar archivos para descargarlos
+ */
 public class DropFile {
 
 	private JFrame frame;
@@ -46,7 +58,7 @@ public class DropFile {
 	private FTPWindow v;
 
 	/**
-	 * Create the application.
+	 * Constructor e inicializador de la aplicacion.
 	 * @param v 
 	 */
 	public DropFile(FTPWindow v) {
@@ -55,11 +67,18 @@ public class DropFile {
 		this.v=v;
 	}
 
+	/**
+	 * Metodo que carga los archivos soltados
+	 * @param archivo
+	 */
 	public void cargarDatos(Archive archivo) {
 		JPanel panel = obterPanelArchivo(archivo); 
 		dropPanel.add(panel);
 	}
 
+	/**
+	 * Metodo para que se puedan soltar archivos
+	 */
 	private void dropFile() {
 		TransferHandler th = new TransferHandler() {
 			
@@ -94,6 +113,10 @@ public class DropFile {
 		return pathFiles;
 	}
 
+	/**
+	 * Metodo que genera los archivos en la ventana
+	 * @param archives
+	 */
 	private void generarListado(ArrayList<Archive> archives) {
 		JPanel panel;
 		GridLayout experimentLayout = new GridLayout(0, 3, 5, 5);
@@ -115,6 +138,12 @@ public class DropFile {
 		}
 	}
 	
+	/**
+	 * Metodo que crea un menu al hacer click derecho sobre los archivos
+	 * @param name
+	 * @param archivo
+	 * @return - devuelve un menu en el que puedes cambiar de nombre o eliminar
+	 */
 	private JPopupMenu generarMenu(JTextField name, Archive archivo) {
 		JPopupMenu menu = new JPopupMenu();
 

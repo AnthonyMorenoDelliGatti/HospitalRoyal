@@ -23,9 +23,18 @@ import client.controller.MethodList;
 import client.menu.view.StartMenuView;
 
 /**
- * Window that allows you to view files, rename, create folders and upload
- * files.
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
  *
+ *@version 1.0
+ *
+ *description: Window that allows you to view files, rename, create folders and upload
+ * files.
  */
 public class FTPWindow extends JFrame {
 

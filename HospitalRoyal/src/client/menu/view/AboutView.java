@@ -20,19 +20,20 @@ import javax.swing.border.EmptyBorder;
 import client.model.AboutModel;
 import javax.swing.JLabel;
 import java.awt.GridLayout;
+
 /**
- * 
- * @authors Anthony Moreno Delli Gatti
- *			Francisco Manuel Rodriguez Martin
- *			Juan Salguero Ibarrola
- *			Nicolas Rosa Hinojosa
- *			Gonzalo Ruiz de Mier Mora
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
  *
- *	date 13/01/2021
+ *@version 1.0
  *
- *	@version 1.0
+ *description: Clase que muestra una ventana de informacion de la aplicacion
  *
- *	description: class that control the about window
  */
 public class AboutView extends JFrame {
 
@@ -100,9 +101,10 @@ public class AboutView extends JFrame {
 
 		setLocationRelativeTo(null);
 	}
+
 	/**
-	 * method that generate the elements of the jframe
-	 */
+	 * Metodo que genera los elementos de la ventana
+
 	public void generateElements() {
 		model = new AboutModel();
 		
@@ -137,7 +139,7 @@ public class AboutView extends JFrame {
 		lblDate.setAlignmentX(body.CENTER_ALIGNMENT);
 		body.add(lblDate);
 		
-		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"©");
+		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"Â©");
 		lblCopyright.setAlignmentX(body.CENTER_ALIGNMENT);
 		lblCopyright.setOpaque(false);
 		body.add(lblCopyright);

@@ -56,6 +56,7 @@ public class SplashEmail extends JFrame{
 		Shape forma = new RoundRectangle2D.Double(0, 0, this.getBounds().width, this.getBounds().height, 300, 300);
 		setShape(forma);
 //        AWTUtilities.setWindowShape(this, forma);
+
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
