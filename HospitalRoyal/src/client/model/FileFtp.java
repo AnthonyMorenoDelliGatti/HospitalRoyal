@@ -1,12 +1,31 @@
 package client.model;
 
 import java.util.Date;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the data of the ftp's files
+ */
 public class FileFtp implements Comparable<FileFtp> {
 
 	private String name, direction, lastModificationDate;
 	private int isFolder;
-
+/**
+ * class' constructor
+ * @param name name of the file
+ * @param lastModificationTime las date it was modified
+ * @param isFolder if it is a folder
+ * @param direction direction of the file
+ */
 	public FileFtp(String name, String lastModificationTime, int isFolder, String direction) {
 		this.name = name;
 		this.lastModificationDate = lastModificationTime;
