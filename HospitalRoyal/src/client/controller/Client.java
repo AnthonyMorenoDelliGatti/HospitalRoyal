@@ -34,7 +34,20 @@ import client.menu.view.StartMenuView;
 import client.model.FileFtp;
 import client.model.Paths;
 import client.model.ServerData;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the login and start menu
+ */
 public class Client {
 	DataOutputStream outputStream;
 	DataInputStream inputStream;
@@ -50,13 +63,18 @@ public class Client {
 	Boolean adminUser;
 	Paths paths = new Paths();
 
+	/**
+	 * class' constructor
+	 */
 	public Client() {
 		serverData = new ServerData();
 		method = new MethodList();
-
 		startLogin();
 	}
-
+	
+	/**
+	 * method that connect to the server and control the login view
+	 */
 	public void startLogin() {
 		Login v = new Login();
 		v.setVisible(true);
@@ -168,7 +186,11 @@ public class Client {
 
 		});
 	}
-
+/**
+ * method that control the login
+ * 
+ * @param v login view
+ */
 	private void login(Login v) {
 		String serverStr = "";
 		try {
@@ -210,7 +232,12 @@ public class Client {
 		}
 		StartMenu(adminUser, client);
 	}
-
+/**
+ * method that control the starmenu view 
+ * 
+ * @param adminUser variable that control if the user is admin or not
+ * @param client the FtpClient of the server
+ */
 	private void StartMenu(boolean adminUser, FTPClient client) {
 		vStartMenu = new StartMenuView();
 		vStartMenu.getBtnClose().addActionListener(

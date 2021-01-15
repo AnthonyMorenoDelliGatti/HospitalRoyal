@@ -22,13 +22,34 @@ import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.model.FileFtp;
 
-
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that makes the files list on the ftp view
+ */
 public class MethodList {
-	
+	/**
+	 * class' construct
+	 */
 	public MethodList() {
 
 	}
+	/**
+	 * method that create the file list of the ftpview
+	 * 
+	 * @param client ftp client of the server
+	 * @param view window of the ftp server
+	 * @param explorer window where the file list will be
+	 */
 	public void DataListLoad(FTPClient client, FTPWindow view, FileView explorer) {
 		try {
 			ArrayList<FileFtp> FileFtps = new ArrayList<>();
