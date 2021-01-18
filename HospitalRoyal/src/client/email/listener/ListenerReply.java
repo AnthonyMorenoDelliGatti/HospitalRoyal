@@ -21,16 +21,14 @@ public class ListenerReply implements ActionListener {
 	private Email email;
 	String password;
 	static NewEmailView ev;
-	EmailMenuWindow vista;
-	public ListenerReply(Email email, String password, EmailMenuWindow vista) {
+	public ListenerReply(Email email, String password) {
 		this.email = email;
 		this.password = password;
-		this.vista = vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
+		ev = new NewEmailView(email.getTo(), password);
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n On "+email.getDate() + ", " + email.getUser() + " wrote:\n");

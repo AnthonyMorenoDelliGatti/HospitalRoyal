@@ -8,6 +8,7 @@ import java.awt.event.KeyListener;
 import java.io.DataOutputStream;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import org.apache.commons.net.ftp.FTPClient;
@@ -22,6 +23,7 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 	FTPClient client;
 	private String user;
 	DataOutputStream outputStream;
+	boolean nameExist = false;
 
 	public ListenerModifyName(FileFtp fileFtp, JTextField name, FTPClient client, String user,
 			DataOutputStream outputStream) {
@@ -36,18 +38,28 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 		String text = name.getText();
 		String previousName = fileFtp.getName();
 		if (text.trim().length() > 0) {
-			fileFtp.setName(text);
-			cambiarnombre(text, previousName);
+			if(!cambiarnombre(text, previousName)) {
+				fileFtp.setName(text);
+				name.setText(previousName);
+			}
 		} else {
-			name.setText(fileFtp.getName());
+			name.setText(previousName);
 		}
 		name.setEditable(false);
 		name.setBackground(Color.white);
 	}
 
-	private void cambiarnombre(String newName, String name) {
+	private boolean cambiarnombre(String newName, String name) {
 		FTPFile[] fileList;
+		FTPFile[] fileList2;
 		try {
+			fileList2 = client.listFiles();
+			for (int i = 0; i < fileList2.length; i++) {
+				if (fileList2[i].getName().equals(newName)) {
+					JOptionPane.showMessageDialog(null, "The name already exist", "ERROR", JOptionPane.WARNING_MESSAGE);
+					return false;
+				}
+			}
 			fileList = client.listFiles();
 			for (int i = 0; i < fileList.length; i++) {
 				if (fileList[i].getName().equals(name)) {
@@ -57,10 +69,11 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 			outputStream.writeUTF("7");
 			outputStream.writeUTF(name);
 			outputStream.writeUTF(newName);
-			
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		return true;
 
 	}
 

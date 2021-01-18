@@ -21,16 +21,14 @@ public class ListenerForward implements ActionListener {
 	Email email;
 	static NewEmailView ev;
 	String password;
-	EmailMenuWindow vista;
-	public ListenerForward(Email email, String password, EmailMenuWindow vista) {
+	public ListenerForward(Email email, String password) {
 		this.email = email;
 		this.password = password;
-		this.vista = vista;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password, vista.getFrame());
+		ev = new NewEmailView(email.getTo(), password);
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 
 				"\n Date: " + email.getDate() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo() + "\n");

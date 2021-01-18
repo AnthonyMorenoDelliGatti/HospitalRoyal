@@ -92,9 +92,8 @@ public class EmailMenuWindow {
 				EventQueue.invokeLater(new Runnable() {
 					public void run() {
 						try {
-							frame.setEnabled(false);
 							ArrayList<String> archivos = new ArrayList<>();
-							NewEmailView window = new NewEmailView(email, password, frame);
+							NewEmailView window = new NewEmailView(email, password);
 							window.getFrame().setVisible(true);
 
 						} catch (Exception e) {

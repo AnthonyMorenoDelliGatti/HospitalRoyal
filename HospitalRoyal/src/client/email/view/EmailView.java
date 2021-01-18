@@ -93,7 +93,7 @@ public class EmailView {
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				view.getFrame().setEnabled(true);
+//				view.getFrame().setEnabled(true);
 
 			}
 
