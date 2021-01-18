@@ -48,10 +48,12 @@ public class ListenerReply implements ActionListener {
 		this.email = email;
 		this.password = password;
 		this.view = view;
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		ev = new NewEmailView(email.getTo(), password, view.getFrame());
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());

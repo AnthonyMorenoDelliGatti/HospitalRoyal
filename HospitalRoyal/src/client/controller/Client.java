@@ -53,7 +53,7 @@ public class Client {
 	String user, password, email;
 	Boolean adminUser;
 	Paths paths = new Paths();
-	String host = "localhost"; //Change localhost with 192.168.13.122 if the server is operational
+	String host = "localhost"; //Change localhost with "ip" if the server is operational
 
 	/**
 	 * class' constructor

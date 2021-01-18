@@ -35,6 +35,7 @@ public class ListenerForward implements ActionListener {
 	Email email;
 	static NewEmailView ev;
 	String password;
+
 	EmailMenuWindow view;
 	/**
 	 * 
@@ -46,10 +47,12 @@ public class ListenerForward implements ActionListener {
 		this.email = email;
 		this.password = password;
 		this.view = view;
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+
 		ev = new NewEmailView(email.getTo(), password, view.getFrame());
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 

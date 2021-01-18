@@ -34,15 +34,15 @@ public class ServerView extends JFrame{
 	 * class' constructor
 	 */
 	public ServerView() {
-		
+		super("Hospital Royal Server");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
-		setIconImage(Toolkit.getDefaultToolkit().getImage("..//iconos//logo.png"));
+		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//logo.png"));
 		panel = new JPanel();
 		BoxLayout ventana = new BoxLayout(panel, BoxLayout.Y_AXIS);
 		panel.setLayout(ventana);
 		setContentPane(panel);
 		
-		area= new JTextArea(10, 30);
+		area= new JTextArea(25, 50);
 		JScrollPane scrollPane = new JScrollPane(area); 
 		area.setEditable(false);
 		panel.add(scrollPane);

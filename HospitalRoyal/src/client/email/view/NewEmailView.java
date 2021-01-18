@@ -65,12 +65,10 @@ public class NewEmailView {
 	private ArrayList<Archive> archives;
 	String email;
 	String password;
-	JFrame frameMenu;
 
-	public NewEmailView(String email, String password, JFrame frameMenu) {
+	public NewEmailView(String email, String password) {
 		this.email = email;
 		this.password = password;
-		this.frameMenu = frameMenu;
 		initialize();
 	}
 
@@ -219,12 +217,12 @@ public class NewEmailView {
 
 			@Override
 			public void windowClosing(WindowEvent e) {
-				frameMenu.setEnabled(true);
+//				frameMenu.setEnabled(true);
 			}
 
 			@Override
 			public void windowClosed(WindowEvent e) {
-				frameMenu.setEnabled(true);
+//				frameMenu.setEnabled(true);
 
 			}
 

@@ -45,8 +45,6 @@ public class AboutView extends JFrame {
 	private JButton buttonReturn;
 	private Color colorHeader , colorBody;
 	private AboutModel model;
-	private JLabel lblNewLabel;
-	private JLabel lblNewLabel_1;
 
 	/**
 	 * class's constructor
@@ -59,7 +57,7 @@ public class AboutView extends JFrame {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\acerca-de.png"));
 		
 		rootPanel = new JPanel();
-		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
+		rootPanel.setLayout(new FlowLayout());
 		
 		header = new JPanel();
 		header.setLayout(new BoxLayout(header, BoxLayout.X_AXIS));
@@ -71,7 +69,7 @@ public class AboutView extends JFrame {
 		header.add(leftHeader);
 		
 		body = new JPanel();
-		body.setLayout(new BoxLayout(body, BoxLayout.Y_AXIS));
+		body.setLayout(new GridLayout(0,1));
 		body.setBackground(colorBody);
 		rootPanel.add(header);
 		
@@ -100,6 +98,7 @@ public class AboutView extends JFrame {
 		setUndecorated(true);
 
 		setLocationRelativeTo(null);
+		pack();
 	}
 
 	/**
@@ -109,41 +108,29 @@ public class AboutView extends JFrame {
 		model = new AboutModel();
 		
 		Border emptyBorder = BorderFactory.createEmptyBorder();
-		body.setLayout(new GridLayout(0, 1, 0, 0));
+		body.setLayout(new FlowLayout());
+
+		JTextArea textAreaInfo = new JTextArea();
+		textAreaInfo.setAlignmentX(body.CENTER_ALIGNMENT);
+		textAreaInfo.setOpaque(false);
+		textAreaInfo.setEditable(false);
+		textAreaInfo.append("Information of the application:\n");
 		
-		JLabel lblInfo = new JLabel("Information of the application:");
-		lblInfo.setAlignmentX(body.CENTER_ALIGNMENT);
-		body.add(lblInfo);
+		textAreaInfo.append("\nName: "+model.getName());
 		
-		Icon logo = new ImageIcon("iconos//mini logo.png");
+		textAreaInfo.append("\nVersion: "+model.getVersion());
 		
-		JLabel lblname = new JLabel("Name: "+model.getName());
-		lblname.setAlignmentX(body.CENTER_ALIGNMENT);
-		body.add(lblname);	
-		
-		JLabel lblicono = new JLabel(logo);
-		lblicono.setAlignmentX(body.CENTER_ALIGNMENT);
-		body.add(lblicono);
-		
-		JLabel lblversion = new JLabel("Version: "+model.getVersion());
-		lblversion.setAlignmentX(body.CENTER_ALIGNMENT);
-		body.add(lblversion);	
-		
+		textAreaInfo.append("Authors:");
 		for(int i = 0 ; i < model.getAuthors().size() ; i++) {
-			JLabel lblauthors = new JLabel(model.getAuthors().get(i));
-			lblauthors.setAlignmentX(body.CENTER_ALIGNMENT);
-			body.add(lblauthors);	
+			textAreaInfo.append("\n -"+model.getAuthors().get(i));
 		}
 		
-		JLabel lblDate = new JLabel("Date: "+model.getDate());
-		lblDate.setAlignmentX(body.CENTER_ALIGNMENT);
-		body.add(lblDate);
+		textAreaInfo.append("\nDate: "+model.getDate());
 		
 		JTextArea lblCopyright = new JTextArea("Copyright: "+model.getCopyright()+"©");
 		lblCopyright.setAlignmentX(body.CENTER_ALIGNMENT);
 		lblCopyright.setOpaque(false);
 		body.add(lblCopyright);
-		
 		
 		setContentPane(rootPanel);
 	}
