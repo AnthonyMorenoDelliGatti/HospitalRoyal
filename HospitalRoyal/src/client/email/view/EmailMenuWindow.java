@@ -116,7 +116,7 @@ public class EmailMenuWindow {
 					public void run() {
 						try {
 							ArrayList<String> archivos = new ArrayList<>();
-							NewEmailView window = new NewEmailView(email, password);
+							NewEmailView window = new NewEmailView(email, password, frame);
 							window.getFrame().setVisible(true);
 
 						} catch (Exception e) {

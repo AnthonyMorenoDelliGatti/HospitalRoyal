@@ -3,6 +3,8 @@ package client.email.listener;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
 import javax.mail.BodyPart;
 import javax.mail.Folder;
 import javax.mail.Message;
@@ -20,6 +22,7 @@ import javax.swing.JOptionPane;
 import client.email.view.EmailMenuWindow;
 import client.email.view.NewEmailView;
 import client.menu.view.SplashEmail;
+import client.model.Archive;
 import client.model.Email;
 
 /**
@@ -44,18 +47,21 @@ public class SendThread extends Thread {
 	String password;
 	NewEmailView view;
 	SplashEmail splash;
+	 ArrayList<Archive> archives;
 /**
  * 
+ * @param archives 
  * @param mail: the user mail
  * @param password: the user password
  * @param view: the view that contains the email
  * @param splash: the splash window that activates during sending
  */
-	public SendThread(String mail, String password, NewEmailView view, SplashEmail splash) {
+	public SendThread(String mail, String password, NewEmailView view, SplashEmail splash, ArrayList<Archive> archives) {
 		this.mail = mail;
 		this.password = password;
 		this.view = view;
 		this.splash=splash;
+		this.archives = archives;
 	}
 
 	@Override
@@ -69,6 +75,13 @@ public class SendThread extends Thread {
 		try {
 			texto.setText(message);
 			multiParte.addBodyPart(texto);
+			for(int i = 0; i< archives.size(); i++) {
+				BodyPart archivo = new MimeBodyPart();
+				archivo.setDataHandler(new DataHandler(new FileDataSource(archives.get(i).getDirection())));
+				archivo.setFileName(archives.get(i).getName());
+				System.out.println(archives.get(i).getDirection());
+				multiParte.addBodyPart(archivo);
+			}
 		} catch (MessagingException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

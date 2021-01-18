@@ -64,8 +64,8 @@ public class ListenerViewEmail implements MouseListener {
 	        {
 //				view.getFrame().setEnabled(false);
 	            EmailView ev = new EmailView(email, view);
-	            ev.getRespond().addActionListener(new ListenerReply(email, password));
-	            ev.getResend().addActionListener(new ListenerForward(email, password));
+	            ev.getRespond().addActionListener(new ListenerReply(email, password, view));
+	            ev.getResend().addActionListener(new ListenerForward(email, password, view));
 	        }
 	        catch (Exception er)
 	        {

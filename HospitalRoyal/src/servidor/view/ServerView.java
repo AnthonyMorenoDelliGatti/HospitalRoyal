@@ -34,11 +34,7 @@ public class ServerView extends JFrame{
 	 * class' constructor
 	 */
 	public ServerView() {
-<<<<<<< Updated upstream
 		super("Hospital Royal Server");
-=======
-		super("Servidor Hospital Royal");
->>>>>>> Stashed changes
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos//logo.png"));
 		panel = new JPanel();

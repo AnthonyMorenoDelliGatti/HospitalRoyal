@@ -50,7 +50,7 @@ public class ListenerSend implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		SplashEmail splash = new SplashEmail();
 		splash.toFront();
-		SendThread thread = new SendThread(mail, password, view, splash);
+		SendThread thread = new SendThread(mail, password, view, splash, archives);
 		thread.start();
 	}
 

@@ -80,7 +80,7 @@ public class ListenerModifyName implements FocusListener, KeyListener {
 	 * 
 	 * @param name the previous name of the file
 	 */
-	private void cambiarnombre(String newName, String name) {
+	private boolean cambiarnombre(String newName, String name) {
 		FTPFile[] fileList;
 		FTPFile[] fileList2;
 		try {

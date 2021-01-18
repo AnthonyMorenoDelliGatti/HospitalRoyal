@@ -66,7 +66,7 @@ public class NewEmailView {
 	String email;
 	String password;
 
-	public NewEmailView(String email, String password) {
+	public NewEmailView(String email, String password, JFrame jFrame) {
 		this.email = email;
 		this.password = password;
 		initialize();
