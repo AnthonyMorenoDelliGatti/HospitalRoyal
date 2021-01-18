@@ -1,14 +1,29 @@
 package client.model;
 
 import java.util.ArrayList;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control data of the about windows
+ */
 public class AboutModel {
 	ArrayList<String> authors = new ArrayList<>();
 	String name;
 	String version;
 	String copyright;
 	String date;
-
+/**
+ * class' constructor
+ */
 	public AboutModel() {
 		name = "Hospital Royal app";
 		version = "1.0.0";

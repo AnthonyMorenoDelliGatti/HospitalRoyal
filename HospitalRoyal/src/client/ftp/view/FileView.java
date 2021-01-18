@@ -27,7 +27,19 @@ import client.ftp.listener.ListenerModifyName;
 import client.ftp.listener.ListenerDownload;
 import client.model.FileFtp;
 import client.model.Paths;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Ventana de los archivos que contiene la ventana ftp
+ */
 public class FileView {
 
 	JMenuItem item, item2, item3;
@@ -41,6 +53,17 @@ public class FileView {
 	JPopupMenu menu;
 	boolean admin;
 
+	/**
+	 * Constructor de la clase
+	 * @param client
+	 * @param filesFtp
+	 * @param method
+	 * @param view
+	 * @param user
+	 * @param outputStream
+	 * @param paths
+	 * @param admin
+	 */
 	public FileView(FTPClient client, ArrayList<FileFtp> filesFtp, MethodList method, FTPWindow view, String user,
 			DataOutputStream outputStream, Paths paths, boolean admin) {
 		this.client = client;
@@ -53,6 +76,11 @@ public class FileView {
 		this.admin = admin;
 	}
 
+	/**
+	 * Creacion de los elementos de la ventana
+	 * @param archives
+	 * @return - el panel con los archivos
+	 */
 	public JPanel ShowLists(ArrayList<FileFtp> archives) {
 		JPanel rootPanel = new JPanel();
 		rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.Y_AXIS));
@@ -70,6 +98,12 @@ public class FileView {
 		return rootPanel;
 	}
 
+	/**
+	 * Metodo que genera un listado de archivos en la ventana
+	 * @param rootPanel
+	 * @param experimentLayout
+	 * @param filesFtp
+	 */
 	private void generateList(JPanel rootPanel, GridLayout experimentLayout, ArrayList<FileFtp> filesFtp) {
 		JPanel panel;
 		Collections.sort(filesFtp);
@@ -101,6 +135,12 @@ public class FileView {
 		}
 	}
 
+/**
+ * Metodo que genera un menu de opciones al hacer click derecho sobre algun archivo	
+ * @param name
+ * @param fileFtp
+ * @return - Menu con las opciones de change name, download o eliminate
+ */
 	private JPopupMenu generateMenu(JTextField name, FileFtp fileFtp) {
 		JPopupMenu menu = new JPopupMenu();
 
@@ -121,6 +161,12 @@ public class FileView {
 		return menu;
 	}
 
+	/**
+	 * Metodo que genera el nombre del archivo en la ventana
+	 * @param panel
+	 * @param i
+	 * @return - texto del nombre de los archivos
+	 */
 	private JTextField generateName(JPanel panel, FileFtp i) {
 		JTextField name = new JTextField(10);
 		name.setText(i.getName());
@@ -134,6 +180,11 @@ public class FileView {
 		return name;
 	}
 
+	/**
+	 * Metodo que coloca un icono dependiendo del tipo de archivo
+	 * @param i
+	 * @return - devuelve un icono dependiendo si es una carpeta u otro fichero
+	 */
 	private JLabel obtainIcon(FileFtp i) {
 		String direcIcon;
 		if (i.getIsFolder() == 1) {
@@ -146,6 +197,11 @@ public class FileView {
 		return l;
 	}
 
+	/**
+	 * Metodo que crea la cabecera del listado
+	 * @param rootPanel
+	 * @param experimentLayout
+	 */
 	private void header(JPanel rootPanel, GridLayout experimentLayout) {
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.WHITE);

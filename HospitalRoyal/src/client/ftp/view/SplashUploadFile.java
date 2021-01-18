@@ -16,7 +16,19 @@ import javax.swing.Timer;
 import javax.swing.border.Border;
 
 import client.controller.Client;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Ventana que funciona como splash al ejecutar acciones de la ventana ftp
+ */
 public class SplashUploadFile extends JFrame {
 
 	Thread splash = new Thread();
@@ -24,6 +36,11 @@ public class SplashUploadFile extends JFrame {
 	JPanel panel = new JPanel();
 	JButton btn;
 
+	/**
+	 * Creacion de la ventana con sus elementos
+	 * @param v
+	 * @param tipe
+	 */
 	public SplashUploadFile(FTPWindow v, String tipe) {
 		panel.setLayout(new BorderLayout(0, 0));
 		panel.setBackground(Color.white);

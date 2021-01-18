@@ -16,12 +16,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description:Ventana con la que puedes crear nuevas carpetas
+ */
 public class CreateFolderView extends JFrame{
 	JTextField txtNameFolder;
 	JButton btnCreate;
 	JLabel lblMessage;
 	JPanel panel;
+	
+	/**
+	 * Creacion de la ventana
+	 */
 	public CreateFolderView() {
 		panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -51,6 +67,10 @@ public class CreateFolderView extends JFrame{
 		setVisible(true);
 		setLocationRelativeTo(null);
 	}
+	/**
+	 * Metodo para generar paneles en la ventana
+	 * @param panels
+	 */
 	private void generarPaneles(ArrayList<JPanel> panels) {
 		for (int i = 0; i < 1; i++) {
 			panels.add(new JPanel());

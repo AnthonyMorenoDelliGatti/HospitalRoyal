@@ -16,19 +16,44 @@ import javax.swing.JLabel;
 import client.email.view.EmailMenuWindow;
 import client.email.view.NewEmailView;
 import client.model.Email;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to forward an email
+ *
+ */
 public class ListenerForward implements ActionListener {
 	Email email;
 	static NewEmailView ev;
 	String password;
-	public ListenerForward(Email email, String password) {
+
+	EmailMenuWindow view;
+	/**
+	 * 
+	 * @param email: the email user
+	 * @param password: the email password
+	 * @param view: the frame that contains the mail
+	 */
+	public ListenerForward(Email email, String password, EmailMenuWindow view) {
 		this.email = email;
 		this.password = password;
+		this.view = view;
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password);
+
+		ev = new NewEmailView(email.getTo(), password, view.getFrame());
 		ev.getSubject().setText(email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n---------- Forwarded message ---------" + "\n From: " + email.getUser() + 
 				"\n Date: " + email.getDate() + "\n Subject: " + email.getSubject() + "\n To: " + email.getTo() + "\n");
@@ -37,6 +62,11 @@ public class ListenerForward implements ActionListener {
 		analizePartOfTheMessage(email.getContent());
 			
 		}
+	/**
+	 * Method to obtain the text of a mail
+	 * 
+	 * @param part: the part that contains the text of the mail
+	 */
 	private static void analizePartOfTheMessage(Part part)
     {
         try

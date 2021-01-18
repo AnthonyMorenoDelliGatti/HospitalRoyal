@@ -11,14 +11,29 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 
 import client.controller.Client;
-
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que funciona como splash al iniciar la aplicacion como cliente.
+ */
 
 public class Splash extends JFrame implements Runnable{
 
 	Thread splash = new Thread();
 	private JPanel contentPane;
 	JProgressBar progressBar = new JProgressBar();
-	
+
+	/**
+	 * Creacion de la ventana
+	 */
 	public Splash() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("iconos\\logo.png"));
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

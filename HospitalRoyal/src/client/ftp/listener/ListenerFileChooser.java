@@ -17,7 +17,20 @@ import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.FileView;
 import client.model.FileFtp;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that controls the filechooser's window
+ */
 public class ListenerFileChooser implements ActionListener {
 
 	private FTPClient client;
@@ -28,6 +41,17 @@ public class ListenerFileChooser implements ActionListener {
 	private DataOutputStream outputStream;
 	private DropFile drop;
 
+	/**
+	 * class' constructor
+	 * 
+	 * @param client ftp's client
+	 * @param user name of the user
+	 * @param v ftp's window
+	 * @param list window with the list of files
+	 * @param method object that contains the class that creates the list of files
+	 * @param outputStream 
+	 * @param drop dropfile's window
+	 */
 	public ListenerFileChooser(FTPClient client, String user, FTPWindow v, FileView list, MethodList method,
 			DataOutputStream outputStream, DropFile drop) {
 		this.client = client;

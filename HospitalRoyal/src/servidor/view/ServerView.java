@@ -11,12 +11,28 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the server's window
+ */
 public class ServerView extends JFrame{
 	
 	private JPanel panel;
 	private JTextArea area;
 	
+	/**
+	 * class' constructor
+	 */
 	public ServerView() {
 		super("Hospital Royal Server");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );

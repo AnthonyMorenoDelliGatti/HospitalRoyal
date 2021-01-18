@@ -16,7 +16,20 @@ import client.ftp.view.DropFile;
 import client.ftp.view.FTPWindow;
 import client.ftp.view.SplashUploadFile;
 import client.ftp.view.FileView;
-
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ *			Francisco Manuel Rodriguez Martin
+ *			Juan Salguero Ibarrola
+ *			Nicolas Rosa Hinojosa
+ *			Gonzalo Ruiz de Mier Mora
+ *
+ *	date 13/01/2021
+ *
+ *	@version 1.0
+ *
+ *	description: class that control the save button of the drop file
+ */
 public class ListenerSave implements ActionListener{
 
 	private DropFile drop;
@@ -25,6 +38,15 @@ public class ListenerSave implements ActionListener{
 	private FTPWindow v;
 	private MethodList method;
 	private FileView list;
+	/**
+	 * class' constructor
+	 * @param drop window that allow to drag a file to upload
+	 * @param client ftp's client 
+	 * @param outputStream
+	 * @param v ftp's window
+	 * @param method object that contains the class that makes the list of files
+	 * @param list window that contains the list of files
+	 */
 	public ListenerSave(DropFile drop, FTPClient client, DataOutputStream outputStream, FTPWindow v, MethodList method, FileView list) {
 		this.drop=drop;
 		this.client=client;

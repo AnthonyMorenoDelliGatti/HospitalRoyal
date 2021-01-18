@@ -17,23 +17,54 @@ import client.email.view.EmailMenuWindow;
 import client.email.view.NewEmailView;
 import client.model.Email;
 
+/**
+ * 
+ * @authors Anthony Moreno Delli Gatti
+ * 			Francisco Manuel Rodriguez Martin
+ * 			Juan Salguero Ibarrola
+ * 			Nicolas Rosa Hinojosa
+ * 			Gonzalo Ruiz de Mier Mora 
+ * 
+ * date	13/01/2021
+ * 
+ * @version 1.0
+ * 
+ * description: Class listener to reply an email
+ *
+ */
+
 public class ListenerReply implements ActionListener {
 	private Email email;
 	String password;
 	static NewEmailView ev;
-	public ListenerReply(Email email, String password) {
+	EmailMenuWindow view;
+	/**
+	 * 
+	 * @param email: the user email
+	 * @param password: the user password
+	 * @param view: the view that contains the mail
+	 */
+	public ListenerReply(Email email, String password, EmailMenuWindow view) {
 		this.email = email;
 		this.password = password;
+		this.view = view;
+
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		ev = new NewEmailView(email.getTo(), password);
+
+		ev = new NewEmailView(email.getTo(), password, view.getFrame());
 		ev.getTo().setText(email.getUser());
 		ev.getSubject().setText("Re: "+email.getSubject());
 		ev.getTextPane().setText("\n\n\n\n On "+email.getDate() + ", " + email.getUser() + " wrote:\n");
 		analizePartOfTheMessage(email.getContent());
 	}
+	/**
+	 * Method to obtain the text of a mail
+	 * 
+	 * @param part: the part that contains the text of the mail
+	 */
 	private static void analizePartOfTheMessage(Part part)
     {
         try

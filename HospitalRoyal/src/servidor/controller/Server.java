@@ -10,11 +10,30 @@ import javax.swing.JOptionPane;
 
 import client.controller.MethodList;
 import servidor.view.ServerView;
+
+/**
+ * @author Anthony Moreno Delli Gatti
+ *         Francisco Manuel Rodriguez Martin
+ *         Juan Salguero Ibarrola
+ *         Nicolas Rosa Hinojosa
+ *         Gonzalo Ruiz de Mier Mora
+ *         
+ *date 15/01/2021
+ *
+ *@version 1.0
+ *
+ *description: Clase que funciona como servidor de la aplicacion
+ */
 public class Server {
 
 	static DataInputStream inputStream;
 	static DataOutputStream outputStream;
 	static MethodList method;
+
+	/**
+	 * Metodo principal para ejecutar el servidor
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ServerView viewServer = new ServerView();
 		viewServer.getArea().append("Server started... ");
